@@ -96,8 +96,8 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
   Signalstart im Minus liegt -- echte, transparent ausgewiesene Fälle, in denen die aktuelle Einschätzung
   (noch) nicht aufgegangen ist. Jede Kachel zeigt zusätzlich den echten Kursverlauf seit Signalstart im
   Original-Signal-Flag-Design der echten GoldShield AI PWA (goldene Preislinie, Dreieck-Marker und
-  Text-Flag am Signal-Einstieg) -- Profitability-Check zeigt: positive
-  Signale laufen im Schnitt deutlich weiter als negative Signale gegen einen laufen. Rein clientseitig
+  Text-Flag am Signal-Einstieg) -- Profitability-Check zeigt: positive Signale laufen im Schnitt deutlich
+  weiter UND länger als negative Signale gegen einen laufen (Haltedauer-Analyse unten). Rein clientseitig
   durchsuchbar und sortierbar -- gebaut, um auf tausende Reports zu skalieren.
   </div>
   <div class="stat-row">
@@ -114,6 +114,12 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
     <div class="stat"><b id="stat-avgneg" style="color:var(--red);">—</b><span>Ø NEGATIVE SIGNALE (FEHLSIGNAL)</span></div>
     <div class="stat"><b id="stat-ratio">—</b><span>GEWINNER LAUFEN X-MAL WEITER</span></div>
   </div>
+  <div class="stat-row" style="margin-top:-8px;">
+    <div class="stat"><b id="stat-holdpos" style="color:var(--green);">—</b><span>Ø HALTEDAUER POSITIV</span></div>
+    <div class="stat"><b id="stat-holdneg" style="color:var(--red);">—</b><span>Ø HALTEDAUER FEHLSIGNAL</span></div>
+    <div class="stat"><b id="stat-holdratio">—</b><span>GEWINNER LAUFEN X-MAL LÄNGER</span></div>
+    <div class="stat"><b id="stat-retperday">—</b><span>Ø RENDITE/TAG (POS VS. NEG)</span></div>
+  </div>
 
   <div class="toolbar">
     <div class="search-wrap"><input type="text" id="search" placeholder="Symbol suchen… z.B. AAPL, RHM.XETRA"></div>
@@ -122,6 +128,8 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
       <option value="date-asc">Älteste zuerst</option>
       <option value="return-desc">Beste Signal-Rendite</option>
       <option value="return-asc">Schlechteste Signal-Rendite</option>
+      <option value="hold-desc">Längste Haltedauer</option>
+      <option value="hold-asc">Kürzeste Haltedauer</option>
       <option value="symbol-asc">Symbol A-Z</option>
     </select>
   </div>
@@ -148,7 +156,7 @@ function cardHtml(r) {
   const sentimentClass = r.sentiment === 'Bullish' ? 'g' : r.sentiment === 'Bearish' ? 'r' : 'm';
   const chgClass = r.changeDir === 'positive' ? 'pos' : r.changeDir === 'negative' ? 'neg' : '';
   const renditeHtml = r.alignedReturn != null
-    ? `<div class="rendite-box"><div class="label">Signal-Rendite seit ${escapeHtml(r.signalStart || '—')}</div><div class="value ${r.alignedReturn >= 0 ? 'pos' : 'neg'}">${r.alignedReturn >= 0 ? '+' : ''}${r.alignedReturn.toFixed(2)}%</div><div class="sub">Einstieg: ${escapeHtml(r.signalEntry || '—')}</div></div>`
+    ? `<div class="rendite-box"><div class="label">Signal-Rendite seit ${escapeHtml(r.signalStart || '—')}</div><div class="value ${r.alignedReturn >= 0 ? 'pos' : 'neg'}">${r.alignedReturn >= 0 ? '+' : ''}${r.alignedReturn.toFixed(2)}%</div><div class="sub">Einstieg: ${escapeHtml(r.signalEntry || '—')}${r.holdingDays != null ? ` · ${r.holdingDays} ${r.holdingDays === 1 ? 'Tag' : 'Tage'} im Signal` : ''}</div></div>`
     : `<div class="rendite-na">Signal-Rendite nicht verfügbar (älteres Export-Format)</div>`;
   const chartHtml = r.chartSvg
     ? `<div class="chart-box"><div class="chart-label">Kursverlauf seit Signalstart ${escapeHtml(r.signalStart || '')}</div>${r.chartSvg}</div>`
@@ -192,6 +200,8 @@ function render() {
     if (sortVal === 'date-asc') return a.date.localeCompare(b.date);
     if (sortVal === 'return-desc') return (b.alignedReturn ?? -Infinity) - (a.alignedReturn ?? -Infinity);
     if (sortVal === 'return-asc') return (a.alignedReturn ?? Infinity) - (b.alignedReturn ?? Infinity);
+    if (sortVal === 'hold-desc') return (b.holdingDays ?? -Infinity) - (a.holdingDays ?? -Infinity);
+    if (sortVal === 'hold-asc') return (a.holdingDays ?? Infinity) - (b.holdingDays ?? Infinity);
     if (sortVal === 'symbol-asc') return a.symbol.localeCompare(b.symbol);
     return 0;
   });
@@ -244,6 +254,18 @@ async function init() {
   document.getElementById('stat-avgpos').textContent = avgPos != null ? '+' + avgPos.toFixed(2) + '%' : '—';
   document.getElementById('stat-avgneg').textContent = avgNeg != null ? avgNeg.toFixed(2) + '%' : '—';
   document.getElementById('stat-ratio').textContent = (avgPos != null && avgNeg) ? (avgPos / Math.abs(avgNeg)).toFixed(1) + 'x' : '—';
+
+  const withHold = REPORTS.filter(r => r.alignedReturn != null && r.holdingDays != null);
+  const holdPos = withHold.filter(r => r.alignedReturn >= 0).map(r => r.holdingDays);
+  const holdNeg = withHold.filter(r => r.alignedReturn < 0).map(r => r.holdingDays);
+  const avgHoldPos = avgArr(holdPos), avgHoldNeg = avgArr(holdNeg);
+  const retPerDay = arr => { const v = arr.filter(r => r.holdingDays > 0).map(r => r.alignedReturn / r.holdingDays); return v.length ? v.reduce((a,b)=>a+b,0)/v.length : null; };
+  const rpdPos = retPerDay(withHold.filter(r => r.alignedReturn >= 0));
+  const rpdNeg = retPerDay(withHold.filter(r => r.alignedReturn < 0));
+  document.getElementById('stat-holdpos').textContent = avgHoldPos != null ? avgHoldPos.toFixed(1) + ' Tage' : '—';
+  document.getElementById('stat-holdneg').textContent = avgHoldNeg != null ? avgHoldNeg.toFixed(1) + ' Tage' : '—';
+  document.getElementById('stat-holdratio').textContent = (avgHoldPos != null && avgHoldNeg) ? (avgHoldPos / avgHoldNeg).toFixed(1) + 'x' : '—';
+  document.getElementById('stat-retperday').textContent = (rpdPos != null && rpdNeg != null) ? '+' + rpdPos.toFixed(2) + '% / ' + rpdNeg.toFixed(2) + '%' : '—';
   document.getElementById('total-count').textContent = REPORTS.length;
 
   renderFilters();

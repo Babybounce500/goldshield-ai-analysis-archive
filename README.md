@@ -72,16 +72,25 @@ aktuell nicht funktionierenden Signalen.
 | Anzahl | 463 | 151 |
 | Ø Signal-Rendite | +9.42% | -1.15% |
 | Größter Ausschlag | +89.98% | -11.48% |
+| Ø Haltedauer (Tage seit Signalstart) | 16.4 | 4.6 |
+| Median Haltedauer | 13 | 5 |
+| Längste Haltedauer | 321 Tage | 14 Tage |
+| Ø Rendite pro Tag im Signal | +0.708%/Tag | -0.398%/Tag |
 
 **Win-Rate gesamt: 75.4%** (463/614). Bullish-Signale: 72.7%
 Win-Rate, Ø +5.46%. Bearish-Signale: 78.5%
 Win-Rate, Ø +8.41%.
 
 Auffällig: positive Signale laufen im Schnitt **8.2x weiter** als negative
-Signale gegen einen laufen (+9.42% vs. -1.15%) -- Gewinner-Signale werden offenbar
-länger durchgehalten/laufen weiter, Verlierer-Signale bleiben vergleichsweise klein. Das deckt sich mit der
-asymmetrischen Verteilung, die man beim Vergleich der 🏆 High-Conviction- und ⚠️ Fehlsignal-Kategorien direkt
-auf dem Live-Index sieht.
+Signale gegen einen laufen (+9.42% vs. -1.15%). Die Haltedauer-Analyse zeigt,
+woran das liegt: positive Signale laufen im Schnitt **3.6x länger**
+(16.4 vs. 4.6 Tage) -- die längste negative Haltedauer liegt bei nur
+14 Tagen, während positive Signale bis zu 321 Tage durchlaufen. Verlierer-Signale werden
+also offenbar schnell technisch korrigiert (Sentiment-Wechsel), während Gewinner-Signale lange intakt bleiben.
+Zusätzlich ist auch die Tagesrate selbst asymmetrisch (+0.708%/Tag vs.
+-0.398%/Tag) -- die Gesamt-Rendite-Asymmetrie kommt also sowohl aus längerer Laufzeit als
+auch aus einer höheren Tagesrate bei positiven Signalen. Das deckt sich mit der asymmetrischen Verteilung, die
+man beim Vergleich der 🏆 High-Conviction- und ⚠️ Fehlsignal-Kategorien direkt auf dem Live-Index sieht.
 
 ## Pipeline für weitere Reports
 
