@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: EOAN.XETRA
+Exported: 21.10.2026, 17:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+EOAN.XETRA PRICE (EUR): €18.23
+CHANGE: +€0.21 (+1.19%)
+TIMESTAMP: 21.10.2026, 17:36:00
+VOLUME: 3.822.791
+OPEN: €18.06
+HIGH: €18.26
+LOW: €17.91
+PREV CLOSE: €18.02
+52W HIGH: €20.39
+52W LOW: €14.98
+52W RANGE: €14.98 - €20.39
+SPREAD: 36.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (€17.25) with positive momentum (7.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 64.3
+MOMENTUM: 7.9%
+SMA20: €17.25
+VOLATILITY: 2.0%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: €17.28
+Signal-aligned return: +5.53%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

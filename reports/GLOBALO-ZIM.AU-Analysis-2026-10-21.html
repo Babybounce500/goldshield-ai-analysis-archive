@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GLOBALO - ZIM.AU Analysis Export</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; background: #f5f5f5; padding: 2rem; }
+    .export-container { max-width: 900px; margin: 0 auto; background: white; padding: 2rem; border-radius: 8px; }
+    .export-header { text-align: center; margin-bottom: 2rem; border-bottom: 2px solid #D4AF37; padding-bottom: 1rem; }
+    .export-header h1 { font-size: 1.8rem; color: #D4AF37; margin-bottom: 0.5rem; }
+    .export-header p { color: #666; font-size: 0.9rem; }
+    .export-timestamp { color: #999; font-size: 0.8rem; margin-top: 0.5rem; }
+    .section { margin-bottom: 2rem; }
+    .section-title { font-size: 1.1rem; font-weight: bold; color: #333; margin-bottom: 1rem; border-bottom: 1px solid #ddd; padding-bottom: 0.5rem; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 1rem; }
+    tr { border-bottom: 1px solid #eee; }
+    td { padding: 0.6rem 0.8rem; }
+    td:first-child { font-weight: 600; color: #333; }
+    td:last-child { text-align: right; color: #D4AF37; }
+    .positive { color: #4CAF50; }
+    .negative { color: #F44336; }
+    .analysis-box { background: #f0f0f0; padding: 1.5rem; border-radius: 6px; border-left: 4px solid #D4AF37; }
+    .sentiment-bar { background: #4CAF50; color: white; padding: 1rem; border-radius: 4px; text-align: center; font-weight: bold; margin-bottom: 1rem; }
+    .metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; font-size: 0.9rem; }
+    .metric { background: white; padding: 0.8rem; border-radius: 4px; border: 1px solid #ddd; }
+    .metric-label { color: #666; font-size: 0.8rem; }
+    .metric-value { font-weight: bold; color: #333; font-size: 1.1rem; }
+    .footer { text-align: center; margin-top: 2rem; padding-top: 1rem; border-top: 1px solid #ddd; color: #999; font-size: 0.85rem; }
+    @media print {
+      body { background: #fff; padding: 0; }
+      .export-container { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="export-container">
+    <div class="export-header">
+      <h1>GOLDSHIELD AI - ZIM.AU</h1>
+      <p>MARKET ANALYSIS EXPORT</p>
+      <p class="export-timestamp">Exportiert: 21.10.2026, 07:10:00</p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">&#x1F4CA; MARKTDATEN</div>
+      <div class="market-data">
+        <div class="card">
+          <h3 class="card-title">MARKET DATA</h3>
+          <table class="data-table">
+          <tbody><tr>
+            <td><strong>ZIM.AU</strong> PRICE (USD) <span class="live-indicator delayed">⏱️ DELAYED</span></td>
+            <td>$13.53</td>
+          </tr>
+          <tr class="change-row negative">
+            <td>CHANGE</td>
+            <td class="negative"><span class="market-change-badge negative"><span aria-hidden="true">▼</span>-$0.71 (-4.99%)</span></td>
+          </tr>
+          <tr>
+            <td>TIMESTAMP</td>
+            <td>21.10.2026, 07:10:00</td>
+          </tr>
+          <tr>
+            <td>VOLUME</td>
+            <td>13.657</td>
+          </tr>
+          <tr>
+            <td>OPEN</td>
+            <td>$14.36</td>
+          </tr>
+          <tr>
+            <td>HIGH</td>
+            <td>$14.84</td>
+          </tr>
+          <tr>
+            <td>LOW</td>
+            <td>$13.52</td>
+          </tr>
+          <tr>
+            <td>PREV CLOSE</td>
+            <td>$14.24</td>
+          </tr>
+          <tr>
+            <td>52W HIGH</td>
+            <td>$25.60</td>
+          </tr>
+          <tr>
+            <td>52W LOW</td>
+            <td>$12.36</td>
+          </tr>
+          <tr>
+            <td>52W RANGE</td>
+            <td>$12.36 - $25.60</td>
+          </tr>
+          <tr>
+            <td>SPREAD</td>
+            <td>107.1%</td>
+          </tr>
+        </tbody></table>
+        </div>
+
+        <div class="analysis-card">
+          <div class="analysis-header">
+            <i class="fas fa-shield-alt"></i>
+            <h3>GOLDSHIELD AI ANALYSIS</h3>
+          </div>
+
+          <div class="sentiment-section">
+            <h4 class="section-title">MARKET SENTIMENT</h4>
+            <div class="sentiment-bar" style="background-color: #F44336;">Bearish 0%</div>
+          </div>
+
+          <div class="score-section">
+            <h4 class="section-title">TECHNICAL SCORE</h4>
+            <div class="score-display">
+              <div class="score-value">0.0</div>
+              <div class="score-label">OUT OF 2</div>
+            </div>
+          </div>
+
+          <div class="recommendation-section">
+            <h4 class="section-title">AI RECOMMENDATION</h4>
+            <div class="ai-recommendation">
+            <p style="margin-bottom: 0.5rem; line-height: 1.4;">BEARISH STRUCTURE: Price is below SMA20 ($14.40) with negative momentum (-4.7%). This is a descriptive technical state, not a trade instruction.</p>
+            <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(0,0,0,0.2);">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.75rem;">
+                <div>RSI: 39.1</div>
+                <div>MOMENTUM: -4.7%</div>
+                <div>SMA20: $14.40</div>
+                <div>VOLATILITY: 9.8%</div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div class="signal-performance" aria-live="polite">
+            <div class="signal-performance-title">LAST SIGNAL</div>
+            <div class="signal-performance-grid">
+              <div class="signal-performance-item">
+                <span class="signal-performance-label">Signal started</span>
+                <span class="signal-performance-value signal-start-date">16.10.2026</span>
+              </div>
+              <div class="signal-performance-item">
+                <span class="signal-performance-label">Signal entry</span>
+                <span class="signal-performance-value signal-entry-price">$14.31</span>
+              </div>
+              <div class="signal-performance-item">
+                <span class="signal-performance-label">Signal-aligned return</span>
+                <span class="signal-performance-value signal-aligned-return positive">+5.45%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">&#x1F3AF; ANALYSE</div>
+      <div class="analysis-card">
+          <div class="analysis-header">
+            <i class="fas fa-shield-alt"></i>
+            <h3>GOLDSHIELD AI ANALYSIS</h3>
+          </div>
+
+          <div class="sentiment-section">
+            <h4 class="section-title">MARKET SENTIMENT</h4>
+            <div class="sentiment-bar" style="background-color: #F44336;">Bearish 0%</div>
+          </div>
+
+          <div class="score-section">
+            <h4 class="section-title">TECHNICAL SCORE</h4>
+            <div class="score-display">
+              <div class="score-value">0.0</div>
+              <div class="score-label">OUT OF 2</div>
+            </div>
+          </div>
+
+          <div class="recommendation-section">
+            <h4 class="section-title">AI RECOMMENDATION</h4>
+            <div class="ai-recommendation">
+            <p style="margin-bottom: 0.5rem; line-height: 1.4;">BEARISH STRUCTURE: Price is below SMA20 ($14.40) with negative momentum (-4.7%). This is a descriptive technical state, not a trade instruction.</p>
+            <div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid rgba(0,0,0,0.2);">
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; font-size: 0.75rem;">
+                <div>RSI: 39.1</div>
+                <div>MOMENTUM: -4.7%</div>
+                <div>SMA20: $14.40</div>
+                <div>VOLATILITY: 9.8%</div>
+              </div>
+            </div>
+          </div>
+          </div>
+
+          <div class="signal-performance" aria-live="polite">
+            <div class="signal-performance-title">LAST SIGNAL</div>
+            <div class="signal-performance-grid">
+              <div class="signal-performance-item">
+                <span class="signal-performance-label">Signal started</span>
+                <span class="signal-performance-value signal-start-date">16.10.2026</span>
+              </div>
+              <div class="signal-performance-item">
+                <span class="signal-performance-label">Signal entry</span>
+                <span class="signal-performance-value signal-entry-price">$14.31</span>
+              </div>
+              <div class="signal-performance-item">
+                <span class="signal-performance-label">Signal-aligned return</span>
+                <span class="signal-performance-value signal-aligned-return positive">+5.45%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="footer">
+      <p>&#xA9; 2026 GENITUS INC. | domusaureaopn@gmail.com | GOLDSHIELD AI</p>
+    </div>
+  </div>
+</body>
+</html>

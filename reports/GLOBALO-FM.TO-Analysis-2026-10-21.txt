@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: FM.TO
+Exported: 21.10.2026, 21:22:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+FM.TO PRICE (USD): $35.86
+CHANGE: -$0.31 (-0.86%)
+TIMESTAMP: 21.10.2026, 21:22:00
+VOLUME: 928.371
+OPEN: $36.32
+HIGH: $36.59
+LOW: $35.51
+PREV CLOSE: $36.17
+52W HIGH: $49.27
+52W LOW: $27.06
+52W RANGE: $27.06 - $49.27
+SPREAD: 82.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($40.38) with negative momentum (-11.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 33.4
+MOMENTUM: -11.0%
+SMA20: $40.38
+VOLATILITY: 4.2%
+
+SINCE LAST SIGNAL
+Signal started: 30.9.2026
+Signal entry: $38.23
+Signal-aligned return: +6.20%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

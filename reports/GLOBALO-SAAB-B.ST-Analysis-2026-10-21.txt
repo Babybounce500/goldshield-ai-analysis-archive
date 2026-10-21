@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SAAB-B.ST
+Exported: 21.10.2026, 17:29:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SAAB-B.ST PRICE (USD): $641.00
+CHANGE: +$1.60 (+0.25%)
+TIMESTAMP: 21.10.2026, 17:29:00
+VOLUME: 921.398
+OPEN: $638.00
+HIGH: $645.70
+LOW: $631.50
+PREV CLOSE: $639.40
+52W HIGH: $748.80
+52W LOW: $445.10
+52W RANGE: $445.10 - $748.80
+SPREAD: 68.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($617.59) with positive momentum (8.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 58.7
+MOMENTUM: 8.3%
+SMA20: $617.59
+VOLATILITY: 2.2%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $631.60
+Signal-aligned return: +1.49%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

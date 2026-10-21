@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: 2313.HK
+Exported: 21.10.2026, 10:08:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+2313.HK PRICE (HKD): HK$36.70
+CHANGE: -HK$0.04 (-0.11%)
+TIMESTAMP: 21.10.2026, 10:08:00
+VOLUME: 3.266.451
+OPEN: HK$37.34
+HIGH: HK$37.34
+LOW: HK$36.68
+PREV CLOSE: HK$36.74
+52W HIGH: HK$73.00
+52W LOW: HK$33.14
+52W RANGE: HK$33.14 - HK$73.00
+SPREAD: 120.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (HK$35.11) with positive momentum (8.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 56.6
+MOMENTUM: 8.6%
+SMA20: HK$35.11
+VOLATILITY: 1.8%
+
+SINCE LAST SIGNAL
+Signal started: 9.10.2026
+Signal entry: HK$34.78
+Signal-aligned return: +5.52%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

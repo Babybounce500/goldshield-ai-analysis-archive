@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ASB.AU
+Exported: 21.10.2026, 07:30:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ASB.AU PRICE (USD): $4.21
+CHANGE: +$0.03 (+0.72%)
+TIMESTAMP: 21.10.2026, 07:30:00
+VOLUME: 3.284.949
+OPEN: $4.23
+HIGH: $4.35
+LOW: $4.16
+PREV CLOSE: $4.18
+52W HIGH: $8.82
+52W LOW: $3.33
+52W RANGE: $3.33 - $8.82
+SPREAD: 164.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($4.15) with positive momentum (2.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 51.8
+MOMENTUM: 2.7%
+SMA20: $4.15
+VOLATILITY: 4.6%
+
+SINCE LAST SIGNAL
+Signal started: 21.10.2026
+Signal entry: $4.21
+Signal-aligned return: +0.00%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: HVN.AU
+Exported: 21.10.2026, 07:30:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+HVN.AU PRICE (USD): $4.16
+CHANGE: +$0.07 (+1.71%)
+TIMESTAMP: 21.10.2026, 07:30:00
+VOLUME: 2.656.706
+OPEN: $4.12
+HIGH: $4.17
+LOW: $4.08
+PREV CLOSE: $4.09
+52W HIGH: $7.70
+52W LOW: $3.93
+52W RANGE: $3.93 - $7.70
+SPREAD: 95.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($4.14) with positive momentum (2.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 48.8
+MOMENTUM: 2.0%
+SMA20: $4.14
+VOLATILITY: 2.2%
+
+SINCE LAST SIGNAL
+Signal started: 21.10.2026
+Signal entry: $4.16
+Signal-aligned return: +0.00%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

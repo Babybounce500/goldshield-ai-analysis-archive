@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: MSTR.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+MSTR.US PRICE (USD): $153.47
+CHANGE: +$10.75 (+7.53%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 17.329.673
+OPEN: $146.20
+HIGH: $155.69
+LOW: $143.93
+PREV CLOSE: $142.72
+52W HIGH: $305.99
+52W LOW: $81.81
+52W RANGE: $81.81 - $305.99
+SPREAD: 274.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($153.55) with negative momentum (-13.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 47.4
+MOMENTUM: -13.3%
+SMA20: $153.55
+VOLATILITY: 9.8%
+
+SINCE LAST SIGNAL
+Signal started: 12.10.2026
+Signal entry: $152.68
+Signal-aligned return: -0.52%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

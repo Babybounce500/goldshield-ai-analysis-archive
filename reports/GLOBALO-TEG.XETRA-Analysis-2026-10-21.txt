@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TEG.XETRA
+Exported: 21.10.2026, 17:37:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TEG.XETRA PRICE (EUR): €11.18
+CHANGE: +€0.38 (+3.52%)
+TIMESTAMP: 21.10.2026, 17:37:00
+VOLUME: 877.417
+OPEN: €10.85
+HIGH: €11.24
+LOW: €10.85
+PREV CLOSE: €10.80
+52W HIGH: €16.80
+52W LOW: €10.13
+52W RANGE: €10.13 - €16.80
+SPREAD: 65.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (€10.73) with positive momentum (4.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 54.3
+MOMENTUM: 4.1%
+SMA20: €10.73
+VOLATILITY: 3.6%
+
+SINCE LAST SIGNAL
+Signal started: 21.10.2026
+Signal entry: €11.18
+Signal-aligned return: +0.00%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

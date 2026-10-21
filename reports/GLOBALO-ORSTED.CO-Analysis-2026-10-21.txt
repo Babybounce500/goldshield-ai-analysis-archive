@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ORSTED.CO
+Exported: 21.10.2026, 16:59:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ORSTED.CO PRICE (USD): $127.45
+CHANGE: +$2.50 (+2.00%)
+TIMESTAMP: 21.10.2026, 16:59:00
+VOLUME: 1.279.644
+OPEN: $125.35
+HIGH: $127.80
+LOW: $124.75
+PREV CLOSE: $124.95
+52W HIGH: $172.20
+52W LOW: $111.00
+52W RANGE: $111.00 - $172.20
+SPREAD: 55.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($131.73) with negative momentum (-2.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 42.6
+MOMENTUM: -2.3%
+SMA20: $131.73
+VOLATILITY: 2.4%
+
+SINCE LAST SIGNAL
+Signal started: 5.10.2026
+Signal entry: $133.05
+Signal-aligned return: +4.21%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

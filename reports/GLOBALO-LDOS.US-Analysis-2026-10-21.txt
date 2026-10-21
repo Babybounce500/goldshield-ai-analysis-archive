@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: LDOS.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+LDOS.US PRICE (USD): $128.83
+CHANGE: +$1.17 (+0.92%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 263.093
+OPEN: $128.14
+HIGH: $129.45
+LOW: $127.48
+PREV CLOSE: $127.66
+52W HIGH: $205.77
+52W LOW: $98.86
+52W RANGE: $98.86 - $205.77
+SPREAD: 108.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($121.68) with positive momentum (9.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 57.0
+MOMENTUM: 9.4%
+SMA20: $121.68
+VOLATILITY: 1.8%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $124.00
+Signal-aligned return: +3.90%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

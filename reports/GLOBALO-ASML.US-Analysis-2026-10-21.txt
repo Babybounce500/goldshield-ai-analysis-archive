@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ASML.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ASML.US PRICE (USD): $1,677.32
+CHANGE: +$46.48 (+2.85%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 1.022.098
+OPEN: $1,680.53
+HIGH: $1,687.81
+LOW: $1,661.62
+PREV CLOSE: $1,630.84
+52W HIGH: $1,999.96
+52W LOW: $946.11
+52W RANGE: $946.11 - $1,999.96
+SPREAD: 111.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($1,752.41) with negative momentum (-11.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 36.9
+MOMENTUM: -11.1%
+SMA20: $1,752.41
+VOLATILITY: 2.5%
+
+SINCE LAST SIGNAL
+Signal started: 12.10.2026
+Signal entry: $1,750.24
+Signal-aligned return: +4.17%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

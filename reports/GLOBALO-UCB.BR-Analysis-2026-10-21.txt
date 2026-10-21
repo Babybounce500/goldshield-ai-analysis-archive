@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: UCB.BR
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+UCB.BR PRICE (USD): $213.00
+CHANGE: -$6.00 (-2.74%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 230.878
+OPEN: $218.80
+HIGH: $218.80
+LOW: $212.80
+PREV CLOSE: $219.00
+52W HIGH: $289.50
+52W LOW: $197.45
+52W RANGE: $197.45 - $289.50
+SPREAD: 46.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($206.01) with positive momentum (4.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 55.3
+MOMENTUM: 4.5%
+SMA20: $206.01
+VOLATILITY: 3.0%
+
+SINCE LAST SIGNAL
+Signal started: 20.10.2026
+Signal entry: $219.00
+Signal-aligned return: -2.74%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

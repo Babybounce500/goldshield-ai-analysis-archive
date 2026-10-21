@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ITC.NSE
+Exported: 21.10.2026, 11:59:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ITC.NSE PRICE (USD): $262.00
+CHANGE: +$1.20 (+0.46%)
+TIMESTAMP: 21.10.2026, 11:59:00
+VOLUME: 20.999.152
+OPEN: $261.00
+HIGH: $264.85
+LOW: $260.15
+PREV CLOSE: $260.80
+52W HIGH: $426.40
+52W LOW: $253.15
+52W RANGE: $253.15 - $426.40
+SPREAD: 68.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($263.25) with negative momentum (-1.8%). This is a descriptive technical state, not a trade instruction.
+RSI: 48.3
+MOMENTUM: -1.8%
+SMA20: $263.25
+VOLATILITY: 1.8%
+
+SINCE LAST SIGNAL
+Signal started: 19.10.2026
+Signal entry: $260.80
+Signal-aligned return: -0.46%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

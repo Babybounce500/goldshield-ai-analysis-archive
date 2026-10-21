@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: NWL.AU
+Exported: 21.10.2026, 07:30:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+NWL.AU PRICE (USD): $16.92
+CHANGE: +$0.38 (+2.30%)
+TIMESTAMP: 21.10.2026, 07:30:00
+VOLUME: 643.923
+OPEN: $16.63
+HIGH: $16.98
+LOW: $16.44
+PREV CLOSE: $16.54
+52W HIGH: $33.62
+52W LOW: $14.57
+52W RANGE: $14.57 - $33.62
+SPREAD: 130.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($16.94) with negative momentum (-0.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 43.5
+MOMENTUM: -0.1%
+SMA20: $16.94
+VOLATILITY: 3.3%
+
+SINCE LAST SIGNAL
+Signal started: 13.10.2026
+Signal entry: $16.92
+Signal-aligned return: +0.00%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

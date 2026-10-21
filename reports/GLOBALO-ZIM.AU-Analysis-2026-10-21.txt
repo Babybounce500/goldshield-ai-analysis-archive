@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ZIM.AU
+Exported: 21.10.2026, 07:10:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ZIM.AU PRICE (USD): $13.53
+CHANGE: -$0.71 (-4.99%)
+TIMESTAMP: 21.10.2026, 07:10:00
+VOLUME: 13.657
+OPEN: $14.36
+HIGH: $14.84
+LOW: $13.52
+PREV CLOSE: $14.24
+52W HIGH: $25.60
+52W LOW: $12.36
+52W RANGE: $12.36 - $25.60
+SPREAD: 107.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($14.40) with negative momentum (-4.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 39.1
+MOMENTUM: -4.7%
+SMA20: $14.40
+VOLATILITY: 9.8%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: $14.31
+Signal-aligned return: +5.45%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

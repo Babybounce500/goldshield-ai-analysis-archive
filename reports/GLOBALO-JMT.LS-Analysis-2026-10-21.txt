@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: JMT.LS
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+JMT.LS PRICE (USD): $18.31
+CHANGE: -$0.10 (-0.54%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 856.460
+OPEN: $18.70
+HIGH: $18.70
+LOW: $18.26
+PREV CLOSE: $18.41
+52W HIGH: $22.68
+52W LOW: $16.11
+52W RANGE: $16.11 - $22.68
+SPREAD: 40.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($17.63) with positive momentum (8.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 59.5
+MOMENTUM: 8.6%
+SMA20: $17.63
+VOLATILITY: 1.2%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $17.83
+Signal-aligned return: +2.69%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

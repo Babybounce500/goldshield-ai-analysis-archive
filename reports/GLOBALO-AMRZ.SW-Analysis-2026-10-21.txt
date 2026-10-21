@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: AMRZ.SW
+Exported: 21.10.2026, 17:31:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+AMRZ.SW PRICE (USD): $32.05
+CHANGE: +$0.07 (+0.22%)
+TIMESTAMP: 21.10.2026, 17:31:00
+VOLUME: 1.220.783
+OPEN: $32.02
+HIGH: $32.35
+LOW: $31.79
+PREV CLOSE: $31.98
+52W HIGH: $51.34
+52W LOW: $29.85
+52W RANGE: $29.85 - $51.34
+SPREAD: 72.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($30.91) with positive momentum (5.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 53.4
+MOMENTUM: 5.6%
+SMA20: $30.91
+VOLATILITY: 1.8%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: $31.30
+Signal-aligned return: +2.40%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: FSLR.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+FSLR.US PRICE (USD): $173.44
+CHANGE: -$0.99 (-0.57%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 1.027.354
+OPEN: $176.25
+HIGH: $177.05
+LOW: $172.19
+PREV CLOSE: $174.43
+52W HIGH: $320.95
+52W LOW: $168.60
+52W RANGE: $168.60 - $320.95
+SPREAD: 90.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($177.47) with negative momentum (-3.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 40.6
+MOMENTUM: -3.0%
+SMA20: $177.47
+VOLATILITY: 4.8%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: $172.64
+Signal-aligned return: -0.46%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

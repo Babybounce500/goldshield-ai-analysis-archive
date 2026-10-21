@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: IFX.XETRA
+Exported: 21.10.2026, 17:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+IFX.XETRA PRICE (EUR): €53.09
+CHANGE: +€1.05 (+2.02%)
+TIMESTAMP: 21.10.2026, 17:36:00
+VOLUME: 3.343.087
+OPEN: €52.92
+HIGH: €54.04
+LOW: €52.27
+PREV CLOSE: €52.04
+52W HIGH: €88.83
+52W LOW: €31.27
+52W RANGE: €31.27 - €88.83
+SPREAD: 184.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 (€57.52) with negative momentum (-12.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 39.5
+MOMENTUM: -12.9%
+SMA20: €57.52
+VOLATILITY: 3.4%
+
+SINCE LAST SIGNAL
+Signal started: 13.10.2026
+Signal entry: €56.00
+Signal-aligned return: +5.20%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

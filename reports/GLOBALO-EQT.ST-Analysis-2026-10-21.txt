@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: EQT.ST
+Exported: 21.10.2026, 17:29:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+EQT.ST PRICE (USD): $294.30
+CHANGE: -$2.70 (-0.91%)
+TIMESTAMP: 21.10.2026, 17:29:00
+VOLUME: 1.232.542
+OPEN: $296.90
+HIGH: $297.00
+LOW: $290.50
+PREV CLOSE: $297.00
+52W HIGH: $383.00
+52W LOW: $259.00
+52W RANGE: $259.00 - $383.00
+SPREAD: 47.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($286.81) with positive momentum (5.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 50.0
+MOMENTUM: 5.3%
+SMA20: $286.81
+VOLATILITY: 2.2%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $288.50
+Signal-aligned return: +2.01%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

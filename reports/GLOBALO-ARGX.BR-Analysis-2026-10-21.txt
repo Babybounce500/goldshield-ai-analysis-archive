@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ARGX.BR
+Exported: 21.10.2026, 17:37:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ARGX.BR PRICE (USD): $786.60
+CHANGE: +$6.40 (+0.82%)
+TIMESTAMP: 21.10.2026, 17:37:00
+VOLUME: 93.838
+OPEN: $774.20
+HIGH: $791.20
+LOW: $768.80
+PREV CLOSE: $780.20
+52W HIGH: $925.00
+52W LOW: $568.40
+52W RANGE: $568.40 - $925.00
+SPREAD: 62.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($788.87) with negative momentum (-6.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 48.8
+MOMENTUM: -6.2%
+SMA20: $788.87
+VOLATILITY: 2.9%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: $705.60
+Signal-aligned return: -11.48%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ORCL.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ORCL.US PRICE (USD): $129.13
+CHANGE: -$2.01 (-1.53%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 20.749.449
+OPEN: $133.12
+HIGH: $133.52
+LOW: $127.70
+PREV CLOSE: $131.14
+52W HIGH: $287.19
+52W LOW: $114.50
+52W RANGE: $114.50 - $287.19
+SPREAD: 150.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($137.59) with negative momentum (-9.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 42.6
+MOMENTUM: -9.4%
+SMA20: $137.59
+VOLATILITY: 5.4%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: $130.55
+Signal-aligned return: +1.09%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

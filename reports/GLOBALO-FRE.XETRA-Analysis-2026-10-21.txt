@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: FRE.XETRA
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+FRE.XETRA PRICE (EUR): €45.60
+CHANGE: +€0.59 (+1.32%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 792.336
+OPEN: €44.67
+HIGH: €45.75
+LOW: €44.67
+PREV CLOSE: €45.00
+52W HIGH: €52.96
+52W LOW: €35.11
+52W RANGE: €35.11 - €52.96
+SPREAD: 50.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (€44.17) with positive momentum (5.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 58.1
+MOMENTUM: 5.3%
+SMA20: €44.17
+VOLATILITY: 2.4%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: €45.08
+Signal-aligned return: +1.15%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TMPV.NSE
+Exported: 21.10.2026, 11:59:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TMPV.NSE PRICE (USD): $275.70
+CHANGE: -$2.30 (-0.83%)
+TIMESTAMP: 21.10.2026, 11:59:00
+VOLUME: 8.037.500
+OPEN: $278.00
+HIGH: $280.70
+LOW: $271.65
+PREV CLOSE: $278.00
+52W HIGH: $419.00
+52W LOW: $271.65
+52W RANGE: $271.65 - $419.00
+SPREAD: 54.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($284.15) with negative momentum (-3.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 36.5
+MOMENTUM: -3.5%
+SMA20: $284.15
+VOLATILITY: 3.3%
+
+SINCE LAST SIGNAL
+Signal started: 19.10.2026
+Signal entry: $278.00
+Signal-aligned return: +0.83%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

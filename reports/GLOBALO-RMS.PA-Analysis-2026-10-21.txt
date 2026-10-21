@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: RMS.PA
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+RMS.PA PRICE (USD): $1,356.50
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 82.897
+OPEN: $1,333.00
+HIGH: $1,360.00
+LOW: $1,331.00
+PREV CLOSE: $1,356.50
+52W HIGH: $2,300.00
+52W LOW: $1,255.00
+52W RANGE: $1,255.00 - $2,300.00
+SPREAD: 83.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($1,318.28) with positive momentum (6.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 51.9
+MOMENTUM: 6.0%
+SMA20: $1,318.28
+VOLATILITY: 2.2%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $1,338.50
+Signal-aligned return: +1.34%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

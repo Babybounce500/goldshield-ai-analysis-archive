@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: WSP.TO
+Exported: 21.10.2026, 21:25:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+WSP.TO PRICE (USD): $173.88
+CHANGE: +$5.30 (+3.14%)
+TIMESTAMP: 21.10.2026, 21:25:00
+VOLUME: 346.815
+OPEN: $168.75
+HIGH: $174.64
+LOW: $167.91
+PREV CLOSE: $168.58
+52W HIGH: $284.99
+52W LOW: $156.64
+52W RANGE: $156.64 - $284.99
+SPREAD: 81.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($171.14) with positive momentum (0.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 45.3
+MOMENTUM: 0.2%
+SMA20: $171.14
+VOLATILITY: 3.4%
+
+SINCE LAST SIGNAL
+Signal started: 21.10.2026
+Signal entry: $173.88
+Signal-aligned return: +0.00%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

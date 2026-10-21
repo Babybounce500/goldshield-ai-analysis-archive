@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: AMS.MC
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+AMS.MC PRICE (USD): $56.16
+CHANGE: -$0.48 (-0.85%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 423.710
+OPEN: $55.98
+HIGH: $56.52
+LOW: $55.54
+PREV CLOSE: $56.64
+52W HIGH: $69.10
+52W LOW: $46.21
+52W RANGE: $46.21 - $69.10
+SPREAD: 49.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($53.15) with positive momentum (8.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 62.0
+MOMENTUM: 8.3%
+SMA20: $53.15
+VOLATILITY: 1.8%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $53.70
+Signal-aligned return: +4.58%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

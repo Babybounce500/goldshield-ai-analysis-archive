@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: PODD.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+PODD.US PRICE (USD): $142.35
+CHANGE: -$0.29 (-0.21%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 500.794
+OPEN: $141.59
+HIGH: $146.63
+LOW: $140.81
+PREV CLOSE: $142.64
+52W HIGH: $354.88
+52W LOW: $126.40
+52W RANGE: $126.40 - $354.88
+SPREAD: 180.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($135.91) with positive momentum (5.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 57.9
+MOMENTUM: 5.9%
+SMA20: $135.91
+VOLATILITY: 2.2%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $138.77
+Signal-aligned return: +2.58%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

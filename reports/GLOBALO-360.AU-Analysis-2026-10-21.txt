@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: 360.AU
+Exported: 21.10.2026, 08:06:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+360.AU PRICE (USD): $21.06
+CHANGE: +$0.97 (+4.83%)
+TIMESTAMP: 21.10.2026, 08:06:00
+VOLUME: 631.395
+OPEN: $20.60
+HIGH: $21.06
+LOW: $20.59
+PREV CLOSE: $20.09
+52W HIGH: $51.36
+52W LOW: $16.90
+52W RANGE: $16.90 - $51.36
+SPREAD: 203.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($19.83) with positive momentum (8.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 57.0
+MOMENTUM: 8.2%
+SMA20: $19.83
+VOLATILITY: 2.3%
+
+SINCE LAST SIGNAL
+Signal started: 21.10.2026
+Signal entry: $21.06
+Signal-aligned return: +0.00%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

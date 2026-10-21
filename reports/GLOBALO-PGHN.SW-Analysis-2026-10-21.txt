@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: PGHN.SW
+Exported: 21.10.2026, 17:31:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+PGHN.SW PRICE (USD): $611.00
+CHANGE: -$0.40 (-0.07%)
+TIMESTAMP: 21.10.2026, 17:31:00
+VOLUME: 59.367
+OPEN: $608.60
+HIGH: $612.20
+LOW: $601.60
+PREV CLOSE: $611.40
+52W HIGH: $1,097.50
+52W LOW: $582.60
+52W RANGE: $582.60 - $1,097.50
+SPREAD: 88.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($600.55) with positive momentum (3.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 46.9
+MOMENTUM: 3.3%
+SMA20: $600.55
+VOLATILITY: 1.8%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: $607.40
+Signal-aligned return: +0.59%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

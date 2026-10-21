@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: LHX.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+LHX.US PRICE (USD): $247.42
+CHANGE: -$1.35 (-0.54%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 594.152
+OPEN: $249.50
+HIGH: $251.54
+LOW: $246.72
+PREV CLOSE: $248.77
+52W HIGH: $379.23
+52W LOW: $232.34
+52W RANGE: $232.34 - $379.23
+SPREAD: 63.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($238.76) with positive momentum (4.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 56.1
+MOMENTUM: 4.6%
+SMA20: $238.76
+VOLATILITY: 2.7%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $240.50
+Signal-aligned return: +2.88%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

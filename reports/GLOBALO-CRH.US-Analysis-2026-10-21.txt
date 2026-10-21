@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: CRH.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+CRH.US PRICE (USD): $85.78
+CHANGE: +$0.56 (+0.66%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 2.916.734
+OPEN: $86.03
+HIGH: $86.33
+LOW: $84.83
+PREV CLOSE: $85.22
+52W HIGH: $131.55
+52W LOW: $78.62
+52W RANGE: $78.62 - $131.55
+SPREAD: 67.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($82.74) with positive momentum (1.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 51.9
+MOMENTUM: 1.9%
+SMA20: $82.74
+VOLATILITY: 3.7%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: $83.63
+Signal-aligned return: +2.57%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ROL.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ROL.US PRICE (USD): $33.49
+CHANGE: +$0.15 (+0.45%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 4.915.372
+OPEN: $33.17
+HIGH: $33.72
+LOW: $33.06
+PREV CLOSE: $33.34
+52W HIGH: $66.14
+52W LOW: $29.29
+52W RANGE: $29.29 - $66.14
+SPREAD: 125.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($31.51) with positive momentum (9.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 54.5
+MOMENTUM: 9.9%
+SMA20: $31.51
+VOLATILITY: 1.4%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: $32.26
+Signal-aligned return: +3.81%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: GN.CO
+Exported: 21.10.2026, 16:59:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+GN.CO PRICE (USD): $107.85
+CHANGE: +$1.00 (+0.94%)
+TIMESTAMP: 21.10.2026, 16:59:00
+VOLUME: 323.424
+OPEN: $106.50
+HIGH: $108.45
+LOW: $105.70
+PREV CLOSE: $106.85
+52W HIGH: $123.75
+52W LOW: $85.12
+52W RANGE: $85.12 - $123.75
+SPREAD: 45.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($106.87) with positive momentum (2.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 58.7
+MOMENTUM: 2.3%
+SMA20: $106.87
+VOLATILITY: 2.6%
+
+SINCE LAST SIGNAL
+Signal started: 21.10.2026
+Signal entry: $107.85
+Signal-aligned return: +0.00%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: AAF.LSE
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+AAF.LSE PRICE (GBP): £283.00
+CHANGE: +£2.40 (+0.86%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 2.629.920
+OPEN: £278.20
+HIGH: £284.00
+LOW: £276.20
+PREV CLOSE: £280.60
+52W HIGH: £436.20
+52W LOW: £224.40
+52W RANGE: £224.40 - £436.20
+SPREAD: 94.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 (£296.75) with negative momentum (-9.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 35.0
+MOMENTUM: -9.5%
+SMA20: £296.75
+VOLATILITY: 2.8%
+
+SINCE LAST SIGNAL
+Signal started: 9.10.2026
+Signal entry: £290.20
+Signal-aligned return: +2.48%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

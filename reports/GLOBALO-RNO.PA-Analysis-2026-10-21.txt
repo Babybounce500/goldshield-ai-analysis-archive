@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: RNO.PA
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+RNO.PA PRICE (USD): $26.93
+CHANGE: -$0.07 (-0.26%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 1.649.842
+OPEN: $27.40
+HIGH: $27.56
+LOW: $26.83
+PREV CLOSE: $27.00
+52W HIGH: $37.97
+52W LOW: $24.38
+52W RANGE: $24.38 - $37.97
+SPREAD: 55.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($26.40) with positive momentum (0.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 49.4
+MOMENTUM: 0.6%
+SMA20: $26.40
+VOLATILITY: 2.7%
+
+SINCE LAST SIGNAL
+Signal started: 12.10.2026
+Signal entry: $26.84
+Signal-aligned return: +0.34%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

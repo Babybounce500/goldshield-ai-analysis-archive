@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ACS.MC
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ACS.MC PRICE (USD): $90.95
+CHANGE: +$1.05 (+1.17%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 225.668
+OPEN: $90.30
+HIGH: $91.40
+LOW: $89.95
+PREV CLOSE: $89.90
+52W HIGH: $141.20
+52W LOW: $69.50
+52W RANGE: $69.50 - $141.20
+SPREAD: 103.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($91.93) with negative momentum (-2.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 42.3
+MOMENTUM: -2.2%
+SMA20: $91.93
+VOLATILITY: 1.6%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: $92.00
+Signal-aligned return: +1.14%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.
