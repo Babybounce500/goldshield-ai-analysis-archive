@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: MORN.US
+Exported: 21.10.2026, 21:18:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+MORN.US PRICE (USD): $212.08
+CHANGE: +$0.32 (+0.15%)
+TIMESTAMP: 21.10.2026, 21:18:00
+VOLUME: 76.758
+OPEN: $211.12
+HIGH: $214.16
+LOW: $209.93
+PREV CLOSE: $211.76
+52W HIGH: $223.79
+52W LOW: $141.49
+52W RANGE: $141.49 - $223.79
+SPREAD: 58.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($198.74) with positive momentum (8.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 62.0
+MOMENTUM: 8.2%
+SMA20: $198.74
+VOLATILITY: 2.1%
+
+SINCE LAST SIGNAL
+Signal started: 6.10.2026
+Signal entry: $195.69
+Signal-aligned return: +8.38%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: RTSI.INDX
+Exported: 21.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+RTSI.INDX PRICE (USD): $940.66
+CHANGE: +$1.06 (+0.11%)
+TIMESTAMP: 21.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $939.60
+52W HIGH: $1,192.61
+52W LOW: $758.82
+52W RANGE: $758.82 - $1,192.61
+SPREAD: 57.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($881.50) with positive momentum (9.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 71.5
+MOMENTUM: 9.2%
+SMA20: $881.50
+VOLATILITY: 2.1%
+
+SINCE LAST SIGNAL
+Signal started: 9.10.2026
+Signal entry: $891.14
+Signal-aligned return: +5.56%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

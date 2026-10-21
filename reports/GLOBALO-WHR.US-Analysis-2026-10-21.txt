@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: WHR.US
+Exported: 21.10.2026, 21:24:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+WHR.US PRICE (USD): $26.31
+CHANGE: -$1.73 (-6.17%)
+TIMESTAMP: 21.10.2026, 21:24:00
+VOLUME: 2.286.047
+OPEN: $28.08
+HIGH: $28.14
+LOW: $26.18
+PREV CLOSE: $28.04
+52W HIGH: $94.82
+52W LOW: $26.08
+52W RANGE: $26.08 - $94.82
+SPREAD: 263.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($29.74) with negative momentum (-7.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 34.7
+MOMENTUM: -7.0%
+SMA20: $29.74
+VOLATILITY: 6.7%
+
+SINCE LAST SIGNAL
+Signal started: 1.9.2026
+Signal entry: $37.94
+Signal-aligned return: +30.65%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

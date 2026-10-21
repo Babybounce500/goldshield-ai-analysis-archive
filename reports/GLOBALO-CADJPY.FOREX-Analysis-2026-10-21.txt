@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: CADJPY.FOREX
+Exported: 21.10.2026, 21:41:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+CADJPY.FOREX PRICE (USD): $112.63
+CHANGE: +$0.11 (+0.10%)
+TIMESTAMP: 21.10.2026, 21:41:00
+VOLUME: —
+OPEN: $112.44
+HIGH: $112.69
+LOW: $112.24
+PREV CLOSE: $112.52
+52W HIGH: $117.48
+52W LOW: $107.21
+52W RANGE: $107.21 - $117.48
+SPREAD: 9.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($111.28) with positive momentum (1.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 61.2
+MOMENTUM: 1.3%
+SMA20: $111.28
+VOLATILITY: 0.3%
+
+SINCE LAST SIGNAL
+Signal started: 13.10.2026
+Signal entry: $111.36
+Signal-aligned return: +1.14%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

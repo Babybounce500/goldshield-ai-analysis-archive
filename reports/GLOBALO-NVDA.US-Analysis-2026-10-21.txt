@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: NVDA.US
+Exported: 21.10.2026, 21:24:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+NVDA.US PRICE (USD): $221.07
+CHANGE: +$4.60 (+2.12%)
+TIMESTAMP: 21.10.2026, 21:24:00
+VOLUME: 59.656.319
+OPEN: $220.96
+HIGH: $222.16
+LOW: $217.66
+PREV CLOSE: $216.47
+52W HIGH: $243.37
+52W LOW: $164.27
+52W RANGE: $164.27 - $243.37
+SPREAD: 48.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($227.04) with negative momentum (-9.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 40.9
+MOMENTUM: -9.5%
+SMA20: $227.04
+VOLATILITY: 2.7%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: $221.30
+Signal-aligned return: +0.10%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

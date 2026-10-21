@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: FRHC.INDX
+Exported: 21.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+FRHC.INDX PRICE (USD): $1,805.88
+CHANGE: +$82.22 (+4.77%)
+TIMESTAMP: 21.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $1,723.66
+52W HIGH: $2,448.69
+52W LOW: $1,640.07
+52W RANGE: $1,640.07 - $2,448.69
+SPREAD: 49.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($1,686.44) with positive momentum (7.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 68.7
+MOMENTUM: 7.4%
+SMA20: $1,686.44
+VOLATILITY: 5.3%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: $1,690.06
+Signal-aligned return: +6.85%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

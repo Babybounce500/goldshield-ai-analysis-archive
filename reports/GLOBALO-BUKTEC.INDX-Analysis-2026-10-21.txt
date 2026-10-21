@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: BUKTEC.INDX
+Exported: 21.10.2026, 17:30:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+BUKTEC.INDX PRICE (USD): $43,763.89
+CHANGE: +$534.70 (+1.24%)
+TIMESTAMP: 21.10.2026, 17:30:00
+VOLUME: —
+OPEN: $43,229.19
+HIGH: $43,769.81
+LOW: $42,950.49
+PREV CLOSE: $43,229.19
+52W HIGH: $49,373.26
+52W LOW: $32,601.74
+52W RANGE: $32,601.74 - $49,373.26
+SPREAD: 51.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($40,621.68) with positive momentum (8.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 69.5
+MOMENTUM: 8.1%
+SMA20: $40,621.68
+VOLATILITY: 1.4%
+
+SINCE LAST SIGNAL
+Signal started: 6.10.2026
+Signal entry: $39,982.94
+Signal-aligned return: +9.46%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

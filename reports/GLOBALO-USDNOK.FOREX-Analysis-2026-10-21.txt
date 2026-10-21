@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: USDNOK.FOREX
+Exported: 21.10.2026, 21:41:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+USDNOK.FOREX PRICE (USD): $9.36
+CHANGE: -$0.04 (-0.46%)
+TIMESTAMP: 21.10.2026, 21:41:00
+VOLUME: —
+OPEN: $9.39
+HIGH: $9.41
+LOW: $9.35
+PREV CLOSE: $9.40
+52W HIGH: $10.30
+52W LOW: $9.13
+52W RANGE: $9.13 - $10.30
+SPREAD: 12.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($9.53) with negative momentum (-1.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 33.3
+MOMENTUM: -1.9%
+SMA20: $9.53
+VOLATILITY: 0.7%
+
+SINCE LAST SIGNAL
+Signal started: 13.10.2026
+Signal entry: $9.52
+Signal-aligned return: +1.66%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: GOLD.US
+Exported: 21.10.2026, 21:23:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+GOLD.US PRICE (USD): $38.66
+CHANGE: +$0.47 (+1.23%)
+TIMESTAMP: 21.10.2026, 21:23:00
+VOLUME: 169.430
+OPEN: $38.42
+HIGH: $38.99
+LOW: $38.13
+PREV CLOSE: $38.19
+52W HIGH: $66.70
+52W LOW: $23.00
+52W RANGE: $23.00 - $66.70
+SPREAD: 190.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($41.19) with negative momentum (-8.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 34.0
+MOMENTUM: -8.1%
+SMA20: $41.19
+VOLATILITY: 2.7%
+
+SINCE LAST SIGNAL
+Signal started: 21.9.2026
+Signal entry: $43.80
+Signal-aligned return: +11.74%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

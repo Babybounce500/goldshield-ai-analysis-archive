@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: DMRE.F
+Exported: 21.10.2026, 08:01:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+DMRE.F PRICE (USD): $0.20
+CHANGE: -$0.01 (-6.67%)
+TIMESTAMP: 21.10.2026, 08:01:00
+VOLUME: 1.000
+OPEN: $0.20
+HIGH: $0.20
+LOW: $0.20
+PREV CLOSE: $0.21
+52W HIGH: $0.62
+52W LOW: $0.20
+52W RANGE: $0.20 - $0.62
+SPREAD: 203.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($0.30) with negative momentum (-29.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 31.1
+MOMENTUM: -29.5%
+SMA20: $0.30
+VOLATILITY: 0.0%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: $0.29
+Signal-aligned return: +31.47%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SZSC.INDX
+Exported: 21.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SZSC.INDX PRICE (USD): $2,225.34
+CHANGE: -$11.04 (-0.49%)
+TIMESTAMP: 21.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $2,236.38
+52W HIGH: $2,964.93
+52W LOW: $2,194.12
+52W RANGE: $2,194.12 - $2,964.93
+SPREAD: 35.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($2,378.82) with negative momentum (-7.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 23.8
+MOMENTUM: -7.5%
+SMA20: $2,378.82
+VOLATILITY: 1.9%
+
+SINCE LAST SIGNAL
+Signal started: 24.9.2026
+Signal entry: $2,476.08
+Signal-aligned return: +10.13%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

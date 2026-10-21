@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: HABA.XETRA
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+HABA.XETRA PRICE (EUR): €4.10
+CHANGE: -€0.01 (-0.24%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 59.497
+OPEN: €4.12
+HIGH: €4.18
+LOW: €4.10
+PREV CLOSE: €4.11
+52W HIGH: €5.35
+52W LOW: €3.96
+52W RANGE: €3.96 - €5.35
+SPREAD: 35.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (€4.09) with positive momentum (2.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 47.1
+MOMENTUM: 2.4%
+SMA20: €4.09
+VOLATILITY: 2.1%
+
+SINCE LAST SIGNAL
+Signal started: 20.10.2026
+Signal entry: €4.11
+Signal-aligned return: -0.24%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

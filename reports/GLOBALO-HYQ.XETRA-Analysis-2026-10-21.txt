@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: HYQ.XETRA
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+HYQ.XETRA PRICE (EUR): €85.00
+CHANGE: +€5.15 (+6.45%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 31.174
+OPEN: €79.80
+HIGH: €85.00
+LOW: €79.00
+PREV CLOSE: €79.85
+52W HIGH: €155.80
+52W LOW: €67.00
+52W RANGE: €67.00 - €155.80
+SPREAD: 132.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (€71.65) with positive momentum (25.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 72.5
+MOMENTUM: 25.6%
+SMA20: €71.65
+VOLATILITY: 7.6%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: €73.15
+Signal-aligned return: +16.20%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

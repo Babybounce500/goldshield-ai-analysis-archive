@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: USDTWD.FOREX
+Exported: 21.10.2026, 21:41:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+USDTWD.FOREX PRICE (USD): $32.39
+CHANGE: -$0.24 (-0.73%)
+TIMESTAMP: 21.10.2026, 21:41:00
+VOLUME: —
+OPEN: $32.58
+HIGH: $32.69
+LOW: $32.36
+PREV CLOSE: $32.63
+52W HIGH: $32.70
+52W LOW: $30.48
+52W RANGE: $30.48 - $32.70
+SPREAD: 7.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($32.07) with positive momentum (1.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 64.1
+MOMENTUM: 1.4%
+SMA20: $32.07
+VOLATILITY: 0.9%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: $31.87
+Signal-aligned return: +1.64%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

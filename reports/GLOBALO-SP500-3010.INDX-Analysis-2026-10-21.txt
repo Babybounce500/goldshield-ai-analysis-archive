@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SP500-3010.INDX
+Exported: 21.10.2026, 21:25:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SP500-3010.INDX PRICE (USD): $1,127.24
+CHANGE: -$1.39 (-0.12%)
+TIMESTAMP: 21.10.2026, 21:25:00
+VOLUME: 18.315.760
+OPEN: $1,121.06
+HIGH: $1,131.28
+LOW: $1,120.21
+PREV CLOSE: $1,128.63
+52W HIGH: $1,227.04
+52W LOW: $958.87
+52W RANGE: $958.87 - $1,227.04
+SPREAD: 28.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($1,072.69) with positive momentum (7.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 71.8
+MOMENTUM: 7.2%
+SMA20: $1,072.69
+VOLATILITY: 1.0%
+
+SINCE LAST SIGNAL
+Signal started: 6.10.2026
+Signal entry: $1,047.96
+Signal-aligned return: +7.57%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: DJUSHV.INDX
+Exported: 21.10.2026, 21:25:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+DJUSHV.INDX PRICE (USD): $2,601.75
+CHANGE: +$7.67 (+0.30%)
+TIMESTAMP: 21.10.2026, 21:25:00
+VOLUME: 8.239.917
+OPEN: $2,638.19
+HIGH: $2,662.38
+LOW: $2,580.85
+PREV CLOSE: $2,594.08
+52W HIGH: $3,647.16
+52W LOW: $2,038.54
+52W RANGE: $2,038.54 - $3,647.16
+SPREAD: 78.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($2,868.14) with negative momentum (-14.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 32.0
+MOMENTUM: -14.1%
+SMA20: $2,868.14
+VOLATILITY: 3.2%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: $2,802.79
+Signal-aligned return: +7.17%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

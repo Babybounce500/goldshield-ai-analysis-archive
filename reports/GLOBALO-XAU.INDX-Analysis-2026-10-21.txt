@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: XAU.INDX
+Exported: 21.10.2026, 21:25:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+XAU.INDX PRICE (USD): $350.64
+CHANGE: -$1.31 (-0.37%)
+TIMESTAMP: 21.10.2026, 21:25:00
+VOLUME: —
+OPEN: $353.70
+HIGH: $354.30
+LOW: $348.44
+PREV CLOSE: $351.95
+52W HIGH: $472.08
+52W LOW: $264.80
+52W RANGE: $264.80 - $472.08
+SPREAD: 78.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($360.57) with negative momentum (-0.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 42.2
+MOMENTUM: -0.0%
+SMA20: $360.57
+VOLATILITY: 0.9%
+
+SINCE LAST SIGNAL
+Signal started: 10.9.2026
+Signal entry: $397.07
+Signal-aligned return: +11.69%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

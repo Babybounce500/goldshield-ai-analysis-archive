@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SOL-USD.CC
+Exported: 21.10.2026, 21:42:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SOL-USD.CC PRICE (USD): $108.22
+CHANGE: +$1.80 (+1.69%)
+TIMESTAMP: 21.10.2026, 21:42:00
+VOLUME: 2.492.506.112
+OPEN: $106.42
+HIGH: $109.00
+LOW: $105.58
+PREV CLOSE: $106.42
+52W HIGH: $205.02
+52W LOW: $60.41
+52W RANGE: $60.41 - $205.02
+SPREAD: 239.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($111.02) with negative momentum (-3.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 44.4
+MOMENTUM: -3.3%
+SMA20: $111.02
+VOLATILITY: 4.1%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: $116.22
+Signal-aligned return: +6.89%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

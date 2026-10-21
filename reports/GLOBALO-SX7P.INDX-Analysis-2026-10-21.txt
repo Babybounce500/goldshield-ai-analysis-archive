@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SX7P.INDX
+Exported: 21.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SX7P.INDX PRICE (USD): $396.58
+CHANGE: +$4.97 (+1.27%)
+TIMESTAMP: 21.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $391.61
+52W HIGH: $438.40
+52W LOW: $302.34
+52W RANGE: $302.34 - $438.40
+SPREAD: 45.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($407.79) with negative momentum (-1.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 39.0
+MOMENTUM: -1.7%
+SMA20: $407.79
+VOLATILITY: 1.9%
+
+SINCE LAST SIGNAL
+Signal started: 22.9.2026
+Signal entry: $427.68
+Signal-aligned return: +7.27%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

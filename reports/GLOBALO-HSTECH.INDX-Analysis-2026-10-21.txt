@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: HSTECH.INDX
+Exported: 21.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+HSTECH.INDX PRICE (USD): $3,994.77
+CHANGE: -$51.14 (-1.26%)
+TIMESTAMP: 21.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $4,045.91
+52W HIGH: $6,198.68
+52W LOW: $3,985.63
+52W RANGE: $3,985.63 - $6,198.68
+SPREAD: 55.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($4,200.53) with negative momentum (-5.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 32.6
+MOMENTUM: -5.4%
+SMA20: $4,200.53
+VOLATILITY: 3.1%
+
+SINCE LAST SIGNAL
+Signal started: 25.9.2026
+Signal entry: $4,311.78
+Signal-aligned return: +7.35%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

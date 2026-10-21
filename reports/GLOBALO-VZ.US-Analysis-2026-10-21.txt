@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: VZ.US
+Exported: 21.10.2026, 21:23:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+VZ.US PRICE (USD): $43.51
+CHANGE: -$1.03 (-2.31%)
+TIMESTAMP: 21.10.2026, 21:23:00
+VOLUME: 19.567.128
+OPEN: $43.00
+HIGH: $44.05
+LOW: $43.00
+PREV CLOSE: $44.54
+52W HIGH: $51.68
+52W LOW: $38.39
+52W RANGE: $38.39 - $51.68
+SPREAD: 34.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($45.28) with negative momentum (-3.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 42.6
+MOMENTUM: -3.1%
+SMA20: $45.28
+VOLATILITY: 1.7%
+
+SINCE LAST SIGNAL
+Signal started: 16.9.2026
+Signal entry: $49.76
+Signal-aligned return: +12.56%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

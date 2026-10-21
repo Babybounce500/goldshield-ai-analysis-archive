@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TIGO.US
+Exported: 21.10.2026, 21:23:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TIGO.US PRICE (USD): $81.36
+CHANGE: +$1.58 (+1.97%)
+TIMESTAMP: 21.10.2026, 21:23:00
+VOLUME: 334.012
+OPEN: $80.19
+HIGH: $81.48
+LOW: $79.82
+PREV CLOSE: $79.78
+52W HIGH: $107.13
+52W LOW: $44.88
+52W RANGE: $44.88 - $107.13
+SPREAD: 138.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($86.11) with negative momentum (-11.8%). This is a descriptive technical state, not a trade instruction.
+RSI: 35.8
+MOMENTUM: -11.8%
+SMA20: $86.11
+VOLATILITY: 2.2%
+
+SINCE LAST SIGNAL
+Signal started: 22.9.2026
+Signal entry: $94.38
+Signal-aligned return: +13.80%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

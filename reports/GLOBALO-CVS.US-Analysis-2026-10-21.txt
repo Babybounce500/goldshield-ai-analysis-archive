@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: CVS.US
+Exported: 21.10.2026, 21:23:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+CVS.US PRICE (USD): $93.94
+CHANGE: -$0.81 (-0.85%)
+TIMESTAMP: 21.10.2026, 21:23:00
+VOLUME: 3.566.546
+OPEN: $95.26
+HIGH: $95.26
+LOW: $93.72
+PREV CLOSE: $94.75
+52W HIGH: $110.68
+52W LOW: $69.51
+52W RANGE: $69.51 - $110.68
+SPREAD: 59.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($88.29) with positive momentum (9.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 64.0
+MOMENTUM: 9.6%
+SMA20: $88.29
+VOLATILITY: 1.8%
+
+SINCE LAST SIGNAL
+Signal started: 13.10.2026
+Signal entry: $87.55
+Signal-aligned return: +7.30%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

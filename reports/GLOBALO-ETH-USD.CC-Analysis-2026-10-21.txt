@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ETH-USD.CC
+Exported: 21.10.2026, 21:42:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ETH-USD.CC PRICE (USD): $2,496.14
+CHANGE: +$49.41 (+2.02%)
+TIMESTAMP: 21.10.2026, 21:42:00
+VOLUME: 13.428.453.376
+OPEN: $2,446.67
+HIGH: $2,520.65
+LOW: $2,435.77
+PREV CLOSE: $2,446.73
+52W HIGH: $4,250.67
+52W LOW: $1,506.51
+52W RANGE: $1,506.51 - $4,250.67
+SPREAD: 182.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($2,519.14) with negative momentum (-3.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 42.8
+MOMENTUM: -3.6%
+SMA20: $2,519.14
+VOLATILITY: 0.7%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: $2,573.53
+Signal-aligned return: +3.01%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

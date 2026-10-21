@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: MSFT.US
+Exported: 21.10.2026, 21:24:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+MSFT.US PRICE (USD): $531.85
+CHANGE: -$0.02 (-0.00%)
+TIMESTAMP: 21.10.2026, 21:24:00
+VOLUME: 8.106.669
+OPEN: $529.44
+HIGH: $533.25
+LOW: $525.02
+PREV CLOSE: $531.87
+52W HIGH: $553.72
+52W LOW: $349.20
+52W RANGE: $349.20 - $553.72
+SPREAD: 58.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($523.51) with positive momentum (0.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 58.3
+MOMENTUM: 0.5%
+SMA20: $523.51
+VOLATILITY: 1.6%
+
+SINCE LAST SIGNAL
+Signal started: 25.9.2026
+Signal entry: $516.17
+Signal-aligned return: +3.04%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

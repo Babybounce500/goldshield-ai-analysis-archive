@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: EURSEK.FOREX
+Exported: 21.10.2026, 21:41:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+EURSEK.FOREX PRICE (USD): $11.10
+CHANGE: -$0.02 (-0.20%)
+TIMESTAMP: 21.10.2026, 21:41:00
+VOLUME: —
+OPEN: $11.12
+HIGH: $11.13
+LOW: $11.09
+PREV CLOSE: $11.12
+52W HIGH: $11.37
+52W LOW: $10.50
+52W RANGE: $10.50 - $11.37
+SPREAD: 8.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($11.21) with negative momentum (-0.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 35.8
+MOMENTUM: -0.9%
+SMA20: $11.21
+VOLATILITY: 0.3%
+
+SINCE LAST SIGNAL
+Signal started: 5.10.2026
+Signal entry: $11.26
+Signal-aligned return: +1.44%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: DJUSAR.INDX
+Exported: 21.10.2026, 21:25:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+DJUSAR.INDX PRICE (USD): $235.67
+CHANGE: +$3.96 (+1.71%)
+TIMESTAMP: 21.10.2026, 21:25:00
+VOLUME: 100.975.587
+OPEN: $231.74
+HIGH: $242.02
+LOW: $229.88
+PREV CLOSE: $231.71
+52W HIGH: $314.68
+52W LOW: $203.14
+52W RANGE: $203.14 - $314.68
+SPREAD: 54.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($247.91) with negative momentum (-5.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 45.7
+MOMENTUM: -5.1%
+SMA20: $247.91
+VOLATILITY: 5.3%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: $250.77
+Signal-aligned return: +6.02%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

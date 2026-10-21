@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SWK.US
+Exported: 21.10.2026, 21:23:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SWK.US PRICE (USD): $94.63
+CHANGE: +$0.54 (+0.57%)
+TIMESTAMP: 21.10.2026, 21:23:00
+VOLUME: 650.499
+OPEN: $94.88
+HIGH: $95.76
+LOW: $93.60
+PREV CLOSE: $94.09
+52W HIGH: $104.68
+52W LOW: $61.90
+52W RANGE: $61.90 - $104.68
+SPREAD: 69.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($90.31) with positive momentum (4.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 58.7
+MOMENTUM: 4.6%
+SMA20: $90.31
+VOLATILITY: 4.6%
+
+SINCE LAST SIGNAL
+Signal started: 13.10.2026
+Signal entry: $90.71
+Signal-aligned return: +4.32%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

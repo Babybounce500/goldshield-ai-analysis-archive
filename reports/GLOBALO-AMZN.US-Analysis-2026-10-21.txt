@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: AMZN.US
+Exported: 21.10.2026, 21:24:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+AMZN.US PRICE (USD): $262.02
+CHANGE: -$0.62 (-0.23%)
+TIMESTAMP: 21.10.2026, 21:24:00
+VOLUME: 22.638.855
+OPEN: $262.71
+HIGH: $264.36
+LOW: $259.29
+PREV CLOSE: $262.63
+52W HIGH: $287.20
+52W LOW: $196.00
+52W RANGE: $196.00 - $287.20
+SPREAD: 46.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($253.81) with positive momentum (2.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 57.4
+MOMENTUM: 2.5%
+SMA20: $253.81
+VOLATILITY: 1.9%
+
+SINCE LAST SIGNAL
+Signal started: 19.10.2026
+Signal entry: $262.45
+Signal-aligned return: -0.17%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

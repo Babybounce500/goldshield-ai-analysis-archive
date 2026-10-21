@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: KS11.INDX
+Exported: 21.10.2026, 13:05:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+KS11.INDX PRICE (USD): $5,735.66
+CHANGE: +$182.92 (+3.29%)
+TIMESTAMP: 21.10.2026, 13:05:00
+VOLUME: 214.353
+OPEN: $5,666.34
+HIGH: $5,735.66
+LOW: $5,630.14
+PREV CLOSE: $5,552.74
+52W HIGH: $9,385.59
+52W LOW: $3,794.52
+52W RANGE: $3,794.52 - $9,385.59
+SPREAD: 147.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($6,482.64) with negative momentum (-17.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 33.9
+MOMENTUM: -17.4%
+SMA20: $6,482.64
+VOLATILITY: 3.3%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: $6,803.90
+Signal-aligned return: +15.70%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

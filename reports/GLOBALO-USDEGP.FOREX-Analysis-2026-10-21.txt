@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: USDEGP.FOREX
+Exported: 21.10.2026, 21:24:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+USDEGP.FOREX PRICE (USD): $54.33
+CHANGE: +$0.45 (+0.84%)
+TIMESTAMP: 21.10.2026, 21:24:00
+VOLUME: —
+OPEN: $54.45
+HIGH: $54.53
+LOW: $54.06
+PREV CLOSE: $53.88
+52W HIGH: $54.83
+52W LOW: $46.48
+52W RANGE: $46.48 - $54.83
+SPREAD: 18.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($52.82) with positive momentum (3.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 83.6
+MOMENTUM: 3.3%
+SMA20: $52.82
+VOLATILITY: 0.9%
+
+SINCE LAST SIGNAL
+Signal started: 2.10.2026
+Signal entry: $52.29
+Signal-aligned return: +3.91%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

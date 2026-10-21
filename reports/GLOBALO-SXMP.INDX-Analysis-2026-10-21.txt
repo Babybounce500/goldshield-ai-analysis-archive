@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SXMP.INDX
+Exported: 21.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SXMP.INDX PRICE (USD): $402.19
+CHANGE: +$0.75 (+0.19%)
+TIMESTAMP: 21.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $401.44
+52W HIGH: $414.99
+52W LOW: $312.63
+52W RANGE: $312.63 - $414.99
+SPREAD: 32.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($386.41) with positive momentum (6.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 65.4
+MOMENTUM: 6.3%
+SMA20: $386.41
+VOLATILITY: 1.4%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: $381.28
+Signal-aligned return: +5.48%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

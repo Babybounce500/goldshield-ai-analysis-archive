@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TASI.INDX
+Exported: 21.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TASI.INDX PRICE (USD): $9,926.62
+CHANGE: -$25.44 (-0.26%)
+TIMESTAMP: 21.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $9,952.06
+52W HIGH: $11,781.68
+52W LOW: $9,855.76
+52W RANGE: $9,855.76 - $11,781.68
+SPREAD: 19.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($10,352.18) with negative momentum (-5.8%). This is a descriptive technical state, not a trade instruction.
+RSI: 23.9
+MOMENTUM: -5.8%
+SMA20: $10,352.18
+VOLATILITY: 1.4%
+
+SINCE LAST SIGNAL
+Signal started: 7.9.2026
+Signal entry: $11,024.73
+Signal-aligned return: +9.96%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

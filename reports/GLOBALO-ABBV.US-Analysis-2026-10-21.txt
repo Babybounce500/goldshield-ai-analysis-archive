@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ABBV.US
+Exported: 21.10.2026, 21:24:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ABBV.US PRICE (USD): $284.19
+CHANGE: -$4.89 (-1.69%)
+TIMESTAMP: 21.10.2026, 21:24:00
+VOLUME: 2.419.039
+OPEN: $287.63
+HIGH: $289.00
+LOW: $282.15
+PREV CLOSE: $289.08
+52W HIGH: $291.40
+52W LOW: $190.75
+52W RANGE: $190.75 - $291.40
+SPREAD: 52.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($272.03) with positive momentum (8.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 71.2
+MOMENTUM: 8.4%
+SMA20: $272.03
+VOLATILITY: 2.1%
+
+SINCE LAST SIGNAL
+Signal started: 5.10.2026
+Signal entry: $265.76
+Signal-aligned return: +6.93%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.
