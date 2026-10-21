@@ -92,6 +92,27 @@ Zusätzlich ist auch die Tagesrate selbst asymmetrisch (+0.708%/Tag vs.
 auch aus einer höheren Tagesrate bei positiven Signalen. Das deckt sich mit der asymmetrischen Verteilung, die
 man beim Vergleich der 🏆 High-Conviction- und ⚠️ Fehlsignal-Kategorien direkt auf dem Live-Index sieht.
 
+## Regime-Wechsel-Analyse
+
+Zusatzfrage: wechselt ein Bullish- oder Bearish-Signal meistens erst über Neutral, oder springt es direkt
+zur Gegenseite? Dafür wurde die tägliche GoldShield-Sentiment-Logik (RSI/SMA20/Momentum, identisch zur
+Hauptberechnung) über die vollen historischen Kursreihen von 610 Symbolen neu berechnet
+(171.410 Handelstage, 33.679 Sentiment-Regime, 33.069 Übergänge):
+
+| Übergang | Anteil |
+|---|---|
+| Über Neutral (Bullish→Neutral oder Bearish→Neutral) | 62,8 % |
+| Direkter Flip (Bullish↔Bearish, ohne Neutral) | 37,2 % |
+| Bullish→Neutral (von allen Bullish-Austritten) | 62,4 % |
+| Bullish→Bearish direkt (von allen Bullish-Austritten) | 37,6 % |
+| Bearish→Neutral (von allen Bearish-Austritten) | 63,3 % |
+| Bearish→Bullish direkt (von allen Bearish-Austritten) | 36,7 % |
+
+**Regime-Dauer (Handelstage):** Bullish Ø 6,5 / Median 3 (max. 310) -- Bearish Ø 6,8 / Median 3 (max. 69) --
+Neutral Ø 1,6 / Median 1 (max. 225). Neutral ist also fast immer nur eine kurze Zwischenstation
+(meist 1 Tag), während Bullish/Bearish-Regime deutlich länger halten -- passt zur Haltedauer-Analyse oben
+(aktuelle Signale laufen im Schnitt 4,6–16,4 Tage).
+
 ## Pipeline für weitere Reports
 
 Neue Downloads landen als `GLOBALO-{SYMBOL}-Analysis-{YYYY-MM-DD}.{html,txt}` in `reports/`.
