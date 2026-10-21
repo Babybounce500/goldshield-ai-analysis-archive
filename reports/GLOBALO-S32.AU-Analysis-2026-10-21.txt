@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: S32.AU
+Exported: 21.10.2026, 08:06:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+S32.AU PRICE (USD): $4.32
+CHANGE: -$0.08 (-1.82%)
+TIMESTAMP: 21.10.2026, 08:06:00
+VOLUME: 16.394.771
+OPEN: $4.39
+HIGH: $4.40
+LOW: $4.27
+PREV CLOSE: $4.40
+52W HIGH: $5.33
+52W LOW: $2.96
+52W RANGE: $2.96 - $5.33
+SPREAD: 80.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($4.82) with negative momentum (-13.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 31.5
+MOMENTUM: -13.6%
+SMA20: $4.82
+VOLATILITY: 3.0%
+
+SINCE LAST SIGNAL
+Signal started: 13.10.2026
+Signal entry: $4.83
+Signal-aligned return: +10.56%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

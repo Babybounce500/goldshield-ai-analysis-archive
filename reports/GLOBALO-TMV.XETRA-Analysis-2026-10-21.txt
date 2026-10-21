@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TMV.XETRA
+Exported: 21.10.2026, 17:37:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TMV.XETRA PRICE (EUR): €7.47
+CHANGE: +€0.44 (+6.26%)
+TIMESTAMP: 21.10.2026, 17:37:00
+VOLUME: 896.236
+OPEN: €7.01
+HIGH: €7.47
+LOW: €6.93
+PREV CLOSE: €7.03
+52W HIGH: €8.57
+52W LOW: €4.09
+52W RANGE: €4.09 - €8.57
+SPREAD: 109.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (€6.67) with positive momentum (11.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 72.5
+MOMENTUM: 11.1%
+SMA20: €6.67
+VOLATILITY: 7.9%
+
+SINCE LAST SIGNAL
+Signal started: 2.10.2026
+Signal entry: €6.38
+Signal-aligned return: +17.08%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

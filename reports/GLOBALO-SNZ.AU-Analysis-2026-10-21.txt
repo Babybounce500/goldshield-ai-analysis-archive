@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SNZ.AU
+Exported: 21.10.2026, 06:55:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SNZ.AU PRICE (USD): $5.45
+CHANGE: -$0.03 (-0.55%)
+TIMESTAMP: 21.10.2026, 06:55:00
+VOLUME: 297
+OPEN: $5.49
+HIGH: $5.49
+LOW: $5.45
+PREV CLOSE: $5.48
+52W HIGH: $12.09
+52W LOW: $5.20
+52W RANGE: $5.20 - $12.09
+SPREAD: 132.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($5.68) with negative momentum (-2.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 38.2
+MOMENTUM: -2.7%
+SMA20: $5.68
+VOLATILITY: 0.7%
+
+SINCE LAST SIGNAL
+Signal started: 10.9.2026
+Signal entry: $6.75
+Signal-aligned return: +19.26%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

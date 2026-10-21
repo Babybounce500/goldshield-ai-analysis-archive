@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: PSON.LSE
+Exported: 21.10.2026, 17:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+PSON.LSE PRICE (GBP): £1,360.50
+CHANGE: -£8.50 (-0.62%)
+TIMESTAMP: 21.10.2026, 17:36:00
+VOLUME: 991.437
+OPEN: £1,361.00
+HIGH: £1,376.00
+LOW: £1,357.50
+PREV CLOSE: £1,369.00
+52W HIGH: £1,389.50
+52W LOW: £874.80
+52W RANGE: £874.80 - £1,389.50
+SPREAD: 58.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (£1,276.18) with positive momentum (9.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 75.7
+MOMENTUM: 9.5%
+SMA20: £1,276.18
+VOLATILITY: 1.4%
+
+SINCE LAST SIGNAL
+Signal started: 22.9.2026
+Signal entry: £1,198.00
+Signal-aligned return: +13.56%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

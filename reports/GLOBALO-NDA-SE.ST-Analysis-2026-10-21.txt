@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: NDA-SE.ST
+Exported: 21.10.2026, 17:29:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+NDA-SE.ST PRICE (USD): $174.40
+CHANGE: +$1.40 (+0.81%)
+TIMESTAMP: 21.10.2026, 17:29:00
+VOLUME: 3.963.478
+OPEN: $173.70
+HIGH: $174.70
+LOW: $172.60
+PREV CLOSE: $173.00
+52W HIGH: $205.00
+52W LOW: $153.85
+52W RANGE: $153.85 - $205.00
+SPREAD: 33.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($188.68) with negative momentum (-7.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 26.9
+MOMENTUM: -7.5%
+SMA20: $188.68
+VOLATILITY: 1.2%
+
+SINCE LAST SIGNAL
+Signal started: 30.9.2026
+Signal entry: $198.20
+Signal-aligned return: +12.01%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

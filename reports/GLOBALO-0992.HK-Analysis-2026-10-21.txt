@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: 0992.HK
+Exported: 21.10.2026, 10:08:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+0992.HK PRICE (HKD): HK$26.00
+CHANGE: +HK$0.74 (+2.93%)
+TIMESTAMP: 21.10.2026, 10:08:00
+VOLUME: 126.922.350
+OPEN: HK$26.78
+HIGH: HK$26.78
+LOW: HK$25.48
+PREV CLOSE: HK$25.26
+52W HIGH: HK$37.88
+52W LOW: HK$8.52
+52W RANGE: HK$8.52 - HK$37.88
+SPREAD: 344.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 (HK$32.87) with negative momentum (-26.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 34.7
+MOMENTUM: -26.6%
+SMA20: HK$32.87
+VOLATILITY: 5.1%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: HK$32.32
+Signal-aligned return: +19.55%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

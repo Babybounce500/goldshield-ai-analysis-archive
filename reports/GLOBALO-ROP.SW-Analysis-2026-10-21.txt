@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ROP.SW
+Exported: 21.10.2026, 17:31:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ROP.SW PRICE (USD): $392.00
+CHANGE: +$2.10 (+0.54%)
+TIMESTAMP: 21.10.2026, 17:31:00
+VOLUME: 920.826
+OPEN: $389.00
+HIGH: $392.00
+LOW: $386.50
+PREV CLOSE: $389.90
+52W HIGH: $392.00
+52W LOW: $258.20
+52W RANGE: $258.20 - $392.00
+SPREAD: 51.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($362.65) with positive momentum (8.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 74.2
+MOMENTUM: 8.9%
+SMA20: $362.65
+VOLATILITY: 1.4%
+
+SINCE LAST SIGNAL
+Signal started: 12.10.2026
+Signal entry: $360.00
+Signal-aligned return: +8.89%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

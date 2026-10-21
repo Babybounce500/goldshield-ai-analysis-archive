@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ZEAL.CO
+Exported: 21.10.2026, 16:59:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ZEAL.CO PRICE (USD): $231.70
+CHANGE: +$1.90 (+0.83%)
+TIMESTAMP: 21.10.2026, 16:59:00
+VOLUME: 336.722
+OPEN: $230.00
+HIGH: $234.10
+LOW: $226.70
+PREV CLOSE: $229.80
+52W HIGH: $556.00
+52W LOW: $220.60
+52W RANGE: $220.60 - $556.00
+SPREAD: 152.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($247.51) with negative momentum (-7.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 33.8
+MOMENTUM: -7.1%
+SMA20: $247.51
+VOLATILITY: 3.3%
+
+SINCE LAST SIGNAL
+Signal started: 26.8.2026
+Signal entry: $314.90
+Signal-aligned return: +26.42%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

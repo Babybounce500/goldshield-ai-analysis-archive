@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: MCK.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+MCK.US PRICE (USD): $1,012.84
+CHANGE: -$17.28 (-1.68%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 417.644
+OPEN: $1,020.93
+HIGH: $1,030.00
+LOW: $1,005.42
+PREV CLOSE: $1,030.12
+52W HIGH: $1,030.27
+52W LOW: $723.68
+52W RANGE: $723.68 - $1,030.27
+SPREAD: 42.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($927.36) with positive momentum (11.8%). This is a descriptive technical state, not a trade instruction.
+RSI: 79.1
+MOMENTUM: 11.8%
+SMA20: $927.36
+VOLATILITY: 1.6%
+
+SINCE LAST SIGNAL
+Signal started: 1.10.2026
+Signal entry: $898.82
+Signal-aligned return: +12.68%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

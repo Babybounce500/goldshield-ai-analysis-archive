@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SNDK.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SNDK.US PRICE (USD): $1,392.05
+CHANGE: +$26.67 (+1.95%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 5.906.778
+OPEN: $1,417.00
+HIGH: $1,424.48
+LOW: $1,327.62
+PREV CLOSE: $1,365.38
+52W HIGH: $2,354.39
+52W LOW: $142.76
+52W RANGE: $142.76 - $2,354.39
+SPREAD: 1549.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($1,604.51) with negative momentum (-17.8%). This is a descriptive technical state, not a trade instruction.
+RSI: 35.9
+MOMENTUM: -17.8%
+SMA20: $1,604.51
+VOLATILITY: 4.4%
+
+SINCE LAST SIGNAL
+Signal started: 5.10.2026
+Signal entry: $1,704.16
+Signal-aligned return: +18.31%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

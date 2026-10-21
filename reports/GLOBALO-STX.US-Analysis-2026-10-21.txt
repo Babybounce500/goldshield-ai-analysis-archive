@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: STX.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+STX.US PRICE (USD): $703.96
+CHANGE: +$28.83 (+4.27%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 3.728.119
+OPEN: $708.25
+HIGH: $715.63
+LOW: $682.72
+PREV CLOSE: $675.13
+52W HIGH: $1,145.00
+52W LOW: $209.00
+52W RANGE: $209.00 - $1,145.00
+SPREAD: 447.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($811.82) with negative momentum (-16.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 34.1
+MOMENTUM: -16.2%
+SMA20: $811.82
+VOLATILITY: 6.0%
+
+SINCE LAST SIGNAL
+Signal started: 6.10.2026
+Signal entry: $805.63
+Signal-aligned return: +12.62%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

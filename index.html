@@ -31,6 +31,8 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 .chip{font-family:var(--mono);font-size:10px;padding:7px 12px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;border-radius:999px;transition:.15s;}
 .chip:hover{border-color:var(--accent);}
 .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:rgba(180,83,9,.08);}
+.chip-highlight{border-color:var(--green);color:var(--green);font-weight:600;}
+.chip-highlight[aria-pressed="true"]{background:rgba(21,128,61,.1);}
 .result-count{font-size:9.5px;color:var(--muted);margin-bottom:14px;}
 .result-count b{color:var(--text);}
 
@@ -79,10 +81,12 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 <div class="wrap">
   <div class="intro">
   Echte, unveränderte Export-Reports von <b>GoldShield AI</b> (GENITUS INC) -- KI-gestützte technische
-  Marktanalyse über Aktien, Krypto, Forex und Anleihen. Jede Kachel zeigt die echten Kennzahlen aus dem
-  jeweiligen Report: Sentiment, technischer Score, <b>Signal-Rendite</b> (Performance seit letztem
-  Signalwechsel), RSI/Momentum/Volatilität. Rein clientseitig durchsuchbar und sortierbar -- gebaut, um
-  auf tausende Reports zu skalieren.
+  Marktanalyse über Aktien, Krypto, Forex, Anleihen und globale Indizes (S&amp;P500, DAX, FTSE100, Hang Seng,
+  ASX200, Nifty50 u.a.). Jede Kachel zeigt die echten Kennzahlen aus dem jeweiligen Report: Sentiment,
+  technischer Score, <b>Signal-Rendite</b> (Performance seit letztem Signalwechsel), RSI/Momentum/Volatilität.
+  Die Kategorie <b>🏆 High-Conviction (≥5%)</b> filtert auf Reports mit mindestens 5% Signal-Rendite --
+  Ergebnis einer Deep-Research-Runde über 1.700+ echte Marktdaten-Abfragen. Rein clientseitig durchsuchbar
+  und sortierbar -- gebaut, um auf tausende Reports zu skalieren.
   </div>
   <div class="stat-row">
     <div class="stat"><b id="stat-total">—</b><span>REPORTS GESAMT</span></div>
@@ -154,7 +158,8 @@ function render() {
   const sortVal = document.getElementById('sortSelect').value;
   let filtered = REPORTS.filter(r => {
     const matchesQ = !q || r.symbol.toLowerCase().includes(q);
-    const matchesFilter = activeFilter === 'all' || (r.sentiment || '').toLowerCase() === activeFilter;
+    const matchesFilter = activeFilter === 'all'
+      || (activeFilter === 'highconviction' ? (r.alignedReturn != null && r.alignedReturn >= 5) : (r.sentiment || '').toLowerCase() === activeFilter);
     return matchesQ && matchesFilter;
   });
   filtered.sort((a, b) => {
@@ -171,9 +176,15 @@ function render() {
 }
 
 function renderFilters() {
-  const counts = { all: REPORTS.length, bullish: REPORTS.filter(r=>r.sentiment==='Bullish').length, bearish: REPORTS.filter(r=>r.sentiment==='Bearish').length, neutral: REPORTS.filter(r=>r.sentiment==='Neutral').length };
-  const opts = [['all','Alle'],['bullish','🟢 Bullish'],['bearish','🔴 Bearish'],['neutral','⚪ Neutral']];
-  document.getElementById('filters').innerHTML = opts.map(([val,label]) => `<button class="chip" type="button" data-val="${val}" aria-pressed="${activeFilter===val}">${label} (${counts[val]})</button>`).join('');
+  const counts = {
+    all: REPORTS.length,
+    bullish: REPORTS.filter(r=>r.sentiment==='Bullish').length,
+    bearish: REPORTS.filter(r=>r.sentiment==='Bearish').length,
+    neutral: REPORTS.filter(r=>r.sentiment==='Neutral').length,
+    highconviction: REPORTS.filter(r=>r.alignedReturn != null && r.alignedReturn >= 5).length,
+  };
+  const opts = [['all','Alle'],['highconviction','🏆 High-Conviction (≥5%)'],['bullish','🟢 Bullish'],['bearish','🔴 Bearish'],['neutral','⚪ Neutral']];
+  document.getElementById('filters').innerHTML = opts.map(([val,label]) => `<button class="chip${val==='highconviction'?' chip-highlight':''}" type="button" data-val="${val}" aria-pressed="${activeFilter===val}">${label} (${counts[val]})</button>`).join('');
   document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => { activeFilter = c.dataset.val; renderFilters(); render(); }));
 }
 

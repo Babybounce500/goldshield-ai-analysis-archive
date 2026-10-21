@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: VWS.CO
+Exported: 21.10.2026, 16:59:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+VWS.CO PRICE (USD): $187.20
+CHANGE: +$1.00 (+0.54%)
+TIMESTAMP: 21.10.2026, 16:59:00
+VOLUME: 1.589.854
+OPEN: $187.15
+HIGH: $188.40
+LOW: $184.70
+PREV CLOSE: $186.20
+52W HIGH: $220.20
+52W LOW: $119.45
+52W RANGE: $119.45 - $220.20
+SPREAD: 84.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($191.48) with negative momentum (-0.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 42.3
+MOMENTUM: -0.1%
+SMA20: $191.48
+VOLATILITY: 2.0%
+
+SINCE LAST SIGNAL
+Signal started: 22.9.2026
+Signal entry: $210.10
+Signal-aligned return: +10.90%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

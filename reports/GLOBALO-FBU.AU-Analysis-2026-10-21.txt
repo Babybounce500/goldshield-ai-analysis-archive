@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: FBU.AU
+Exported: 21.10.2026, 07:30:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+FBU.AU PRICE (USD): $2.69
+CHANGE: +$0.06 (+2.28%)
+TIMESTAMP: 21.10.2026, 07:30:00
+VOLUME: 1.136.661
+OPEN: $2.70
+HIGH: $2.75
+LOW: $2.66
+PREV CLOSE: $2.63
+52W HIGH: $3.44
+52W LOW: $2.22
+52W RANGE: $2.22 - $3.44
+SPREAD: 55.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($2.75) with negative momentum (-2.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 38.8
+MOMENTUM: -2.5%
+SMA20: $2.75
+VOLATILITY: 3.2%
+
+SINCE LAST SIGNAL
+Signal started: 3.9.2026
+Signal entry: $3.15
+Signal-aligned return: +14.60%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

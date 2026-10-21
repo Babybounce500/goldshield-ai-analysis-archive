@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: BNP.PA
+Exported: 21.10.2026, 17:37:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+BNP.PA PRICE (USD): $86.81
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 21.10.2026, 17:37:00
+VOLUME: 2.106.850
+OPEN: $86.85
+HIGH: $87.53
+LOW: $86.19
+PREV CLOSE: $86.81
+52W HIGH: $113.82
+52W LOW: $65.12
+52W RANGE: $65.12 - $113.82
+SPREAD: 74.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($91.99) with negative momentum (-5.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 26.7
+MOMENTUM: -5.0%
+SMA20: $91.99
+VOLATILITY: 1.6%
+
+SINCE LAST SIGNAL
+Signal started: 18.9.2026
+Signal entry: $100.74
+Signal-aligned return: +13.83%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

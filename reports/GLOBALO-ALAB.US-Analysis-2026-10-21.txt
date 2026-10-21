@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ALAB.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ALAB.US PRICE (USD): $290.99
+CHANGE: +$6.19 (+2.17%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 1.380.617
+OPEN: $294.50
+HIGH: $295.99
+LOW: $279.51
+PREV CLOSE: $284.80
+52W HIGH: $499.48
+52W LOW: $97.89
+52W RANGE: $97.89 - $499.48
+SPREAD: 410.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($339.50) with negative momentum (-26.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 37.3
+MOMENTUM: -26.9%
+SMA20: $339.50
+VOLATILITY: 7.2%
+
+SINCE LAST SIGNAL
+Signal started: 12.10.2026
+Signal entry: $324.11
+Signal-aligned return: +10.22%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

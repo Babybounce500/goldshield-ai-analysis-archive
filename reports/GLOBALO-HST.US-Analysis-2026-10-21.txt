@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: HST.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+HST.US PRICE (USD): $25.17
+CHANGE: +$0.36 (+1.47%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 5.588.330
+OPEN: $24.95
+HIGH: $25.27
+LOW: $24.82
+PREV CLOSE: $24.80
+52W HIGH: $25.71
+52W LOW: $15.61
+52W RANGE: $15.61 - $25.71
+SPREAD: 64.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($22.87) with positive momentum (10.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 76.7
+MOMENTUM: 10.3%
+SMA20: $22.87
+VOLATILITY: 3.1%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: $22.54
+Signal-aligned return: +11.65%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

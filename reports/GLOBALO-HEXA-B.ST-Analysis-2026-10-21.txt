@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: HEXA-B.ST
+Exported: 21.10.2026, 17:29:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+HEXA-B.ST PRICE (USD): $104.70
+CHANGE: +$0.45 (+0.43%)
+TIMESTAMP: 21.10.2026, 17:29:00
+VOLUME: 5.603.953
+OPEN: $104.25
+HIGH: $105.10
+LOW: $103.90
+PREV CLOSE: $104.25
+52W HIGH: $105.85
+52W LOW: $74.58
+52W RANGE: $74.58 - $105.85
+SPREAD: 41.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($101.95) with positive momentum (3.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 65.0
+MOMENTUM: 3.6%
+SMA20: $101.95
+VOLATILITY: 1.2%
+
+SINCE LAST SIGNAL
+Signal started: 22.9.2026
+Signal entry: $98.82
+Signal-aligned return: +5.95%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

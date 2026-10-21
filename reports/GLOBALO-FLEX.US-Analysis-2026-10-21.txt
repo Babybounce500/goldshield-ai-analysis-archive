@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: FLEX.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+FLEX.US PRICE (USD): $86.75
+CHANGE: -$0.74 (-0.85%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 6.332.931
+OPEN: $89.93
+HIGH: $90.41
+LOW: $85.94
+PREV CLOSE: $87.49
+52W HIGH: $166.86
+52W LOW: $53.07
+52W RANGE: $53.07 - $166.86
+SPREAD: 214.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($109.51) with negative momentum (-27.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 28.0
+MOMENTUM: -27.9%
+SMA20: $109.51
+VOLATILITY: 6.9%
+
+SINCE LAST SIGNAL
+Signal started: 13.10.2026
+Signal entry: $110.88
+Signal-aligned return: +21.76%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

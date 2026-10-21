@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ERIC-B.ST
+Exported: 21.10.2026, 17:30:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ERIC-B.ST PRICE (USD): $102.90
+CHANGE: -$1.95 (-1.86%)
+TIMESTAMP: 21.10.2026, 17:30:00
+VOLUME: 7.634.612
+OPEN: $104.60
+HIGH: $104.95
+LOW: $102.90
+PREV CLOSE: $104.85
+52W HIGH: $128.45
+52W LOW: $84.56
+52W RANGE: $84.56 - $128.45
+SPREAD: 51.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($96.51) with positive momentum (8.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 61.0
+MOMENTUM: 8.4%
+SMA20: $96.51
+VOLATILITY: 2.0%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: $97.10
+Signal-aligned return: +5.97%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

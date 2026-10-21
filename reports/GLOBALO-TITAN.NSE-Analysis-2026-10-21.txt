@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TITAN.NSE
+Exported: 21.10.2026, 11:59:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TITAN.NSE PRICE (USD): $4,380.90
+CHANGE: -$43.30 (-0.98%)
+TIMESTAMP: 21.10.2026, 11:59:00
+VOLUME: 511.338
+OPEN: $4,431.00
+HIGH: $4,442.50
+LOW: $4,351.00
+PREV CLOSE: $4,424.20
+52W HIGH: $5,186.70
+52W LOW: $3,667.30
+52W RANGE: $3,667.30 - $5,186.70
+SPREAD: 41.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($4,551.13) with negative momentum (-3.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 31.9
+MOMENTUM: -3.7%
+SMA20: $4,551.13
+VOLATILITY: 2.1%
+
+SINCE LAST SIGNAL
+Signal started: 3.9.2026
+Signal entry: $5,027.00
+Signal-aligned return: +12.85%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

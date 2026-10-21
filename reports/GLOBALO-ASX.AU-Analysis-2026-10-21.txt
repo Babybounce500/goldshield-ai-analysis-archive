@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ASX.AU
+Exported: 21.10.2026, 08:06:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ASX.AU PRICE (USD): $64.25
+CHANGE: +$0.74 (+1.17%)
+TIMESTAMP: 21.10.2026, 08:06:00
+VOLUME: 731.495
+OPEN: $63.90
+HIGH: $64.25
+LOW: $63.65
+PREV CLOSE: $63.51
+52W HIGH: $64.25
+52W LOW: $44.30
+52W RANGE: $44.30 - $64.25
+SPREAD: 45.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($60.16) with positive momentum (10.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 77.3
+MOMENTUM: 10.1%
+SMA20: $60.16
+VOLATILITY: 0.9%
+
+SINCE LAST SIGNAL
+Signal started: 21.9.2026
+Signal entry: $56.74
+Signal-aligned return: +13.24%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

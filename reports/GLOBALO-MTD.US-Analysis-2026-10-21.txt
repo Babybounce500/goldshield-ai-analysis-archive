@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: MTD.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+MTD.US PRICE (USD): $1,674.28
+CHANGE: +$40.27 (+2.46%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 86.270
+OPEN: $1,606.00
+HIGH: $1,677.45
+LOW: $1,606.00
+PREV CLOSE: $1,634.01
+52W HIGH: $1,659.70
+52W LOW: $1,023.05
+52W RANGE: $1,023.05 - $1,659.70
+SPREAD: 62.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($1,553.15) with positive momentum (6.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 72.7
+MOMENTUM: 6.6%
+SMA20: $1,553.15
+VOLATILITY: 2.3%
+
+SINCE LAST SIGNAL
+Signal started: 16.9.2026
+Signal entry: $1,378.69
+Signal-aligned return: +21.44%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

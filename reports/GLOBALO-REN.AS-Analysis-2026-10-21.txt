@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: REN.AS
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+REN.AS PRICE (USD): $35.60
+CHANGE: +$0.68 (+1.95%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 1.028.661
+OPEN: $34.62
+HIGH: $35.60
+LOW: $34.58
+PREV CLOSE: $34.92
+52W HIGH: $40.68
+52W LOW: $23.08
+52W RANGE: $23.08 - $40.68
+SPREAD: 76.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($31.64) with positive momentum (15.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 83.1
+MOMENTUM: 15.7%
+SMA20: $31.64
+VOLATILITY: 2.9%
+
+SINCE LAST SIGNAL
+Signal started: 2.10.2026
+Signal entry: $29.74
+Signal-aligned return: +19.70%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

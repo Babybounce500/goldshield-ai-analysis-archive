@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TSCO.LSE
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TSCO.LSE PRICE (GBP): £538.00
+CHANGE: -£1.00 (-0.19%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 13.851.125
+OPEN: £535.00
+HIGH: £540.20
+LOW: £534.00
+PREV CLOSE: £539.00
+52W HIGH: £622.50
+52W LOW: £411.70
+52W RANGE: £411.70 - £622.50
+SPREAD: 51.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (£498.64) with positive momentum (13.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 77.9
+MOMENTUM: 13.1%
+SMA20: £498.64
+VOLATILITY: 1.2%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: £475.80
+Signal-aligned return: +13.07%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

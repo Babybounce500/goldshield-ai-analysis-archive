@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: IFT.AU
+Exported: 21.10.2026, 07:30:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+IFT.AU PRICE (USD): $9.97
+CHANGE: +$0.19 (+1.94%)
+TIMESTAMP: 21.10.2026, 07:30:00
+VOLUME: 811.469
+OPEN: $9.74
+HIGH: $10.05
+LOW: $9.32
+PREV CLOSE: $9.78
+52W HIGH: $13.34
+52W LOW: $8.78
+52W RANGE: $8.78 - $13.34
+SPREAD: 51.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($10.82) with negative momentum (-9.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 25.8
+MOMENTUM: -9.2%
+SMA20: $10.82
+VOLATILITY: 7.9%
+
+SINCE LAST SIGNAL
+Signal started: 1.10.2026
+Signal entry: $11.20
+Signal-aligned return: +10.98%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: CVNA.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+CVNA.US PRICE (USD): $59.82
+CHANGE: -$0.45 (-0.74%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 4.285.799
+OPEN: $61.58
+HIGH: $62.07
+LOW: $59.28
+PREV CLOSE: $60.26
+52W HIGH: $486.89
+52W LOW: $56.12
+52W RANGE: $56.12 - $486.89
+SPREAD: 767.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($62.01) with negative momentum (-5.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 42.4
+MOMENTUM: -5.7%
+SMA20: $62.01
+VOLATILITY: 5.3%
+
+SINCE LAST SIGNAL
+Signal started: 10.9.2026
+Signal entry: $70.28
+Signal-aligned return: +14.89%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

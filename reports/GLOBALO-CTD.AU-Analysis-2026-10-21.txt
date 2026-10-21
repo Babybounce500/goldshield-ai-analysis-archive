@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: CTD.AU
+Exported: 21.10.2026, 07:10:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+CTD.AU PRICE (USD): $3.29
+CHANGE: +$0.23 (+7.52%)
+TIMESTAMP: 21.10.2026, 07:10:00
+VOLUME: 2.467.280
+OPEN: $3.15
+HIGH: $3.32
+LOW: $3.10
+PREV CLOSE: $3.06
+52W HIGH: $16.07
+52W LOW: $1.97
+52W RANGE: $1.97 - $16.07
+SPREAD: 715.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($2.46) with positive momentum (49.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 45.3
+MOMENTUM: 49.5%
+SMA20: $2.46
+VOLATILITY: 7.1%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: $2.62
+Signal-aligned return: +25.57%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: UMI.BR
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+UMI.BR PRICE (USD): $18.76
+CHANGE: +$0.18 (+0.97%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 470.186
+OPEN: $18.63
+HIGH: $18.94
+LOW: $18.58
+PREV CLOSE: $18.58
+52W HIGH: $26.98
+52W LOW: $14.19
+52W RANGE: $14.19 - $26.98
+SPREAD: 90.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($20.61) with negative momentum (-9.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 26.9
+MOMENTUM: -9.5%
+SMA20: $20.61
+VOLATILITY: 2.0%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: $20.54
+Signal-aligned return: +8.67%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

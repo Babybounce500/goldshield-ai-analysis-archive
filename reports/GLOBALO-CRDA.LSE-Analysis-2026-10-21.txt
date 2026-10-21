@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: CRDA.LSE
+Exported: 21.10.2026, 17:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+CRDA.LSE PRICE (GBP): £3,625.00
+CHANGE: +£29.00 (+0.81%)
+TIMESTAMP: 21.10.2026, 17:36:00
+VOLUME: 260.689
+OPEN: £3,579.00
+HIGH: £3,637.00
+LOW: £3,565.00
+PREV CLOSE: £3,596.00
+52W HIGH: £3,649.00
+52W LOW: £2,488.00
+52W RANGE: £2,488.00 - £3,649.00
+SPREAD: 46.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (£3,406.65) with positive momentum (8.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 73.0
+MOMENTUM: 8.6%
+SMA20: £3,406.65
+VOLATILITY: 1.6%
+
+SINCE LAST SIGNAL
+Signal started: 28.9.2026
+Signal entry: £3,255.00
+Signal-aligned return: +11.37%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

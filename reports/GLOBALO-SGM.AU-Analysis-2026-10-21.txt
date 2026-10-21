@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SGM.AU
+Exported: 21.10.2026, 08:06:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SGM.AU PRICE (USD): $20.41
+CHANGE: -$0.14 (-0.68%)
+TIMESTAMP: 21.10.2026, 08:06:00
+VOLUME: 904.932
+OPEN: $20.80
+HIGH: $20.89
+LOW: $20.17
+PREV CLOSE: $20.55
+52W HIGH: $31.81
+52W LOW: $14.06
+52W RANGE: $14.06 - $31.81
+SPREAD: 126.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($22.73) with negative momentum (-11.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 26.5
+MOMENTUM: -11.7%
+SMA20: $22.73
+VOLATILITY: 3.6%
+
+SINCE LAST SIGNAL
+Signal started: 30.9.2026
+Signal entry: $23.91
+Signal-aligned return: +14.64%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

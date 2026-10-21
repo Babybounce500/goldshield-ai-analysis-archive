@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SLR.MC
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SLR.MC PRICE (USD): $14.84
+CHANGE: +$0.15 (+0.99%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 650.919
+OPEN: $14.74
+HIGH: $14.95
+LOW: $14.61
+PREV CLOSE: $14.69
+52W HIGH: $25.85
+52W LOW: $14.37
+52W RANGE: $14.37 - $25.85
+SPREAD: 80.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($15.90) with negative momentum (-7.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 37.7
+MOMENTUM: -7.9%
+SMA20: $15.90
+VOLATILITY: 2.3%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: $15.71
+Signal-aligned return: +5.54%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

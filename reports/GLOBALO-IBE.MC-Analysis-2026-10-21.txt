@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: IBE.MC
+Exported: 21.10.2026, 17:37:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+IBE.MC PRICE (USD): $21.54
+CHANGE: +$0.31 (+1.46%)
+TIMESTAMP: 21.10.2026, 17:37:00
+VOLUME: 6.710.994
+OPEN: $21.20
+HIGH: $21.54
+LOW: $21.09
+PREV CLOSE: $21.23
+52W HIGH: $22.08
+52W LOW: $16.86
+52W RANGE: $16.86 - $22.08
+SPREAD: 31.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($21.05) with positive momentum (2.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 62.6
+MOMENTUM: 2.9%
+SMA20: $21.05
+VOLATILITY: 2.1%
+
+SINCE LAST SIGNAL
+Signal started: 15.9.2026
+Signal entry: $20.04
+Signal-aligned return: +7.49%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

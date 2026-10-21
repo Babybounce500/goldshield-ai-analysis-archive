@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: EOS.AU
+Exported: 21.10.2026, 07:30:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+EOS.AU PRICE (USD): $9.27
+CHANGE: +$0.26 (+2.89%)
+TIMESTAMP: 21.10.2026, 07:30:00
+VOLUME: 1.954.059
+OPEN: $9.17
+HIGH: $9.34
+LOW: $9.01
+PREV CLOSE: $9.01
+52W HIGH: $12.91
+52W LOW: $4.27
+52W RANGE: $4.27 - $12.91
+SPREAD: 202.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($10.36) with negative momentum (-19.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 43.9
+MOMENTUM: -19.5%
+SMA20: $10.36
+VOLATILITY: 3.7%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: $10.58
+Signal-aligned return: +12.38%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

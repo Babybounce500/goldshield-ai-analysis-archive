@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SREN.SW
+Exported: 21.10.2026, 17:31:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SREN.SW PRICE (USD): $152.70
+CHANGE: +$0.45 (+0.30%)
+TIMESTAMP: 21.10.2026, 17:31:00
+VOLUME: 595.945
+OPEN: $151.80
+HIGH: $152.80
+LOW: $151.15
+PREV CLOSE: $152.25
+52W HIGH: $153.80
+52W LOW: $114.05
+52W RANGE: $114.05 - $153.80
+SPREAD: 34.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($144.76) with positive momentum (6.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 75.5
+MOMENTUM: 6.2%
+SMA20: $144.76
+VOLATILITY: 1.1%
+
+SINCE LAST SIGNAL
+Signal started: 2.10.2026
+Signal entry: $141.45
+Signal-aligned return: +7.95%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

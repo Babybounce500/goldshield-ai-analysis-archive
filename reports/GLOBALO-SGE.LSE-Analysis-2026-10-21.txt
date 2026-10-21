@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SGE.LSE
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SGE.LSE PRICE (GBP): £1,155.50
+CHANGE: +£10.00 (+0.87%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 3.234.623
+OPEN: £1,142.50
+HIGH: £1,155.50
+LOW: £1,134.00
+PREV CLOSE: £1,145.50
+52W HIGH: £1,181.00
+52W LOW: £771.66
+52W RANGE: £771.66 - £1,181.00
+SPREAD: 53.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (£1,047.57) with positive momentum (13.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 72.8
+MOMENTUM: 13.1%
+SMA20: £1,047.57
+VOLATILITY: 1.9%
+
+SINCE LAST SIGNAL
+Signal started: 6.10.2026
+Signal entry: £1,005.00
+Signal-aligned return: +14.98%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

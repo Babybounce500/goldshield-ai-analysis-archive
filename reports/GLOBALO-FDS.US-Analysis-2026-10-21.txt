@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: FDS.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+FDS.US PRICE (USD): $319.42
+CHANGE: +$7.15 (+2.29%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 303.974
+OPEN: $314.40
+HIGH: $320.25
+LOW: $308.22
+PREV CLOSE: $312.27
+52W HIGH: $320.48
+52W LOW: $185.00
+52W RANGE: $185.00 - $320.48
+SPREAD: 73.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($282.40) with positive momentum (14.8%). This is a descriptive technical state, not a trade instruction.
+RSI: 67.8
+MOMENTUM: 14.8%
+SMA20: $282.40
+VOLATILITY: 2.1%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: $286.52
+Signal-aligned return: +11.48%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ILU.AU
+Exported: 21.10.2026, 07:30:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ILU.AU PRICE (USD): $5.17
+CHANGE: -$0.02 (-0.39%)
+TIMESTAMP: 21.10.2026, 07:30:00
+VOLUME: 1.666.712
+OPEN: $5.25
+HIGH: $5.25
+LOW: $5.15
+PREV CLOSE: $5.19
+52W HIGH: $8.69
+52W LOW: $4.92
+52W RANGE: $4.92 - $8.69
+SPREAD: 76.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($5.61) with negative momentum (-12.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 32.2
+MOMENTUM: -12.2%
+SMA20: $5.61
+VOLATILITY: 1.9%
+
+SINCE LAST SIGNAL
+Signal started: 30.9.2026
+Signal entry: $6.03
+Signal-aligned return: +14.26%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

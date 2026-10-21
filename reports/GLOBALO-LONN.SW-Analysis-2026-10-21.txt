@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: LONN.SW
+Exported: 21.10.2026, 17:31:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+LONN.SW PRICE (USD): $623.60
+CHANGE: -$1.40 (-0.22%)
+TIMESTAMP: 21.10.2026, 17:31:00
+VOLUME: 197.247
+OPEN: $624.00
+HIGH: $627.80
+LOW: $616.20
+PREV CLOSE: $625.00
+52W HIGH: $627.80
+52W LOW: $454.60
+52W RANGE: $454.60 - $627.80
+SPREAD: 38.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($583.40) with positive momentum (8.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 71.3
+MOMENTUM: 8.0%
+SMA20: $583.40
+VOLATILITY: 1.9%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: $585.40
+Signal-aligned return: +6.53%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

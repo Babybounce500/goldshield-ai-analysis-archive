@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: LRCX.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+LRCX.US PRICE (USD): $263.07
+CHANGE: -$0.38 (-0.14%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 9.327.551
+OPEN: $270.90
+HIGH: $270.90
+LOW: $259.04
+PREV CLOSE: $263.45
+52W HIGH: $438.50
+52W LOW: $135.50
+52W RANGE: $135.50 - $438.50
+SPREAD: 223.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($310.37) with negative momentum (-21.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 32.5
+MOMENTUM: -21.1%
+SMA20: $310.37
+VOLATILITY: 4.1%
+
+SINCE LAST SIGNAL
+Signal started: 12.10.2026
+Signal entry: $309.56
+Signal-aligned return: +15.02%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: CTSH.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+CTSH.US PRICE (USD): $69.32
+CHANGE: +$1.14 (+1.67%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 4.202.220
+OPEN: $68.54
+HIGH: $69.56
+LOW: $67.79
+PREV CLOSE: $68.18
+52W HIGH: $87.03
+52W LOW: $37.08
+52W RANGE: $37.08 - $87.03
+SPREAD: 134.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($60.30) with positive momentum (19.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 71.5
+MOMENTUM: 19.2%
+SMA20: $60.30
+VOLATILITY: 2.2%
+
+SINCE LAST SIGNAL
+Signal started: 12.10.2026
+Signal entry: $59.68
+Signal-aligned return: +16.15%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

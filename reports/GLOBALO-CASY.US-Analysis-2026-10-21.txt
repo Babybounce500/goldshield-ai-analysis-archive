@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: CASY.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+CASY.US PRICE (USD): $691.93
+CHANGE: +$7.42 (+1.08%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 276.937
+OPEN: $681.00
+HIGH: $693.71
+LOW: $680.79
+PREV CLOSE: $684.51
+52W HIGH: $927.85
+52W LOW: $497.38
+52W RANGE: $497.38 - $927.85
+SPREAD: 86.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($634.43) with positive momentum (10.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 60.3
+MOMENTUM: 10.3%
+SMA20: $634.43
+VOLATILITY: 3.9%
+
+SINCE LAST SIGNAL
+Signal started: 5.10.2026
+Signal entry: $617.33
+Signal-aligned return: +12.08%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

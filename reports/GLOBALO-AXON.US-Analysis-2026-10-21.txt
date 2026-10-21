@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: AXON.US
+Exported: 21.10.2026, 21:34:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+AXON.US PRICE (USD): $398.93
+CHANGE: +$6.29 (+1.60%)
+TIMESTAMP: 21.10.2026, 21:34:00
+VOLUME: 584.649
+OPEN: $396.40
+HIGH: $401.17
+LOW: $391.00
+PREV CLOSE: $392.64
+52W HIGH: $764.02
+52W LOW: $339.01
+52W RANGE: $339.01 - $764.02
+SPREAD: 125.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($416.21) with negative momentum (-6.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 35.1
+MOMENTUM: -6.2%
+SMA20: $416.21
+VOLATILITY: 6.0%
+
+SINCE LAST SIGNAL
+Signal started: 28.8.2026
+Signal entry: $600.73
+Signal-aligned return: +33.59%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

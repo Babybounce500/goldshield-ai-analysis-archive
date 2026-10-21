@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: JD.LSE
+Exported: 21.10.2026, 17:37:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+JD.LSE PRICE (GBP): £91.16
+CHANGE: +£0.80 (+0.89%)
+TIMESTAMP: 21.10.2026, 17:37:00
+VOLUME: 12.330.923
+OPEN: £89.08
+HIGH: £91.33
+LOW: £87.86
+PREV CLOSE: £90.36
+52W HIGH: £101.95
+52W LOW: £63.98
+52W RANGE: £63.98 - £101.95
+SPREAD: 59.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (£84.43) with positive momentum (9.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 65.2
+MOMENTUM: 9.2%
+SMA20: £84.43
+VOLATILITY: 3.9%
+
+SINCE LAST SIGNAL
+Signal started: 28.9.2026
+Signal entry: £79.18
+Signal-aligned return: +15.13%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SDF.XETRA
+Exported: 21.10.2026, 17:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SDF.XETRA PRICE (EUR): €12.72
+CHANGE: -€0.28 (-2.15%)
+TIMESTAMP: 21.10.2026, 17:36:00
+VOLUME: 1.146.886
+OPEN: €12.96
+HIGH: €13.14
+LOW: €12.72
+PREV CLOSE: €13.00
+52W HIGH: €18.69
+52W LOW: €10.35
+52W RANGE: €10.35 - €18.69
+SPREAD: 80.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 (€14.60) with negative momentum (-16.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 18.4
+MOMENTUM: -16.0%
+SMA20: €14.60
+VOLATILITY: 3.3%
+
+SINCE LAST SIGNAL
+Signal started: 17.9.2026
+Signal entry: €16.57
+Signal-aligned return: +23.23%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

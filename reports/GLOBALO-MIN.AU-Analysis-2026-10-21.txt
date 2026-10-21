@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: MIN.AU
+Exported: 21.10.2026, 08:17:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+MIN.AU PRICE (USD): $45.34
+CHANGE: -$0.12 (-0.26%)
+TIMESTAMP: 21.10.2026, 08:17:00
+VOLUME: 1.215.977
+OPEN: $45.81
+HIGH: $46.46
+LOW: $45.20
+PREV CLOSE: $45.46
+52W HIGH: $74.94
+52W LOW: $40.50
+52W RANGE: $40.50 - $74.94
+SPREAD: 85.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($49.13) with negative momentum (-12.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 30.1
+MOMENTUM: -12.7%
+SMA20: $49.13
+VOLATILITY: 2.8%
+
+SINCE LAST SIGNAL
+Signal started: 2.9.2026
+Signal entry: $62.14
+Signal-aligned return: +27.04%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TRI.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TRI.US PRICE (USD): $115.22
+CHANGE: +$2.40 (+2.12%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 1.075.929
+OPEN: $112.37
+HIGH: $116.17
+LOW: $111.55
+PREV CLOSE: $112.82
+52W HIGH: $164.30
+52W LOW: $76.28
+52W RANGE: $76.28 - $164.30
+SPREAD: 115.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($101.88) with positive momentum (15.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 69.9
+MOMENTUM: 15.0%
+SMA20: $101.88
+VOLATILITY: 3.4%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: $99.28
+Signal-aligned return: +16.05%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

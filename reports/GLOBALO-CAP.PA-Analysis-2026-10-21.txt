@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: CAP.PA
+Exported: 21.10.2026, 17:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+CAP.PA PRICE (USD): $125.05
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 21.10.2026, 17:36:00
+VOLUME: 647.432
+OPEN: $123.20
+HIGH: $126.05
+LOW: $122.20
+PREV CLOSE: $125.05
+52W HIGH: $153.05
+52W LOW: $85.62
+52W RANGE: $85.62 - $153.05
+SPREAD: 78.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($113.13) with positive momentum (12.8%). This is a descriptive technical state, not a trade instruction.
+RSI: 73.0
+MOMENTUM: 12.8%
+SMA20: $113.13
+VOLATILITY: 3.2%
+
+SINCE LAST SIGNAL
+Signal started: 1.10.2026
+Signal entry: $112.10
+Signal-aligned return: +11.55%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

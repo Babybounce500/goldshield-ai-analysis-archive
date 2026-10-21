@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ABB.ST
+Exported: 21.10.2026, 17:29:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ABB.ST PRICE (USD): $860.60
+CHANGE: +$7.20 (+0.84%)
+TIMESTAMP: 21.10.2026, 17:29:00
+VOLUME: 1.644.271
+OPEN: $862.20
+HIGH: $867.00
+LOW: $852.60
+PREV CLOSE: $853.40
+52W HIGH: $1,058.50
+52W LOW: $638.80
+52W RANGE: $638.80 - $1,058.50
+SPREAD: 65.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($945.27) with negative momentum (-10.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 30.2
+MOMENTUM: -10.4%
+SMA20: $945.27
+VOLATILITY: 1.7%
+
+SINCE LAST SIGNAL
+Signal started: 13.10.2026
+Signal entry: $955.00
+Signal-aligned return: +9.88%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

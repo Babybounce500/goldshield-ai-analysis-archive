@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: NDA.XETRA
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+NDA.XETRA PRICE (EUR): €140.50
+CHANGE: -€2.00 (-1.40%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 93.024
+OPEN: €142.20
+HIGH: €144.50
+LOW: €139.90
+PREV CLOSE: €142.50
+52W HIGH: €225.20
+52W LOW: €104.80
+52W RANGE: €104.80 - €225.20
+SPREAD: 114.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 (€156.66) with negative momentum (-9.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 26.5
+MOMENTUM: -9.3%
+SMA20: €156.66
+VOLATILITY: 3.3%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: €153.80
+Signal-aligned return: +8.65%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

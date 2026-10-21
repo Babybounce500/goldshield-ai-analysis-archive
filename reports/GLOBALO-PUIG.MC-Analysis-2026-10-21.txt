@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: PUIG.MC
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+PUIG.MC PRICE (USD): $19.59
+CHANGE: +$0.22 (+1.14%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 427.136
+OPEN: $19.32
+HIGH: $19.59
+LOW: $19.32
+PREV CLOSE: $19.37
+52W HIGH: $19.63
+52W LOW: $13.46
+52W RANGE: $13.46 - $19.63
+SPREAD: 45.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($18.41) with positive momentum (7.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 72.1
+MOMENTUM: 7.9%
+SMA20: $18.41
+VOLATILITY: 1.4%
+
+SINCE LAST SIGNAL
+Signal started: 24.9.2026
+Signal entry: $17.73
+Signal-aligned return: +10.49%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

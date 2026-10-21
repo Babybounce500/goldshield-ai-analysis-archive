@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: BP.LSE
+Exported: 21.10.2026, 17:38:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+BP.LSE PRICE (GBP): £617.10
+CHANGE: +£11.30 (+1.87%)
+TIMESTAMP: 21.10.2026, 17:38:00
+VOLUME: 24.392.802
+OPEN: £618.00
+HIGH: £621.00
+LOW: £613.40
+PREV CLOSE: £605.80
+52W HIGH: £622.70
+52W LOW: £411.35
+52W RANGE: £411.35 - £622.70
+SPREAD: 51.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (£582.11) with positive momentum (9.8%). This is a descriptive technical state, not a trade instruction.
+RSI: 68.6
+MOMENTUM: 9.8%
+SMA20: £582.11
+VOLATILITY: 1.2%
+
+SINCE LAST SIGNAL
+Signal started: 5.10.2026
+Signal entry: £563.20
+Signal-aligned return: +9.57%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

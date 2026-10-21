@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: COHR.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+COHR.US PRICE (USD): $239.31
+CHANGE: +$7.51 (+3.24%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 3.816.235
+OPEN: $240.14
+HIGH: $243.64
+LOW: $232.86
+PREV CLOSE: $231.80
+52W HIGH: $440.00
+52W LOW: $112.96
+52W RANGE: $112.96 - $440.00
+SPREAD: 289.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($290.80) with negative momentum (-31.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 33.2
+MOMENTUM: -31.5%
+SMA20: $290.80
+VOLATILITY: 8.6%
+
+SINCE LAST SIGNAL
+Signal started: 13.10.2026
+Signal entry: $289.98
+Signal-aligned return: +17.47%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

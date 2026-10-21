@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SHL.XETRA
+Exported: 21.10.2026, 17:37:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SHL.XETRA PRICE (EUR): €41.71
+CHANGE: +€0.27 (+0.65%)
+TIMESTAMP: 21.10.2026, 17:37:00
+VOLUME: 911.724
+OPEN: €41.16
+HIGH: €41.95
+LOW: €40.88
+PREV CLOSE: €41.44
+52W HIGH: €49.71
+52W LOW: €32.81
+52W RANGE: €32.81 - €49.71
+SPREAD: 51.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (€39.17) with positive momentum (8.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 70.5
+MOMENTUM: 8.2%
+SMA20: €39.17
+VOLATILITY: 2.6%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: €38.56
+Signal-aligned return: +8.17%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

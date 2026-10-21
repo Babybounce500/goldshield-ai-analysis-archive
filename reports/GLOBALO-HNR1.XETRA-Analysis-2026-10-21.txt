@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: HNR1.XETRA
+Exported: 21.10.2026, 17:39:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+HNR1.XETRA PRICE (EUR): €277.60
+CHANGE: +€1.80 (+0.65%)
+TIMESTAMP: 21.10.2026, 17:39:00
+VOLUME: 105.956
+OPEN: €274.40
+HIGH: €277.60
+LOW: €273.80
+PREV CLOSE: €275.80
+52W HIGH: €281.20
+52W LOW: €223.40
+52W RANGE: €223.40 - €281.20
+SPREAD: 25.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (€263.49) with positive momentum (6.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 74.5
+MOMENTUM: 6.0%
+SMA20: €263.49
+VOLATILITY: 1.4%
+
+SINCE LAST SIGNAL
+Signal started: 2.10.2026
+Signal entry: €255.00
+Signal-aligned return: +8.86%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: MKS.LSE
+Exported: 21.10.2026, 17:39:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+MKS.LSE PRICE (GBP): £422.10
+CHANGE: +£1.30 (+0.31%)
+TIMESTAMP: 21.10.2026, 17:39:00
+VOLUME: 5.747.655
+OPEN: £419.00
+HIGH: £424.62
+LOW: £415.90
+PREV CLOSE: £420.80
+52W HIGH: £429.40
+52W LOW: £301.10
+52W RANGE: £301.10 - £429.40
+SPREAD: 42.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (£395.05) with positive momentum (7.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 71.7
+MOMENTUM: 7.2%
+SMA20: £395.05
+VOLATILITY: 2.1%
+
+SINCE LAST SIGNAL
+Signal started: 28.9.2026
+Signal entry: £377.60
+Signal-aligned return: +11.78%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

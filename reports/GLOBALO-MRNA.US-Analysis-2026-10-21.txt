@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: MRNA.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+MRNA.US PRICE (USD): $252.26
+CHANGE: +$10.17 (+4.20%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 12.426.949
+OPEN: $242.15
+HIGH: $254.48
+LOW: $239.55
+PREV CLOSE: $242.08
+52W HIGH: $243.98
+52W LOW: $22.28
+52W RANGE: $22.28 - $243.98
+SPREAD: 995.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($206.85) with positive momentum (29.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 68.2
+MOMENTUM: 29.1%
+SMA20: $206.85
+VOLATILITY: 12.6%
+
+SINCE LAST SIGNAL
+Signal started: 17.9.2026
+Signal entry: $158.07
+Signal-aligned return: +59.58%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

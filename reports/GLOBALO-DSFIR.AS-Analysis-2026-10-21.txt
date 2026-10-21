@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: DSFIR.AS
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+DSFIR.AS PRICE (USD): $107.85
+CHANGE: +$0.35 (+0.33%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 545.736
+OPEN: $106.90
+HIGH: $108.40
+LOW: $106.65
+PREV CLOSE: $107.50
+52W HIGH: $109.85
+52W LOW: $55.22
+52W RANGE: $55.22 - $109.85
+SPREAD: 98.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($101.28) with positive momentum (7.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 68.7
+MOMENTUM: 7.7%
+SMA20: $101.28
+VOLATILITY: 1.6%
+
+SINCE LAST SIGNAL
+Signal started: 9.10.2026
+Signal entry: $100.65
+Signal-aligned return: +7.15%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

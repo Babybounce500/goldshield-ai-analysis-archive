@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: MOS.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+MOS.US PRICE (USD): $17.74
+CHANGE: -$0.13 (-0.70%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 8.804.017
+OPEN: $17.86
+HIGH: $18.29
+LOW: $17.51
+PREV CLOSE: $17.86
+52W HIGH: $32.25
+52W LOW: $17.75
+52W RANGE: $17.75 - $32.25
+SPREAD: 81.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($20.56) with negative momentum (-14.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 22.4
+MOMENTUM: -14.7%
+SMA20: $20.56
+VOLATILITY: 1.8%
+
+SINCE LAST SIGNAL
+Signal started: 18.9.2026
+Signal entry: $24.48
+Signal-aligned return: +27.55%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: AZE.BR
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+AZE.BR PRICE (USD): $12.70
+CHANGE: -$0.32 (-2.46%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 282.597
+OPEN: $13.15
+HIGH: $13.15
+LOW: $12.69
+PREV CLOSE: $13.02
+52W HIGH: $13.57
+52W LOW: $6.88
+52W RANGE: $6.88 - $13.57
+SPREAD: 97.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($12.44) with positive momentum (5.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 53.7
+MOMENTUM: 5.7%
+SMA20: $12.44
+VOLATILITY: 3.6%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: $12.01
+Signal-aligned return: +5.75%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

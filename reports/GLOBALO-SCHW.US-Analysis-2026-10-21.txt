@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SCHW.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SCHW.US PRICE (USD): $91.53
+CHANGE: +$0.64 (+0.70%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 4.148.555
+OPEN: $91.63
+HIGH: $92.25
+LOW: $90.81
+PREV CLOSE: $90.89
+52W HIGH: $114.53
+52W LOW: $83.96
+52W RANGE: $83.96 - $114.53
+SPREAD: 36.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($96.43) with negative momentum (-6.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 29.6
+MOMENTUM: -6.1%
+SMA20: $96.43
+VOLATILITY: 2.4%
+
+SINCE LAST SIGNAL
+Signal started: 4.9.2026
+Signal entry: $109.29
+Signal-aligned return: +16.25%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

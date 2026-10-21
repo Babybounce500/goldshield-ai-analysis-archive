@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SXQR.INDX
+Exported: 20.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SXQR.INDX PRICE (USD): $2,361.77
+CHANGE: +$3.34 (+0.14%)
+TIMESTAMP: 20.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $2,358.43
+52W HIGH: $2,604.47
+52W LOW: $2,150.26
+52W RANGE: $2,150.26 - $2,604.47
+SPREAD: 21.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($2,264.75) with positive momentum (6.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 65.1
+MOMENTUM: 6.4%
+SMA20: $2,264.75
+VOLATILITY: 0.8%
+
+SINCE LAST SIGNAL
+Signal started: 9.10.2026
+Signal entry: $2,248.98
+Signal-aligned return: +5.02%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SU.TO
+Exported: 21.10.2026, 21:31:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SU.TO PRICE (USD): $110.94
+CHANGE: +$0.83 (+0.75%)
+TIMESTAMP: 21.10.2026, 21:31:00
+VOLUME: 1.266.548
+OPEN: $109.83
+HIGH: $112.07
+LOW: $109.61
+PREV CLOSE: $110.11
+52W HIGH: $112.04
+52W LOW: $53.02
+52W RANGE: $53.02 - $112.04
+SPREAD: 111.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($101.00) with positive momentum (12.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 74.6
+MOMENTUM: 12.4%
+SMA20: $101.00
+VOLATILITY: 3.9%
+
+SINCE LAST SIGNAL
+Signal started: 30.9.2026
+Signal entry: $96.50
+Signal-aligned return: +14.96%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

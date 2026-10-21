@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: DJUSCC.INDX
+Exported: 21.10.2026, 21:26:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+DJUSCC.INDX PRICE (USD): $788.47
+CHANGE: -$5.24 (-0.66%)
+TIMESTAMP: 21.10.2026, 21:26:00
+VOLUME: 8.427.517
+OPEN: $788.71
+HIGH: $793.21
+LOW: $787.05
+PREV CLOSE: $793.71
+52W HIGH: $841.51
+52W LOW: $608.90
+52W RANGE: $608.90 - $841.51
+SPREAD: 38.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($761.12) with positive momentum (5.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 70.4
+MOMENTUM: 5.2%
+SMA20: $761.12
+VOLATILITY: 0.8%
+
+SINCE LAST SIGNAL
+Signal started: 2.10.2026
+Signal entry: $748.76
+Signal-aligned return: +5.30%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

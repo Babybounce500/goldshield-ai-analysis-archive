@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: COLO-B.CO
+Exported: 21.10.2026, 16:59:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+COLO-B.CO PRICE (USD): $469.40
+CHANGE: -$6.60 (-1.39%)
+TIMESTAMP: 21.10.2026, 16:59:00
+VOLUME: 287.159
+OPEN: $473.40
+HIGH: $475.40
+LOW: $468.90
+PREV CLOSE: $476.00
+52W HIGH: $631.40
+52W LOW: $369.70
+52W RANGE: $369.70 - $631.40
+SPREAD: 70.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($437.48) with positive momentum (10.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 67.3
+MOMENTUM: 10.1%
+SMA20: $437.48
+VOLATILITY: 1.4%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: $426.30
+Signal-aligned return: +10.11%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

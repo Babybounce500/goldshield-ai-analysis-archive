@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: ADANIENT.NSE
+Exported: 21.10.2026, 11:59:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+ADANIENT.NSE PRICE (USD): $2,594.50
+CHANGE: -$63.00 (-2.37%)
+TIMESTAMP: 21.10.2026, 11:59:00
+VOLUME: 956.603
+OPEN: $2,674.00
+HIGH: $2,685.00
+LOW: $2,567.60
+PREV CLOSE: $2,657.50
+52W HIGH: $3,245.00
+52W LOW: $1,753.00
+52W RANGE: $1,753.00 - $3,245.00
+SPREAD: 85.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($2,776.48) with negative momentum (-9.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 34.1
+MOMENTUM: -9.0%
+SMA20: $2,776.48
+VOLATILITY: 4.6%
+
+SINCE LAST SIGNAL
+Signal started: 30.9.2026
+Signal entry: $2,903.40
+Signal-aligned return: +10.64%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

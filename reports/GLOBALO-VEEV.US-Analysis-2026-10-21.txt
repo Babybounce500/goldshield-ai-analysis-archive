@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: VEEV.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+VEEV.US PRICE (USD): $319.74
+CHANGE: +$1.06 (+0.33%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 790.826
+OPEN: $317.01
+HIGH: $322.99
+LOW: $316.08
+PREV CLOSE: $318.67
+52W HIGH: $322.00
+52W LOW: $148.05
+52W RANGE: $148.05 - $322.00
+SPREAD: 117.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($290.48) with positive momentum (12.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 74.5
+MOMENTUM: 12.4%
+SMA20: $290.48
+VOLATILITY: 3.7%
+
+SINCE LAST SIGNAL
+Signal started: 23.9.2026
+Signal entry: $270.75
+Signal-aligned return: +18.09%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

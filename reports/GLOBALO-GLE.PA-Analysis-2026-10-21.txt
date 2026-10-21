@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: GLE.PA
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+GLE.PA PRICE (USD): $62.55
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 1.516.234
+OPEN: $62.30
+HIGH: $62.77
+LOW: $61.74
+PREV CLOSE: $62.55
+52W HIGH: $84.82
+52W LOW: $52.02
+52W RANGE: $52.02 - $84.82
+SPREAD: 63.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($65.92) with negative momentum (-2.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 32.7
+MOMENTUM: -2.2%
+SMA20: $65.92
+VOLATILITY: 1.7%
+
+SINCE LAST SIGNAL
+Signal started: 22.9.2026
+Signal entry: $72.19
+Signal-aligned return: +13.35%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.
