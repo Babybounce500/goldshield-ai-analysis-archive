@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="GoldShield AI Analysis Archive — echte KI-Marktanalyse-Reports, durchsuchbar und sortierbar.">
 <title>GOLDSHIELD AI — Analysis Archive</title>
 <link rel="icon" href="data:,">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -10,28 +11,59 @@
 :root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--card:#ffffff;--border:#d6e2ea;--accent:#b45309;--green:#15803d;--red:#b91c1c;--gold:#b45309;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:var(--bg);color:var(--text);font-family:var(--mono);}
-header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;backdrop-filter:blur(6px);}
 .logo-name{font-family:var(--head);font-size:14px;letter-spacing:2px;color:var(--bright);}
 .logo-sub{font-family:var(--mono);font-size:9px;letter-spacing:2px;color:var(--muted);margin-top:4px;}
-.back{font-family:var(--mono);font-size:10px;color:var(--accent);text-decoration:none;border:1px solid var(--border);padding:7px 12px;border-radius:4px;}
-.wrap{max-width:1100px;margin:0 auto;padding:22px 24px 70px;}
-.intro{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.8;margin-bottom:18px;border-left:2px solid var(--accent);padding-left:14px;max-width:900px;}
+.back{font-family:var(--mono);font-size:10px;color:var(--accent);text-decoration:none;border:1px solid var(--border);padding:7px 12px;border-radius:4px;white-space:nowrap;}
+.wrap{max-width:1250px;margin:0 auto;padding:22px 24px 70px;}
+.intro{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.8;margin-bottom:18px;border-left:2px solid var(--accent);padding-left:14px;max-width:950px;}
 .intro b{color:var(--text)}
-.stat-row{display:flex;gap:24px;flex-wrap:wrap;margin:14px 0 24px;}
+.stat-row{display:flex;gap:24px;flex-wrap:wrap;margin:14px 0 22px;}
 .stat b{font-family:var(--head);font-size:19px;color:var(--bright);display:block;}
 .stat span{font-size:8.5px;color:var(--muted);letter-spacing:1px;}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px;}
-.symcard{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
-.symcard-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
-.symcard-title{font-family:var(--head);font-size:13px;color:var(--bright);letter-spacing:.5px;}
-.badge{font-family:var(--head);font-size:9px;padding:3px 8px;border-radius:3px;}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px;}
+.search-wrap{position:relative;flex:1;min-width:200px;}
+#search{width:100%;min-height:42px;padding:0 14px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-family:var(--mono);font-size:11px;}
+#search:focus{outline:none;border-color:var(--accent);}
+#sortSelect{min-height:42px;padding:0 12px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text);font-family:var(--mono);font-size:10.5px;}
+.filters{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
+.chip{font-family:var(--mono);font-size:10px;padding:7px 12px;border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;border-radius:999px;transition:.15s;}
+.chip:hover{border-color:var(--accent);}
+.chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:rgba(180,83,9,.08);}
+.result-count{font-size:9.5px;color:var(--muted);margin-bottom:14px;}
+.result-count b{color:var(--text);}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:13px;}
+.repcard{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:15px 17px;display:flex;flex-direction:column;gap:9px;transition:border-color .15s,transform .15s;}
+.repcard:hover{border-color:var(--accent);transform:translateY(-2px);}
+.repcard-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.repcard-symbol{font-family:var(--head);font-size:14px;color:var(--bright);letter-spacing:.3px;}
+.repcard-date{font-size:9px;color:var(--muted);margin-top:2px;}
+.badge{font-family:var(--head);font-size:8.5px;padding:3px 8px;border-radius:3px;white-space:nowrap;}
 .badge.g{background:rgba(21,128,61,.12);color:var(--green);} .badge.r{background:rgba(185,28,28,.12);color:var(--red);} .badge.m{background:rgba(95,114,119,.12);color:var(--muted);}
-.symcard-sub{font-size:9.5px;color:var(--muted);margin-bottom:10px;}
-.symcard-reports{display:flex;flex-direction:column;gap:4px;}
-.report-row{font-size:10px;}
-.report-date{color:var(--muted);margin-right:4px;}
-.report-link{color:var(--accent);text-decoration:none;}
-.report-link:hover{text-decoration:underline;}
+.repcard-price{font-size:12px;color:var(--text);}
+.repcard-price .chg{font-size:10px;margin-left:6px;}
+.chg.pos{color:var(--green);} .chg.neg{color:var(--red);}
+
+.rendite-box{background:var(--panel);border-radius:6px;padding:10px 12px;text-align:center;}
+.rendite-box .label{font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
+.rendite-box .value{font-family:var(--head);font-size:22px;}
+.rendite-box .value.pos{color:var(--green);} .rendite-box .value.neg{color:var(--red);}
+.rendite-box .sub{font-size:8.5px;color:var(--muted);margin-top:3px;}
+.rendite-na{background:var(--panel);border-radius:6px;padding:8px 12px;text-align:center;font-size:9px;color:var(--muted);font-style:italic;}
+
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:9px;}
+.mini-stats div{background:var(--panel);border-radius:4px;padding:5px 6px;text-align:center;}
+.mini-stats .k{color:var(--muted);display:block;font-size:8px;letter-spacing:.5px;}
+.mini-stats .v{color:var(--text);font-weight:600;margin-top:1px;display:block;}
+
+.repcard-rec{font-size:9.5px;color:var(--muted);line-height:1.5;max-height:2.8em;overflow:hidden;}
+.repcard-links{display:flex;gap:8px;margin-top:auto;padding-top:4px;}
+.repcard-links a{font-size:10px;color:var(--accent);text-decoration:none;border:1px solid var(--border);padding:5px 10px;border-radius:4px;}
+.repcard-links a:hover{border-color:var(--accent);background:var(--panel);}
+
+.empty-state{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);font-size:11px;}
 .source-note{font-family:var(--mono);font-size:9.5px;color:var(--muted);margin-top:36px;border-top:1px solid var(--border);padding-top:14px;}
 .source-note a{color:var(--accent);}
 </style>
@@ -47,155 +79,131 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 <div class="wrap">
   <div class="intro">
   Echte, unveränderte Export-Reports von <b>GoldShield AI</b> (GENITUS INC) -- KI-gestützte technische
-  Marktanalyse über Aktien, Krypto, Forex und Anleihen. Jeder Report ist ein echter Snapshot zum
-  angegebenen Datum: Live-Marktdaten, technischer Score (0-2), Sentiment, KI-Einschätzung (RSI,
-  Momentum, SMA20, Volatilität) und Performance seit letztem Signalwechsel. Alle Reports unverändert
-  im Original-Format archiviert.
+  Marktanalyse über Aktien, Krypto, Forex und Anleihen. Jede Kachel zeigt die echten Kennzahlen aus dem
+  jeweiligen Report: Sentiment, technischer Score, <b>Signal-Rendite</b> (Performance seit letztem
+  Signalwechsel), RSI/Momentum/Volatilität. Rein clientseitig durchsuchbar und sortierbar -- gebaut, um
+  auf tausende Reports zu skalieren.
   </div>
   <div class="stat-row">
-    <div class="stat"><b>19</b><span>REPORTS GESAMT</span></div>
-    <div class="stat"><b>12</b><span>SYMBOLE</span></div>
-    <div class="stat"><b>12</b><span>BULLISH-SIGNALE</span></div>
-    <div class="stat"><b>7</b><span>BEARISH-SIGNALE</span></div>
+    <div class="stat"><b id="stat-total">—</b><span>REPORTS GESAMT</span></div>
+    <div class="stat"><b id="stat-symbols">—</b><span>SYMBOLE</span></div>
+    <div class="stat"><b id="stat-bull">—</b><span>BULLISH</span></div>
+    <div class="stat"><b id="stat-bear">—</b><span>BEARISH</span></div>
+    <div class="stat"><b id="stat-avgret">—</b><span>Ø SIGNAL-RENDITE</span></div>
   </div>
-  <div class="grid">
 
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">2269.HK</div>
-        <span class="badge r">BEARISH</span>
-      </div>
-      <div class="symcard-sub">1 Report · letzter Stand 2026-10-16 · HK$48.20</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-10-16</span> <a class="report-link" href="reports/GLOBALO-2269.HK-Analysis-2026-10-16.html" target="_blank" rel="noopener noreferrer">HTML</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">AAPL</div>
-        <span class="badge g">BULLISH</span>
-      </div>
-      <div class="symcard-sub">3 Reports · letzter Stand 2026-07-31 · $333.43</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-07-31</span> <a class="report-link" href="reports/GLOBALO-AAPL-Analysis-2026-07-31.txt" target="_blank" rel="noopener noreferrer">TXT</a></div><div class="report-row"><span class="report-date">2026-07-30</span> <a class="report-link" href="reports/GLOBALO-AAPL-Analysis-2026-07-30.html" target="_blank" rel="noopener noreferrer">HTML</a></div><div class="report-row"><span class="report-date">2026-06-08</span> <a class="report-link" href="reports/GLOBALO-AAPL-Analysis-2026-06-08.html" target="_blank" rel="noopener noreferrer">HTML</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">AIG</div>
-        <span class="badge g">BULLISH</span>
-      </div>
-      <div class="symcard-sub">2 Reports · letzter Stand 2026-10-17 · $80.70</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-10-17</span> <a class="report-link" href="reports/GLOBALO-AIG-Analysis-2026-10-17.html" target="_blank" rel="noopener noreferrer">HTML</a></div><div class="report-row"><span class="report-date">2026-10-14</span> <a class="report-link" href="reports/GLOBALO-AIG-Analysis-2026-10-14.txt" target="_blank" rel="noopener noreferrer">TXT</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">BTC-USD.CC</div>
-        <span class="badge r">BEARISH</span>
-      </div>
-      <div class="symcard-sub">1 Report · letzter Stand 2026-09-16</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-09-16</span> <a class="report-link" href="reports/GLOBALO-BTC-USD.CC-Analysis-2026-09-16.html" target="_blank" rel="noopener noreferrer">HTML</a> · <a class="report-link" href="reports/GLOBALO-BTC-USD.CC-Analysis-2026-09-16.txt" target="_blank" rel="noopener noreferrer">TXT</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">C</div>
-        <span class="badge r">BEARISH</span>
-      </div>
-      <div class="symcard-sub">1 Report · letzter Stand 2026-10-08 · $127.32</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-10-08</span> <a class="report-link" href="reports/GLOBALO-C-Analysis-2026-10-08.html" target="_blank" rel="noopener noreferrer">HTML</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">CBK.XETRA</div>
-        <span class="badge r">BEARISH</span>
-      </div>
-      <div class="symcard-sub">2 Reports · letzter Stand 2026-10-21 · €37.25</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-10-21</span> <a class="report-link" href="reports/GLOBALO-CBK.XETRA-Analysis-2026-10-21.html" target="_blank" rel="noopener noreferrer">HTML</a></div><div class="report-row"><span class="report-date">2026-10-08</span> <a class="report-link" href="reports/GLOBALO-CBK.XETRA-Analysis-2026-10-08.html" target="_blank" rel="noopener noreferrer">HTML</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">MS</div>
-        <span class="badge g">BULLISH</span>
-      </div>
-      <div class="symcard-sub">1 Report · letzter Stand 2026-08-05</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-08-05</span> <a class="report-link" href="reports/GLOBALO-MS-Analysis-2026-08-05.html" target="_blank" rel="noopener noreferrer">HTML</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">NG10Y.GBOND</div>
-        <span class="badge g">BULLISH</span>
-      </div>
-      <div class="symcard-sub">1 Report · letzter Stand 2026-09-25 · $335.92</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-09-25</span> <a class="report-link" href="reports/GLOBALO-NG10Y.GBOND-Analysis-2026-09-25.html" target="_blank" rel="noopener noreferrer">HTML</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">RHM.XETRA</div>
-        <span class="badge g">BULLISH</span>
-      </div>
-      <div class="symcard-sub">4 Reports · letzter Stand 2026-10-15 · €1,026.00</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-10-15</span> <a class="report-link" href="reports/GLOBALO-RHM.XETRA-Analysis-2026-10-15.html" target="_blank" rel="noopener noreferrer">HTML</a> · <a class="report-link" href="reports/GLOBALO-RHM.XETRA-Analysis-2026-10-15.txt" target="_blank" rel="noopener noreferrer">TXT</a></div><div class="report-row"><span class="report-date">2026-10-08</span> <a class="report-link" href="reports/GLOBALO-RHM.XETRA-Analysis-2026-10-08.txt" target="_blank" rel="noopener noreferrer">TXT</a></div><div class="report-row"><span class="report-date">2026-09-01</span> <a class="report-link" href="reports/GLOBALO-RHM.XETRA-Analysis-2026-09-01.html" target="_blank" rel="noopener noreferrer">HTML</a> · <a class="report-link" href="reports/GLOBALO-RHM.XETRA-Analysis-2026-09-01.txt" target="_blank" rel="noopener noreferrer">TXT</a></div><div class="report-row"><span class="report-date">2026-07-30</span> <a class="report-link" href="reports/GLOBALO-RHM.XETRA-Analysis-2026-07-30.html" target="_blank" rel="noopener noreferrer">HTML</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">SAP.XETRA</div>
-        <span class="badge g">BULLISH</span>
-      </div>
-      <div class="symcard-sub">1 Report · letzter Stand 2026-10-21 · €204.50</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-10-21</span> <a class="report-link" href="reports/GLOBALO-SAP.XETRA-Analysis-2026-10-21.html" target="_blank" rel="noopener noreferrer">HTML</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">USDCAD.FOREX</div>
-        <span class="badge g">BULLISH</span>
-      </div>
-      <div class="symcard-sub">1 Report · letzter Stand 2026-10-07</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-10-07</span> <a class="report-link" href="reports/GLOBALO-USDCAD.FOREX-Analysis-2026-10-07.html" target="_blank" rel="noopener noreferrer">HTML</a></div>
-      </div>
-    </div>
-
-    <div class="symcard">
-      <div class="symcard-top">
-        <div class="symcard-title">USDCHF.FOREX</div>
-        <span class="badge g">BULLISH</span>
-      </div>
-      <div class="symcard-sub">1 Report · letzter Stand 2026-10-07</div>
-      <div class="symcard-reports">
-        <div class="report-row"><span class="report-date">2026-10-07</span> <a class="report-link" href="reports/GLOBALO-USDCHF.FOREX-Analysis-2026-10-07.html" target="_blank" rel="noopener noreferrer">HTML</a></div>
-      </div>
-    </div>
+  <div class="toolbar">
+    <div class="search-wrap"><input type="text" id="search" placeholder="Symbol suchen… z.B. AAPL, RHM.XETRA"></div>
+    <select id="sortSelect">
+      <option value="date-desc">Neueste zuerst</option>
+      <option value="date-asc">Älteste zuerst</option>
+      <option value="return-desc">Beste Signal-Rendite</option>
+      <option value="return-asc">Schlechteste Signal-Rendite</option>
+      <option value="symbol-asc">Symbol A-Z</option>
+    </select>
   </div>
+  <div class="filters" id="filters"></div>
+  <div class="result-count"><b id="visible-count">—</b> von <b id="total-count">—</b> Reports angezeigt</div>
+
+  <div class="grid" id="grid"></div>
+
   <div class="source-note">
   AI-generierte, computationale Analyse -- keine Anlageberatung. Marktdaten können verzögert sein.
-  © 2026 GENITUS INC. — GoldShield AI, <a href="https://globalfintech.net" target="_blank" rel="noopener noreferrer">globalfintech.net</a>.
+  Signal-Rendite = Performance seit dem letzten Signalwechsel, nur in Reports ab ca. August 2026 enthalten
+  (ältere Export-Formate hatten dieses Feld noch nicht -- ehrlich als "nicht verfügbar" markiert statt
+  geschätzt). © 2026 GENITUS INC. — GoldShield AI, <a href="https://globalfintech.net" target="_blank" rel="noopener noreferrer">globalfintech.net</a>.
   </div>
 </div>
+
+<script>
+let REPORTS = [];
+let activeFilter = 'all';
+
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+
+function cardHtml(r) {
+  const sentimentClass = r.sentiment === 'Bullish' ? 'g' : r.sentiment === 'Bearish' ? 'r' : 'm';
+  const chgClass = r.changeDir === 'positive' ? 'pos' : r.changeDir === 'negative' ? 'neg' : '';
+  const renditeHtml = r.alignedReturn != null
+    ? `<div class="rendite-box"><div class="label">Signal-Rendite seit ${escapeHtml(r.signalStart || '—')}</div><div class="value ${r.alignedReturn >= 0 ? 'pos' : 'neg'}">${r.alignedReturn >= 0 ? '+' : ''}${r.alignedReturn.toFixed(2)}%</div><div class="sub">Einstieg: ${escapeHtml(r.signalEntry || '—')}</div></div>`
+    : `<div class="rendite-na">Signal-Rendite nicht verfügbar (älteres Export-Format)</div>`;
+  const links = [
+    r.htmlFile ? `<a href="reports/${encodeURIComponent(r.htmlFile)}" target="_blank" rel="noopener noreferrer">📄 HTML</a>` : '',
+    r.txtFile ? `<a href="reports/${encodeURIComponent(r.txtFile)}" target="_blank" rel="noopener noreferrer">📄 TXT</a>` : '',
+  ].filter(Boolean).join('');
+  return `
+    <div class="repcard" data-symbol="${escapeHtml(r.symbol.toLowerCase())}">
+      <div class="repcard-top">
+        <div><div class="repcard-symbol">${escapeHtml(r.symbol)}</div><div class="repcard-date">${escapeHtml(r.date)}</div></div>
+        <span class="badge ${sentimentClass}">${escapeHtml((r.sentiment || 'N/A').toUpperCase())}</span>
+      </div>
+      <div class="repcard-price">${escapeHtml(r.price || '—')}${r.changeText ? `<span class="chg ${chgClass}">${escapeHtml(r.changeText)}</span>` : ''}</div>
+      ${renditeHtml}
+      <div class="mini-stats">
+        <div><span class="k">RSI</span><span class="v">${r.rsi != null ? r.rsi : '—'}</span></div>
+        <div><span class="k">MOMENTUM</span><span class="v">${escapeHtml(r.momentum || '—')}</span></div>
+        <div><span class="k">VOLATILITÄT</span><span class="v">${escapeHtml(r.volatility || '—')}</span></div>
+      </div>
+      <div class="repcard-rec">${escapeHtml(r.recommendation || '')}</div>
+      <div class="repcard-links">${links}</div>
+    </div>`;
+}
+
+function render() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
+  const sortVal = document.getElementById('sortSelect').value;
+  let filtered = REPORTS.filter(r => {
+    const matchesQ = !q || r.symbol.toLowerCase().includes(q);
+    const matchesFilter = activeFilter === 'all' || (r.sentiment || '').toLowerCase() === activeFilter;
+    return matchesQ && matchesFilter;
+  });
+  filtered.sort((a, b) => {
+    if (sortVal === 'date-desc') return b.date.localeCompare(a.date);
+    if (sortVal === 'date-asc') return a.date.localeCompare(b.date);
+    if (sortVal === 'return-desc') return (b.alignedReturn ?? -Infinity) - (a.alignedReturn ?? -Infinity);
+    if (sortVal === 'return-asc') return (a.alignedReturn ?? Infinity) - (b.alignedReturn ?? Infinity);
+    if (sortVal === 'symbol-asc') return a.symbol.localeCompare(b.symbol);
+    return 0;
+  });
+  const grid = document.getElementById('grid');
+  grid.innerHTML = filtered.length ? filtered.map(cardHtml).join('') : '<div class="empty-state">Keine Reports gefunden. Suchbegriff oder Filter ändern.</div>';
+  document.getElementById('visible-count').textContent = filtered.length;
+}
+
+function renderFilters() {
+  const counts = { all: REPORTS.length, bullish: REPORTS.filter(r=>r.sentiment==='Bullish').length, bearish: REPORTS.filter(r=>r.sentiment==='Bearish').length, neutral: REPORTS.filter(r=>r.sentiment==='Neutral').length };
+  const opts = [['all','Alle'],['bullish','🟢 Bullish'],['bearish','🔴 Bearish'],['neutral','⚪ Neutral']];
+  document.getElementById('filters').innerHTML = opts.map(([val,label]) => `<button class="chip" type="button" data-val="${val}" aria-pressed="${activeFilter===val}">${label} (${counts[val]})</button>`).join('');
+  document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => { activeFilter = c.dataset.val; renderFilters(); render(); }));
+}
+
+async function init() {
+  try {
+    const res = await fetch('data.json', { signal: AbortSignal.timeout(15000) });
+    REPORTS = await res.json();
+  } catch (e) {
+    document.getElementById('grid').innerHTML = '<div class="empty-state">Daten konnten nicht geladen werden: ' + escapeHtml(e.message) + '</div>';
+    return;
+  }
+  const symbols = new Set(REPORTS.map(r => r.symbol));
+  const bull = REPORTS.filter(r => r.sentiment === 'Bullish').length;
+  const bear = REPORTS.filter(r => r.sentiment === 'Bearish').length;
+  const returns = REPORTS.filter(r => r.alignedReturn != null).map(r => r.alignedReturn);
+  const avgRet = returns.length ? returns.reduce((a,b)=>a+b,0) / returns.length : null;
+  document.getElementById('stat-total').textContent = REPORTS.length;
+  document.getElementById('stat-symbols').textContent = symbols.size;
+  document.getElementById('stat-bull').textContent = bull;
+  document.getElementById('stat-bear').textContent = bear;
+  document.getElementById('stat-avgret').textContent = avgRet != null ? (avgRet >= 0 ? '+' : '') + avgRet.toFixed(2) + '%' : '—';
+  document.getElementById('total-count').textContent = REPORTS.length;
+
+  renderFilters();
+  render();
+  document.getElementById('search').addEventListener('input', render);
+  document.getElementById('sortSelect').addEventListener('change', render);
+}
+
+init();
+</script>
 </body>
 </html>
