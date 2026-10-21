@@ -1,0 +1,40 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: RHM.XETRA
+Exported: 15.10.2026, 19:45:51
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+RHM.XETRA PRICE (EUR) ⏱️: €1,026.00
+CHANGE: ▲+€42.70 (+4.34%)
+TIMESTAMP: 15.10.2026 17:39:00
+VOLUME: 282.879
+OPEN: €981.40
+HIGH: €1,036.00
+LOW: €977.80
+PREV CLOSE: €983.30
+52W HIGH: €1,966.00
+52W LOW: €900.20
+52W RANGE: €900.20 - €1,966.00
+SPREAD: 118.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (€972.77) with positive momentum (8.5%). This is a descriptive technical state, not a trade instruction.
+⚠️ Investment disclaimer
+Not investment advice. This output is generated automatically/algorithmically, has not been reviewed by a licensed professional, and does not constitute a recommendation to buy, sell, or hold. All figures (entry, target, stop, position size) are informational/experimental only and do not replace individualized advice. Trading is at your own risk and responsibility. No guarantee of accuracy or future performance. Past results are not indicative of future results.
+RSI: 56.8
+MOMENTUM: 8.5%
+SMA20: €972.77
+VOLATILITY: 6.0%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: €983.30
+Signal-aligned return: +4.34%
+
+---
+⚠️ Not investment advice. This output is generated automatically/algorithmically, has not been reviewed by a licensed professional, and does not constitute a recommendation to buy, sell, or hold. All figures (entry, target, stop, position size) are informational/experimental only and do not replace individualized advice. Trading is at your own risk and responsibility. No guarantee of accuracy or future performance. Past results are not indicative of future results.

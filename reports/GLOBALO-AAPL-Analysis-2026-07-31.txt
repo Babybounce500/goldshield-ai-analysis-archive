@@ -1,0 +1,33 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: AAPL
+Exported: 31.7.2026, 12:37:27
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+AAPL PRICE ⏱️: $333.43
+CHANGE: $-4.76 (-1.41%)
+TIMESTAMP: 30.7.2026 22:29:00
+VOLUME: 61.019.555
+OPEN: $333.10
+HIGH: $334.75
+LOW: $329.59
+PREV CLOSE: $338.19
+52W HIGH: $344.57
+52W LOW: $201.50
+52W RANGE: $201.50 - $344.57
+SPREAD: 71.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price above SMA20 with positive momentum. Consider buying dips with 2-3% position size. Target resistance levels, use SMA20 as dynamic stop.
+RSI: 61.7
+MOMENTUM: 0.1%
+SMA20: $324.35
+VOLATILITY: 1.6%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.
