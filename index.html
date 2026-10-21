@@ -57,6 +57,10 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 .rendite-box .sub{font-size:8.5px;color:var(--muted);margin-top:3px;}
 .rendite-na{background:var(--panel);border-radius:6px;padding:8px 12px;text-align:center;font-size:9px;color:var(--muted);font-style:italic;}
 
+.chart-box{background:var(--panel);border-radius:6px;padding:8px 10px 6px;}
+.chart-box .chart-label{font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+.chart-box svg.spark{display:block;width:100%;height:40px;}
+
 .mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:9px;}
 .mini-stats div{background:var(--panel);border-radius:4px;padding:5px 6px;text-align:center;}
 .mini-stats .k{color:var(--muted);display:block;font-size:8px;letter-spacing:.5px;}
@@ -90,8 +94,10 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
   Ergebnis einer Deep-Research-Runde über 1.700+ echte Marktdaten-Abfragen. Die Kategorie
   <b>⚠️ Fehlsignal</b> zeigt im direkten Vergleich aktuell laufende Signale, deren Signal-Rendite seit
   Signalstart im Minus liegt -- echte, transparent ausgewiesene Fälle, in denen die aktuelle Einschätzung
-  (noch) nicht aufgegangen ist. Rein clientseitig durchsuchbar und sortierbar -- gebaut, um auf tausende
-  Reports zu skalieren.
+  (noch) nicht aufgegangen ist. Jede Kachel zeigt zusätzlich den echten Kursverlauf seit Signalstart als
+  Mini-Chart (Einstiegspunkt markiert, grün/rot nach Signal-Rendite) -- Profitability-Check zeigt: positive
+  Signale laufen im Schnitt deutlich weiter als negative Signale gegen einen laufen. Rein clientseitig
+  durchsuchbar und sortierbar -- gebaut, um auf tausende Reports zu skalieren.
   </div>
   <div class="stat-row">
     <div class="stat"><b id="stat-total">—</b><span>REPORTS GESAMT</span></div>
@@ -99,7 +105,13 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
     <div class="stat"><b id="stat-bull">—</b><span>BULLISH</span></div>
     <div class="stat"><b id="stat-bear">—</b><span>BEARISH</span></div>
     <div class="stat"><b id="stat-avgret">—</b><span>Ø SIGNAL-RENDITE</span></div>
+    <div class="stat"><b id="stat-winrate">—</b><span>WIN-RATE</span></div>
     <div class="stat"><b id="stat-worstfs">—</b><span>SCHLECHTESTES FEHLSIGNAL</span></div>
+  </div>
+  <div class="stat-row" style="margin-top:-8px;">
+    <div class="stat"><b id="stat-avgpos" style="color:var(--green);">—</b><span>Ø POSITIVE SIGNALE</span></div>
+    <div class="stat"><b id="stat-avgneg" style="color:var(--red);">—</b><span>Ø NEGATIVE SIGNALE (FEHLSIGNAL)</span></div>
+    <div class="stat"><b id="stat-ratio">—</b><span>GEWINNER LAUFEN X-MAL WEITER</span></div>
   </div>
 
   <div class="toolbar">
@@ -137,6 +149,9 @@ function cardHtml(r) {
   const renditeHtml = r.alignedReturn != null
     ? `<div class="rendite-box"><div class="label">Signal-Rendite seit ${escapeHtml(r.signalStart || '—')}</div><div class="value ${r.alignedReturn >= 0 ? 'pos' : 'neg'}">${r.alignedReturn >= 0 ? '+' : ''}${r.alignedReturn.toFixed(2)}%</div><div class="sub">Einstieg: ${escapeHtml(r.signalEntry || '—')}</div></div>`
     : `<div class="rendite-na">Signal-Rendite nicht verfügbar (älteres Export-Format)</div>`;
+  const chartHtml = r.chartSvg
+    ? `<div class="chart-box"><div class="chart-label">Kursverlauf seit Signalstart ${escapeHtml(r.signalStart || '')}</div>${r.chartSvg}</div>`
+    : '';
   const links = [
     r.htmlFile ? `<a href="reports/${encodeURIComponent(r.htmlFile)}" target="_blank" rel="noopener noreferrer">📄 HTML</a>` : '',
     r.txtFile ? `<a href="reports/${encodeURIComponent(r.txtFile)}" target="_blank" rel="noopener noreferrer">📄 TXT</a>` : '',
@@ -149,6 +164,7 @@ function cardHtml(r) {
       </div>
       <div class="repcard-price">${escapeHtml(r.price || '—')}${r.changeText ? `<span class="chg ${chgClass}">${escapeHtml(r.changeText)}</span>` : ''}</div>
       ${renditeHtml}
+      ${chartHtml}
       <div class="mini-stats">
         <div><span class="k">RSI</span><span class="v">${r.rsi != null ? r.rsi : '—'}</span></div>
         <div><span class="k">MOMENTUM</span><span class="v">${escapeHtml(r.momentum || '—')}</span></div>
@@ -211,13 +227,22 @@ async function init() {
   const returns = REPORTS.filter(r => r.alignedReturn != null).map(r => r.alignedReturn);
   const avgRet = returns.length ? returns.reduce((a,b)=>a+b,0) / returns.length : null;
   const fehlsignale = REPORTS.filter(r => r.alignedReturn != null && r.alignedReturn < 0).map(r => r.alignedReturn);
+  const positive = returns.filter(v => v >= 0);
   const worstFs = fehlsignale.length ? Math.min(...fehlsignale) : null;
+  const avgArr = arr => arr.length ? arr.reduce((a,b)=>a+b,0) / arr.length : null;
+  const avgPos = avgArr(positive);
+  const avgNeg = avgArr(fehlsignale);
+  const winRate = returns.length ? (positive.length / returns.length) * 100 : null;
   document.getElementById('stat-total').textContent = REPORTS.length;
   document.getElementById('stat-symbols').textContent = symbols.size;
   document.getElementById('stat-bull').textContent = bull;
   document.getElementById('stat-bear').textContent = bear;
   document.getElementById('stat-avgret').textContent = avgRet != null ? (avgRet >= 0 ? '+' : '') + avgRet.toFixed(2) + '%' : '—';
+  document.getElementById('stat-winrate').textContent = winRate != null ? winRate.toFixed(1) + '%' : '—';
   document.getElementById('stat-worstfs').textContent = worstFs != null ? worstFs.toFixed(2) + '%' : '—';
+  document.getElementById('stat-avgpos').textContent = avgPos != null ? '+' + avgPos.toFixed(2) + '%' : '—';
+  document.getElementById('stat-avgneg').textContent = avgNeg != null ? avgNeg.toFixed(2) + '%' : '—';
+  document.getElementById('stat-ratio').textContent = (avgPos != null && avgNeg) ? (avgPos / Math.abs(avgNeg)).toFixed(1) + 'x' : '—';
   document.getElementById('total-count').textContent = REPORTS.length;
 
   renderFilters();

@@ -63,6 +63,26 @@ aktuell nicht funktionierenden Signalen.
 | 0992.HK | 2026-10-21 | 🔴 Bearish | HK$26.00 | +19.55% | [HTML](reports/GLOBALO-0992.HK-Analysis-2026-10-21.html) |
 | SNZ.AU | 2026-10-21 | 🔴 Bearish | $5.45 | +19.26% | [HTML](reports/GLOBALO-SNZ.AU-Analysis-2026-10-21.html) |
 
+## Profitability- & Signal-Stärke-Check
+
+Über alle 614 Reports mit Signal-Rendite:
+
+| Kennzahl | Positive Signale | Negative Signale (Fehlsignal) |
+|---|---|---|
+| Anzahl | 463 | 151 |
+| Ø Signal-Rendite | +9.42% | -1.15% |
+| Größter Ausschlag | +89.98% | -11.48% |
+
+**Win-Rate gesamt: 75.4%** (463/614). Bullish-Signale: 72.7%
+Win-Rate, Ø +5.46%. Bearish-Signale: 78.5%
+Win-Rate, Ø +8.41%.
+
+Auffällig: positive Signale laufen im Schnitt **8.2x weiter** als negative
+Signale gegen einen laufen (+9.42% vs. -1.15%) -- Gewinner-Signale werden offenbar
+länger durchgehalten/laufen weiter, Verlierer-Signale bleiben vergleichsweise klein. Das deckt sich mit der
+asymmetrischen Verteilung, die man beim Vergleich der 🏆 High-Conviction- und ⚠️ Fehlsignal-Kategorien direkt
+auf dem Live-Index sieht.
+
 ## Pipeline für weitere Reports
 
 Neue Downloads landen als `GLOBALO-{SYMBOL}-Analysis-{YYYY-MM-DD}.{html,txt}` in `reports/`.
@@ -79,12 +99,13 @@ GoldShield AI's technische Einschätzung (Stand jetzt) nicht aufgegangen ist. Tr
 Rosinenpickerei: die Signal-Rendite ist dieselbe echte, aus dem jeweiligen Report extrahierte Kennzahl
 wie bei High-Conviction, nur mit negativem Vorzeichen.
 
-**Hinweis zu Screenshots:** ursprünglich sollten Kachel-Screenshots der Report-Karten genutzt werden,
-aber das Original-Export-Template hat einen CSS-Bug (`var(--green)`/`var(--red)` werden im Export
-referenziert, aber nie definiert) -- die Sentiment-Bar ist dadurch bei eigenständigem Rendering
-unsichtbar. Screenshots sahen deshalb kaputt/leer aus. Stattdessen werden die Kennzahlen direkt aus
-den Reports extrahiert und in eigens gestalteten Karten dargestellt -- sieht besser aus und skaliert
-ohne Bild-Generierung pro Report.
+**Hinweis zu Charts:** ursprünglich sollten Kachel-Screenshots der Report-Karten genutzt werden, aber das
+Original-Export-Template hat einen CSS-Bug (`var(--green)`/`var(--red)` werden im Export referenziert,
+aber nie definiert) -- die Sentiment-Bar ist dadurch bei eigenständigem Rendering unsichtbar, Screenshots
+sahen kaputt/leer aus. Stattdessen zeigt jede Kachel jetzt einen echten Kursverlauf-Chart (Preis seit
+Signalstart bis Export-Datum, Einstiegspunkt markiert) -- serverseitig als kompaktes SVG aus den echten
+historischen Kursdaten gebaut, nicht als Bild-Screenshot. Grün/Rot folgt derselben Signal-Rendite wie der
+Zahlenwert daneben. Skaliert ohne Browser-Screenshot-Overhead auf tausende Reports.
 
 ---
 © 2026 GENITUS INC. — GoldShield AI
