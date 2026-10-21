@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: NHC.AU
+Exported: 21.10.2026, 08:06:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+NHC.AU PRICE (USD): $6.11
+CHANGE: +$0.10 (+1.66%)
+TIMESTAMP: 21.10.2026, 08:06:00
+VOLUME: 4.180.657
+OPEN: $6.05
+HIGH: $6.20
+LOW: $6.02
+PREV CLOSE: $6.01
+52W HIGH: $6.61
+52W LOW: $3.77
+52W RANGE: $3.77 - $6.61
+SPREAD: 75.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($5.89) with positive momentum (2.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 55.2
+MOMENTUM: 2.9%
+SMA20: $5.89
+VOLATILITY: 3.0%
+
+SINCE LAST SIGNAL
+Signal started: 19.10.2026
+Signal entry: $6.18
+Signal-aligned return: -1.13%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

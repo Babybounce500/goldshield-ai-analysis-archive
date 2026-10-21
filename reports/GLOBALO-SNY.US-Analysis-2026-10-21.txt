@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SNY.US
+Exported: 21.10.2026, 21:23:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SNY.US PRICE (USD): $40.98
+CHANGE: -$0.42 (-1.03%)
+TIMESTAMP: 21.10.2026, 21:23:00
+VOLUME: 2.185.323
+OPEN: $41.19
+HIGH: $41.54
+LOW: $40.84
+PREV CLOSE: $41.40
+52W HIGH: $52.68
+52W LOW: $39.07
+52W RANGE: $39.07 - $52.68
+SPREAD: 34.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($40.38) with positive momentum (4.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 52.8
+MOMENTUM: 4.7%
+SMA20: $40.38
+VOLATILITY: 2.2%
+
+SINCE LAST SIGNAL
+Signal started: 20.10.2026
+Signal entry: $41.40
+Signal-aligned return: -1.03%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

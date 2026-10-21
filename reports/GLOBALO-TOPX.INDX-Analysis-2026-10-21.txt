@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TOPX.INDX
+Exported: 21.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TOPX.INDX PRICE (USD): $4,043.73
+CHANGE: +$34.52 (+0.86%)
+TIMESTAMP: 21.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $4,009.21
+52W HIGH: $4,220.31
+52W LOW: $3,200.08
+52W RANGE: $3,200.08 - $4,220.31
+SPREAD: 31.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($4,092.61) with negative momentum (-3.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 46.0
+MOMENTUM: -3.3%
+SMA20: $4,092.61
+VOLATILITY: 0.7%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $3,999.34
+Signal-aligned return: -1.11%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

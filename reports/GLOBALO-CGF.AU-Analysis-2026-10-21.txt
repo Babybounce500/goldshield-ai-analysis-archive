@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: CGF.AU
+Exported: 21.10.2026, 08:06:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+CGF.AU PRICE (USD): $11.60
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 21.10.2026, 08:06:00
+VOLUME: 21.597.919
+OPEN: $11.60
+HIGH: $11.78
+LOW: $11.56
+PREV CLOSE: $11.60
+52W HIGH: $11.83
+52W LOW: $7.25
+52W RANGE: $7.25 - $11.83
+SPREAD: 63.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($10.21) with positive momentum (18.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 73.5
+MOMENTUM: 18.6%
+SMA20: $10.21
+VOLATILITY: 1.9%
+
+SINCE LAST SIGNAL
+Signal started: 19.10.2026
+Signal entry: $11.75
+Signal-aligned return: -1.28%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

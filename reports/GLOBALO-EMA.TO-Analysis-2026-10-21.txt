@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: EMA.TO
+Exported: 21.10.2026, 21:24:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+EMA.TO PRICE (USD): $66.62
+CHANGE: +$0.14 (+0.21%)
+TIMESTAMP: 21.10.2026, 21:24:00
+VOLUME: 562.292
+OPEN: $66.41
+HIGH: $66.88
+LOW: $66.20
+PREV CLOSE: $66.48
+52W HIGH: $77.99
+52W LOW: $64.62
+52W RANGE: $64.62 - $77.99
+SPREAD: 20.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($67.02) with negative momentum (-2.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 44.1
+MOMENTUM: -2.7%
+SMA20: $67.02
+VOLATILITY: 1.9%
+
+SINCE LAST SIGNAL
+Signal started: 19.10.2026
+Signal entry: $65.79
+Signal-aligned return: -1.26%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: M&M.NSE
+Exported: 21.10.2026, 11:59:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+M&M.NSE PRICE (USD): $2,889.00
+CHANGE: -$18.00 (-0.62%)
+TIMESTAMP: 21.10.2026, 11:59:00
+VOLUME: 2.599.088
+OPEN: $2,920.00
+HIGH: $2,920.00
+LOW: $2,840.00
+PREV CLOSE: $2,907.00
+52W HIGH: $3,839.90
+52W LOW: $2,744.30
+52W RANGE: $2,744.30 - $3,839.90
+SPREAD: 39.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($2,888.76) with positive momentum (1.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 44.2
+MOMENTUM: 1.2%
+SMA20: $2,888.76
+VOLATILITY: 2.8%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: $2,920.90
+Signal-aligned return: -1.09%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

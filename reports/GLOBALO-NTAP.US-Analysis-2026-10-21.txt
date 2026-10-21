@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: NTAP.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+NTAP.US PRICE (USD): $217.26
+CHANGE: +$7.29 (+3.47%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 818.805
+OPEN: $213.12
+HIGH: $217.44
+LOW: $211.42
+PREV CLOSE: $209.97
+52W HIGH: $240.87
+52W LOW: $93.69
+52W RANGE: $93.69 - $240.87
+SPREAD: 157.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($217.61) with negative momentum (-8.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 48.2
+MOMENTUM: -8.1%
+SMA20: $217.61
+VOLATILITY: 4.0%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $214.70
+Signal-aligned return: -1.19%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

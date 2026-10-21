@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: MUM.XETRA
+Exported: 21.10.2026, 17:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+MUM.XETRA PRICE (EUR): €33.90
+CHANGE: +€0.15 (+0.44%)
+TIMESTAMP: 21.10.2026, 17:35:00
+VOLUME: 32.431
+OPEN: €33.60
+HIGH: €34.35
+LOW: €32.05
+PREV CLOSE: €33.75
+52W HIGH: €48.65
+52W LOW: €32.05
+52W RANGE: €32.05 - €48.65
+SPREAD: 51.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 (€34.33) with negative momentum (-2.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 43.3
+MOMENTUM: -2.7%
+SMA20: €34.33
+VOLATILITY: 7.2%
+
+SINCE LAST SIGNAL
+Signal started: 20.10.2026
+Signal entry: €33.75
+Signal-aligned return: -0.44%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

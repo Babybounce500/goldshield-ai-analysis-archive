@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: BMY.US
+Exported: 21.10.2026, 21:24:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+BMY.US PRICE (USD): $60.92
+CHANGE: -$0.77 (-1.24%)
+TIMESTAMP: 21.10.2026, 21:24:00
+VOLUME: 3.769.942
+OPEN: $61.50
+HIGH: $61.81
+LOW: $60.69
+PREV CLOSE: $61.68
+52W HIGH: $68.64
+52W LOW: $42.52
+52W RANGE: $42.52 - $68.64
+SPREAD: 61.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($60.42) with positive momentum (3.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 52.5
+MOMENTUM: 3.5%
+SMA20: $60.42
+VOLATILITY: 3.3%
+
+SINCE LAST SIGNAL
+Signal started: 20.10.2026
+Signal entry: $61.68
+Signal-aligned return: -1.24%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

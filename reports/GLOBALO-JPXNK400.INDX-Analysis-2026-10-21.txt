@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: JPXNK400.INDX
+Exported: 21.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+JPXNK400.INDX PRICE (USD): $36,660.85
+CHANGE: +$295.72 (+0.81%)
+TIMESTAMP: 21.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $36,365.13
+52W HIGH: $38,170.76
+52W LOW: $28,889.51
+52W RANGE: $28,889.51 - $38,170.76
+SPREAD: 32.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($36,811.69) with negative momentum (-2.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 48.8
+MOMENTUM: -2.3%
+SMA20: $36,811.69
+VOLATILITY: 0.7%
+
+SINCE LAST SIGNAL
+Signal started: 20.10.2026
+Signal entry: $36,365.13
+Signal-aligned return: -0.81%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

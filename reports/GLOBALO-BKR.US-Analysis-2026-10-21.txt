@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: BKR.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+BKR.US PRICE (USD): $56.11
+CHANGE: +$0.45 (+0.82%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 2.486.742
+OPEN: $55.65
+HIGH: $56.42
+LOW: $55.52
+PREV CLOSE: $55.65
+52W HIGH: $70.41
+52W LOW: $44.26
+52W RANGE: $44.26 - $70.41
+SPREAD: 59.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($56.26) with negative momentum (-2.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 43.1
+MOMENTUM: -2.6%
+SMA20: $56.26
+VOLATILITY: 2.9%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $54.40
+Signal-aligned return: -3.13%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

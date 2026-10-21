@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: WFC.US
+Exported: 21.10.2026, 21:36:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+WFC.US PRICE (USD): $82.14
+CHANGE: -$0.06 (-0.08%)
+TIMESTAMP: 21.10.2026, 21:36:00
+VOLUME: 4.756.776
+OPEN: $82.64
+HIGH: $82.71
+LOW: $81.78
+PREV CLOSE: $82.20
+52W HIGH: $97.76
+52W LOW: $72.78
+52W RANGE: $72.78 - $97.76
+SPREAD: 34.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($81.67) with positive momentum (0.8%). This is a descriptive technical state, not a trade instruction.
+RSI: 47.0
+MOMENTUM: 0.8%
+SMA20: $81.67
+VOLATILITY: 1.7%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $82.75
+Signal-aligned return: -0.74%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

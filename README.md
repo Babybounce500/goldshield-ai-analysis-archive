@@ -6,14 +6,15 @@ echter Snapshot zum angegebenen Datum: Live-Marktdaten, technischer Score (0-2),
 (RSI, Momentum, SMA20, Volatilität) und die **Signal-Rendite** (Performance seit letztem Signalwechsel --
 nur in Reports ab ca. August 2026 enthalten, ältere Exports hatten dieses Feld noch nicht).
 
-**504 Reports** über **496 Symbole**, Juni–Oktober 2026.
-Davon **302 High-Conviction-Reports** mit Signal-Rendite ≥ 5 % und **180 Big-Drawdown-Reports**
-(größter Rückgang vom 52-Wochen-Hoch: **AAD.XETRA -71.8%**) --
-beide als eigene Filter-Kategorien auf dem Live-Index, zum direkten Vergleich von Gewinnern und Verlierern.
+**619 Reports** über **611 Symbole**, Juni–Oktober 2026.
+Davon **302 High-Conviction-Reports** mit Signal-Rendite ≥ 5 % und **151 Fehlsignal-Reports**
+(aktuell laufendes Signal mit negativer Signal-Rendite, schlechtester Fall: **ARGX.BR -11.48%**) --
+beide als eigene Filter-Kategorien auf dem Live-Index, zum direkten Vergleich von aktuell funktionierenden und
+aktuell nicht funktionierenden Signalen.
 
 > AI-generierte, computationale Analyse — keine Anlageberatung. Marktdaten können verzögert sein.
 
-## Live-Index (durchsuchbar, sortierbar, filterbar nach Sentiment, High-Conviction ≥5% und Big-Drawdown)
+## Live-Index (durchsuchbar, sortierbar, filterbar nach Sentiment, High-Conviction ≥5% und Fehlsignal)
 
 **[Index öffnen](https://babybounce500.github.io/goldshield-ai-analysis-archive/)**
 
@@ -72,12 +73,11 @@ Skalierbar für sehr viele Reports (getestet für "tausende" laut Anforderung):
 3. `index.html` lädt `data.json` clientseitig -- Suche/Sortierung/Filter laufen rein im Browser,
    keine Server-Komponente nötig, skaliert auf tausende Einträge ohne Umbau.
 
-**Hinweis zu Big-Drawdown-Zahlen:** die 52W-HIGH/52W-LOW-Felder im Original-Export basieren auf
-unadjustierten Kursreihen -- bei Symbolen mit Aktiensplit (z. B. BKNG.US, 24:1-Split am 2026-04-06)
-würde eine naive Drawdown-Berechnung daraus einen falschen ~-97%-"Crash" statt des echten ~-27%-Rückgangs
-anzeigen. Jeder Big-Drawdown-Kandidat wurde deshalb zusätzlich gegen die split-adjustierte Kursreihe
-re-verifiziert (441 Kandidaten geprüft, 18 Split-Artefakte identifiziert und ausgeschlossen); nur echte,
-split-korrigierte Rückgänge sind in dieser Kategorie gelistet.
+**Hinweis zu Fehlsignalen:** die Kategorie **⚠️ Fehlsignal** zeigt bewusst auch Reports, bei denen das
+aktuell laufende Signal (Bullish oder Bearish) seit Signalstart im Minus liegt -- also Fälle, in denen
+GoldShield AI's technische Einschätzung (Stand jetzt) nicht aufgegangen ist. Transparenz statt
+Rosinenpickerei: die Signal-Rendite ist dieselbe echte, aus dem jeweiligen Report extrahierte Kennzahl
+wie bei High-Conviction, nur mit negativem Vorzeichen.
 
 **Hinweis zu Screenshots:** ursprünglich sollten Kachel-Screenshots der Report-Karten genutzt werden,
 aber das Original-Export-Template hat einen CSS-Bug (`var(--green)`/`var(--red)` werden im Export

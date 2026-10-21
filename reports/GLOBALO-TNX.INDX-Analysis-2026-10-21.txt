@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TNX.INDX
+Exported: 20.10.2026, 02:00:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TNX.INDX PRICE (USD): $51.17
+CHANGE: -$0.19 (-0.37%)
+TIMESTAMP: 20.10.2026, 02:00:00
+VOLUME: NaN
+OPEN: —
+HIGH: —
+LOW: —
+PREV CLOSE: $51.36
+52W HIGH: $53.64
+52W LOW: $39.47
+52W RANGE: $39.47 - $53.64
+SPREAD: 35.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($52.09) with negative momentum (-2.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 50.2
+MOMENTUM: -2.9%
+SMA20: $52.09
+VOLATILITY: 1.2%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $50.89
+Signal-aligned return: -0.55%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

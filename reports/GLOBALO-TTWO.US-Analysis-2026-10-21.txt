@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TTWO.US
+Exported: 21.10.2026, 21:34:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TTWO.US PRICE (USD): $207.05
+CHANGE: +$0.34 (+0.17%)
+TIMESTAMP: 21.10.2026, 21:34:00
+VOLUME: 1.442.189
+OPEN: $206.36
+HIGH: $208.40
+LOW: $204.28
+PREV CLOSE: $206.70
+52W HIGH: $265.94
+52W LOW: $187.63
+52W RANGE: $187.63 - $265.94
+SPREAD: 41.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($204.96) with positive momentum (2.1%). This is a descriptive technical state, not a trade instruction.
+RSI: 47.6
+MOMENTUM: 2.1%
+SMA20: $204.96
+VOLATILITY: 1.2%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $209.38
+Signal-aligned return: -1.12%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

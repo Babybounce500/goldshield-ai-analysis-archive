@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: VCX.AU
+Exported: 21.10.2026, 07:30:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+VCX.AU PRICE (USD): $2.35
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 21.10.2026, 07:30:00
+VOLUME: 12.734.245
+OPEN: $2.36
+HIGH: $2.38
+LOW: $2.35
+PREV CLOSE: $2.35
+52W HIGH: $2.73
+52W LOW: $2.21
+52W RANGE: $2.21 - $2.73
+SPREAD: 23.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($2.31) with positive momentum (1.3%). This is a descriptive technical state, not a trade instruction.
+RSI: 50.5
+MOMENTUM: 1.3%
+SMA20: $2.31
+VOLATILITY: 1.3%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $2.37
+Signal-aligned return: -0.84%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

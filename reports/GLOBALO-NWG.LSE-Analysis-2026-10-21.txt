@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: NWG.LSE
+Exported: 21.10.2026, 17:38:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+NWG.LSE PRICE (GBP): £648.60
+CHANGE: +£7.20 (+1.12%)
+TIMESTAMP: 21.10.2026, 17:38:00
+VOLUME: 6.596.209
+OPEN: £645.00
+HIGH: £651.00
+LOW: £638.40
+PREV CLOSE: £641.40
+52W HIGH: £788.20
+52W LOW: £504.41
+52W RANGE: £504.41 - £788.20
+SPREAD: 56.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 (£664.57) with negative momentum (-0.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 41.7
+MOMENTUM: -0.2%
+SMA20: £664.57
+VOLATILITY: 2.0%
+
+SINCE LAST SIGNAL
+Signal started: 19.10.2026
+Signal entry: £648.00
+Signal-aligned return: -0.09%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

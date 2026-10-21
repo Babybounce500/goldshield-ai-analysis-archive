@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: BA.LSE
+Exported: 21.10.2026, 17:39:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+BA.LSE PRICE (GBP): £1,933.00
+CHANGE: -£14.00 (-0.72%)
+TIMESTAMP: 21.10.2026, 17:39:00
+VOLUME: 4.223.638
+OPEN: £1,953.00
+HIGH: £1,955.50
+LOW: £1,907.50
+PREV CLOSE: £1,947.00
+52W HIGH: £2,360.00
+52W LOW: £1,588.00
+52W RANGE: £1,588.00 - £2,360.00
+SPREAD: 48.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 (£1,920.08) with positive momentum (5.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 48.7
+MOMENTUM: 5.9%
+SMA20: £1,920.08
+VOLATILITY: 2.5%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: £1,983.50
+Signal-aligned return: -2.55%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

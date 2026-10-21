@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: IAG.LSE
+Exported: 21.10.2026, 17:38:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+IAG.LSE PRICE (GBP): £420.10
+CHANGE: +£5.50 (+1.33%)
+TIMESTAMP: 21.10.2026, 17:38:00
+VOLUME: 7.748.705
+OPEN: £410.90
+HIGH: £420.10
+LOW: £407.50
+PREV CLOSE: £414.60
+52W HIGH: £492.90
+52W LOW: £332.70
+52W RANGE: £332.70 - £492.90
+SPREAD: 48.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 (£425.65) with negative momentum (-2.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 47.3
+MOMENTUM: -2.9%
+SMA20: £425.65
+VOLATILITY: 3.1%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: £420.00
+Signal-aligned return: -0.02%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

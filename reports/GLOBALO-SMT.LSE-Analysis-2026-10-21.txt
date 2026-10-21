@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SMT.LSE
+Exported: 21.10.2026, 17:39:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SMT.LSE PRICE (GBP): £1,566.00
+CHANGE: +£27.00 (+1.75%)
+TIMESTAMP: 21.10.2026, 17:39:00
+VOLUME: 3.507.715
+OPEN: £1,561.00
+HIGH: £1,569.50
+LOW: £1,550.30
+PREV CLOSE: £1,539.00
+52W HIGH: £1,652.50
+52W LOW: £1,015.74
+52W RANGE: £1,015.74 - £1,652.50
+SPREAD: 62.7%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 (£1,593.60) with negative momentum (-3.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 49.8
+MOMENTUM: -3.7%
+SMA20: £1,593.60
+VOLATILITY: 1.2%
+
+SINCE LAST SIGNAL
+Signal started: 16.10.2026
+Signal entry: £1,545.00
+Signal-aligned return: -1.36%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

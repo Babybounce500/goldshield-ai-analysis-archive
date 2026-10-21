@@ -33,8 +33,8 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 .chip[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:rgba(180,83,9,.08);}
 .chip-highlight{border-color:var(--green);color:var(--green);font-weight:600;}
 .chip-highlight[aria-pressed="true"]{background:rgba(21,128,61,.1);}
-.chip-drawdown{border-color:var(--red);color:var(--red);font-weight:600;}
-.chip-drawdown[aria-pressed="true"]{background:rgba(185,28,28,.1);}
+.chip-warn{border-color:var(--red);color:var(--red);font-weight:600;}
+.chip-warn[aria-pressed="true"]{background:rgba(185,28,28,.1);}
 .result-count{font-size:9.5px;color:var(--muted);margin-bottom:14px;}
 .result-count b{color:var(--text);}
 
@@ -56,11 +56,6 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 .rendite-box .value.pos{color:var(--green);} .rendite-box .value.neg{color:var(--red);}
 .rendite-box .sub{font-size:8.5px;color:var(--muted);margin-top:3px;}
 .rendite-na{background:var(--panel);border-radius:6px;padding:8px 12px;text-align:center;font-size:9px;color:var(--muted);font-style:italic;}
-
-.drawdown-box{background:rgba(185,28,28,.07);border-radius:6px;padding:10px 12px;text-align:center;}
-.drawdown-box .label{font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:3px;}
-.drawdown-box .value{font-family:var(--head);font-size:20px;color:var(--red);}
-.drawdown-box .sub{font-size:8.5px;color:var(--muted);margin-top:3px;}
 
 .mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:9px;}
 .mini-stats div{background:var(--panel);border-radius:4px;padding:5px 6px;text-align:center;}
@@ -93,10 +88,10 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
   technischer Score, <b>Signal-Rendite</b> (Performance seit letztem Signalwechsel), RSI/Momentum/Volatilität.
   Die Kategorie <b>🏆 High-Conviction (≥5%)</b> filtert auf Reports mit mindestens 5% Signal-Rendite --
   Ergebnis einer Deep-Research-Runde über 1.700+ echte Marktdaten-Abfragen. Die Kategorie
-  <b>📉 Big Drawdown</b> zeigt im direkten Vergleich die größten Rückgänge vom 52-Wochen-Hoch -- jeder
-  Kandidat wurde gegen split-adjustierte Kursreihen re-verifiziert, um Aktiensplit-Artefakte (falsche
-  "-97%-Crashes" statt echter Rückgänge) auszuschließen. Rein clientseitig durchsuchbar und sortierbar --
-  gebaut, um auf tausende Reports zu skalieren.
+  <b>⚠️ Fehlsignal</b> zeigt im direkten Vergleich aktuell laufende Signale, deren Signal-Rendite seit
+  Signalstart im Minus liegt -- echte, transparent ausgewiesene Fälle, in denen die aktuelle Einschätzung
+  (noch) nicht aufgegangen ist. Rein clientseitig durchsuchbar und sortierbar -- gebaut, um auf tausende
+  Reports zu skalieren.
   </div>
   <div class="stat-row">
     <div class="stat"><b id="stat-total">—</b><span>REPORTS GESAMT</span></div>
@@ -104,7 +99,7 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
     <div class="stat"><b id="stat-bull">—</b><span>BULLISH</span></div>
     <div class="stat"><b id="stat-bear">—</b><span>BEARISH</span></div>
     <div class="stat"><b id="stat-avgret">—</b><span>Ø SIGNAL-RENDITE</span></div>
-    <div class="stat"><b id="stat-deepdd">—</b><span>TIEFSTER DRAWDOWN</span></div>
+    <div class="stat"><b id="stat-worstfs">—</b><span>SCHLECHTESTES FEHLSIGNAL</span></div>
   </div>
 
   <div class="toolbar">
@@ -114,7 +109,6 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
       <option value="date-asc">Älteste zuerst</option>
       <option value="return-desc">Beste Signal-Rendite</option>
       <option value="return-asc">Schlechteste Signal-Rendite</option>
-      <option value="drawdown-asc">Größter Drawdown</option>
       <option value="symbol-asc">Symbol A-Z</option>
     </select>
   </div>
@@ -143,9 +137,6 @@ function cardHtml(r) {
   const renditeHtml = r.alignedReturn != null
     ? `<div class="rendite-box"><div class="label">Signal-Rendite seit ${escapeHtml(r.signalStart || '—')}</div><div class="value ${r.alignedReturn >= 0 ? 'pos' : 'neg'}">${r.alignedReturn >= 0 ? '+' : ''}${r.alignedReturn.toFixed(2)}%</div><div class="sub">Einstieg: ${escapeHtml(r.signalEntry || '—')}</div></div>`
     : `<div class="rendite-na">Signal-Rendite nicht verfügbar (älteres Export-Format)</div>`;
-  const drawdownHtml = r.drawdownPct != null
-    ? `<div class="drawdown-box"><div class="label">Drawdown vom 52W-Hoch (split-korrigiert)</div><div class="value">${r.drawdownPct.toFixed(1)}%</div></div>`
-    : '';
   const links = [
     r.htmlFile ? `<a href="reports/${encodeURIComponent(r.htmlFile)}" target="_blank" rel="noopener noreferrer">📄 HTML</a>` : '',
     r.txtFile ? `<a href="reports/${encodeURIComponent(r.txtFile)}" target="_blank" rel="noopener noreferrer">📄 TXT</a>` : '',
@@ -158,7 +149,6 @@ function cardHtml(r) {
       </div>
       <div class="repcard-price">${escapeHtml(r.price || '—')}${r.changeText ? `<span class="chg ${chgClass}">${escapeHtml(r.changeText)}</span>` : ''}</div>
       ${renditeHtml}
-      ${drawdownHtml}
       <div class="mini-stats">
         <div><span class="k">RSI</span><span class="v">${r.rsi != null ? r.rsi : '—'}</span></div>
         <div><span class="k">MOMENTUM</span><span class="v">${escapeHtml(r.momentum || '—')}</span></div>
@@ -176,7 +166,7 @@ function render() {
     const matchesQ = !q || r.symbol.toLowerCase().includes(q);
     const matchesFilter = activeFilter === 'all'
       || (activeFilter === 'highconviction' ? (r.alignedReturn != null && r.alignedReturn >= 5)
-      : activeFilter === 'bigdrawdown' ? (r.drawdownPct != null)
+      : activeFilter === 'fehlsignal' ? (r.alignedReturn != null && r.alignedReturn < 0)
       : (r.sentiment || '').toLowerCase() === activeFilter);
     return matchesQ && matchesFilter;
   });
@@ -185,7 +175,6 @@ function render() {
     if (sortVal === 'date-asc') return a.date.localeCompare(b.date);
     if (sortVal === 'return-desc') return (b.alignedReturn ?? -Infinity) - (a.alignedReturn ?? -Infinity);
     if (sortVal === 'return-asc') return (a.alignedReturn ?? Infinity) - (b.alignedReturn ?? Infinity);
-    if (sortVal === 'drawdown-asc') return (a.drawdownPct ?? Infinity) - (b.drawdownPct ?? Infinity);
     if (sortVal === 'symbol-asc') return a.symbol.localeCompare(b.symbol);
     return 0;
   });
@@ -201,10 +190,10 @@ function renderFilters() {
     bearish: REPORTS.filter(r=>r.sentiment==='Bearish').length,
     neutral: REPORTS.filter(r=>r.sentiment==='Neutral').length,
     highconviction: REPORTS.filter(r=>r.alignedReturn != null && r.alignedReturn >= 5).length,
-    bigdrawdown: REPORTS.filter(r=>r.drawdownPct != null).length,
+    fehlsignal: REPORTS.filter(r=>r.alignedReturn != null && r.alignedReturn < 0).length,
   };
-  const opts = [['all','Alle'],['highconviction','🏆 High-Conviction (≥5%)'],['bigdrawdown','📉 Big Drawdown'],['bullish','🟢 Bullish'],['bearish','🔴 Bearish'],['neutral','⚪ Neutral']];
-  document.getElementById('filters').innerHTML = opts.map(([val,label]) => `<button class="chip${val==='highconviction'?' chip-highlight':''}${val==='bigdrawdown'?' chip-drawdown':''}" type="button" data-val="${val}" aria-pressed="${activeFilter===val}">${label} (${counts[val]})</button>`).join('');
+  const opts = [['all','Alle'],['highconviction','🏆 High-Conviction (≥5%)'],['fehlsignal','⚠️ Fehlsignal'],['bullish','🟢 Bullish'],['bearish','🔴 Bearish'],['neutral','⚪ Neutral']];
+  document.getElementById('filters').innerHTML = opts.map(([val,label]) => `<button class="chip${val==='highconviction'?' chip-highlight':''}${val==='fehlsignal'?' chip-warn':''}" type="button" data-val="${val}" aria-pressed="${activeFilter===val}">${label} (${counts[val]})</button>`).join('');
   document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => { activeFilter = c.dataset.val; renderFilters(); render(); }));
 }
 
@@ -221,14 +210,14 @@ async function init() {
   const bear = REPORTS.filter(r => r.sentiment === 'Bearish').length;
   const returns = REPORTS.filter(r => r.alignedReturn != null).map(r => r.alignedReturn);
   const avgRet = returns.length ? returns.reduce((a,b)=>a+b,0) / returns.length : null;
-  const drawdowns = REPORTS.filter(r => r.drawdownPct != null).map(r => r.drawdownPct);
-  const deepestDD = drawdowns.length ? Math.min(...drawdowns) : null;
+  const fehlsignale = REPORTS.filter(r => r.alignedReturn != null && r.alignedReturn < 0).map(r => r.alignedReturn);
+  const worstFs = fehlsignale.length ? Math.min(...fehlsignale) : null;
   document.getElementById('stat-total').textContent = REPORTS.length;
   document.getElementById('stat-symbols').textContent = symbols.size;
   document.getElementById('stat-bull').textContent = bull;
   document.getElementById('stat-bear').textContent = bear;
   document.getElementById('stat-avgret').textContent = avgRet != null ? (avgRet >= 0 ? '+' : '') + avgRet.toFixed(2) + '%' : '—';
-  document.getElementById('stat-deepdd').textContent = deepestDD != null ? deepestDD.toFixed(1) + '%' : '—';
+  document.getElementById('stat-worstfs').textContent = worstFs != null ? worstFs.toFixed(2) + '%' : '—';
   document.getElementById('total-count').textContent = REPORTS.length;
 
   renderFilters();

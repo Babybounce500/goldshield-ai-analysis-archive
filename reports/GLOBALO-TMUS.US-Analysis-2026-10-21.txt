@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TMUS.US
+Exported: 21.10.2026, 21:35:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TMUS.US PRICE (USD): $152.93
+CHANGE: -$4.82 (-3.06%)
+TIMESTAMP: 21.10.2026, 21:35:00
+VOLUME: 4.027.659
+OPEN: $151.55
+HIGH: $155.67
+LOW: $151.50
+PREV CLOSE: $157.75
+52W HIGH: $230.51
+52W LOW: $147.90
+52W RANGE: $147.90 - $230.51
+SPREAD: 55.9%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($161.29) with negative momentum (-4.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 42.7
+MOMENTUM: -4.9%
+SMA20: $161.29
+VOLATILITY: 2.9%
+
+SINCE LAST SIGNAL
+Signal started: 9.10.2026
+Signal entry: $148.58
+Signal-aligned return: -2.92%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.
