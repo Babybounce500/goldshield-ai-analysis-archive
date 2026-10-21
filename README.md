@@ -102,10 +102,12 @@ wie bei High-Conviction, nur mit negativem Vorzeichen.
 **Hinweis zu Charts:** ursprünglich sollten Kachel-Screenshots der Report-Karten genutzt werden, aber das
 Original-Export-Template hat einen CSS-Bug (`var(--green)`/`var(--red)` werden im Export referenziert,
 aber nie definiert) -- die Sentiment-Bar ist dadurch bei eigenständigem Rendering unsichtbar, Screenshots
-sahen kaputt/leer aus. Stattdessen zeigt jede Kachel jetzt einen echten Kursverlauf-Chart (Preis seit
-Signalstart bis Export-Datum, Einstiegspunkt markiert) -- serverseitig als kompaktes SVG aus den echten
-historischen Kursdaten gebaut, nicht als Bild-Screenshot. Grün/Rot folgt derselben Signal-Rendite wie der
-Zahlenwert daneben. Skaliert ohne Browser-Screenshot-Overhead auf tausende Reports.
+sahen kaputt/leer aus. Stattdessen zeigt jede Kachel jetzt einen echten Kursverlauf-Chart, 1:1 am Signal-Flag
+der echten GoldShield AI PWA (`goldShieldSignalFlagPlugin`, Chart.js) orientiert: goldene Preislinie, eine
+gestrichelte Markierung am Signal-Einstiegsdatum, ein Dreieck-Marker (Spitze nach oben = Bullish, nach unten
+= Bearish, Farbe = Sentiment) und das Text-Flag "BULLISH/BEARISH SIGNAL" -- aus den echten historischen
+Kursdaten serverseitig als kompaktes SVG gebaut, nicht als Bild-Screenshot. Skaliert ohne
+Browser-Rendering-Overhead auf tausende Reports.
 
 ---
 © 2026 GENITUS INC. — GoldShield AI

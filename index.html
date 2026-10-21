@@ -57,9 +57,9 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 .rendite-box .sub{font-size:8.5px;color:var(--muted);margin-top:3px;}
 .rendite-na{background:var(--panel);border-radius:6px;padding:8px 12px;text-align:center;font-size:9px;color:var(--muted);font-style:italic;}
 
-.chart-box{background:var(--panel);border-radius:6px;padding:8px 10px 6px;}
-.chart-box .chart-label{font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
-.chart-box svg.spark{display:block;width:100%;height:40px;}
+.chart-box{background:var(--panel);border-radius:6px;padding:6px 10px 6px;}
+.chart-box .chart-label{font-size:8px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:1px;}
+.chart-box svg.spark{display:block;width:100%;height:56px;}
 
 .mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:9px;}
 .mini-stats div{background:var(--panel);border-radius:4px;padding:5px 6px;text-align:center;}
@@ -94,8 +94,9 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
   Ergebnis einer Deep-Research-Runde über 1.700+ echte Marktdaten-Abfragen. Die Kategorie
   <b>⚠️ Fehlsignal</b> zeigt im direkten Vergleich aktuell laufende Signale, deren Signal-Rendite seit
   Signalstart im Minus liegt -- echte, transparent ausgewiesene Fälle, in denen die aktuelle Einschätzung
-  (noch) nicht aufgegangen ist. Jede Kachel zeigt zusätzlich den echten Kursverlauf seit Signalstart als
-  Mini-Chart (Einstiegspunkt markiert, grün/rot nach Signal-Rendite) -- Profitability-Check zeigt: positive
+  (noch) nicht aufgegangen ist. Jede Kachel zeigt zusätzlich den echten Kursverlauf seit Signalstart im
+  Original-Signal-Flag-Design der echten GoldShield AI PWA (goldene Preislinie, Dreieck-Marker und
+  Text-Flag am Signal-Einstieg) -- Profitability-Check zeigt: positive
   Signale laufen im Schnitt deutlich weiter als negative Signale gegen einen laufen. Rein clientseitig
   durchsuchbar und sortierbar -- gebaut, um auf tausende Reports zu skalieren.
   </div>
