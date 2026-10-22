@@ -212,12 +212,19 @@ Top/Bottom-5-Tabellen pro Klasse im vollständigen Report.
 Wenn der sofortige Einstieg keine Edge zeigt -- lässt sich die (zweifellos starke) aktuelle Signal-Performance
 trotzdem profitabel nutzen? Getestet: Einstieg erst nach **N Tagen bestätigtem Sentiment** statt sofort am
 ersten Tag des Regime-Wechsels. Ergebnis, am deutlichsten bei Crypto: bei 5 Tagen Bestätigung springt die
-Ø-Rendite von -16,68 % (sofort) auf **+50,30 %**, Sharpe von -0,02 auf **+0,72** (kleine Stichprobe, 10 Symbole
--- als starkes Signal zu lesen, nicht als Beweis). Forex und Funds zeigen dieselbe Richtung, schwächer.
-Mechanismus: ein Bestätigungsfilter schneidet die kurzlebigen Regime heraus (Median-Dauer nur 3 Tage), die
-den naiven Sofort-Einstieg verwässern. Live-Anwendung: **185 aktuell offene Signale** im Archiv laufen bereits
-≥15 Tage ohne Regime-Wechsel (Filter **🎯 Bestätigter Trend** auf dem Index) -- aktuell 100 % davon im Plus,
-Ø +14,27 %. Volle Sweep-Tabellen und Live-Kandidatenliste im Backtesting-Report.
+Ø-Rendite von -16,68 % (sofort) auf **+50,30 %**, Sharpe von -0,02 auf **+0,72**.
+
+**Robustheits-Check über zwei unabhängige Zeithälften** (ältere/neuere Hälfte jedes Symbols getrennt
+getestet) zeigt: nur **Crypto hat eine wirklich robuste Edge** -- Sharpe 0,79 (älter) und 0,86 (neuer)
+unabhängig bestätigt, breiter zusammenhängender Block über Tag 4-10 in beiden Hälften (kleine Stichprobe,
+10 Symbole -- als starkes Signal zu lesen, nicht als Beweis). Funds sah mit Sharpe 0,23/0,43 zunächst ähnlich
+gut aus, aber ein Breadth-Check (stimmen beide Hälften im Vorzeichen über alle getesteten Tage überein?)
+zeigt nur 9 % Übereinstimmung -- die reinste Einzel-Koinzidenz unter allen Klassen, **nicht robust**. Forex'
+Sweet Spot bei 15 Tagen ebenfalls nicht robust (36 %, nur in der älteren Hälfte stark). Aktien und
+Gesamtmarkt sind zwar vorzeichen-konsistent, aber die Sharpe-Werte bleiben überall zu winzig, um handelbar
+zu sein. Live-Anwendung: **185 aktuell offene Signale** im Archiv laufen bereits ≥15 Tage ohne Regime-Wechsel
+(Filter **🎯 Bestätigter Trend** auf dem Index) -- aktuell 100 % davon im Plus, Ø +14,27 %. Volle
+Sweep-Heatmaps und Live-Kandidatenliste im Backtesting-Report.
 
 ## Pipeline für weitere Reports
 

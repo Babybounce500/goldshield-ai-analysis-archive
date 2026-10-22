@@ -92,6 +92,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#class-forex">💱 Forex</a>
     <a href="#class-funds">📊 Funds</a>
     <a href="#class-strategy" style="border-color:var(--accent);color:var(--accent);font-weight:600;">🎯 Strategie-Brainstorm</a>
+    <a href="#class-sweetspot" style="border-color:var(--accent);color:var(--accent);font-weight:600;">🔍 Sweet-Spot</a>
   </div>
 
   
@@ -541,6 +542,88 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <table><thead><tr><th>Symbol</th><th>Sentiment</th><th>Gehalten</th><th>Signal-Rendite</th></tr></thead><tbody>
       <tr><td>USDTRY.FOREX</td><td>Bullish</td><td class="num">321d</td><td class="num pos">+16.72%</td></tr><tr><td>WAM.AU</td><td>Bearish</td><td class="num">72d</td><td class="num pos">+35.03%</td></tr><tr><td>AT1.XETRA</td><td>Bearish</td><td class="num">69d</td><td class="num pos">+33.94%</td></tr><tr><td>NXT.AU</td><td>Bearish</td><td class="num">63d</td><td class="num pos">+61.51%</td></tr><tr><td>0881.HK</td><td>Bearish</td><td class="num">58d</td><td class="num pos">+47.03%</td></tr><tr><td>IWM.US</td><td>Bearish</td><td class="num">57d</td><td class="num pos">+7.51%</td></tr><tr><td>MGM.US</td><td>Bearish</td><td class="num">57d</td><td class="num pos">+33.33%</td></tr><tr><td>ZEAL.CO</td><td>Bearish</td><td class="num">56d</td><td class="num pos">+26.42%</td></tr><tr><td>AXON.US</td><td>Bearish</td><td class="num">54d</td><td class="num pos">+33.59%</td></tr><tr><td>1211.HK</td><td>Bearish</td><td class="num">51d</td><td class="num pos">+18.41%</td></tr><tr><td>LYC.AU</td><td>Bearish</td><td class="num">51d</td><td class="num pos">+27.54%</td></tr><tr><td>WHR.US</td><td>Bearish</td><td class="num">50d</td><td class="num pos">+30.65%</td></tr><tr><td>MIN.AU</td><td>Bearish</td><td class="num">49d</td><td class="num pos">+27.04%</td></tr><tr><td>ALB.US</td><td>Bearish</td><td class="num">48d</td><td class="num pos">+28.37%</td></tr><tr><td>FBU.AU</td><td>Bearish</td><td class="num">48d</td><td class="num pos">+14.60%</td></tr>
     </tbody></table>
+  </section>
+  
+  <section class="class-section" id="class-sweetspot">
+    <h2>🔍 Sweet-Spot über verschiedene Zeiträume (feinerer Sweep + Aktien separat)</h2>
+    <div class="regime-sub" style="font-size:11px;color:#5f7277;line-height:1.8;margin-bottom:16px;">
+    Feinerer Bestätigungstage-Sweep (0 bis 20 Tage) und <b>Aktien als eigene Klasse</b> (518 reine Aktien,
+    ohne Forex/Crypto/Anleihen/Indizes/Funds). Robustheits-Check: jedes Symbol wird in zwei unabhängige
+    Zeithälften geteilt (ältere Hälfte der Historie / neuere Hälfte), der Sweep läuft getrennt auf beiden --
+    ein Sweet Spot, der nur in einer Hälfte funktioniert, ist Überanpassung (Overfitting), keine echte Edge.
+    Sharpe-Werte sind farbcodiert: grün = positiv, rot = negativ, Intensität = Stärke.
+    </div>
+    <table><thead><tr><th>Klasse</th><th>Sweet Spot</th><th>Sharpe (gesamt)</th><th>Sharpe (älter)</th><th>Sharpe (neuer)</th><th>Robustheit</th></tr></thead>
+      <tbody><tr>
+    <td>Gesamtmarkt</td>
+    <td class="num">2 Tage</td>
+    <td class="num" style="background:rgba(21,128,61,0.02);">0.044</td>
+    <td class="num" style="background:rgba(21,128,61,0.01);">0.037</td>
+    <td class="num" style="background:rgba(21,128,61,0.02);">0.070</td>
+    <td style="color:#b45309;font-weight:600;font-size:9.5px;">Vorzeichen-konsistent, aber zu schwach (73%, Sharpe winzig)</td>
+  </tr><tr>
+    <td>Aktien</td>
+    <td class="num">1 Tage</td>
+    <td class="num" style="background:rgba(21,128,61,0.02);">0.067</td>
+    <td class="num" style="background:rgba(21,128,61,0.02);">0.046</td>
+    <td class="num" style="background:rgba(21,128,61,0.03);">0.079</td>
+    <td style="color:#b45309;font-weight:600;font-size:9.5px;">Vorzeichen-konsistent, aber zu schwach (55%, Sharpe winzig)</td>
+  </tr><tr>
+    <td>Crypto</td>
+    <td class="num">6 Tage</td>
+    <td class="num" style="background:rgba(21,128,61,0.26);">0.734</td>
+    <td class="num" style="background:rgba(21,128,61,0.28);">0.790</td>
+    <td class="num" style="background:rgba(21,128,61,0.30);">0.860</td>
+    <td style="color:var(--green);font-weight:600;font-size:9.5px;">ROBUST -- starker, breiter Effekt (55% Übereinstimmung)</td>
+  </tr><tr>
+    <td>Forex</td>
+    <td class="num">15 Tage</td>
+    <td class="num" style="background:rgba(21,128,61,0.13);">0.381</td>
+    <td class="num" style="background:rgba(21,128,61,0.18);">0.509</td>
+    <td class="num" style="background:rgba(21,128,61,0.02);">0.048</td>
+    <td style="color:var(--red);font-weight:600;font-size:9.5px;">nicht robust -- nur 36% Übereinstimmung, vermutlich Zufall</td>
+  </tr><tr>
+    <td>Funds</td>
+    <td class="num">10 Tage</td>
+    <td class="num" style="background:rgba(21,128,61,0.02);">0.061</td>
+    <td class="num" style="background:rgba(21,128,61,0.08);">0.230</td>
+    <td class="num" style="background:rgba(21,128,61,0.15);">0.430</td>
+    <td style="color:var(--red);font-weight:600;font-size:9.5px;">nicht robust -- nur 9% Übereinstimmung, vermutlich Zufall</td>
+  </tr></tbody>
+    </table>
+    <div class="regime-sub" style="font-size:11px;color:#5f7277;line-height:1.8;margin:16px 0;">
+    <b>Ergebnis: nur Crypto zeigt eine wirklich robuste Edge.</b> Sweet Spot 5-8 Tage, Sharpe 0,79 in der
+    älteren und 0,86 in der neueren Hälfte -- unabhängig bestätigt, und die positive Zone bildet im Heatmap
+    unten einen breiten, zusammenhängenden Block über Tag 4-10 in beiden Zeiträumen, nicht nur einen
+    einzelnen Treffer. Bei Funds sah der Sweet Spot bei 10 Tagen (Sharpe 0,23 / 0,43) auf den ersten Blick
+    ähnlich gut aus -- aber der Breadth-Check (stimmen Älter und Neuer im Vorzeichen überein, über alle
+    getesteten Bestätigungstage?) zeigt: nur <b>9 %</b> Übereinstimmung, die reinste Einzel-Koinzidenz unter
+    allen fünf Klassen -- im Heatmap unten ist die positive Zelle bei 10 Tagen von negativen Werten auf
+    beiden Seiten umgeben. Forex' nomineller Sweet Spot bei 15 Tagen ist ebenfalls <b>nicht robust</b> (36 %
+    Übereinstimmung, stark in der älteren Hälfte, fast verschwunden in der neueren). Aktien und Gesamtmarkt
+    sind zwar vorzeichen-konsistent (55-73 % Übereinstimmung), aber die Sharpe-Werte bleiben überall winzig
+    (0,01-0,15) -- ein Effekt, der zu schwach ist, um ihn zu handeln. Plausible Erklärung für Crypto:
+    höchste Volatilität, am stärksten von kurzlebigem Whipsaw betroffen -- dort hat ein Bestätigungsfilter
+    am meisten Rauschen zum Herausfiltern. Aktien sind effizienter bepreist und schwanken moderater, daher
+    weniger Spielraum für denselben Filter-Effekt.
+    </div>
+
+    <h3 style="font-size:12px;margin-top:20px;margin-bottom:8px;">₿ Crypto im Detail -- robust (beide Zeiträume stark)</h3>
+    <table><thead><tr><th>Zeitraum</th><th class="num">0d</th><th class="num">1d</th><th class="num">2d</th><th class="num">3d</th><th class="num">4d</th><th class="num">5d</th><th class="num">6d</th><th class="num">8d</th><th class="num">10d</th><th class="num">15d</th><th class="num">20d</th></tr></thead><tbody>
+    <tr><td>Älter</td><td class="num" style="background:rgba(185,28,28,0.03);">-0.10</td><td class="num" style="background:rgba(185,28,28,0.08);">-0.23</td><td class="num" style="background:rgba(21,128,61,0.13);">0.38</td><td class="num" style="background:rgba(21,128,61,0.18);">0.52</td><td class="num" style="background:rgba(21,128,61,0.22);">0.62</td><td class="num" style="background:rgba(21,128,61,0.27);">0.76</td><td class="num" style="background:rgba(21,128,61,0.28);">0.79</td><td class="num" style="background:rgba(21,128,61,0.28);">0.81</td><td class="num" style="background:rgba(21,128,61,0.31);">0.88</td><td class="num" style="background:rgba(21,128,61,0.16);">0.45</td><td class="num" style="background:rgba(21,128,61,0.19);">0.55</td></tr><tr><td>Neuer</td><td class="num" style="background:rgba(21,128,61,0.03);">0.09</td><td class="num" style="background:rgba(185,28,28,0.13);">-0.36</td><td class="num" style="background:rgba(185,28,28,0.06);">-0.18</td><td class="num" style="background:rgba(21,128,61,0.02);">0.05</td><td class="num" style="background:rgba(21,128,61,0.11);">0.31</td><td class="num" style="background:rgba(21,128,61,0.30);">0.85</td><td class="num" style="background:rgba(21,128,61,0.30);">0.86</td><td class="num" style="background:rgba(21,128,61,0.28);">0.81</td><td class="num" style="background:rgba(21,128,61,0.13);">0.36</td><td class="num" style="background:rgba(185,28,28,0.03);">-0.10</td><td class="num" style="background:rgba(185,28,28,0.24);">-0.68</td></tr><tr><td>Full</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.02</td><td class="num" style="background:rgba(185,28,28,0.11);">-0.31</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.08);">0.22</td><td class="num" style="background:rgba(21,128,61,0.13);">0.38</td><td class="num" style="background:rgba(21,128,61,0.25);">0.72</td><td class="num" style="background:rgba(21,128,61,0.26);">0.73</td><td class="num" style="background:rgba(21,128,61,0.24);">0.67</td><td class="num" style="background:rgba(21,128,61,0.17);">0.50</td><td class="num" style="background:rgba(21,128,61,0.02);">0.07</td><td class="num" style="background:rgba(21,128,61,0.02);">0.06</td></tr>
+  </tbody></table>
+    <h3 style="font-size:12px;margin-top:20px;margin-bottom:8px;">📊 Funds im Detail -- Einzel-Koinzidenz, nicht robust (nur 9% Übereinstimmung)</h3>
+    <table><thead><tr><th>Zeitraum</th><th class="num">0d</th><th class="num">1d</th><th class="num">2d</th><th class="num">3d</th><th class="num">4d</th><th class="num">5d</th><th class="num">6d</th><th class="num">8d</th><th class="num">10d</th><th class="num">15d</th><th class="num">20d</th></tr></thead><tbody>
+    <tr><td>Älter</td><td class="num" style="background:rgba(185,28,28,0.25);">-0.71</td><td class="num" style="background:rgba(185,28,28,0.14);">-0.40</td><td class="num" style="background:rgba(185,28,28,0.07);">-0.21</td><td class="num" style="background:rgba(185,28,28,0.11);">-0.30</td><td class="num" style="background:rgba(185,28,28,0.07);">-0.20</td><td class="num" style="background:rgba(185,28,28,0.10);">-0.30</td><td class="num" style="background:rgba(185,28,28,0.09);">-0.25</td><td class="num" style="background:rgba(185,28,28,0.06);">-0.17</td><td class="num" style="background:rgba(21,128,61,0.08);">0.23</td><td class="num" style="background:rgba(185,28,28,0.09);">-0.24</td><td class="num" style="background:rgba(185,28,28,0.07);">-0.20</td></tr><tr><td>Neuer</td><td class="num" style="background:rgba(185,28,28,0.06);">-0.17</td><td class="num" style="background:rgba(185,28,28,0.07);">-0.21</td><td class="num" style="background:rgba(21,128,61,0.10);">0.27</td><td class="num" style="background:rgba(21,128,61,0.05);">0.14</td><td class="num" style="background:rgba(21,128,61,0.02);">0.07</td><td class="num" style="background:rgba(21,128,61,0.05);">0.13</td><td class="num" style="background:rgba(21,128,61,0.16);">0.46</td><td class="num" style="background:rgba(21,128,61,0.07);">0.21</td><td class="num" style="background:rgba(21,128,61,0.15);">0.43</td><td class="num" style="background:rgba(21,128,61,0.08);">0.22</td><td class="num" style="background:rgba(21,128,61,0.04);">0.11</td></tr><tr><td>Full</td><td class="num" style="background:rgba(185,28,28,0.17);">-0.48</td><td class="num" style="background:rgba(185,28,28,0.12);">-0.34</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.04</td><td class="num" style="background:rgba(185,28,28,0.07);">-0.19</td><td class="num" style="background:rgba(185,28,28,0.08);">-0.23</td><td class="num" style="background:rgba(185,28,28,0.07);">-0.20</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.03</td><td class="num" style="background:rgba(185,28,28,0.05);">-0.16</td><td class="num" style="background:rgba(21,128,61,0.02);">0.06</td><td class="num" style="background:rgba(185,28,28,0.04);">-0.11</td><td class="num" style="background:rgba(21,128,61,0.01);">0.02</td></tr>
+  </tbody></table>
+    <h3 style="font-size:12px;margin-top:20px;margin-bottom:8px;">💱 Forex im Detail -- nicht robust (nur ältere Hälfte stark)</h3>
+    <table><thead><tr><th>Zeitraum</th><th class="num">0d</th><th class="num">1d</th><th class="num">2d</th><th class="num">3d</th><th class="num">4d</th><th class="num">5d</th><th class="num">6d</th><th class="num">8d</th><th class="num">10d</th><th class="num">15d</th><th class="num">20d</th></tr></thead><tbody>
+    <tr><td>Älter</td><td class="num" style="background:rgba(185,28,28,0.19);">-0.55</td><td class="num" style="background:rgba(185,28,28,0.03);">-0.10</td><td class="num" style="background:rgba(21,128,61,0.02);">0.05</td><td class="num" style="background:rgba(21,128,61,0.01);">0.03</td><td class="num" style="background:rgba(21,128,61,0.05);">0.14</td><td class="num" style="background:rgba(21,128,61,0.11);">0.30</td><td class="num" style="background:rgba(21,128,61,0.12);">0.35</td><td class="num" style="background:rgba(21,128,61,0.13);">0.36</td><td class="num" style="background:rgba(21,128,61,0.08);">0.24</td><td class="num" style="background:rgba(21,128,61,0.18);">0.51</td><td class="num" style="background:rgba(21,128,61,0.10);">0.28</td></tr><tr><td>Neuer</td><td class="num" style="background:rgba(185,28,28,0.13);">-0.37</td><td class="num" style="background:rgba(185,28,28,0.11);">-0.32</td><td class="num" style="background:rgba(185,28,28,0.04);">-0.11</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.04</td><td class="num" style="background:rgba(21,128,61,0.00);">0.01</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.02);">0.06</td><td class="num" style="background:rgba(185,28,28,0.06);">-0.18</td><td class="num" style="background:rgba(185,28,28,0.03);">-0.08</td><td class="num" style="background:rgba(21,128,61,0.02);">0.05</td><td class="num" style="background:rgba(185,28,28,0.05);">-0.16</td></tr><tr><td>Full</td><td class="num" style="background:rgba(185,28,28,0.15);">-0.44</td><td class="num" style="background:rgba(185,28,28,0.07);">-0.21</td><td class="num" style="background:rgba(185,28,28,0.03);">-0.07</td><td class="num" style="background:rgba(185,28,28,0.03);">-0.09</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.03</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.04);">0.11</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.02</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.04</td><td class="num" style="background:rgba(21,128,61,0.13);">0.38</td><td class="num" style="background:rgba(21,128,61,0.05);">0.15</td></tr>
+  </tbody></table>
+    <h3 style="font-size:12px;margin-top:20px;margin-bottom:8px;">📈 Aktien im Detail -- durchgängig schwach</h3>
+    <table><thead><tr><th>Zeitraum</th><th class="num">0d</th><th class="num">1d</th><th class="num">2d</th><th class="num">3d</th><th class="num">4d</th><th class="num">5d</th><th class="num">6d</th><th class="num">8d</th><th class="num">10d</th><th class="num">15d</th><th class="num">20d</th></tr></thead><tbody>
+    <tr><td>Älter</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.03</td><td class="num" style="background:rgba(21,128,61,0.02);">0.05</td><td class="num" style="background:rgba(21,128,61,0.02);">0.06</td><td class="num" style="background:rgba(21,128,61,0.02);">0.06</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.03);">0.07</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.03);">0.09</td><td class="num" style="background:rgba(21,128,61,0.04);">0.13</td><td class="num" style="background:rgba(185,28,28,0.03);">-0.08</td><td class="num" style="background:rgba(185,28,28,0.00);">-0.01</td></tr><tr><td>Neuer</td><td class="num" style="background:rgba(21,128,61,0.01);">0.02</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.03);">0.09</td><td class="num" style="background:rgba(21,128,61,0.03);">0.10</td><td class="num" style="background:rgba(21,128,61,0.03);">0.07</td><td class="num" style="background:rgba(21,128,61,0.02);">0.06</td><td class="num" style="background:rgba(185,28,28,0.00);">-0.01</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.02</td><td class="num" style="background:rgba(185,28,28,0.00);">-0.00</td><td class="num" style="background:rgba(21,128,61,0.00);">0.00</td></tr><tr><td>Full</td><td class="num" style="background:rgba(185,28,28,0.00);">-0.01</td><td class="num" style="background:rgba(21,128,61,0.02);">0.07</td><td class="num" style="background:rgba(21,128,61,0.02);">0.07</td><td class="num" style="background:rgba(21,128,61,0.02);">0.05</td><td class="num" style="background:rgba(21,128,61,0.02);">0.05</td><td class="num" style="background:rgba(21,128,61,0.01);">0.01</td><td class="num" style="background:rgba(21,128,61,0.01);">0.02</td><td class="num" style="background:rgba(185,28,28,0.02);">-0.05</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.03</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.03</td><td class="num" style="background:rgba(21,128,61,0.01);">0.01</td></tr>
+  </tbody></table>
   </section>
 
   <div class="footer-note">
