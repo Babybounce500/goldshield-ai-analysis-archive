@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: BNB-USD.CC
+Exported: 22.10.2026, 00:16:03
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+BNB-USD.CC PRICE (USD): $750.06
+CHANGE: +$9.24 (+1.25%)
+TIMESTAMP: 22.10.2026, 00:16:03
+VOLUME: 1.382.124.544
+OPEN: $730.96
+HIGH: $742.00
+LOW: $724.96
+PREV CLOSE: $740.82
+52W HIGH: $1,180.01
+52W LOW: $538.60
+52W RANGE: $538.60 - $1,180.01
+SPREAD: 119.1%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($750.21) with negative momentum (-1.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 49.0
+MOMENTUM: -1.2%
+SMA20: $750.21
+VOLATILITY: 2.4%
+
+SINCE LAST SIGNAL
+Signal started: 7.10.2026
+Signal entry: $772.30
+Signal-aligned return: +2.88%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

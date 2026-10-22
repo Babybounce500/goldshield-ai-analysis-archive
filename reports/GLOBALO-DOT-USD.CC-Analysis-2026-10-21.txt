@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: DOT-USD.CC
+Exported: 22.10.2026, 00:16:04
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+DOT-USD.CC PRICE (USD): $1.16
+CHANGE: +$0.01 (+0.78%)
+TIMESTAMP: 22.10.2026, 00:16:04
+VOLUME: 103.514.376
+OPEN: $1.15
+HIGH: $1.18
+LOW: $1.13
+PREV CLOSE: $1.15
+52W HIGH: $3.52
+52W LOW: $0.73
+52W RANGE: $0.73 - $3.52
+SPREAD: 384.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($1.17) with negative momentum (-8.7%). This is a descriptive technical state, not a trade instruction.
+RSI: 49.7
+MOMENTUM: -8.7%
+SMA20: $1.17
+VOLATILITY: 5.0%
+
+SINCE LAST SIGNAL
+Signal started: 19.10.2026
+Signal entry: $1.15
+Signal-aligned return: -0.48%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

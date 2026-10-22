@@ -126,7 +126,8 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
   (noch) nicht aufgegangen ist. Jede Kachel zeigt zusätzlich den echten Kursverlauf seit Signalstart im
   Original-Signal-Flag-Design der echten GoldShield AI PWA (goldene Preislinie, Dreieck-Marker und
   Text-Flag am Signal-Einstieg) -- Profitability-Check zeigt: positive Signale laufen im Schnitt deutlich
-  weiter UND länger als negative Signale gegen einen laufen (Haltedauer-Analyse unten). Rein clientseitig
+  weiter UND länger als negative Signale gegen einen laufen (Haltedauer-Analyse unten). Darunter zusätzlich
+  eigene Regime-Wechsel- und Kennzahlen-Analysen pro Asset-Klasse (₿ Crypto, 💱 Forex). Rein clientseitig
   durchsuchbar und sortierbar -- gebaut, um auf tausende Reports zu skalieren.
   </div>
   <div class="stat-row">
@@ -154,26 +155,72 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
     <h2>🔄 Regime-Wechsel-Analyse</h2>
     <div class="regime-sub">
     Tägliche GoldShield-Sentiment-Zustände (dieselbe RSI/SMA20/Momentum-Logik wie oben) über die vollen
-    historischen Kursreihen von 610 Symbolen neu berechnet -- 171.410 Handelstage, 33.679 Sentiment-Regime,
-    33.069 Übergänge. Frage: wechselt Bullish/Bearish meist erst über Neutral, oder springt es direkt zur
-    Gegenseite? Antwort: <b>meistens über Neutral (62,8%)</b>, aber ein direkter Sprung Bullish↔Bearish ohne
-    Neutral-Zwischenstation ist mit <b>37,2%</b> trotzdem keine Seltenheit. Neutral selbst ist dabei fast immer
+    historischen Kursreihen von 637 Symbolen neu berechnet -- 180.974 Handelstage, 35.695 Sentiment-Regime,
+    35.058 Übergänge. Frage: wechselt Bullish/Bearish meist erst über Neutral, oder springt es direkt zur
+    Gegenseite? Antwort: <b>meistens über Neutral (62,5%)</b>, aber ein direkter Sprung Bullish↔Bearish ohne
+    Neutral-Zwischenstation ist mit <b>37,5%</b> trotzdem keine Seltenheit. Neutral selbst ist dabei fast immer
     nur ein kurzer Übergangszustand (Median 1 Handelstag), während Bullish/Bearish-Regime deutlich länger halten
-    (Median 3 Tage, einzelne Bullish-Läufe bis zu 310 Handelstage).
+    (Median 3 Tage, einzelne Bullish-Läufe bis zu 310 Handelstage). Unten aufgeschlüsselt nach Asset-Klasse:
+    Crypto und Forex zeigen beide leicht andere Werte als der Gesamtmarkt.
     </div>
     <div class="regime-bar">
-      <div class="seg neutral-first" style="width:62.8%;">62,8%</div>
-      <div class="seg direct-flip" style="width:37.2%;">37,2%</div>
+      <div class="seg neutral-first" style="width:62.5%;">62,5%</div>
+      <div class="seg direct-flip" style="width:37.5%;">37,5%</div>
     </div>
     <div class="regime-legend">
       <div><span class="sw" style="background:var(--accent);"></span>Über Neutral (Bullish→Neutral oder Bearish→Neutral)</div>
       <div><span class="sw" style="background:#2a5fa0;"></span>Direkter Flip (Bullish↔Bearish, ohne Neutral-Station)</div>
     </div>
     <div class="regime-durations">
-      <div class="rd"><b>6,5 / 3</b><span>BULLISH-REGIME: Ø / MEDIAN TAGE (max 310)</span></div>
-      <div class="rd"><b>6,8 / 3</b><span>BEARISH-REGIME: Ø / MEDIAN TAGE (max 69)</span></div>
+      <div class="rd"><b>6,4 / 3</b><span>BULLISH-REGIME: Ø / MEDIAN TAGE (max 310)</span></div>
+      <div class="rd"><b>6,8 / 3</b><span>BEARISH-REGIME: Ø / MEDIAN TAGE (max 75)</span></div>
       <div class="rd"><b>1,6 / 1</b><span>NEUTRAL-REGIME: Ø / MEDIAN TAGE (max 225)</span></div>
-      <div class="rd"><b>62,4% / 63,3%</b><span>BULLISH→/BEARISH→NEUTRAL (statt Direktflip)</span></div>
+      <div class="rd"><b>62,1% / 63,0%</b><span>BULLISH→/BEARISH→NEUTRAL (statt Direktflip)</span></div>
+    </div>
+  </div>
+
+  <div class="regime-panel" style="border-color:#e0a84a;">
+    <h2>₿ Crypto-Markt-Analyse (10 Assets)</h2>
+    <div class="regime-sub">
+    Die 10 von GoldShield AI real kuratierten Crypto-Paare (BTC, ETH, SOL, XRP, BNB, ADA, DOGE, DOT, AVAX, LINK --
+    nicht erfunden, 1:1 aus der echten PWA-Ticker-Auswahl übernommen). Kleine Stichprobe (10 Reports), daher als
+    Trend statt als statistisch belastbare Aussage zu lesen: <b>Win-Rate 90,0%</b> (9/10), Ø positive Signal-Rendite
+    <b>+3,73%</b> vs. Ø negative <b>-0,48%</b> -- deutlich geringere Fehlsignal-Ausreißer als im Gesamtmarkt.
+    Ø Haltedauer positiv <b>12,0 Tage</b> vs. negativ <b>2,0 Tage</b>. Regime-Wechsel (4.002 Handelstage über alle
+    10 Assets neu berechnet, 886 Übergänge): Crypto springt <b>häufiger direkt</b> zwischen Bullish/Bearish als
+    der Gesamtmarkt -- <b>33,3% direkter Flip</b> vs. 37,5% im Gesamtmarkt, 66,7% über Neutral.
+    </div>
+    <div class="regime-bar">
+      <div class="seg neutral-first" style="width:66.7%;">66,7%</div>
+      <div class="seg direct-flip" style="width:33.3%;background:#c2780f;">33,3%</div>
+    </div>
+    <div class="regime-durations">
+      <div class="rd"><b>5,1 / 3</b><span>BULLISH-REGIME: Ø / MEDIAN TAGE (max 40)</span></div>
+      <div class="rd"><b>6,7 / 3</b><span>BEARISH-REGIME: Ø / MEDIAN TAGE (max 34)</span></div>
+      <div class="rd"><b>1,6 / 1</b><span>NEUTRAL-REGIME: Ø / MEDIAN TAGE (max 7)</span></div>
+      <div class="rd"><b>90,0%</b><span>WIN-RATE (9/10)</span></div>
+    </div>
+  </div>
+
+  <div class="regime-panel" style="border-color:#2a5fa0;">
+    <h2>💱 Forex-Markt-Analyse (45 Paare)</h2>
+    <div class="regime-sub">
+    45 echte Forex-Paare (EUR/USD, GBP/USD, USD/JPY u.a. Majors/Minors/Exotics -- vollständige kuratierte
+    GoldShield-Liste). <b>Win-Rate 82,2%</b> (37/45), Ø positive Signal-Rendite <b>+1,68%</b> vs. Ø negative
+    <b>-0,26%</b>, beste Signal-Rendite <b>+16,72%</b>. Ø Haltedauer positiv <b>19,5 Tage</b> vs. negativ
+    <b>3,6 Tage</b> -- die längste Haltedauer im gesamten Archiv überhaupt. Regime-Wechsel (15.585 Handelstage
+    über 45 Paare, 3.104 Übergänge): <b>37,5% direkter Flip</b>, nahezu identisch zum Gesamtmarkt-Durchschnitt --
+    Forex verhält sich hier also am "marktdurchschnittlichsten" aller drei betrachteten Klassen.
+    </div>
+    <div class="regime-bar">
+      <div class="seg neutral-first" style="width:62.5%;background:#4a7fc9;">62,5%</div>
+      <div class="seg direct-flip" style="width:37.5%;">37,5%</div>
+    </div>
+    <div class="regime-durations">
+      <div class="rd"><b>6,8 / 4</b><span>BULLISH-REGIME: Ø / MEDIAN TAGE (max 310)</span></div>
+      <div class="rd"><b>6,3 / 3</b><span>BEARISH-REGIME: Ø / MEDIAN TAGE (max 75)</span></div>
+      <div class="rd"><b>1,6 / 1</b><span>NEUTRAL-REGIME: Ø / MEDIAN TAGE (max 9)</span></div>
+      <div class="rd"><b>82,2%</b><span>WIN-RATE (37/45)</span></div>
     </div>
   </div>
 

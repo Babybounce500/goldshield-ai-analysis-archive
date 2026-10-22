@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: GBPCHF.FOREX
+Exported: 21.10.2026, 21:41:00
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+GBPCHF.FOREX PRICE (USD): $1.10
+CHANGE: +$0.00 (+0.06%)
+TIMESTAMP: 21.10.2026, 21:41:00
+VOLUME: —
+OPEN: $1.10
+HIGH: $1.11
+LOW: $1.10
+PREV CLOSE: $1.10
+52W HIGH: $1.11
+52W LOW: $1.03
+52W RANGE: $1.03 - $1.11
+SPREAD: 8.0%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($1.10) with positive momentum (0.5%). This is a descriptive technical state, not a trade instruction.
+RSI: 56.2
+MOMENTUM: 0.5%
+SMA20: $1.10
+VOLATILITY: 0.3%
+
+SINCE LAST SIGNAL
+Signal started: 20.10.2026
+Signal entry: $1.10
+Signal-aligned return: +0.06%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.
