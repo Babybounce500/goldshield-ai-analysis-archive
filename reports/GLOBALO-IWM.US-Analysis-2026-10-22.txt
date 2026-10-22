@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: IWM.US
+Exported: 22.10.2026, 02:58:36
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+IWM.US PRICE (USD): $276.48
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 22.10.2026, 02:58:36
+VOLUME: 15.627.379
+OPEN: $276.86
+HIGH: $277.70
+LOW: $275.30
+PREV CLOSE: $276.48
+52W HIGH: $305.18
+52W LOW: $228.90
+52W RANGE: $228.90 - $305.18
+SPREAD: 33.3%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($277.75) with negative momentum (-0.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 44.2
+MOMENTUM: -0.4%
+SMA20: $277.75
+VOLATILITY: 0.9%
+
+SINCE LAST SIGNAL
+Signal started: 26.8.2026
+Signal entry: $298.93
+Signal-aligned return: +7.51%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

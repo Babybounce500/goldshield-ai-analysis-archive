@@ -109,6 +109,7 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 <header>
   <div><div class="logo-name">🛡 GOLDSHIELD AI</div><div class="logo-sub">ANALYSIS ARCHIVE — PROOF OF WORK</div></div>
   <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <a class="back" href="backtesting-report.html" target="_blank" rel="noopener noreferrer" style="border-color:var(--accent);color:var(--accent);font-weight:600;">📑 Backtesting-Report</a>
     <a class="back" href="https://globalfintech.net" target="_blank" rel="noopener noreferrer">🌐 GlobalFinTech.net</a>
     <a class="back" href="https://github.com/Babybounce500/goldshield-ai-analysis-archive" target="_blank" rel="noopener noreferrer">📦 Repository</a>
   </div>
@@ -127,8 +128,11 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
   Original-Signal-Flag-Design der echten GoldShield AI PWA (goldene Preislinie, Dreieck-Marker und
   Text-Flag am Signal-Einstieg) -- Profitability-Check zeigt: positive Signale laufen im Schnitt deutlich
   weiter UND länger als negative Signale gegen einen laufen (Haltedauer-Analyse unten). Darunter zusätzlich
-  eigene Regime-Wechsel- und Kennzahlen-Analysen pro Asset-Klasse (₿ Crypto, 💱 Forex). Rein clientseitig
-  durchsuchbar und sortierbar -- gebaut, um auf tausende Reports zu skalieren.
+  eigene Regime-Wechsel- und Kennzahlen-Analysen pro Asset-Klasse (₿ Crypto, 💱 Forex, 📊 Funds). Separater
+  <a href="backtesting-report.html" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">📑 Backtesting-Report</a>
+  simuliert das mechanische Tag-für-Tag-Handeln des Signals über die volle Historie (lookahead-frei) --
+  mit einem überraschend anderen Ergebnis als die Snapshot-Kennzahlen hier. Rein clientseitig durchsuchbar
+  und sortierbar -- gebaut, um auf tausende Reports zu skalieren.
   </div>
   <div class="stat-row">
     <div class="stat"><b id="stat-total">—</b><span>REPORTS GESAMT</span></div>
@@ -155,13 +159,13 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
     <h2>🔄 Regime-Wechsel-Analyse</h2>
     <div class="regime-sub">
     Tägliche GoldShield-Sentiment-Zustände (dieselbe RSI/SMA20/Momentum-Logik wie oben) über die vollen
-    historischen Kursreihen von 637 Symbolen neu berechnet -- 180.974 Handelstage, 35.695 Sentiment-Regime,
-    35.058 Übergänge. Frage: wechselt Bullish/Bearish meist erst über Neutral, oder springt es direkt zur
+    historischen Kursreihen von 659 Symbolen neu berechnet -- 187.046 Handelstage, 36.978 Sentiment-Regime,
+    36.319 Übergänge. Frage: wechselt Bullish/Bearish meist erst über Neutral, oder springt es direkt zur
     Gegenseite? Antwort: <b>meistens über Neutral (62,5%)</b>, aber ein direkter Sprung Bullish↔Bearish ohne
     Neutral-Zwischenstation ist mit <b>37,5%</b> trotzdem keine Seltenheit. Neutral selbst ist dabei fast immer
     nur ein kurzer Übergangszustand (Median 1 Handelstag), während Bullish/Bearish-Regime deutlich länger halten
     (Median 3 Tage, einzelne Bullish-Läufe bis zu 310 Handelstage). Unten aufgeschlüsselt nach Asset-Klasse:
-    Crypto und Forex zeigen beide leicht andere Werte als der Gesamtmarkt.
+    Crypto, Forex und Funds zeigen jeweils leicht andere Werte als der Gesamtmarkt.
     </div>
     <div class="regime-bar">
       <div class="seg neutral-first" style="width:62.5%;">62,5%</div>
@@ -221,6 +225,30 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
       <div class="rd"><b>6,3 / 3</b><span>BEARISH-REGIME: Ø / MEDIAN TAGE (max 75)</span></div>
       <div class="rd"><b>1,6 / 1</b><span>NEUTRAL-REGIME: Ø / MEDIAN TAGE (max 9)</span></div>
       <div class="rd"><b>82,2%</b><span>WIN-RATE (37/45)</span></div>
+    </div>
+  </div>
+
+  <div class="regime-panel" style="border-color:#5a8a5a;">
+    <h2>📊 Funds-Markt-Analyse (18 ETFs)</h2>
+    <div class="regime-sub">
+    18 real große, liquide ETFs (SPY/VOO/QQQ ausgeschlossen -- aktuell Neutral, siehe unten -- stattdessen u.a.
+    IWM, DIA, XLK, XLF, XLE, TLT, GLD-Umfeld, EEM, VNQ, ARKK). Kein dediziertes "Funds"-Ticker-Set existiert im
+    echten PWA-Quellcode wie bei Crypto -- diese Liste ist daher selbst kuratiert aus bekannten, liquiden
+    Large-Cap-ETFs, jeder Ticker vor Nutzung live gegen den Proxy verifiziert. <b>Win-Rate 88,9%</b> (16/18),
+    Ø positive Signal-Rendite <b>+2,86%</b> vs. Ø negative nur <b>-0,10%</b> -- die mit Abstand kleinsten
+    Fehlsignal-Ausreißer aller vier Klassen (ETFs sind breiter diversifiziert, schwanken dadurch weniger extrem
+    als Einzeltitel oder Crypto). Regime-Wechsel (4.968 Handelstage, 1.016 Übergänge): <b>39,2% direkter Flip</b>
+    -- die höchste Direktflip-Rate aller vier Klassen, leicht über dem Gesamtmarkt (37,5%).
+    </div>
+    <div class="regime-bar">
+      <div class="seg neutral-first" style="width:60.8%;background:#5a8a5a;">60,8%</div>
+      <div class="seg direct-flip" style="width:39.2%;background:#3a6b3a;">39,2%</div>
+    </div>
+    <div class="regime-durations">
+      <div class="rd"><b>6,4 / 3</b><span>BULLISH-REGIME: Ø / MEDIAN TAGE (max 61)</span></div>
+      <div class="rd"><b>6,0 / 3</b><span>BEARISH-REGIME: Ø / MEDIAN TAGE (max 40)</span></div>
+      <div class="rd"><b>1,6 / 1</b><span>NEUTRAL-REGIME: Ø / MEDIAN TAGE (max 7)</span></div>
+      <div class="rd"><b>88,9%</b><span>WIN-RATE (16/18)</span></div>
     </div>
   </div>
 

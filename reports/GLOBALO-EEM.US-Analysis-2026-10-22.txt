@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: EEM.US
+Exported: 22.10.2026, 02:58:42
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+EEM.US PRICE (USD): $63.57
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 22.10.2026, 02:58:42
+VOLUME: 17.733.461
+OPEN: $63.81
+HIGH: $63.81
+LOW: $63.25
+PREV CLOSE: $63.57
+52W HIGH: $71.57
+52W LOW: $52.38
+52W RANGE: $52.38 - $71.57
+SPREAD: 36.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($66.08) with negative momentum (-5.6%). This is a descriptive technical state, not a trade instruction.
+RSI: 36.9
+MOMENTUM: -5.6%
+SMA20: $66.08
+VOLATILITY: 0.9%
+
+SINCE LAST SIGNAL
+Signal started: 8.10.2026
+Signal entry: $66.10
+Signal-aligned return: +3.83%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

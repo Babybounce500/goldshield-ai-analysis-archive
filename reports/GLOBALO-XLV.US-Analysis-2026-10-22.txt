@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: XLV.US
+Exported: 22.10.2026, 02:58:41
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+XLV.US PRICE (USD): $178.94
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 22.10.2026, 02:58:41
+VOLUME: 8.461.413
+OPEN: $177.75
+HIGH: $179.68
+LOW: $177.64
+PREV CLOSE: $178.94
+52W HIGH: $180.06
+52W LOW: $141.97
+52W RANGE: $141.97 - $180.06
+SPREAD: 26.8%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($171.48) with positive momentum (6.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 66.6
+MOMENTUM: 6.0%
+SMA20: $171.48
+VOLATILITY: 1.1%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: $173.96
+Signal-aligned return: +2.86%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

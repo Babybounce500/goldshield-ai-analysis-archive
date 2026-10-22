@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: XLK.US
+Exported: 22.10.2026, 02:58:40
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+XLK.US PRICE (USD): $188.54
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 22.10.2026, 02:58:40
+VOLUME: 9.560.213
+OPEN: $187.53
+HIGH: $189.11
+LOW: $186.47
+PREV CLOSE: $188.54
+52W HIGH: $305.99
+52W LOW: $126.68
+52W RANGE: $126.68 - $305.99
+SPREAD: 141.5%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($194.50) with negative momentum (-6.4%). This is a descriptive technical state, not a trade instruction.
+RSI: 44.5
+MOMENTUM: -6.4%
+SMA20: $194.50
+VOLATILITY: 1.4%
+
+SINCE LAST SIGNAL
+Signal started: 14.10.2026
+Signal entry: $190.43
+Signal-aligned return: +0.99%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

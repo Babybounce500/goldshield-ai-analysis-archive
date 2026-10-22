@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: TLT.US
+Exported: 22.10.2026, 02:58:37
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+TLT.US PRICE (USD): $80.24
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 22.10.2026, 02:58:37
+VOLUME: 35.876.680
+OPEN: $80.31
+HIGH: $80.47
+LOW: $79.84
+PREV CLOSE: $80.24
+52W HIGH: $92.18
+52W LOW: $76.43
+52W RANGE: $76.43 - $92.18
+SPREAD: 20.6%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($78.56) with positive momentum (4.0%). This is a descriptive technical state, not a trade instruction.
+RSI: 57.0
+MOMENTUM: 4.0%
+SMA20: $78.56
+VOLATILITY: 0.8%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $79.97
+Signal-aligned return: +0.34%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

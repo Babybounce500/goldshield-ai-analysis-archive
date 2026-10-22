@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: SLV.US
+Exported: 22.10.2026, 02:58:39
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+SLV.US PRICE (USD): $52.26
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 22.10.2026, 02:58:39
+VOLUME: 10.216.415
+OPEN: $52.05
+HIGH: $52.29
+LOW: $51.40
+PREV CLOSE: $52.26
+52W HIGH: $109.83
+52W LOW: $41.70
+52W RANGE: $41.70 - $109.83
+SPREAD: 163.4%
+
+ANALYSIS
+--------
+Market Sentiment: Bearish 0%
+Technical Score: 0.0 OUT OF 2
+AI Recommendation:
+BEARISH STRUCTURE: Price is below SMA20 ($54.03) with negative momentum (-2.9%). This is a descriptive technical state, not a trade instruction.
+RSI: 40.5
+MOMENTUM: -2.9%
+SMA20: $54.03
+VOLATILITY: 1.7%
+
+SINCE LAST SIGNAL
+Signal started: 28.9.2026
+Signal entry: $54.95
+Signal-aligned return: +4.90%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.

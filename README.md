@@ -6,8 +6,8 @@ echter Snapshot zum angegebenen Datum: Live-Marktdaten, technischer Score (0-2),
 (RSI, Momentum, SMA20, Volatilität) und die **Signal-Rendite** (Performance seit letztem Signalwechsel --
 nur in Reports ab ca. August 2026 enthalten, ältere Exports hatten dieses Feld noch nicht).
 
-**641 Reports** über **633 Symbole**, Juni–Oktober 2026.
-Davon **303 High-Conviction-Reports** mit Signal-Rendite ≥ 5 % und **152 Fehlsignal-Reports**
+**659 Reports** über **651 Symbole**, Juni–Oktober 2026.
+Davon **306 High-Conviction-Reports** mit Signal-Rendite ≥ 5 % und **154 Fehlsignal-Reports**
 (aktuell laufendes Signal mit negativer Signal-Rendite, schlechtester Fall: **ARGX.BR -11.48%**) --
 beide als eigene Filter-Kategorien auf dem Live-Index, zum direkten Vergleich von aktuell funktionierenden und
 aktuell nicht funktionierenden Signalen.
@@ -65,30 +65,30 @@ aktuell nicht funktionierenden Signalen.
 
 ## Profitability- & Signal-Stärke-Check
 
-Über alle 636 Reports mit Signal-Rendite:
+Über alle 654 Reports mit Signal-Rendite:
 
 | Kennzahl | Positive Signale | Negative Signale (Fehlsignal) |
 |---|---|---|
-| Anzahl | 484 | 152 |
-| Ø Signal-Rendite | +9.05% | -1.15% |
+| Anzahl | 500 | 154 |
+| Ø Signal-Rendite | +8.85% | -1.13% |
 | Größter Ausschlag | +89.98% | -11.48% |
-| Ø Haltedauer (Tage seit Signalstart) | 16.0 | 4.6 |
+| Ø Haltedauer (Tage seit Signalstart) | 15.9 | 4.6 |
 | Median Haltedauer | 13 | 5 |
 | Längste Haltedauer | 321 Tage | 14 Tage |
-| Ø Rendite pro Tag im Signal | +0.680%/Tag | -0.397%/Tag |
+| Ø Rendite pro Tag im Signal | +0.664%/Tag | -0.392%/Tag |
 
-**Win-Rate gesamt: 76.1%** (484/636). Bullish-Signale: 73.5%
-Win-Rate, Ø +5.31%. Bearish-Signale: 79.1%
-Win-Rate, Ø +8.11%.
+**Win-Rate gesamt: 76.5%** (500/654). Bullish-Signale: 73.8%
+Win-Rate, Ø +5.21%. Bearish-Signale: 79.5%
+Win-Rate, Ø +8.00%.
 
-Auffällig: positive Signale laufen im Schnitt **7.9x weiter** als negative
-Signale gegen einen laufen (+9.05% vs. -1.15%). Die Haltedauer-Analyse zeigt,
-woran das liegt: positive Signale laufen im Schnitt **3.5x länger**
-(16.0 vs. 4.6 Tage) -- die längste negative Haltedauer liegt bei nur
+Auffällig: positive Signale laufen im Schnitt **7.8x weiter** als negative
+Signale gegen einen laufen (+8.85% vs. -1.13%). Die Haltedauer-Analyse zeigt,
+woran das liegt: positive Signale laufen im Schnitt **3.4x länger**
+(15.9 vs. 4.6 Tage) -- die längste negative Haltedauer liegt bei nur
 14 Tagen, während positive Signale bis zu 321 Tage durchlaufen. Verlierer-Signale werden
 also offenbar schnell technisch korrigiert (Sentiment-Wechsel), während Gewinner-Signale lange intakt bleiben.
-Zusätzlich ist auch die Tagesrate selbst asymmetrisch (+0.680%/Tag vs.
--0.397%/Tag) -- die Gesamt-Rendite-Asymmetrie kommt also sowohl aus längerer Laufzeit als
+Zusätzlich ist auch die Tagesrate selbst asymmetrisch (+0.664%/Tag vs.
+-0.392%/Tag) -- die Gesamt-Rendite-Asymmetrie kommt also sowohl aus längerer Laufzeit als
 auch aus einer höheren Tagesrate bei positiven Signalen. Das deckt sich mit der asymmetrischen Verteilung, die
 man beim Vergleich der 🏆 High-Conviction- und ⚠️ Fehlsignal-Kategorien direkt auf dem Live-Index sieht.
 
@@ -108,12 +108,12 @@ Hauptberechnung) über die vollen historischen Kursreihen von 610 Symbolen neu b
 | Bearish→Neutral (von allen Bearish-Austritten) | 63,3 % |
 | Bearish→Bullish direkt (von allen Bearish-Austritten) | 36,7 % |
 
-**Regime-Dauer (Handelstage):** Bullish Ø 6,4 / Median 3 (max. 310) -- Bearish Ø 6,8 / Median 3 (max. 75) --
+**Regime-Dauer (Handelstage):** Bullish Ø 6,4 / Median 3 (max. 310) -- Bearish Ø 6,7 / Median 3 (max. 75) --
 Neutral Ø 1,6 / Median 1 (max. 225). Neutral ist also fast immer nur eine kurze Zwischenstation
 (meist 1 Tag), während Bullish/Bearish-Regime deutlich länger halten -- passt zur Haltedauer-Analyse oben
 (aktuelle Signale laufen im Schnitt 4,6–16,4 Tage).
 
-(Basis: 637 Symbole mit historischen Kursreihen, 180.974 Handelstage, 35.695 Regime, 35.058 Übergänge --
+(Basis: 659 Symbole mit historischen Kursreihen, 187.046 Handelstage, 36.978 Regime, 36.319 Übergänge --
 davon 62,5 % über Neutral, 37,5 % direkter Flip.)
 
 ## Asset-Klassen-Analyse: Crypto
@@ -153,6 +153,53 @@ laufen hier häufiger erst über eine kurze Neutral-Phase.
 Forex liegt bei allen Kennzahlen am nächsten am Gesamtmarkt-Durchschnitt -- insbesondere die Regime-Flip-Rate
 (37,5 % vs. 37,5 % Gesamtmarkt) ist praktisch identisch. Die längste Haltedauer im gesamten Archiv (310 Tage,
 Bullish) stammt aus dieser Asset-Klasse.
+
+## Asset-Klassen-Analyse: Funds
+
+18 reale, liquide Large-Cap-ETFs (u. a. IWM, DIA, XLK, XLF, XLE, TLT, EEM, VNQ, ARKK). Anders als bei Crypto
+existiert im echten PWA-Quellcode kein dediziertes "Funds"-Ticker-Set -- diese Liste ist deshalb selbst
+kuratiert aus bekannten, liquiden ETFs und jeder Ticker vor Nutzung live gegen den Proxy verifiziert
+(SPY, VOO, GLD, XLI aktuell Neutral und daher ausgeschlossen, gleiche Regel wie bei allen anderen Batches).
+
+| Kennzahl | Wert |
+|---|---|
+| Win-Rate | 88,9 % (16/18) |
+| Ø Signal-Rendite positiv | +2,86 % |
+| Ø Signal-Rendite negativ | -0,10 % |
+| Ø Haltedauer positiv / negativ | 13,4 / 7,0 Tage |
+| Regime: direkter Flip / über Neutral | 39,2 % / 60,8 % |
+| Regime-Dauer Bullish Ø/Median (max) | 6,4 / 3 (61) Tage |
+| Regime-Dauer Bearish Ø/Median (max) | 6,0 / 3 (40) Tage |
+
+Funds haben mit Abstand die kleinsten Fehlsignal-Ausreißer aller vier Klassen (-0,10 % im Schnitt) --
+plausibel, da ETFs breiter diversifiziert sind und dadurch weniger extrem schwanken als Einzeltitel oder
+Crypto. Gleichzeitig die höchste Direktflip-Rate (39,2 % vs. 37,5 % Gesamtmarkt).
+
+## Backtesting-Report (alle Asset-Klassen)
+
+**[Backtesting-Report öffnen](https://babybounce500.github.io/goldshield-ai-analysis-archive/backtesting-report.html)**
+
+Separat vom Signal-Strength-Check oben: ein lookahead-freier Tages-Backtest, der simuliert, was passiert
+wäre, hätte man das GoldShield-Sentiment-Signal **mechanisch, Tag für Tag**, über die volle Historie gehandelt
+(long bei Bullish, short bei Bearish, flat bei Neutral; Position an Tag i nutzt ausschließlich Daten bis Tag i,
+angewendet auf die Rendite von Tag i zu Tag i+1). Das ist eine andere, strengere Fragestellung als die
+Snapshot-Kennzahlen oben (die messen, wie sich ein *aktuell laufendes* Signal seit seinem Start entwickelt hat).
+
+| Klasse | Symbole | Ø Rendite/Symbol | Portfolio-Rendite | Portfolio Max DD | Ø Sharpe | Win-Rate (aktive Tage) |
+|---|---|---|---|---|---|---|
+| Gesamtmarkt | 659 | -1,97 % | -2,13 % | -19,42 % | -0,11 | 48,7 % |
+| Crypto | 10 | -26,55 % | -7,01 % | -41,20 % | -0,17 | 48,3 % |
+| Forex | 50 | -3,53 % | +7,63 % | -5,21 % | -0,62 | 46,6 % |
+| Funds | 22 | -13,87 % | -13,87 % | -14,86 % | -0,53 | 48,4 % |
+
+**Über alle vier Klassen: negative durchschnittliche Rendite, negativer Sharpe, Win-Rate nahe am Münzwurf.**
+Das mechanische Tages-Following des Signals wäre historisch kein profitables System gewesen -- im Gegensatz
+zu den optisch deutlich besseren Snapshot-Zahlen oben (Ø +9,42 % für aktuell positive Signale). Kein
+Widerspruch, sondern ein struktureller Unterschied: Signale, die schlecht laufen, wechseln tendenziell
+schneller zu Neutral oder drehen und fallen dadurch schneller aus der "aktuell aktiv"-Stichprobe heraus, die
+der Signal-Strength-Check misst. GoldShield AI selbst bezeichnet seine Einschätzungen explizit als
+*"descriptive technical state, not a trade instruction"* -- dieser Backtest zeigt, warum das wichtig ist.
+Methodik-Details, Equity-Kurven und Top/Bottom-5-Tabellen pro Klasse im vollständigen Report.
 
 ## Pipeline für weitere Reports
 

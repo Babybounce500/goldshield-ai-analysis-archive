@@ -1,0 +1,38 @@
+GOLDSHIELD AI - MARKET ANALYSIS EXPORT
+Symbol: VNQ.US
+Exported: 22.10.2026, 02:58:43
+Source: GoldShield AI by Genitus Inc. (globalfintech.net)
+
+MARKET DATA
+-----------
+VNQ.US PRICE (USD): $91.49
+CHANGE: +$0.00 (+0.00%)
+TIMESTAMP: 22.10.2026, 02:58:43
+VOLUME: 4.724.714
+OPEN: $92.68
+HIGH: $92.73
+LOW: $91.33
+PREV CLOSE: $91.49
+52W HIGH: $101.80
+52W LOW: $86.84
+52W RANGE: $86.84 - $101.80
+SPREAD: 17.2%
+
+ANALYSIS
+--------
+Market Sentiment: Bullish 100%
+Technical Score: 2.0 OUT OF 2
+AI Recommendation:
+BULLISH SETUP: Price is above SMA20 ($90.49) with positive momentum (3.2%). This is a descriptive technical state, not a trade instruction.
+RSI: 48.6
+MOMENTUM: 3.2%
+SMA20: $90.49
+VOLATILITY: 1.5%
+
+SINCE LAST SIGNAL
+Signal started: 15.10.2026
+Signal entry: $91.44
+Signal-aligned return: +0.05%
+
+---
+Note: AI-generated computational analysis, not investment advice. Market data may be delayed.
