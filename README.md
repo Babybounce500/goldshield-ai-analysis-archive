@@ -179,27 +179,33 @@ Crypto. Gleichzeitig die höchste Direktflip-Rate (39,2 % vs. 37,5 % Gesamtmarkt
 
 **[Backtesting-Report öffnen](https://babybounce500.github.io/goldshield-ai-analysis-archive/backtesting-report.html)**
 
-Separat vom Signal-Strength-Check oben: ein lookahead-freier Tages-Backtest, der simuliert, was passiert
-wäre, hätte man das GoldShield-Sentiment-Signal **mechanisch, Tag für Tag**, über die volle Historie gehandelt
-(long bei Bullish, short bei Bearish, flat bei Neutral; Position an Tag i nutzt ausschließlich Daten bis Tag i,
-angewendet auf die Rendite von Tag i zu Tag i+1). Das ist eine andere, strengere Fragestellung als die
-Snapshot-Kennzahlen oben (die messen, wie sich ein *aktuell laufendes* Signal seit seinem Start entwickelt hat).
+Strategie: das aktuelle Signal eingehen und halten, bis ein Regime-Wechsel eintritt -- dieselbe Logik wie die
+Signal-Rendite bei jedem Report, hier aber über die **gesamte historische Signal-Abfolge** jedes Symbols
+simuliert statt nur über das aktuell offene Signal. Die Position ist **sticky**: ein Neutral-Tag schließt sie
+nicht, sondern wird einfach weitergehalten -- erst ein tatsächlicher Wechsel zur Gegenseite löst einen neuen
+Einstieg aus. Streng lookahead-frei (Position an Tag i nutzt ausschließlich Daten bis Tag i, angewendet auf
+die Rendite von Tag i zu Tag i+1).
 
 | Klasse | Symbole | Ø Rendite/Symbol | Portfolio-Rendite | Portfolio Max DD | Ø Sharpe | Win-Rate (aktive Tage) |
 |---|---|---|---|---|---|---|
-| Gesamtmarkt | 659 | -1,97 % | -2,13 % | -19,42 % | -0,11 | 48,7 % |
-| Crypto | 10 | -26,55 % | -7,01 % | -41,20 % | -0,17 | 48,3 % |
-| Forex | 50 | -3,53 % | +7,63 % | -5,21 % | -0,62 | 46,6 % |
-| Funds | 22 | -13,87 % | -13,87 % | -14,86 % | -0,53 | 48,4 % |
+| Gesamtmarkt | 659 | -1,18 % | -1,91 % | -5,88 % | -0,07 | 48,9 % |
+| Crypto | 10 | -16,68 % | -16,73 % | -37,90 % | -0,02 | 49,2 % |
+| Forex | 50 | -2,44 % | -3,38 % | -3,55 % | -0,44 | 47,3 % |
+| Funds | 22 | -11,63 % | -11,63 % | -13,11 % | -0,48 | 48,7 % |
 
-**Über alle vier Klassen: negative durchschnittliche Rendite, negativer Sharpe, Win-Rate nahe am Münzwurf.**
-Das mechanische Tages-Following des Signals wäre historisch kein profitables System gewesen -- im Gegensatz
-zu den optisch deutlich besseren Snapshot-Zahlen oben (Ø +9,42 % für aktuell positive Signale). Kein
-Widerspruch, sondern ein struktureller Unterschied: Signale, die schlecht laufen, wechseln tendenziell
-schneller zu Neutral oder drehen und fallen dadurch schneller aus der "aktuell aktiv"-Stichprobe heraus, die
-der Signal-Strength-Check misst. GoldShield AI selbst bezeichnet seine Einschätzungen explizit als
-*"descriptive technical state, not a trade instruction"* -- dieser Backtest zeigt, warum das wichtig ist.
-Methodik-Details, Equity-Kurven und Top/Bottom-5-Tabellen pro Klasse im vollständigen Report.
+(Portfolio-Kurve wird abgeschnitten, sobald weniger als die Hälfte der Symbole einer Klasse noch Daten an
+diesem Punkt haben -- sonst würde eine schrumpfende Handvoll der längsten Historien das Kurvenende dominieren.)
+
+**Über alle vier Klassen hinweg durchgehend negativ: Ø-Rendite, Portfolio-Rendite, Ø-Sharpe, Win-Rate nahe am
+Münzwurf.** Das unterscheidet sich deutlich von den optisch besseren Snapshot-Zahlen oben (Ø +9,42 % für
+aktuell positive Signale). Kein Widerspruch, sondern ein struktureller Stichproben-Unterschied: der
+Signal-Strength-Check misst nur das aktuell gerade offene Signal jedes Symbols -- das bevorzugt strukturell
+Signale, die gerade gut laufen (ein Signal, das schlecht läuft, dreht tendenziell schneller und fällt dadurch
+schneller aus der "aktuell aktiv"-Stichprobe). Dieser Backtest simuliert dieselbe Hold-Logik stattdessen über
+jeden einzelnen historischen Regime-Wechsel. GoldShield AI selbst bezeichnet seine Einschätzungen explizit
+als *"descriptive technical state, not a trade instruction"* -- über die volle Historie gehandelt wäre das
+Signal historisch kein durchgehend verlässliches System gewesen. Methodik-Details, Equity-Kurven und
+Top/Bottom-5-Tabellen pro Klasse im vollständigen Report.
 
 ## Pipeline für weitere Reports
 
