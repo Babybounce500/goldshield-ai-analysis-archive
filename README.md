@@ -207,6 +207,18 @@ als *"descriptive technical state, not a trade instruction"* -- über die volle 
 Signal historisch kein durchgehend verlässliches System gewesen. Methodik-Details, Equity-Kurven und
 Top/Bottom-5-Tabellen pro Klasse im vollständigen Report.
 
+### Strategie-Brainstorm: Trend-Bestätigung
+
+Wenn der sofortige Einstieg keine Edge zeigt -- lässt sich die (zweifellos starke) aktuelle Signal-Performance
+trotzdem profitabel nutzen? Getestet: Einstieg erst nach **N Tagen bestätigtem Sentiment** statt sofort am
+ersten Tag des Regime-Wechsels. Ergebnis, am deutlichsten bei Crypto: bei 5 Tagen Bestätigung springt die
+Ø-Rendite von -16,68 % (sofort) auf **+50,30 %**, Sharpe von -0,02 auf **+0,72** (kleine Stichprobe, 10 Symbole
+-- als starkes Signal zu lesen, nicht als Beweis). Forex und Funds zeigen dieselbe Richtung, schwächer.
+Mechanismus: ein Bestätigungsfilter schneidet die kurzlebigen Regime heraus (Median-Dauer nur 3 Tage), die
+den naiven Sofort-Einstieg verwässern. Live-Anwendung: **185 aktuell offene Signale** im Archiv laufen bereits
+≥15 Tage ohne Regime-Wechsel (Filter **🎯 Bestätigter Trend** auf dem Index) -- aktuell 100 % davon im Plus,
+Ø +14,27 %. Volle Sweep-Tabellen und Live-Kandidatenliste im Backtesting-Report.
+
 ## Pipeline für weitere Reports
 
 Neue Downloads landen als `GLOBALO-{SYMBOL}-Analysis-{YYYY-MM-DD}.{html,txt}` in `reports/`.

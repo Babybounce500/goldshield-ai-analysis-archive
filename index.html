@@ -35,6 +35,8 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 .chip-highlight[aria-pressed="true"]{background:rgba(21,128,61,.1);}
 .chip-warn{border-color:var(--red);color:var(--red);font-weight:600;}
 .chip-warn[aria-pressed="true"]{background:rgba(185,28,28,.1);}
+.chip-confirmed{border-color:#2a5fa0;color:#2a5fa0;font-weight:600;}
+.chip-confirmed[aria-pressed="true"]{background:rgba(42,95,160,.1);}
 .result-count{font-size:9.5px;color:var(--muted);margin-bottom:14px;}
 .result-count b{color:var(--text);}
 
@@ -131,8 +133,9 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
   eigene Regime-Wechsel- und Kennzahlen-Analysen pro Asset-Klasse (₿ Crypto, 💱 Forex, 📊 Funds). Separater
   <a href="backtesting-report.html" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">📑 Backtesting-Report</a>
   simuliert "Signal eingehen, halten bis Regime-Wechsel" über die volle Historie jedes Symbols (lookahead-frei)
-  -- mit einem überraschend anderen Ergebnis als die Snapshot-Kennzahlen hier. Rein clientseitig durchsuchbar
-  und sortierbar -- gebaut, um auf tausende Reports zu skalieren.
+  -- inkl. Strategie-Brainstorm: Einstieg erst nach bestätigtem Trend statt sofort. Die Kategorie
+  <b>🎯 Bestätigter Trend (≥15 Tage)</b> zeigt aktuell offene Signale, die dieses Muster bereits erfüllen.
+  Rein clientseitig durchsuchbar und sortierbar -- gebaut, um auf tausende Reports zu skalieren.
   </div>
   <div class="stat-row">
     <div class="stat"><b id="stat-total">—</b><span>REPORTS GESAMT</span></div>
@@ -336,6 +339,7 @@ function render() {
     const matchesFilter = activeFilter === 'all'
       || (activeFilter === 'highconviction' ? (r.alignedReturn != null && r.alignedReturn >= 5)
       : activeFilter === 'fehlsignal' ? (r.alignedReturn != null && r.alignedReturn < 0)
+      : activeFilter === 'confirmed' ? (r.holdingDays != null && r.holdingDays >= 15)
       : (r.sentiment || '').toLowerCase() === activeFilter);
     return matchesQ && matchesFilter;
   });
@@ -362,9 +366,10 @@ function renderFilters() {
     neutral: REPORTS.filter(r=>r.sentiment==='Neutral').length,
     highconviction: REPORTS.filter(r=>r.alignedReturn != null && r.alignedReturn >= 5).length,
     fehlsignal: REPORTS.filter(r=>r.alignedReturn != null && r.alignedReturn < 0).length,
+    confirmed: REPORTS.filter(r=>r.holdingDays != null && r.holdingDays >= 15).length,
   };
-  const opts = [['all','Alle'],['highconviction','🏆 High-Conviction (≥5%)'],['fehlsignal','⚠️ Fehlsignal'],['bullish','🟢 Bullish'],['bearish','🔴 Bearish'],['neutral','⚪ Neutral']];
-  document.getElementById('filters').innerHTML = opts.map(([val,label]) => `<button class="chip${val==='highconviction'?' chip-highlight':''}${val==='fehlsignal'?' chip-warn':''}" type="button" data-val="${val}" aria-pressed="${activeFilter===val}">${label} (${counts[val]})</button>`).join('');
+  const opts = [['all','Alle'],['highconviction','🏆 High-Conviction (≥5%)'],['fehlsignal','⚠️ Fehlsignal'],['confirmed','🎯 Bestätigter Trend (≥15 Tage)'],['bullish','🟢 Bullish'],['bearish','🔴 Bearish'],['neutral','⚪ Neutral']];
+  document.getElementById('filters').innerHTML = opts.map(([val,label]) => `<button class="chip${val==='highconviction'?' chip-highlight':''}${val==='fehlsignal'?' chip-warn':''}${val==='confirmed'?' chip-confirmed':''}" type="button" data-val="${val}" aria-pressed="${activeFilter===val}">${label} (${counts[val]})</button>`).join('');
   document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => { activeFilter = c.dataset.val; renderFilters(); render(); }));
 }
 
