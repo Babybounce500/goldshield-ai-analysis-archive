@@ -244,6 +244,25 @@ der Daten-Proxy liefert für diese Symbole bei historischen Kursreihen konsequen
 Kurshistorie ist RSI/SMA20/Momentum nicht berechenbar -- eine echte Datenlücke der Quelle, kein
 Implementierungsfehler.
 
+## 📦 DAX Weekly Breakout -- eigene Strategie, eigener Backtest
+
+**[Report öffnen](https://babybounce500.github.io/goldshield-ai-analysis-archive/dax-breakout-report.html)**
+
+Andere Handelslogik als das GoldShield-Sentiment-System, aus `OPEN-ORDNERBOOK.html` im GoldShield-Quellcode-
+Fundus: ein wöchentlicher Donchian-Channel-Breakout über 37 DAX-Aktien (Kanal = Max/Min der letzten 3
+Freitags-Schlusskurse, Ausbruch über/unter Kanal löst Long/Short aus). Das Original definiert keine
+Exit-Regel -- für den Backtest wurde eine feste Logik festgelegt: Montag-Einstieg, Freitag-Ausstieg, übers
+Wochenende immer flach. Lookahead-frei, über zwei unabhängige Zeithälften gegengetestet (gleiche Disziplin
+wie beim GoldShield-Backtest).
+
+**Ergebnis:** Ø +4,50 % Rendite pro Symbol (Median +1,92 %), Portfolio (gleichgewichtet) +4,70 % bei nur
+-2,19 % Max-Drawdown, Win-Rate 52,0 % über 844 Trades. In beiden Zeithälften unabhängig **positiv**
+(Sharpe 0,35 älter / 0,08 neuer) -- vorzeichen-konsistent, aber die Stärke schwankt stark zwischen den
+Hälften (fast Faktor 4) und bleibt insgesamt schwächer als die robuste Crypto-Bestätigungs-Edge (0,79/0,86).
+Einzuordnen als **schwache, aber real positive Edge**, getragen von wenigen starken Ausreißern
+(RHM.XETRA +54,5 % bis ENR.XETRA -40,5 %), nicht gleichmäßig über alle 37 Aktien. Volle Tabellen,
+Equity-Kurve und Robustheits-Check im eigenen Report.
+
 ## Pipeline für weitere Reports
 
 Neue Downloads landen als `GLOBALO-{SYMBOL}-Analysis-{YYYY-MM-DD}.{html,txt}` in `reports/`.
