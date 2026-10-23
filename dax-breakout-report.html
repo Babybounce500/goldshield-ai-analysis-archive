@@ -32,6 +32,7 @@ th{text-align:left;color:var(--muted);font-weight:600;padding:4px 6px;border-bot
 td{padding:4px 6px;border-bottom:1px solid var(--border);}
 td.num{text-align:right;font-variant-numeric:tabular-nums;}
 td.pos{color:var(--green);} td.neg{color:var(--red);}
+tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
 .period-table td,.period-table th{text-align:center;}
 .footer-note{font-size:9.5px;color:var(--muted);margin-top:30px;border-top:1px solid var(--border);padding-top:14px;}
 .back{font-family:var(--mono);font-size:10px;color:var(--accent);text-decoration:none;}
@@ -250,6 +251,62 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
     <td class="num neg">-11.3%</td>
   </tr></tbody></table>
     </div>
+  </div>
+
+  <h2>🔎 Deep-Dive: wie oft fällt der Kurs vor Freitag zurück in den Kanal?</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Der Montag-Einstieg erfolgt, weil der Kurs <i>außerhalb</i> des 3-Wochen-Kanals liegt. Aber zwischen Montag
+  und Freitag kann der Kurs jederzeit wieder <i>in</i> den Kanal zurückfallen -- der Ausbruch "scheitert"
+  vorübergehend. Frage: wie oft passiert das, und wäre es besser, die Position sofort beim ersten
+  Kanal-Rückfall zu schließen, statt stur bis Freitag zu halten?
+  </div>
+  <div class="stat-grid">
+    <div class="bstat"><b>844</b><span>AUSGELÖSTE WOCHEN GESAMT</span></div>
+    <div class="bstat"><b>46.3%</b><span>DAVON MIT KANAL-RÜCKFALL VOR FREITAG</span></div>
+    <div class="bstat"><b>0.52</b><span>Ø RÜCKFALL-EREIGNISSE PRO WOCHE</span></div>
+    <div class="bstat"><b>44</b><span>WOCHEN MIT 2 RÜCKFÄLLEN (NIE 3+)</span></div>
+  </div>
+  <div class="methodology" style="margin-bottom:16px;">
+  <b>Antwort auf "wie oft muss man schließen":</b> in <b>46.3%</b>
+  der ausgelösten Wochen (391 von 844) fällt der Kurs
+  mindestens einmal vor Freitag zurück in den Kanal -- fast jede zweite Woche. Meistens genau einmal
+  (41.1%), selten zweimal
+  (5.2%), nie dreimal oder
+  öfter in dieser Stichprobe.
+  </div>
+
+  <h3 style="font-size:12px;margin-bottom:8px;">Baseline (bis Freitag halten) vs. Early-Exit (bei erstem Kanal-Rückfall schließen)</h3>
+  <table><thead><tr><th>Variante</th><th>Ø Wochenrendite</th><th>Sharpe</th><th>Win-Rate</th><th>n</th></tr></thead><tbody>
+    <tr class="best-row"><td>Baseline (bis Freitag halten)</td><td class="num pos">+0.202%</td><td class="num pos">0.37</td><td class="num">52.0%</td><td class="num">844</td></tr>
+    <tr><td>Early-Exit (bei 1. Kanal-Rückfall schließen)</td><td class="num pos">+0.059%</td><td class="num pos">0.12</td><td class="num">41.0%</td><td class="num">844</td></tr>
+  </tbody></table>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Early-Exit ist klar schlechter</b> -- Ø Wochenrendite fällt von +0.202% auf
+  +0.059% (ca. 3.4x kleiner),
+  Sharpe von 0.37 auf 0.12, Win-Rate von
+  52.0% auf 41.0%. Ein Kanal-Rückfall ist
+  offenbar meist normales Rauschen um einen noch intakten Ausbruch, kein echtes Scheitern -- wer sofort
+  rausgeht, verkauft oft genau am lokalen Tief einer am Ende profitablen Woche. <b>Dieselbe Lektion wie beim
+  Crypto-Pyramiding-Test:</b> aktives Nachjustieren schadet öfter als es hilft -- "Montag rein, Freitag raus,
+  dazwischen nichts anfassen" bleibt die bessere Regel.
+  </div>
+
+  <h2>💭 Einschätzung: ist die Strategie nutzbar?</h2>
+  <div class="callout" style="border-left-color:#2a5fa0;">
+  <b>Ehrlich: als voll-mechanisches System mit echtem Kapital -- eher nicht, zumindest nicht ohne Weiteres.</b>
+  Drei Gründe: <b>(1) Die Edge ist dünn.</b> Ø Wochenrendite pro Trade nur +0.202% --
+  bei einem realistischen Round-Trip-Kostenanteil von ~20 Basispunkten (Spread + Kommission) wäre die Edge
+  bereits aufgezehrt, bei weniger liquiden DAX-Nebenwerten (z. B. ENR, 1COV, ZAL) realistisch sogar deutlich
+  früher. Dieser Backtest rechnet <b>keine Handelskosten</b> ein. <b>(2) Die Robustheit ist schwach.</b> Sharpe
+  fällt von 0,35 (ältere Hälfte) auf 0,08 (neuere Hälfte) -- fast Faktor 4 Unterschied, weit entfernt von der
+  robusten Crypto-Bestätigungs-Edge (0,79/0,86 in beiden Hälften unabhängig bestätigt). <b>(3) Wenige Ausreißer
+  tragen den Durchschnitt.</b> RHM.XETRA (+54,5%) und ADS.XETRA (+37,3%) allein erklären einen großen Teil der
+  positiven Gesamtbilanz; 10 der 37 Aktien liegen im Minus. Ohne Rückblick lässt sich nicht wissen, welche
+  Aktien vorab die Gewinner gewesen wären. <b>Wofür es sich eignet:</b> als Screening-Tool, das anzeigt, welche
+  DAX-Aktien gerade aus ihrer 3-Wochen-Spanne ausbrechen -- als Ausgangspunkt für weitere eigene Prüfung, nicht
+  als Blind-Autopilot. Die Crypto-Bestätigungs-Strategie aus dem
+  <a href="backtesting-report.html#class-sweetspot" target="_blank" rel="noopener noreferrer">Backtesting-Report</a>
+  bleibt der deutlich überzeugendere Fund aus diesem gesamten Sprint.
   </div>
 
   <div class="footer-note">
