@@ -34,6 +34,9 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;}
 td.pos{color:var(--green);} td.neg{color:var(--red);}
 tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
 .period-table td,.period-table th{text-align:center;}
+.toc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.toc a{font-size:10px;color:var(--accent);text-decoration:none;border:1px solid var(--border);padding:6px 12px;border-radius:999px;}
+.toc a:hover{background:var(--panel);}
 .footer-note{font-size:9.5px;color:var(--muted);margin-top:30px;border-top:1px solid var(--border);padding-top:14px;}
 .back{font-family:var(--mono);font-size:10px;color:var(--accent);text-decoration:none;}
 @media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr);}.tables{grid-template-columns:1fr;}}
@@ -42,8 +45,8 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
 <body>
 <div class="wrap">
   <a class="back" href="index.html">← Zurück zum Archiv</a>
-  <h1 style="margin-top:10px;">📦 DAX Weekly Breakout — Backtest</h1>
-  <div class="subtitle">Wöchentlicher Donchian-Channel-Breakout über 37 DAX-Aktien · erstellt 23. Oktober 2026</div>
+  <h1 style="margin-top:10px;">📦 Weekly Breakout — Backtest (DAX + weitere Märkte)</h1>
+  <div class="subtitle">Wöchentlicher Donchian-Channel-Breakout, erst über 37 DAX-Aktien, dann über Crypto/Forex/Funds/533 globale Aktien gegengetestet · erstellt 23. Oktober 2026</div>
 
   <div class="callout">
   <b>Herkunft:</b> die Strategie stammt aus <code>OPEN-ORDNERBOOK.html</code> (GoldShield-Quellcode-Fundus) --
@@ -67,7 +70,14 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   GoldShield-Backtest, verhindert einen irreführenden Ausschlag am Kurvenende).
   </div>
 
-  <h2>Gesamtergebnis (37 Symbole)</h2>
+  <div class="toc">
+    <a href="#dax">📦 DAX</a>
+    <a href="#other-markets">🌍 Andere Märkte</a>
+    <a href="#deepdive">🔎 Deep-Dive</a>
+    <a href="#verdict">💭 Einschätzung</a>
+  </div>
+
+  <h2 id="dax">Gesamtergebnis (37 DAX-Symbole)</h2>
   <div class="stat-grid">
     <div class="bstat"><b>37</b><span>SYMBOLE MIT NUTZBAREN WOCHENDATEN</span></div>
     <div class="bstat"><b class="pos">+4.50%</b><span>Ø GESAMT-RENDITE / SYMBOL</span></div>
@@ -253,7 +263,59 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     </div>
   </div>
 
-  <h2>🔎 Deep-Dive: wie oft fällt der Kurs vor Freitag zurück in den Kanal?</h2>
+  <h2 id="other-markets">🌍 Andere Märkte: funktioniert dieselbe Strategie auch dort?</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Dieselbe Montag-Einstieg/Freitag-Ausstieg-Logik (Kanal aus den 3 vorherigen Freitags-Schlusskursen),
+  1:1 übertragen auf die anderen Asset-Klassen aus dem GoldShield-Archiv -- gleiche Daten, kein zusätzlicher
+  Fetch nötig, gleiches Robustheits-Verfahren (ältere/neuere Hälfte unabhängig getestet).
+  </div>
+  <table><thead><tr><th>Klasse</th><th>Symbole</th><th>Ø Rendite</th><th>Sharpe (gesamt)</th><th>Sharpe (älter)</th><th>Sharpe (neuer)</th><th>Robustheit</th></tr></thead><tbody>
+    <tr>
+        <td>DAX</td><td class="num">37</td>
+        <td class="num pos">+4.5%</td>
+        <td class="num">0.174</td>
+        <td class="num">0.345</td><td class="num">0.083</td>
+        <td style="color:#b45309;font-weight:600;font-size:9.5px;">vorzeichen-konsistent, aber schwächer</td>
+      </tr><tr class="best-row">
+        <td>Aktien</td><td class="num">533</td>
+        <td class="num pos">+7.7%</td>
+        <td class="num">0.335</td>
+        <td class="num">0.512</td><td class="num">0.221</td>
+        <td style="color:#b45309;font-weight:600;font-size:9.5px;">vorzeichen-konsistent, aber schwächer</td>
+      </tr><tr>
+        <td>Forex</td><td class="num">50</td>
+        <td class="num pos">+0.8%</td>
+        <td class="num">0.278</td>
+        <td class="num">-0.054</td><td class="num">0.660</td>
+        <td style="color:var(--red);font-weight:600;font-size:9.5px;">nicht robust -- Vorzeichen kippt zwischen Hälften</td>
+      </tr><tr>
+        <td>Crypto</td><td class="num">10</td>
+        <td class="num neg">-2.3%</td>
+        <td class="num">0.070</td>
+        <td class="num">-0.140</td><td class="num">0.235</td>
+        <td style="color:var(--red);font-weight:600;font-size:9.5px;">nicht robust -- Vorzeichen kippt zwischen Hälften</td>
+      </tr><tr>
+        <td>Funds</td><td class="num">22</td>
+        <td class="num neg">-2.3%</td>
+        <td class="num">-0.049</td>
+        <td class="num">-0.011</td><td class="num">-0.107</td>
+        <td style="color:var(--red);font-weight:600;font-size:9.5px;">konsistent negativ -- keine Edge</td>
+      </tr>
+  </tbody></table>
+  <div class="methodology" style="margin:16px 0;">
+  <b>Überraschung: die stärkste und robusteste Performance liefert nicht DAX, sondern die breite
+  Aktien-Stichprobe</b> (533 Aktien weltweit) -- Sharpe 0,51 (älter) und 0,22 (neuer), beide klar positiv,
+  Ø Rendite +7,67 % (vs. DAX +4,50 %). <b>Crypto und Forex sind für diese wöchentliche Strategie NICHT
+  robust</b> -- das Sharpe-Vorzeichen kippt zwischen den Zeithälften (Crypto: -0,14 → +0,24; Forex:
+  -0,05 → +0,66) -- bei Crypto naheliegend, da der Markt 24/7 handelt und ein "Montag/Freitag"-Rhythmus
+  dort keine natürliche Entsprechung hat. <b>Funds zeigen konsistent keine Edge</b> (beide Hälften negativ,
+  wenn auch nur leicht). Bemerkenswerter Kontrast zur Bestätigungs-Strategie im
+  <a href="backtesting-report.html" target="_blank" rel="noopener noreferrer">Haupt-Backtesting-Report</a>:
+  dort war <b>Crypto</b> die robusteste Klasse -- hier ist es <b>Aktien</b>. Unterschiedliche Strategielogik,
+  unterschiedliche beste Asset-Klasse; keine Klasse ist universell am besten für jede Strategie.
+  </div>
+
+  <h2 id="deepdive">🔎 Deep-Dive: wie oft fällt der Kurs vor Freitag zurück in den Kanal?</h2>
   <div class="methodology" style="margin-bottom:16px;">
   Der Montag-Einstieg erfolgt, weil der Kurs <i>außerhalb</i> des 3-Wochen-Kanals liegt. Aber zwischen Montag
   und Freitag kann der Kurs jederzeit wieder <i>in</i> den Kanal zurückfallen -- der Ausbruch "scheitert"
@@ -291,22 +353,22 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   dazwischen nichts anfassen" bleibt die bessere Regel.
   </div>
 
-  <h2>💭 Einschätzung: ist die Strategie nutzbar?</h2>
+  <h2 id="verdict">💭 Einschätzung: ist die Strategie nutzbar?</h2>
   <div class="callout" style="border-left-color:#2a5fa0;">
-  <b>Ehrlich: als voll-mechanisches System mit echtem Kapital -- eher nicht, zumindest nicht ohne Weiteres.</b>
-  Drei Gründe: <b>(1) Die Edge ist dünn.</b> Ø Wochenrendite pro Trade nur +0.202% --
-  bei einem realistischen Round-Trip-Kostenanteil von ~20 Basispunkten (Spread + Kommission) wäre die Edge
-  bereits aufgezehrt, bei weniger liquiden DAX-Nebenwerten (z. B. ENR, 1COV, ZAL) realistisch sogar deutlich
-  früher. Dieser Backtest rechnet <b>keine Handelskosten</b> ein. <b>(2) Die Robustheit ist schwach.</b> Sharpe
-  fällt von 0,35 (ältere Hälfte) auf 0,08 (neuere Hälfte) -- fast Faktor 4 Unterschied, weit entfernt von der
-  robusten Crypto-Bestätigungs-Edge (0,79/0,86 in beiden Hälften unabhängig bestätigt). <b>(3) Wenige Ausreißer
-  tragen den Durchschnitt.</b> RHM.XETRA (+54,5%) und ADS.XETRA (+37,3%) allein erklären einen großen Teil der
-  positiven Gesamtbilanz; 10 der 37 Aktien liegen im Minus. Ohne Rückblick lässt sich nicht wissen, welche
-  Aktien vorab die Gewinner gewesen wären. <b>Wofür es sich eignet:</b> als Screening-Tool, das anzeigt, welche
-  DAX-Aktien gerade aus ihrer 3-Wochen-Spanne ausbrechen -- als Ausgangspunkt für weitere eigene Prüfung, nicht
-  als Blind-Autopilot. Die Crypto-Bestätigungs-Strategie aus dem
-  <a href="backtesting-report.html#class-sweetspot" target="_blank" rel="noopener noreferrer">Backtesting-Report</a>
-  bleibt der deutlich überzeugendere Fund aus diesem gesamten Sprint.
+  <b>Für DAX allein: eher nicht ohne Weiteres.</b> Drei Gründe: <b>(1) Die Edge ist dünn.</b> Ø Wochenrendite
+  pro Trade nur +0.202% -- bei einem realistischen Round-Trip-Kostenanteil von
+  ~20 Basispunkten (Spread + Kommission) wäre sie bereits aufgezehrt, bei Nebenwerten (ENR, 1COV, ZAL)
+  vermutlich noch früher. Dieser Backtest rechnet <b>keine Handelskosten</b> ein. <b>(2) DAX-Robustheit ist
+  schwach.</b> Sharpe fällt von 0,35 (älter) auf 0,08 (neuer). <b>(3) Wenige Ausreißer tragen den Durchschnitt</b>
+  -- RHM.XETRA (+54,5%) und ADS.XETRA (+37,3%) allein erklären viel der positiven Bilanz, 10 der 37 Aktien
+  liegen im Minus. <b>Aber die Ausweitung auf andere Märkte ändert das Bild:</b> über 533 globale Aktien ist
+  dieselbe Strategie deutlich robuster (Sharpe 0,51/0,22 in beiden Hälften, Ø +7,67%) -- der breitere
+  Aktien-Pool filtert die DAX-spezifische Ausreißer-Abhängigkeit heraus. Crypto und Forex sind für diese
+  wöchentliche Variante dagegen nicht robust (Vorzeichen-Kipper zwischen den Zeithälften), anders als bei der
+  Bestätigungs-Strategie im <a href="backtesting-report.html#class-sweetspot" target="_blank" rel="noopener noreferrer">Haupt-Backtesting-Report</a>,
+  wo genau umgekehrt Crypto am robustesten war. <b>Fazit:</b> als reines DAX-System eher ein Screening-Tool
+  als ein Autopilot; über eine breite globale Aktien-Stichprobe ist die Edge dagegen real und robust genug,
+  um als ernsthafter Kandidat für weitere Prüfung (inkl. Handelskosten-Modellierung) zu gelten.
   </div>
 
   <div class="footer-note">

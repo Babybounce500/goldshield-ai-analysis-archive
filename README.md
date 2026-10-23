@@ -263,6 +263,20 @@ Einzuordnen als **schwache, aber real positive Edge**, getragen von wenigen star
 (RHM.XETRA +54,5 % bis ENR.XETRA -40,5 %), nicht gleichmäßig über alle 37 Aktien. Volle Tabellen,
 Equity-Kurve und Robustheits-Check im eigenen Report.
 
+**Ausweitung auf andere Märkte** (gleiche Daten wie der Rest des Archivs, kein neuer Fetch nötig):
+dieselbe wöchentliche Breakout-Logik über Crypto (10), Forex (50), Funds (22) und eine breite
+533-Aktien-Stichprobe gegengetestet. Überraschung: **nicht DAX, sondern die breite Aktien-Stichprobe ist
+die robusteste Klasse** (Sharpe 0,51/0,22 in beiden Zeithälften, Ø +7,67 %). Crypto und Forex sind für
+diese wöchentliche Variante **nicht robust** (Sharpe-Vorzeichen kippt zwischen den Hälften -- bei Crypto
+naheliegend, da der Markt 24/7 handelt und "Montag/Freitag" dort keine natürliche Entsprechung hat), Funds
+zeigen konsistent keine Edge. Bemerkenswerter Kontrast zur Bestätigungs-Strategie oben, wo genau umgekehrt
+Crypto am robustesten war -- keine Asset-Klasse ist universell am besten für jede Strategie.
+
+**Deep-Dive** (ebenfalls im Report): in 46,3 % der ausgelösten DAX-Wochen fällt der Kurs mindestens einmal
+vor Freitag zurück in den Kanal. Sofortiges Schließen bei diesem Rückfall ist klar schlechter als stur bis
+Freitag zu halten (Sharpe 0,12 vs. 0,37) -- dieselbe Lektion wie beim Crypto-Pyramiding-Test: aktives
+Nachjustieren schadet öfter als es hilft.
+
 ## Pipeline für weitere Reports
 
 Neue Downloads landen als `GLOBALO-{SYMBOL}-Analysis-{YYYY-MM-DD}.{html,txt}` in `reports/`.
