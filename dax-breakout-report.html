@@ -60,8 +60,12 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
 
   <div class="methodology">
   <b>Methodik:</b> pro Symbol und Woche W: Kanal = Max/Min der Freitags-Schlusskurse der 3 Wochen <b>vor</b>
-  W. Montag-Schlusskurs &gt; Kanal-Hoch → Long zum Montag-Close; Montag-Schlusskurs &lt; Kanal-Tief → Short
-  zum Montag-Close; sonst keine Position diese Woche. Ausstieg immer am Freitag-Schlusskurs derselben Woche.
+  W. Einstieg wird <b>nur am Montag geprüft, auf Basis des Montag-Schlusskurses</b> -- Montag-Close &gt;
+  Kanal-Hoch → Long zum Montag-Close; Montag-Close &lt; Kanal-Tief → Short zum Montag-Close; sonst keine
+  Position diese Woche. <b>Explizit keine Stop-Entry-Order</b>, die untertägig beim ersten Durchbruch
+  auslöst, und kein fortlaufendes Monitoring unter der Woche -- einmal pro Woche geprüft, einmal entschieden
+  (s. "Einstiegs-Timing" weiter unten für einen direkten Vergleich mit einer Stop-Order-Näherung). Ausstieg
+  immer am Freitag-Schlusskurs derselben Woche.
   Streng lookahead-frei: der Kanal für Woche W nutzt ausschließlich Daten aus Wochen vor W. Wochen mit
   fehlendem exaktem Montag/Freitag (Feiertage) werden übersprungen statt einen Ersatztag zu raten. Sharpe =
   Ø Wochenrendite / Std.-Abw. Wochenrendite × √52 (wöchentlich annualisiert). Keine Transaktionskosten, kein
@@ -74,6 +78,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#dax">📦 DAX</a>
     <a href="#other-markets">🌍 Andere Märkte</a>
     <a href="#deepdive">🔎 Deep-Dive</a>
+    <a href="#entrytiming">⏱️ Einstiegs-Timing</a>
     <a href="#moneymgmt">💰 Money Management</a>
     <a href="#verdict">💭 Einschätzung</a>
   </div>
@@ -352,6 +357,41 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   rausgeht, verkauft oft genau am lokalen Tief einer am Ende profitablen Woche. <b>Dieselbe Lektion wie beim
   Crypto-Pyramiding-Test:</b> aktives Nachjustieren schadet öfter als es hilft -- "Montag rein, Freitag raus,
   dazwischen nichts anfassen" bleibt die bessere Regel.
+  </div>
+
+  <h2 id="entrytiming">⏱️ Einstiegs-Timing: Montag-Close vs. Stop-Order-Näherung</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Präzisierung der Methodik: der Einstieg wird in diesem Backtest <b>nur einmal pro Woche geprüft, am
+  Montag, auf Basis des Montag-Schlusskurses</b> -- keine Stop-Entry-Order, die untertägig beim ersten
+  Durchbruch auslöst, kein fortlaufendes Monitoring. Frage: wie hoch ist der Anteil der Wochen, die
+  überhaupt einen Ausbruch zeigen, und was ändert sich, wenn man stattdessen an <b>jedem</b> Tag Mo-Fr prüft
+  und beim ersten Tagesschluss außerhalb des Kanals einsteigt (die nächstmögliche Näherung an eine
+  Stop-Order mit den verfügbaren Tagesschlusskurs-Daten -- echte untertägige Füllung am exakten
+  Kanal-Niveau ist ohne Tick-/Intraday-Daten nicht simulierbar)?
+  </div>
+  <table><thead><tr><th>Klasse</th><th>Variante</th><th>Trigger-Rate</th><th>Ø Rendite</th><th>Sharpe</th><th>Win-Rate</th></tr></thead><tbody>
+    <tr class="best-row"><td>DAX</td><td>Montag-Close (Baseline)</td><td class="num">47.6%</td><td class="num pos">+0.202%</td><td class="num">0.37</td><td class="num">52.0%</td></tr>
+    <tr><td>DAX</td><td>Jeder Tag (Stop-Order-Näherung)</td><td class="num">82.3%</td><td class="num pos">+0.160%</td><td class="num">0.33</td><td class="num">47.5%</td></tr>
+    <tr class="best-row"><td>Aktien (525)</td><td>Montag-Close (Baseline)</td><td class="num">48.2%</td><td class="num pos">+0.311%</td><td class="num">0.44</td><td class="num">52.3%</td></tr>
+    <tr><td>Aktien (525)</td><td>Jeder Tag (Stop-Order-Näherung)</td><td class="num">82.4%</td><td class="num pos">+0.207%</td><td class="num">0.33</td><td class="num">48.9%</td></tr>
+  </tbody></table>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Antwort auf "wie hoch ist der Anteil":</b> mit der Montag-Close-Baseline brechen
+  <b>47.6%</b> der DAX-Wochen und <b>48.2%</b>
+  der Aktien-Wochen überhaupt aus dem Kanal aus. Prüft man dagegen <b>jeden Tag</b> der Woche statt nur
+  Montag, steigt die Trigger-Rate auf <b>82.3%</b> (DAX) bzw.
+  <b>82.4%</b> (Aktien) -- 42%
+  dieser zusätzlichen Ausbrüche passieren also erst Dienstag bis Freitag und werden von der Montag-Only-Regel
+  komplett verpasst. <b>Überraschung: die Stop-Order-Näherung performt schlechter</b>, nicht besser -- Sharpe
+  fällt von 0.37 auf 0.33 (DAX)
+  bzw. von 0.44 auf 0.33
+  (Aktien), Win-Rate sinkt in beiden Klassen um ca. 3,5 Prozentpunkte. Plausible Erklärung: ein Montag-Close
+  außerhalb des Kanals ist bereits eine Art Bestätigung (der Kurs ist nicht nur kurz angetippt, sondern zum
+  Wochenstart klar jenseits der Marke geschlossen) -- dieselbe "warte auf Bestätigung"-Logik, die schon bei
+  der Crypto-Strategie im <a href="backtesting-report.html#class-strategy" target="_blank" rel="noopener noreferrer">Haupt-Backtesting-Report</a>
+  funktioniert hat. Ein reiner untertägiger Durchbruch (wie ihn eine Stop-Order abgreifen würde) ist dagegen
+  öfter Rauschen, das bis Freitag nicht trägt. <b>Fazit:</b> Montag-Close-Einstieg ist nicht nur methodisch
+  einfacher, sondern empirisch auch die bessere Wahl -- kein Grund, auf eine Stop-Order umzustellen.
   </div>
 
   <h2 id="moneymgmt">💰 Money Management: Long/Short, Gleichzeitigkeit & Positionsgrößen</h2>

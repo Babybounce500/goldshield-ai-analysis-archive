@@ -277,6 +277,12 @@ vor Freitag zurück in den Kanal. Sofortiges Schließen bei diesem Rückfall ist
 Freitag zu halten (Sharpe 0,12 vs. 0,37) -- dieselbe Lektion wie beim Crypto-Pyramiding-Test: aktives
 Nachjustieren schadet öfter als es hilft.
 
+**Einstiegs-Timing** (ebenfalls im Report): der Einstieg wird nur am Montag geprüft, nicht per Stop-Order.
+Nur ca. 47-48 % der Wochen brechen am Montag überhaupt aus dem Kanal aus; prüft man jeden Tag der Woche
+statt nur Montag, steigt die Trigger-Rate auf ~82 % -- aber eine Stop-Order-Näherung (Einstieg am ersten
+Tagesschluss außerhalb des Kanals, egal welcher Wochentag) **performt schlechter** als die Montag-Close-Regel
+(Sharpe 0,33 vs. 0,37-0,44) -- derselbe "warte auf Bestätigung"-Effekt wie bei der Crypto-Strategie.
+
 **Money Management** (ebenfalls im Report): Long trägt bei DAX die Edge (Sharpe 0,59 vs. 0,13 für Short),
 bei der breiten Aktien-Stichprobe dreht sich das leicht zu Short (0,59 vs. 0,31). Volatilitäts-basierte
 Positionsgrößen (invers zur Kanal-Breite) **schaden** -- bei Aktien fällt der Sharpe fast auf die Hälfte,
