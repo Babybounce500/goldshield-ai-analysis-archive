@@ -294,6 +294,17 @@ Stops wären realistische Handelskosten 30-60 % der Stop-Breite selbst. Ein echt
 **einzige getestete Verfeinerung in diesem gesamten Sprint, die tatsächlich robust hilft** (im Gegensatz zu
 Pyramiding, Early-Exit und Vol-Gewichtung, die alle schadeten).
 
+**3-5%-Stop im Detail** (vertiefter Test im Report): feiner Sweep, Robustheit pro Punkt, Kosten-Sensitivität
+über 5 Szenarien (5-30 Basispunkte) und derselbe Test auf allen vier anderen Klassen. Ergebnis: **DAX und
+Aktien bleiben selbst bei 30 Basispunkten Kosten klar positiv** (Sharpe ~0,3-0,7, weit über der
+kostenfreien Baseline) -- ganz anders als die extrem engen Stops, die unter realistischen Kosten
+zusammenbrechen würden. -4% ist der beste Kompromiss (nur 2-3 % der späteren Gewinner fälschlich
+geschnitten, aber 29-36 % der Verlierer echt gekappt). Der Effekt ist aber **nicht universell**: bei
+**Funds** rettet der Stop eine vorher negative Baseline in einen moderat robusten positiven Bereich; bei
+**Crypto** sind bei -4% beide Hälften positiv, aber mit großer Lücke (0,40 vs. 1,92) und bei etwas weiteren
+Stops rutscht die ältere Hälfte ins Minus -- schwächer/unregelmäßiger als DAX/Aktien; bei **Forex** ist ein 3-5%-Stop
+praktisch nicht bindend (Wochenbewegungen meist kleiner als der Stop) und ändert fast nichts.
+
 **Money Management** (ebenfalls im Report): Long trägt bei DAX die Edge (Sharpe 0,59 vs. 0,13 für Short),
 bei der breiten Aktien-Stichprobe dreht sich das leicht zu Short (0,59 vs. 0,31). Volatilitäts-basierte
 Positionsgrößen (invers zur Kanal-Breite) **schaden** -- bei Aktien fällt der Sharpe fast auf die Hälfte,

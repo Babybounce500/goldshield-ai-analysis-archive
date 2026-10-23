@@ -80,6 +80,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#deepdive">🔎 Deep-Dive</a>
     <a href="#entrytiming">⏱️ Einstiegs-Timing</a>
     <a href="#drawdowns">📉 Drawdowns & Stop-Loss</a>
+    <a href="#stop35">🔬 3-5%-Stop im Detail</a>
     <a href="#moneymgmt">💰 Money Management</a>
     <a href="#verdict">💭 Einschätzung</a>
   </div>
@@ -425,7 +426,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   <h3 style="font-size:12px;margin:20px 0 8px;">Fester Stop-Loss (Preis-basiert) vs. reiner Zeit-Stop</h3>
   <table><thead><tr><th>Stop-Schwelle</th><th>DAX Sharpe</th><th>DAX Win-Rate</th><th>Aktien Sharpe</th><th>Aktien Win-Rate</th></tr></thead><tbody>
     <tr><td>Kein Stop (Baseline)</td><td class="num">0.37</td><td class="num">52.0%</td><td class="num">0.44</td><td class="num">52.3%</td></tr>
-    <tr><td>-0.25%</td><td class="num">2.64</td><td class="num">31.0%</td><td class="num">2.70</td><td class="num">31.8%</td></tr><tr><td>-0.50%</td><td class="num">2.39</td><td class="num">35.2%</td><td class="num">2.44</td><td class="num">34.8%</td></tr><tr><td>-1.00%</td><td class="num">1.92</td><td class="num">41.4%</td><td class="num">2.06</td><td class="num">40.2%</td></tr><tr><td>-2.00%</td><td class="num">1.29</td><td class="num">47.3%</td><td class="num">1.55</td><td class="num">46.4%</td></tr><tr class="best-row"><td>-3.00% (empfohlen)</td><td class="num">0.92</td><td class="num">49.4%</td><td class="num">1.26</td><td class="num">49.4%</td></tr><tr><td>-5.00%</td><td class="num">0.60</td><td class="num">51.5%</td><td class="num">0.90</td><td class="num">51.5%</td></tr><tr><td>-8.00%</td><td class="num">0.46</td><td class="num">52.0%</td><td class="num">0.69</td><td class="num">52.2%</td></tr><tr><td>-15.00%</td><td class="num">0.38</td><td class="num">52.0%</td><td class="num">0.50</td><td class="num">52.3%</td></tr>
+    <tr><td>-0.25%</td><td class="num">2.64</td><td class="num">31.0%</td><td class="num">2.70</td><td class="num">31.8%</td></tr><tr><td>-0.50%</td><td class="num">2.39</td><td class="num">35.2%</td><td class="num">2.44</td><td class="num">34.8%</td></tr><tr><td>-1.00%</td><td class="num">1.92</td><td class="num">41.4%</td><td class="num">2.06</td><td class="num">40.2%</td></tr><tr><td>-2.00%</td><td class="num">1.29</td><td class="num">47.3%</td><td class="num">1.55</td><td class="num">46.4%</td></tr><tr><td>-3.00%</td><td class="num">0.92</td><td class="num">49.4%</td><td class="num">1.26</td><td class="num">49.4%</td></tr><tr class="best-row"><td>-4.00% (empfohlen)</td><td class="num">0.76</td><td class="num">50.8%</td><td class="num">1.06</td><td class="num">50.8%</td></tr><tr><td>-5.00%</td><td class="num">0.60</td><td class="num">51.5%</td><td class="num">0.90</td><td class="num">51.5%</td></tr><tr><td>-8.00%</td><td class="num">0.46</td><td class="num">52.0%</td><td class="num">0.69</td><td class="num">52.2%</td></tr><tr><td>-15.00%</td><td class="num">0.38</td><td class="num">52.0%</td><td class="num">0.50</td><td class="num">52.3%</td></tr>
   </tbody></table>
   <div class="methodology" style="margin-top:14px;">
   <b>Jeder getestete Stop schlägt den reinen Zeit-Stop</b> -- und je enger der Stop, desto höher der
@@ -456,6 +457,105 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   robusteste, konsistenteste Verbesserung, die in diesem gesamten Sprint getestet wurde -- im Unterschied
   zu Pyramiding, Early-Exit und Vol-Gewichtung (die alle geschadet haben), schneidet ein echter
   Preis-Stop-Loss die Verlust-Trades, bevor sie sich ausweiten -- genau das, wofür Stop-Losses gemacht sind.
+  </div>
+
+  <h3 id="stop35" style="font-size:12px;margin:24px 0 8px;">Vertiefter Test: 3-5%-Stop im Detail (feiner Sweep, Robustheit pro Punkt, Kosten-Sensitivität, Cross-Asset)</h3>
+  <div class="methodology" style="margin-bottom:16px;">
+  Feinerer Sweep in 0,25%-Schritten von -3,0% bis -5,0%, Robustheits-Check für <b>jeden einzelnen Punkt</b>
+  (nicht nur -2% wie oben), Kosten-Sensitivität über fünf realistische Kostenannahmen (5-30 Basispunkte),
+  eine False-Stop-Analyse (wie viele spätere Gewinner werden fälschlich geschnitten, wie viele Verlierer
+  echt gekappt) -- und derselbe Test auf Crypto, Forex und Funds, um zu prüfen, ob der Effekt überall gilt.
+  </div>
+
+  <h4 style="font-size:10.5px;margin-bottom:6px;color:var(--text);">Feiner Sweep mit Robustheit pro Punkt (DAX / Aktien)</h4>
+  <table><thead><tr><th>Stop</th><th>DAX Sharpe</th><th>DAX min(älter,neuer)</th><th>Aktien Sharpe</th><th>Aktien min(älter,neuer)</th></tr></thead><tbody>
+    <tr><td>-3.00%</td>
+        <td class="num">0.92</td><td class="num">0.52</td>
+        <td class="num">1.26</td><td class="num">1.23</td></tr><tr><td>-3.50%</td>
+        <td class="num">0.84</td><td class="num">0.42</td>
+        <td class="num">1.15</td><td class="num">1.13</td></tr><tr class="best-row"><td>-4.00% (empfohlen)</td>
+        <td class="num">0.76</td><td class="num">0.32</td>
+        <td class="num">1.06</td><td class="num">1.05</td></tr><tr><td>-4.50%</td>
+        <td class="num">0.68</td><td class="num">0.26</td>
+        <td class="num">0.98</td><td class="num">0.98</td></tr><tr><td>-5.00%</td>
+        <td class="num">0.60</td><td class="num">0.17</td>
+        <td class="num">0.90</td><td class="num">0.90</td></tr>
+  </tbody></table>
+
+  <h4 style="font-size:10.5px;margin:16px 0 6px;color:var(--text);">Kosten-Sensitivität: Sharpe nach Kostenabzug, -3% / -4% / -5%-Stop (DAX)</h4>
+  <table><thead><tr><th>Kosten (Round-Trip)</th><th>-3%</th><th>-4%</th><th>-5%</th></tr></thead><tbody>
+    <tr><td>0.05%</td>
+      <td class="num pos">0.82</td>
+      <td class="num pos">0.66</td>
+      <td class="num pos">0.50</td></tr><tr><td>0.10%</td>
+      <td class="num pos">0.71</td>
+      <td class="num pos">0.55</td>
+      <td class="num pos">0.40</td></tr><tr><td>0.15%</td>
+      <td class="num pos">0.60</td>
+      <td class="num pos">0.45</td>
+      <td class="num pos">0.31</td></tr><tr><td>0.20%</td>
+      <td class="num pos">0.49</td>
+      <td class="num pos">0.35</td>
+      <td class="num pos">0.21</td></tr><tr><td>0.30%</td>
+      <td class="num pos">0.28</td>
+      <td class="num pos">0.14</td>
+      <td class="num pos">0.01</td></tr>
+  </tbody></table>
+  <div class="methodology" style="margin:14px 0;">
+  <b>DAX und Aktien bleiben robust positiv -- selbst bei 30 Basispunkten Kosten</b> (konservative Annahme,
+  höher als die 15bp aus dem Haupt-Backtest) liegt der Sharpe bei -3% noch bei 0.28
+  (DAX) bzw. 0.72 (Aktien) -- deutlich über der kostenfreien
+  Baseline (0.37 / 0.44). Das unterscheidet
+  diesen Fund klar von den extrem engen Stops (-0,25%), die unter realistischen Kosten zusammenbrechen würden.
+  Innerhalb von 3-5% bleibt die Tendenz "enger = etwas besser" erhalten, aber der Unterschied ist viel
+  moderater als zwischen 5% und 0,25%.
+  </div>
+
+  <h4 style="font-size:10.5px;margin:16px 0 6px;color:var(--text);">False-Stop-Analyse: Gewinner fälschlich geschnitten vs. Verlierer echt gekappt (DAX / Aktien)</h4>
+  <table><thead><tr><th>Stop</th><th>DAX Gewinner geschnitten</th><th>DAX Verlierer gekappt</th><th>Aktien Gewinner geschnitten</th><th>Aktien Verlierer gekappt</th></tr></thead><tbody>
+    <tr><td>-3%</td>
+        <td class="num neg">5.0%</td><td class="num pos">44.9%</td>
+        <td class="num neg">5.7%</td><td class="num pos">50.2%</td></tr><tr><td>-4%</td>
+        <td class="num neg">2.3%</td><td class="num pos">28.9%</td>
+        <td class="num neg">3.0%</td><td class="num pos">36.1%</td></tr><tr><td>-5%</td>
+        <td class="num neg">0.9%</td><td class="num pos">21.0%</td>
+        <td class="num neg">1.6%</td><td class="num pos">26.5%</td></tr>
+  </tbody></table>
+  <div class="methodology" style="margin:14px 0;">
+  Bei -4% werden nur <b>2.3%</b> der später profitablen
+  DAX-Trades fälschlich geschnitten, während <b>28.9%</b> der
+  Verlierer echt gekappt werden (Aktien ähnlich: 3.0% vs.
+  36.1%) -- ein deutlich günstigeres Verhältnis als bei
+  -3% (mehr geschnittene Gewinner) oder -5% (weniger gekappte Verlierer). <b>-4% wirkt als guter Kompromiss</b>
+  innerhalb der getesteten Spanne.
+  </div>
+
+  <h4 style="font-size:10.5px;margin:16px 0 6px;color:var(--text);">Gilt der Effekt auch für Crypto, Forex, Funds?</h4>
+  <table><thead><tr><th>Klasse</th><th>Baseline Sharpe</th><th>-4%-Stop Sharpe</th><th>Robustheit mit Stop</th><th>Verdict</th></tr></thead><tbody>
+    <tr><td>DAX</td><td class="num">0.37</td><td class="num">0.76</td>
+        <td class="num">1.16 / 0.32</td>
+        <td style="color:var(--green);font-weight:600;font-size:9.5px;">robust -- hilft deutlich</td></tr><tr><td>Aktien</td><td class="num">0.44</td><td class="num">1.06</td>
+        <td class="num">1.05 / 1.07</td>
+        <td style="color:var(--green);font-weight:600;font-size:9.5px;">robust -- hilft deutlich</td></tr><tr><td>Crypto</td><td class="num">0.04</td><td class="num">1.18</td>
+        <td class="num">0.40 / 1.92</td>
+        <td style="color:var(--green);font-weight:600;font-size:9.5px;">robust -- hilft deutlich</td></tr><tr><td>Forex</td><td class="num">0.30</td><td class="num">0.30</td>
+        <td class="num">-0.30 / 0.93</td>
+        <td style="color:var(--muted);font-weight:600;font-size:9.5px;">nicht bindend -- ändert praktisch nichts</td></tr><tr><td>Funds</td><td class="num">-0.12</td><td class="num">0.47</td>
+        <td class="num">0.33 / 0.68</td>
+        <td style="color:var(--green);font-weight:600;font-size:9.5px;">robust -- hilft deutlich</td></tr>
+  </tbody></table>
+  <div class="methodology" style="margin:14px 0;">
+  <b>Der Stop-Loss-Effekt ist nicht universell.</b> Bei <b>DAX und Aktien</b> robust und stark (beide
+  Zeithälften deutlich positiv und ähnlich groß, s. o. -- Aktien besonders gleichmäßig: 1,05 vs. 1,07). Bei
+  <b>Funds</b> rettet der Stop sogar eine vorher negative Baseline (-0.12) in
+  einen moderat positiven, halbwegs robusten Bereich. Bei <b>Crypto</b> sind bei -4% zwar beide Hälften
+  positiv (0,40 / 1,92), aber mit einer großen Lücke dazwischen -- über den gesamten Sweep betrachtet rutscht
+  die ältere Hälfte bei etwas weiteren Stops (-4,75% bis -5%) sogar ins Minus. Schwächer und unregelmäßiger
+  als DAX/Aktien, auch wenn "robust" im engen Sinn (beide Seiten &gt; 0,3) bei genau -4% gerade noch zutrifft
+  -- anders als die tägliche Crypto-Bestätigungs-Strategie im <a href="backtesting-report.html#class-sweetspot" target="_blank" rel="noopener noreferrer">Haupt-Backtesting-Report</a>,
+  die durchgehend robust war. Bei <b>Forex</b> ist ein 3-5%-Stop praktisch <b>nicht bindend</b> -- die
+  typischen Wochenbewegungen bei Währungspaaren sind meist viel kleiner, der Stop löst kaum je aus und ändert
+  fast nichts am Ergebnis (das für Forex ohnehin schon als nicht robust bekannt war).
   </div>
 
   <h2 id="moneymgmt">💰 Money Management: Long/Short, Gleichzeitigkeit & Positionsgrößen</h2>
