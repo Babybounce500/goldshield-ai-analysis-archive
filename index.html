@@ -108,9 +108,13 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 .scanner-card .tier{font-size:8px;letter-spacing:.5px;padding:2px 6px;border-radius:999px;margin-left:6px;vertical-align:1px;}
 .scanner-card .tier.peak{background:rgba(194,120,15,.15);color:#c2780f;}
 .scanner-card .tier.good{background:rgba(42,95,160,.12);color:#2a5fa0;}
+.scanner-card .tier.early{background:rgba(95,114,119,.12);color:var(--muted);}
+.scanner-card .tier.late{background:rgba(185,28,28,.1);color:var(--red);}
+.scanner-card.excluded{opacity:.55;}
 .scanner-card .meta{font-size:9.5px;color:var(--muted);margin-top:4px;}
 .scanner-card .ret{font-family:var(--head);font-size:14px;margin-top:4px;}
 .scanner-card .ret.pos{color:var(--green);} .scanner-card .ret.neg{color:var(--red);}
+.scanner-nonCrypto{font-size:10.5px;color:var(--muted);line-height:1.7;margin-top:14px;padding-top:12px;border-top:1px dashed var(--border);}
 .scanner-empty{font-size:10.5px;color:var(--muted);font-style:italic;padding:8px 0;}
 
 .empty-state{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);font-size:11px;}
@@ -271,16 +275,26 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
   </div>
 
   <div class="regime-panel" id="scanner-panel" style="border-color:#c2780f;display:none;">
-    <h2>🔭 Live-Scanner: Crypto Sweet-Spot (5–10 Tage bestätigt)</h2>
+    <h2>🔭 Live-Scanner &amp; Copy-Trade-Tauglichkeit: Crypto Sweet-Spot (5–10 Tage bestätigt)</h2>
     <div class="regime-sub">
     Aus dem <a href="backtesting-report.html#class-sweetspot" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Backtesting-Report</a>:
     nur bei Crypto ist die Trend-Bestätigungs-Strategie robust (in beiden unabhängig getesteten Zeithälften
-    bestätigt, Sweet Spot bei 5-8 Tagen, Sharpe 0,79/0,86). Diese Liste zeigt automatisch, welche aktuell
-    offenen Crypto-Signale <b>gerade jetzt</b> in diesem validierten Fenster liegen -- weder zu frisch
-    (Bestätigung steht noch aus) noch schon zu weit gelaufen (Edge nimmt laut Heatmap nach Tag ~10 spürbar
-    ab). Aktualisiert sich automatisch mit jedem neuen Report-Batch, kein manueller Rebuild nötig.
+    bestätigt, Sweet Spot bei 5-8 Tagen, Sharpe 0,79/0,86 -- fällt laut Heatmap nach Tag 10 auf Sharpe ~0,07,
+    praktisch keine Edge mehr). <b>Deshalb ist eine hohe aktuelle Signal-Rendite allein kein Grund, ein
+    Signal zu kopieren</b> -- entscheidend ist, ob es sich gerade im validierten Fenster befindet. Unten
+    stehen alle 10 Crypto-Signale, nicht nur die Kandidaten: aktive (PEAK/GUT) klar hervorgehoben, zu frische
+    und bereits zu weit gelaufene Signale abgeblendet mit Begründung. Aktualisiert sich automatisch mit jedem
+    neuen Report-Batch.
     </div>
     <div id="scanner-list" class="scanner-list"></div>
+    <div class="scanner-nonCrypto">
+    <b>Und Aktien/Forex/Funds?</b> Für diese Klassen ist dieselbe Bestätigungs-Strategie backtest-seitig
+    <b>nicht robust</b>: Aktien-Sharpe liegt nahe Null in beiden Zeithälften (0,05/0,08 bei Tag 1), Forex
+    kippt zwischen den Hälften (0,51 → 0,05 bei Tag 15), und selbst Funds (0,23/0,43 bei Tag 10) steht auf
+    einer zu dünnen Stichprobe (22 Symbole), um als verlässlich zu gelten. Eine große aktuelle Signal-Rendite
+    bei diesen Klassen -- egal wie beeindruckend die Zahl aussieht -- ist deshalb <b>kein backtest-gestützter
+    Copy-Trade-Grund</b>, sondern beschreibt nur, was bereits passiert ist.
+    </div>
   </div>
 
   <div class="toolbar">
@@ -406,18 +420,21 @@ function renderFilters() {
 function renderScanner() {
   const panel = document.getElementById('scanner-panel');
   const list = document.getElementById('scanner-list');
-  const candidates = REPORTS.filter(r => r.symbol.endsWith('.CC') && r.holdingDays != null && r.holdingDays >= 5 && r.holdingDays <= 10)
-    .sort((a, b) => a.holdingDays - b.holdingDays);
-  if (!candidates.length) {
-    list.innerHTML = '<div class="scanner-empty">Aktuell kein Crypto-Signal im validierten 5-10-Tage-Fenster.</div>';
+  const all = REPORTS.filter(r => r.symbol.endsWith('.CC') && r.holdingDays != null).sort((a, b) => a.holdingDays - b.holdingDays);
+  if (!all.length) {
+    list.innerHTML = '<div class="scanner-empty">Aktuell keine Crypto-Signale verfügbar.</div>';
   } else {
-    list.innerHTML = candidates.map(r => {
-      const tier = r.holdingDays <= 8 ? 'peak' : 'good';
-      const tierLabel = tier === 'peak' ? 'PEAK-FENSTER' : 'GUT';
+    list.innerHTML = all.map(r => {
+      let tier, tierLabel, reason;
+      if (r.holdingDays < 5) { tier = 'early'; tierLabel = 'ZU FRÜH'; reason = 'Bestätigung steht noch aus (&lt;5 Tage)'; }
+      else if (r.holdingDays <= 8) { tier = 'peak'; tierLabel = 'PEAK-FENSTER'; reason = null; }
+      else if (r.holdingDays <= 10) { tier = 'good'; tierLabel = 'GUT'; reason = null; }
+      else { tier = 'late'; tierLabel = 'ZU SPÄT'; reason = 'über Tag 10 hinaus, Edge laut Heatmap auf Sharpe ~0,07 gefallen'; }
+      const excluded = tier === 'early' || tier === 'late';
       const retClass = (r.alignedReturn ?? 0) >= 0 ? 'pos' : 'neg';
-      return `<div class="scanner-card">
+      return `<div class="scanner-card${excluded ? ' excluded' : ''}">
         <span class="sym">${escapeHtml(r.symbol)}</span><span class="tier ${tier}">${tierLabel}</span>
-        <div class="meta">${escapeHtml(r.sentiment || '—')} · seit ${r.holdingDays} Tagen bestätigt</div>
+        <div class="meta">${escapeHtml(r.sentiment || '—')} · seit ${r.holdingDays} Tagen bestätigt${reason ? ' · ' + reason : ''}</div>
         <div class="ret ${retClass}">${r.alignedReturnText || '—'}</div>
       </div>`;
     }).join('');
