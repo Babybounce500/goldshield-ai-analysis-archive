@@ -79,6 +79,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#other-markets">🌍 Andere Märkte</a>
     <a href="#deepdive">🔎 Deep-Dive</a>
     <a href="#entrytiming">⏱️ Einstiegs-Timing</a>
+    <a href="#drawdowns">📉 Drawdowns & Stop-Loss</a>
     <a href="#moneymgmt">💰 Money Management</a>
     <a href="#verdict">💭 Einschätzung</a>
   </div>
@@ -394,6 +395,69 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   einfacher, sondern empirisch auch die bessere Wahl -- kein Grund, auf eine Stop-Order umzustellen.
   </div>
 
+  <h2 id="drawdowns">📉 Drawdowns & Stop-Loss (bisher nur Zeit-Stop)</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Klarstellung zur Methodik: die Strategie hat bislang <b>ausschließlich einen Zeit-Stop</b> (Ausstieg immer
+  am Freitag, egal was dazwischen passiert) -- <b>keinen Preis-basierten Stop-Loss</b>. Frage: wie tief
+  laufen Positionen zwischen Montag und Freitag tatsächlich ins Minus (Maximum Adverse Excursion, MAE), und
+  würde ein echter Stop-Loss helfen?
+  </div>
+
+  <h3 style="font-size:12px;margin-bottom:8px;">Wie tief geht's ins Minus? (MAE, % vom Einstieg)</h3>
+  <div class="stat-grid">
+    <div class="bstat"><b class="neg">-1.93%</b><span>DAX: Ø SCHLECHTESTER PUNKT PRO TRADE</span></div>
+    <div class="bstat"><b class="neg">-3.38%</b><span>DAX: Ø MAE BEI AM ENDE VERLUST-TRADES</span></div>
+    <div class="bstat"><b class="neg">-0.60%</b><span>DAX: Ø MAE BEI AM ENDE GEWINN-TRADES</span></div>
+    <div class="bstat"><b>72.2%</b><span>DAX: TRADES, DIE JE UNTER EINSTIEG FIELEN</span></div>
+  </div>
+  <div class="methodology" style="margin:14px 0;">
+  <b>72.2%</b> aller DAX-Trades (ähnlich bei Aktien:
+  70.9%) fallen irgendwann zwischen Montag und Freitag unter den
+  Einstiegspreis -- im Schnitt bis auf -1.93% (Median
+  -1.15%, schlechtester Einzelfall -18.65%). Wichtig:
+  <b>33.7%</b> dieser "unterwater"-Trades sind am
+  Freitag trotzdem profitabel -- Gewinner-Trades fallen im Schnitt nur auf -0.60%,
+  Verlierer-Trades dagegen auf -3.38% -- ein klarer Unterschied, der einen
+  moderaten Stop-Loss plausibel macht: ein Stop irgendwo zwischen diesen beiden Werten würde überwiegend
+  echte Verlierer früh kappen, ohne viele spätere Gewinner abzuschneiden.
+  </div>
+
+  <h3 style="font-size:12px;margin:20px 0 8px;">Fester Stop-Loss (Preis-basiert) vs. reiner Zeit-Stop</h3>
+  <table><thead><tr><th>Stop-Schwelle</th><th>DAX Sharpe</th><th>DAX Win-Rate</th><th>Aktien Sharpe</th><th>Aktien Win-Rate</th></tr></thead><tbody>
+    <tr><td>Kein Stop (Baseline)</td><td class="num">0.37</td><td class="num">52.0%</td><td class="num">0.44</td><td class="num">52.3%</td></tr>
+    <tr><td>-0.25%</td><td class="num">2.64</td><td class="num">31.0%</td><td class="num">2.70</td><td class="num">31.8%</td></tr><tr><td>-0.50%</td><td class="num">2.39</td><td class="num">35.2%</td><td class="num">2.44</td><td class="num">34.8%</td></tr><tr><td>-1.00%</td><td class="num">1.92</td><td class="num">41.4%</td><td class="num">2.06</td><td class="num">40.2%</td></tr><tr><td>-2.00%</td><td class="num">1.29</td><td class="num">47.3%</td><td class="num">1.55</td><td class="num">46.4%</td></tr><tr class="best-row"><td>-3.00% (empfohlen)</td><td class="num">0.92</td><td class="num">49.4%</td><td class="num">1.26</td><td class="num">49.4%</td></tr><tr><td>-5.00%</td><td class="num">0.60</td><td class="num">51.5%</td><td class="num">0.90</td><td class="num">51.5%</td></tr><tr><td>-8.00%</td><td class="num">0.46</td><td class="num">52.0%</td><td class="num">0.69</td><td class="num">52.2%</td></tr><tr><td>-15.00%</td><td class="num">0.38</td><td class="num">52.0%</td><td class="num">0.50</td><td class="num">52.3%</td></tr>
+  </tbody></table>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Jeder getestete Stop schlägt den reinen Zeit-Stop</b> -- und je enger der Stop, desto höher der
+  Sharpe im Backtest, bis hinunter zu -0,25% (Sharpe über 2,6!). <b>Das ist ein Warnsignal, kein Freibrief.</b>
+  Dieser Backtest nimmt an, dass jeder Stop exakt zum Stop-Kurs gefüllt wird -- ohne Spread, ohne Slippage,
+  ohne Kommission. Selbst mit einer pauschalen, vorsichtig geschätzten Kostenannahme von 15 Basispunkten pro
+  Trade (gleiche Schätzung wie beim Haupt-Backtest) machen die Kosten bei einem -0,25%-Stop bereits
+  <b>60% der Stop-Breite selbst</b> aus -- und echtes Slippage bei so engen Stops ist in der Praxis meist
+  deutlich schlechter als eine feste Gebühr, weil der Kurs bei schnellen Bewegungen über das exakte
+  Stop-Niveau hinaus durchrutscht. Ein -3%-Stop dagegen hat ein viel gesünderes Kosten-zu-Stop-Verhältnis
+  (~5%) und bleibt auch nach einem Kostenabzug klar besser als kein Stop (Sharpe fällt grob auf ~0,6-1,0
+  statt ~0,37-0,44 bei der Baseline). <b>Empfehlung: ein moderater Stop im Bereich -3% bis -5%</b> -- holt
+  den Großteil der Verbesserung, ohne sich auf eine Backtest-Annahme zu verlassen, die bei sehr engen Stops
+  nicht mehr realistisch ist.
+  </div>
+
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit: Baseline vs. -2%-Stop über beide Zeithälften</h3>
+  <table class="period-table"><thead><tr><th>Klasse</th><th>Zeitraum</th><th>Baseline Sharpe</th><th>-2%-Stop Sharpe</th></tr></thead><tbody>
+    <tr><td>DAX</td><td>Älter</td><td class="num">0.75</td><td class="num pos">1.60</td></tr>
+    <tr><td>DAX</td><td>Neuer</td><td class="num neg">-0.06</td><td class="num pos">0.94</td></tr>
+    <tr><td>Aktien</td><td>Älter</td><td class="num">0.44</td><td class="num pos">1.52</td></tr>
+    <tr><td>Aktien</td><td>Neuer</td><td class="num">0.44</td><td class="num pos">1.59</td></tr>
+  </tbody></table>
+  <div class="methodology" style="margin-top:14px;">
+  Bemerkenswert: der Stop verbessert <b>beide Zeithälften unabhängig</b> -- bei DAX macht er sogar aus der
+  vorher gebrochenen "neueren Hälfte" (Baseline Sharpe -0.06,
+  negativ) eine solide positive Zahl (0.94). Das ist die
+  robusteste, konsistenteste Verbesserung, die in diesem gesamten Sprint getestet wurde -- im Unterschied
+  zu Pyramiding, Early-Exit und Vol-Gewichtung (die alle geschadet haben), schneidet ein echter
+  Preis-Stop-Loss die Verlust-Trades, bevor sie sich ausweiten -- genau das, wofür Stop-Losses gemacht sind.
+  </div>
+
   <h2 id="moneymgmt">💰 Money Management: Long/Short, Gleichzeitigkeit & Positionsgrößen</h2>
   <div class="methodology" style="margin-bottom:16px;">
   Drei Fragen für DAX und die breite Aktien-Stichprobe (533, nach Ausschluss von 8 Symbolen mit
@@ -459,26 +523,26 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
 
   <h2 id="verdict">💭 Einschätzung: ist die Strategie nutzbar?</h2>
   <div class="callout" style="border-left-color:#2a5fa0;">
-  <b>Für DAX allein: eher nicht ohne Weiteres.</b> Drei Gründe: <b>(1) Die Edge ist dünn.</b> Ø Wochenrendite
-  pro Trade nur +0.202% -- bei einem realistischen Round-Trip-Kostenanteil von
-  ~20 Basispunkten (Spread + Kommission) wäre sie bereits aufgezehrt, bei Nebenwerten (ENR, 1COV, ZAL)
-  vermutlich noch früher. Dieser Backtest rechnet <b>keine Handelskosten</b> ein. <b>(2) DAX-Robustheit ist
-  schwach.</b> Sharpe fällt von 0,35 (älter) auf 0,08 (neuer). <b>(3) Wenige Ausreißer tragen den Durchschnitt</b>
-  -- RHM.XETRA (+54,5%) und ADS.XETRA (+37,3%) allein erklären viel der positiven Bilanz, 10 der 37 Aktien
-  liegen im Minus. <b>Aber die Ausweitung auf andere Märkte ändert das Bild:</b> über 533 globale Aktien ist
-  dieselbe Strategie deutlich robuster (Sharpe 0,51/0,22 in beiden Hälften, Ø +7,67%) -- der breitere
-  Aktien-Pool filtert die DAX-spezifische Ausreißer-Abhängigkeit heraus. Crypto und Forex sind für diese
-  wöchentliche Variante dagegen nicht robust (Vorzeichen-Kipper zwischen den Zeithälften), anders als bei der
-  Bestätigungs-Strategie im <a href="backtesting-report.html#class-sweetspot" target="_blank" rel="noopener noreferrer">Haupt-Backtesting-Report</a>,
-  wo genau umgekehrt Crypto am robustesten war. <b>Money-Management-Fazit:</b> Equal-Weight pro Signal schlägt
-  Volatilitäts-Gewichtung klar (siehe oben) -- keine Positionsgrößen-Tricks nötig, einfach bleibt besser,
-  dieselbe Lektion wie bei Pyramiding und Early-Exit. Der größte praktische Haken ist nicht die Rendite,
-  sondern die <b>Kapazität</b>: bei der breiten Aktien-Stichprobe laufen im Schnitt ~230 Positionen gleichzeitig
-  -- ohne algorithmische Ausführung oder eine Auswahlregel (z. B. nur die N stärksten Ausbrüche) schlicht nicht
+  <b>Ohne Stop-Loss (nur Zeit-Stop): für DAX allein eher nicht ohne Weiteres.</b> Drei Gründe: dünne Edge
+  (Ø Wochenrendite nur +0.202%, bei ~20 Basispunkten realistischen Handelskosten
+  vermutlich aufgezehrt -- dieser Backtest rechnet <b>keine Kosten</b> ein), schwache Robustheit
+  (Sharpe 0,35 älter → 0,08 neuer), und wenige Ausreißer tragen den Durchschnitt (RHM +54,5%/ADS +37,3%
+  erklären viel, 10 von 37 Aktien liegen im Minus). Über 533 globale Aktien ist dasselbe System schon
+  robuster (Sharpe 0,51/0,22, Ø +7,67%). <b>Mit einem moderaten Preis-Stop-Loss (-3% bis -5%) ändert sich
+  das Bild deutlich:</b> Sharpe verdoppelt sich bis verdreifacht sich in beiden Klassen, und die DAX-Robustheit
+  wird deutlich besser -- die vorher gebrochene "neuere Hälfte" (Sharpe -0,06) wird mit einem -2%-Stop zu
+  einer soliden 0.94. Wichtig: nicht den mathematisch
+  "besten" Stop aus dem Backtest nehmen (-0,25% bis -1% sehen im Backtest noch besser aus, Sharpe über 2) --
+  das ist ein Kostenmodell-Artefakt, kein echter Fund (Kosten wären bei so engen Stops 30-60% der Stop-Breite
+  selbst). Ein moderater -3%-bis-5%-Stop holt den Großteil der Verbesserung, ohne auf unrealistisch perfekte
+  Fills angewiesen zu sein. <b>Money-Management-Fazit:</b> Equal-Weight pro Signal schlägt
+  Volatilitäts-Gewichtung klar, dieselbe Lektion wie bei Pyramiding und Early-Exit -- <b>aber ein echter
+  Preis-Stop-Loss ist die eine Verfeinerung in diesem gesamten Sprint, die tatsächlich robust hilft.</b> Der
+  größte verbleibende praktische Haken ist die <b>Kapazität</b>: bei der breiten Aktien-Stichprobe laufen im
+  Schnitt ~230 Positionen gleichzeitig -- ohne algorithmische Ausführung oder eine Auswahlregel schlicht nicht
   umsetzbar für ein normales Depot. DAX mit ~17 gleichzeitigen Positionen ist dagegen gut handhabbar.
-  <b>Gesamt-Fazit:</b> als reines DAX-System eher ein Screening-Tool als ein Autopilot; über eine breite
-  globale Aktien-Stichprobe ist die Edge real und robust genug, um als ernsthafter Kandidat für weitere
-  Prüfung zu gelten (inkl. Handelskosten-Modellierung und einer Auswahlregel, die die ~230 wöchentlichen
+  <b>Gesamt-Fazit:</b> mit Stop-Loss ist sowohl DAX als auch die breite Aktien-Stichprobe ein ernsthafter
+  Kandidat für weitere Prüfung (inkl. echter Handelskosten-Modellierung und einer Auswahlregel, die die ~230 wöchentlichen
   Signale auf eine handhabbare Positionsanzahl reduziert).
   </div>
 

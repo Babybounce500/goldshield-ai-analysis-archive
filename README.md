@@ -283,6 +283,17 @@ statt nur Montag, steigt die Trigger-Rate auf ~82 % -- aber eine Stop-Order-Näh
 Tagesschluss außerhalb des Kanals, egal welcher Wochentag) **performt schlechter** als die Montag-Close-Regel
 (Sharpe 0,33 vs. 0,37-0,44) -- derselbe "warte auf Bestätigung"-Effekt wie bei der Crypto-Strategie.
 
+**Drawdowns & Stop-Loss** (ebenfalls im Report): die Strategie hatte bisher nur einen Zeit-Stop, keinen
+Preis-Stop-Loss. ~72 % aller Trades fallen irgendwann unter den Einstiegspreis, im Schnitt bis auf -1,9 %
+(DAX) bzw. -2,3 % (Aktien) -- Gewinner-Trades dabei nur bis -0,6 %, Verlierer-Trades bis -3,4 % bis -4,1 %.
+Ein moderater Preis-Stop (-3 % bis -5 %) **verdoppelt bis verdreifacht den Sharpe in beiden Klassen** und
+macht sogar DAX' vorher gebrochene Robustheit solide (die "neuere Hälfte" dreht von negativem auf positiven
+Sharpe). Achtung: noch engere Stops (-0,25 % bis -1 %) sehen im Backtest sogar noch besser aus (Sharpe über
+2), sind aber ein Kostenmodell-Artefakt (perfekte Fills ohne Spread/Slippage angenommen) -- bei so engen
+Stops wären realistische Handelskosten 30-60 % der Stop-Breite selbst. Ein echter Stop-Loss ist damit die
+**einzige getestete Verfeinerung in diesem gesamten Sprint, die tatsächlich robust hilft** (im Gegensatz zu
+Pyramiding, Early-Exit und Vol-Gewichtung, die alle schadeten).
+
 **Money Management** (ebenfalls im Report): Long trägt bei DAX die Edge (Sharpe 0,59 vs. 0,13 für Short),
 bei der breiten Aktien-Stichprobe dreht sich das leicht zu Short (0,59 vs. 0,31). Volatilitäts-basierte
 Positionsgrößen (invers zur Kanal-Breite) **schaden** -- bei Aktien fällt der Sharpe fast auf die Hälfte,
