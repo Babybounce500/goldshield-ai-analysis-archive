@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Musterportfolios</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#b45309;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:26px;border-left:2px solid var(--border);padding-left:14px;}
+.methodology b{color:var(--text);}
+h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:28px 0 14px;}
+.stat-grid{display:grid;gap:10px;margin-bottom:16px;}
+.bstat{background:var(--panel);border-radius:6px;padding:10px 10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
+.bstat b.pos{color:var(--green);} .bstat b.neg{color:var(--red);}
+.bstat span{font-size:8px;color:var(--muted);letter-spacing:.3px;}
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:9.5px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:4px 6px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
+td{padding:4px 6px;border-bottom:1px solid var(--border);white-space:nowrap;}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+td.pos{color:var(--green);} td.neg{color:var(--red);}
+tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:18px 20px;margin-bottom:20px;}
+.pcard-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+.pcard-head h3{font-family:var(--head);font-size:14px;color:var(--bright);}
+.pcard-who{font-size:9.5px;color:var(--accent);background:#fff2dd;padding:3px 8px;border-radius:999px;}
+.pcard-desc{font-size:10.5px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+.toc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.toc a{font-size:10px;color:var(--text);background:var(--panel);padding:6px 12px;border-radius:999px;text-decoration:none;border:1px solid var(--border);}
+.toc a:hover{border-color:var(--accent);color:var(--accent);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+@media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr)!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <h1>🗂️ Musterportfolios</h1>
+  <div class="subtitle">Drei konkrete Portfolios aus den bereits validierten Strategien dieses Archivs -- kein neues Signal-System, nur unterschiedliche Kombinationen des bereits Getesteten · erstellt 23. Oktober 2026</div>
+
+  <div class="callout">
+  <b>Was hier NICHT passiert:</b> keine neuen, ungetesteten Ideen. Jedes Portfolio unten besteht
+  ausschließlich aus Bausteinen, die an anderer Stelle in diesem Archiv bereits mit lookahead-freier
+  Zweiperioden-Robustheit geprüft wurden: dem <a href="dax-breakout-report.html" style="color:var(--accent);">DAX-Weekly-Breakout</a>
+  (Montag-Einstieg, Freitag-Ausstieg, -4%-Preis-Stop, Equal-Weight) und dem im
+  <a href="backtesting-report.html#class-sweetspot" style="color:var(--accent);">Backtesting-Report</a> validierten
+  <b>Crypto-Confirmed-Trend</b> (5-8-Tage-Bestätigungsfenster). Neu ist nur die <b>Kombination</b> der beiden
+  zu einem gemeinsamen, wöchentlich ausgewerteten Portfolio -- inklusive der Frage, ob das tatsächlich
+  diversifiziert oder nur verwässert.
+  </div>
+
+  <div class="toc">
+    <a href="#solide">🛡️ Solide</a>
+    <a href="#opportunistisch">🚀 Opportunistisch</a>
+    <a href="#diversifiziert">⚖️ Diversifiziert</a>
+    <a href="#vergleich">📊 Vergleich</a>
+    <a href="#korrelation">🔗 Korrelation</a>
+    <a href="#fazit">💭 Welches Portfolio für wen?</a>
+  </div>
+
+  <div class="methodology">
+  <b>Gemeinsames Testfenster:</b> 49 Kalenderwochen (2025-10-17 bis 2026-10-16) --
+  der Schnittbereich, in dem sowohl die DAX- als auch die Crypto-Kursreihen vorliegen. Beide Strategien werden
+  auf dieselben wöchentlichen Endpunkte (Freitag) resampled: DAX liefert seine Rendite ohnehin wöchentlich
+  (Montag-Freitag-Logik), Crypto wird von täglichen Strategie-Returns (confirmDays=6) auf dieselben
+  Wochenfenster compoundiert. Das Blend-Portfolio wird <b>jede Woche neu auf 50/50 balanciert</b> (kein Drift).
+  <b>Wichtige Einschränkung:</b> unter einem Jahr gemeinsame Historie -- diese Zahlen zeigen die Mechanik und
+  das Diversifikationsprinzip, sind aber (wie beim Retail-Depot-Abschnitt im DAX-Report) noch keine
+  unabhängig über mehrere Jahre bestätigte Erwartung.
+  </div>
+
+  <h2 id="solide">Portfolio A</h2>
+  <div class="pcard" id="solide-card">
+    <div class="pcard-head">
+      <h3>🛡️ Solide</h3>
+      <span class="pcard-who">Für: risikoscheue Anleger, planbare Haltedauer</span>
+    </div>
+    <p class="pcard-desc">Nur DAX-Weekly-Breakout, 37 Werte, Equal-Weight, -4%-Preis-Stop. Niedrigste Volatilität aller drei
+    Portfolios (Max Drawdown nur -3.0%), dafür auch die niedrigste absolute Rendite.
+    Für ein realistisches Retail-Depot: siehe den <a href="dax-breakout-report.html#retail" style="color:var(--accent);">Retail-Depot-Abschnitt</a>
+    für Korbgrößen von 3-100 Aktien statt aller 37.</p>
+    <div class="stat-grid" style="grid-template-columns:repeat(4,1fr);">
+      <div class="bstat"><b class="pos">+19.5%</b><span>GESAMTRENDITE (~1 JAHR)</span></div>
+      <div class="bstat"><b>1.91</b><span>SHARPE (WÖCHENTLICH, ANNUALISIERT)</span></div>
+      <div class="bstat"><b class="neg">-3.0%</b><span>MAX DRAWDOWN</span></div>
+      <div class="bstat"><b>57%</b><span>WIN-RATE (WOCHEN)</span></div>
+    </div>
+    <div class="chart-wrap"><svg viewBox="0 0 820 220" width="100%" height="220" preserveAspectRatio="xMidYMid meet">
+    <line x1="40" y1="175.8" x2="780" y2="175.8" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="780" y="170.8" font-family="JetBrains Mono,monospace" font-size="10" fill="#898781" text-anchor="end">Start (0%)</text>
+    <path d="M40.0 175.8 L55.1 174.0 L70.2 172.6 L85.3 166.5 L100.4 166.5 L115.5 165.5 L130.6 165.0 L145.7 168.1 L160.8 167.8 L175.9 172.3 L191.0 172.5 L206.1 180.0 L221.2 171.8 L236.3 165.8 L251.4 169.1 L266.5 171.2 L281.6 165.2 L296.7 165.3 L311.8 169.7 L326.9 171.9 L342.0 131.9 L357.1 139.0 L372.2 120.3 L387.3 115.4 L402.4 93.8 L417.6 96.0 L432.7 95.9 L447.8 93.9 L462.9 59.4 L478.0 54.1 L493.1 56.9 L508.2 69.0 L523.3 61.8 L538.4 45.9 L553.5 53.9 L568.6 66.3 L583.7 61.8 L598.8 64.4 L613.9 59.3 L629.0 54.3 L644.1 51.3 L659.2 62.3 L674.3 70.5 L689.4 69.9 L704.5 65.0 L719.6 69.8 L734.7 47.0 L749.8 53.4 L764.9 58.5 L780.0 40.0 L780.0 180 L40.0 180 Z" fill="#2a5fa0" fill-opacity="0.12" stroke="none"/>
+    <path d="M40.0 175.8 L55.1 174.0 L70.2 172.6 L85.3 166.5 L100.4 166.5 L115.5 165.5 L130.6 165.0 L145.7 168.1 L160.8 167.8 L175.9 172.3 L191.0 172.5 L206.1 180.0 L221.2 171.8 L236.3 165.8 L251.4 169.1 L266.5 171.2 L281.6 165.2 L296.7 165.3 L311.8 169.7 L326.9 171.9 L342.0 131.9 L357.1 139.0 L372.2 120.3 L387.3 115.4 L402.4 93.8 L417.6 96.0 L432.7 95.9 L447.8 93.9 L462.9 59.4 L478.0 54.1 L493.1 56.9 L508.2 69.0 L523.3 61.8 L538.4 45.9 L553.5 53.9 L568.6 66.3 L583.7 61.8 L598.8 64.4 L613.9 59.3 L629.0 54.3 L644.1 51.3 L659.2 62.3 L674.3 70.5 L689.4 69.9 L704.5 65.0 L719.6 69.8 L734.7 47.0 L749.8 53.4 L764.9 58.5 L780.0 40.0" fill="none" stroke="#2a5fa0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="780.0" cy="40.0" r="4" fill="#2a5fa0" stroke="#fff" stroke-width="2"/>
+    <text x="774.0" y="30.0" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#2a5fa0" text-anchor="end">+19.5%</text>
+    
+  </svg></div>
+  </div>
+
+  <h2 id="opportunistisch">Portfolio B</h2>
+  <div class="pcard" id="opp-card">
+    <div class="pcard-head">
+      <h3>🚀 Opportunistisch</h3>
+      <span class="pcard-who">Für: risikotolerante Anleger, höhere Schwankungsbreite akzeptiert</span>
+    </div>
+    <p class="pcard-desc">Nur Crypto-Confirmed-Trend, 10 Assets (BTC/ETH/SOL/XRP/BNB/ADA/DOGE/DOT/AVAX/LINK), 5-8-Tage-Bestätigung.
+    Höchste Rendite (+59.9%), aber auch der mit Abstand größte Drawdown
+    (-18.1%) -- knapp 6x so tief wie bei Portfolio A. Nur Signale im
+    <a href="index.html#scanner-panel" style="color:var(--accent);">validierten 5-10-Tage-Fenster</a> kopieren,
+    nicht jedes offene Crypto-Signal.</p>
+    <div class="stat-grid" style="grid-template-columns:repeat(4,1fr);">
+      <div class="bstat"><b class="pos">+59.9%</b><span>GESAMTRENDITE (~1 JAHR)</span></div>
+      <div class="bstat"><b>1.39</b><span>SHARPE (WÖCHENTLICH, ANNUALISIERT)</span></div>
+      <div class="bstat"><b class="neg">-18.1%</b><span>MAX DRAWDOWN</span></div>
+      <div class="bstat"><b>59%</b><span>WIN-RATE (WOCHEN)</span></div>
+    </div>
+    <div class="chart-wrap"><svg viewBox="0 0 820 220" width="100%" height="220" preserveAspectRatio="xMidYMid meet">
+    <line x1="40" y1="174.2" x2="780" y2="174.2" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="780" y="169.2" font-family="JetBrains Mono,monospace" font-size="10" fill="#898781" text-anchor="end">Start (0%)</text>
+    <path d="M40.0 174.2 L55.1 170.1 L70.2 180.0 L85.3 173.6 L100.4 166.5 L115.5 143.6 L130.6 115.2 L145.7 132.3 L160.8 128.1 L175.9 127.5 L191.0 121.1 L206.1 138.5 L221.2 146.4 L236.3 140.3 L251.4 160.7 L266.5 149.4 L281.6 113.6 L296.7 107.9 L311.8 112.1 L326.9 114.7 L342.0 117.1 L357.1 123.0 L372.2 125.0 L387.3 124.0 L402.4 139.7 L417.6 132.6 L432.7 132.5 L447.8 139.7 L462.9 148.9 L478.0 142.5 L493.1 94.5 L508.2 104.5 L523.3 101.9 L538.4 89.6 L553.5 111.2 L568.6 109.1 L583.7 108.9 L598.8 109.8 L613.9 108.7 L629.0 103.3 L644.1 107.4 L659.2 91.1 L674.3 93.4 L689.4 88.2 L704.5 84.8 L719.6 70.1 L734.7 40.0 L749.8 47.7 L764.9 60.2 L780.0 59.4 L780.0 180 L40.0 180 Z" fill="#c2780f" fill-opacity="0.12" stroke="none"/>
+    <path d="M40.0 174.2 L55.1 170.1 L70.2 180.0 L85.3 173.6 L100.4 166.5 L115.5 143.6 L130.6 115.2 L145.7 132.3 L160.8 128.1 L175.9 127.5 L191.0 121.1 L206.1 138.5 L221.2 146.4 L236.3 140.3 L251.4 160.7 L266.5 149.4 L281.6 113.6 L296.7 107.9 L311.8 112.1 L326.9 114.7 L342.0 117.1 L357.1 123.0 L372.2 125.0 L387.3 124.0 L402.4 139.7 L417.6 132.6 L432.7 132.5 L447.8 139.7 L462.9 148.9 L478.0 142.5 L493.1 94.5 L508.2 104.5 L523.3 101.9 L538.4 89.6 L553.5 111.2 L568.6 109.1 L583.7 108.9 L598.8 109.8 L613.9 108.7 L629.0 103.3 L644.1 107.4 L659.2 91.1 L674.3 93.4 L689.4 88.2 L704.5 84.8 L719.6 70.1 L734.7 40.0 L749.8 47.7 L764.9 60.2 L780.0 59.4" fill="none" stroke="#c2780f" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="780.0" cy="59.4" r="4" fill="#c2780f" stroke="#fff" stroke-width="2"/>
+    <text x="774.0" y="49.4" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#c2780f" text-anchor="end">+59.9%</text>
+    
+  </svg></div>
+  </div>
+
+  <h2 id="diversifiziert">Portfolio C</h2>
+  <div class="pcard" id="div-card">
+    <div class="pcard-head">
+      <h3>⚖️ Diversifiziert</h3>
+      <span class="pcard-who">Für: Anleger, die Rendite UND Drawdown-Kontrolle wollen</span>
+    </div>
+    <p class="pcard-desc">50% DAX-Weekly-Breakout + 50% Crypto-Confirmed-Trend, wöchentlich neu balanciert. Rendite
+    (+41.0%) liegt mehr als doppelt so hoch wie bei Portfolio A, der Drawdown
+    (-9.5%) weniger als halb so tief wie bei Portfolio B allein -- der Kern-Vorteil
+    von Diversifikation (siehe Korrelations-Analyse unten) wird hier sichtbar, nicht nur behauptet.</p>
+    <div class="stat-grid" style="grid-template-columns:repeat(4,1fr);">
+      <div class="bstat"><b class="pos">+41.0%</b><span>GESAMTRENDITE (~1 JAHR)</span></div>
+      <div class="bstat"><b>1.79</b><span>SHARPE (WÖCHENTLICH, ANNUALISIERT)</span></div>
+      <div class="bstat"><b class="neg">-9.5%</b><span>MAX DRAWDOWN</span></div>
+      <div class="bstat"><b>61%</b><span>WIN-RATE (WOCHEN)</span></div>
+    </div>
+    <div class="chart-wrap"><svg viewBox="0 0 820 220" width="100%" height="220" preserveAspectRatio="xMidYMid meet">
+    <line x1="40" y1="176.2" x2="780" y2="176.2" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="780" y="171.2" font-family="JetBrains Mono,monospace" font-size="10" fill="#898781" text-anchor="end">Start (0%)</text>
+    <path d="M40.0 176.2 L55.1 172.5 L70.2 180.0 L85.3 173.5 L100.4 167.9 L115.5 149.7 L130.6 128.6 L145.7 141.3 L160.8 138.2 L175.9 138.8 L191.0 134.3 L206.1 148.4 L221.2 152.2 L236.3 146.3 L251.4 162.2 L266.5 153.8 L281.6 125.5 L296.7 121.5 L311.8 125.5 L326.9 127.9 L342.0 119.5 L357.1 125.6 L372.2 122.5 L387.3 120.6 L402.4 127.1 L417.6 122.1 L432.7 121.9 L447.8 127.1 L462.9 126.3 L478.0 120.0 L493.1 82.0 L508.2 92.2 L523.3 88.6 L538.4 75.6 L553.5 93.4 L568.6 94.7 L583.7 93.5 L598.8 94.8 L613.9 92.7 L629.0 87.5 L644.1 89.9 L659.2 80.2 L674.3 83.9 L689.4 79.9 L704.5 76.3 L719.6 66.9 L734.7 40.0 L749.8 46.9 L764.9 56.8 L780.0 51.4 L780.0 180 L40.0 180 Z" fill="#15803d" fill-opacity="0.12" stroke="none"/>
+    <path d="M40.0 176.2 L55.1 172.5 L70.2 180.0 L85.3 173.5 L100.4 167.9 L115.5 149.7 L130.6 128.6 L145.7 141.3 L160.8 138.2 L175.9 138.8 L191.0 134.3 L206.1 148.4 L221.2 152.2 L236.3 146.3 L251.4 162.2 L266.5 153.8 L281.6 125.5 L296.7 121.5 L311.8 125.5 L326.9 127.9 L342.0 119.5 L357.1 125.6 L372.2 122.5 L387.3 120.6 L402.4 127.1 L417.6 122.1 L432.7 121.9 L447.8 127.1 L462.9 126.3 L478.0 120.0 L493.1 82.0 L508.2 92.2 L523.3 88.6 L538.4 75.6 L553.5 93.4 L568.6 94.7 L583.7 93.5 L598.8 94.8 L613.9 92.7 L629.0 87.5 L644.1 89.9 L659.2 80.2 L674.3 83.9 L689.4 79.9 L704.5 76.3 L719.6 66.9 L734.7 40.0 L749.8 46.9 L764.9 56.8 L780.0 51.4" fill="none" stroke="#15803d" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="780.0" cy="51.4" r="4" fill="#15803d" stroke="#fff" stroke-width="2"/>
+    <text x="774.0" y="41.4" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#15803d" text-anchor="end">+41.0%</text>
+    
+  </svg></div>
+  </div>
+
+  <h2 id="vergleich">📊 Direktvergleich</h2>
+  <div class="table-scroll"><table><thead><tr><th>Portfolio</th><th>Gesamtrendite</th><th>Sharpe</th><th>Max Drawdown</th><th>Win-Rate</th><th>Robustheit (älter/neuer Sharpe)</th></tr></thead><tbody>
+    <tr><td>🛡️ Solide (DAX)</td><td class="num pos">+19.5%</td><td class="num">1.91</td><td class="num neg">-3.0%</td><td class="num">57%</td><td class="num">2.38 / 1.45</td></tr>
+    <tr><td>🚀 Opportunistisch (Crypto)</td><td class="num pos">+59.9%</td><td class="num">1.39</td><td class="num neg">-18.1%</td><td class="num">59%</td><td class="num">1.03 / 1.78</td></tr>
+    <tr class="best-row"><td>⚖️ Diversifiziert (50/50)</td><td class="num pos">+41.0%</td><td class="num">1.79</td><td class="num neg">-9.5%</td><td class="num">61%</td><td class="num">1.55 / 2.05</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-bottom:16px;">
+  Portfolio C hat in der <b>neueren</b> Zeithälfte den höchsten Sharpe aller drei (2.05
+  vs. 1.45 bei DAX allein und 1.78 bei Crypto
+  allein) -- in dieser Hälfte schlägt die Diversifikation beide Einzelstrategien gleichzeitig. In der älteren
+  Hälfte liegt es erwartungsgemäß zwischen beiden (1.55), da DAX dort
+  außergewöhnlich stark war (2.38). Insgesamt über die volle Periode liegt
+  der Blend-Sharpe (1.79) leicht unter dem von Portfolio A allein
+  (1.91) -- Diversifikation ist hier kein "Free Lunch" auf Sharpe-Basis, sondern ein
+  Tausch: etwas Sharpe gegen mehr als doppelte Rendite bei deutlich kontrollierterem Drawdown als Crypto pur.
+  </div>
+
+  <h2 id="korrelation">🔗 Korrelation: echte Diversifikation oder nur zwei Wetten?</h2>
+  <div class="stat-grid" style="grid-template-columns:repeat(3,1fr);">
+    <div class="bstat"><b>0.023</b><span>WÖCHENTLICHE KORRELATION DAX ↔ CRYPTO</span></div>
+    <div class="bstat"><b class="pos">+98%</b><span>DIVERSIFIKATIONS-SPIELRAUM (1 − |KORR.|)</span></div>
+    <div class="bstat"><b>49</b><span>GEMEINSAME WOCHEN GETESTET</span></div>
+  </div>
+  <div class="methodology">
+  Eine Korrelation von <b>0.023</b> ist praktisch Null -- DAX-Weekly-Breakout und
+  Crypto-Confirmed-Trend bewegen sich wöchentlich unabhängig voneinander. Das ist plausibel: komplett
+  unterschiedliche Assets, unterschiedliche Signal-Logik (wöchentlicher Kanal-Ausbruch vs. tägliche
+  RSI/SMA-Bestätigung), unterschiedliche Zeitskala. Genau das ist die Voraussetzung dafür, dass eine
+  Kombination den Drawdown senkt, ohne die Rendite proportional zu opfern -- was Portfolio C oben auch zeigt.
+  <b>Einschränkung:</b> 49 Wochen sind ein kurzes Fenster für eine Korrelationsschätzung; ob die Unabhängigkeit
+  auch in einer echten Krisen-Phase (beide Assetklassen fallen gleichzeitig) hält, ist mit dieser Datenlage
+  nicht zu beantworten.
+  </div>
+
+  <h2 id="fazit">💭 Welches Portfolio für wen?</h2>
+  <div class="callout" style="border-left-color:#2a5fa0;">
+  <b>Portfolio A (Solide)</b> für alle, die in erster Linie Kapitalerhalt wollen und mit einer Rendite im
+  niedrigen zweistelligen Bereich bei minimalem Drawdown zufrieden sind -- am nächsten an "Sparplan mit
+  System". <b>Portfolio B (Opportunistisch)</b> nur für Anleger, die einen Drawdown von ~18% psychologisch
+  und finanziell aushalten können, und die sich an die im <a href="index.html#scanner-panel" style="color:var(--accent);">Live-Scanner</a>
+  gezeigte Disziplin halten (nur im validierten 5-10-Tage-Fenster, nicht bei jedem Signal). <b>Portfolio C
+  (Diversifiziert)</b> ist der pragmatischste Mittelweg für die meisten Fälle: mehr als doppelte Rendite
+  gegenüber Portfolio A, aber weniger als halber Drawdown gegenüber Portfolio B -- und das nicht durch
+  Zauberei, sondern weil die beiden Bausteine nachweislich unkorreliert sind. Wie bei jedem anderen Fund in
+  diesem Archiv gilt: dies ist eine Backtest-Analyse über ein kurzes, noch nicht mehrjährig bestätigtes
+  Fenster, keine Anlageberatung.
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, kein Backtest-Ergebnis stellt eine
+  Handlungsempfehlung dar. Vergangene Performance (simuliert oder real) ist kein Indikator für zukünftige
+  Ergebnisse. Alle drei Portfolios kombinieren ausschließlich bereits an anderer Stelle im Archiv
+  validierte Strategie-Bausteine. © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+</body>
+</html>
