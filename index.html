@@ -102,6 +102,17 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 .regime-durations .rd b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
 .regime-durations .rd span{color:var(--muted);font-size:8.5px;letter-spacing:.5px;}
 
+.scanner-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:4px;}
+.scanner-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:10px 12px;}
+.scanner-card .sym{font-family:var(--head);font-size:12px;color:var(--bright);}
+.scanner-card .tier{font-size:8px;letter-spacing:.5px;padding:2px 6px;border-radius:999px;margin-left:6px;vertical-align:1px;}
+.scanner-card .tier.peak{background:rgba(194,120,15,.15);color:#c2780f;}
+.scanner-card .tier.good{background:rgba(42,95,160,.12);color:#2a5fa0;}
+.scanner-card .meta{font-size:9.5px;color:var(--muted);margin-top:4px;}
+.scanner-card .ret{font-family:var(--head);font-size:14px;margin-top:4px;}
+.scanner-card .ret.pos{color:var(--green);} .scanner-card .ret.neg{color:var(--red);}
+.scanner-empty{font-size:10.5px;color:var(--muted);font-style:italic;padding:8px 0;}
+
 .empty-state{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--muted);font-size:11px;}
 .source-note{font-family:var(--mono);font-size:9.5px;color:var(--muted);margin-top:36px;border-top:1px solid var(--border);padding-top:14px;}
 .source-note a{color:var(--accent);}
@@ -255,6 +266,19 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
     </div>
   </div>
 
+  <div class="regime-panel" id="scanner-panel" style="border-color:#c2780f;display:none;">
+    <h2>🔭 Live-Scanner: Crypto Sweet-Spot (5–10 Tage bestätigt)</h2>
+    <div class="regime-sub">
+    Aus dem <a href="backtesting-report.html#class-sweetspot" target="_blank" rel="noopener noreferrer" style="color:var(--accent);">Backtesting-Report</a>:
+    nur bei Crypto ist die Trend-Bestätigungs-Strategie robust (in beiden unabhängig getesteten Zeithälften
+    bestätigt, Sweet Spot bei 5-8 Tagen, Sharpe 0,79/0,86). Diese Liste zeigt automatisch, welche aktuell
+    offenen Crypto-Signale <b>gerade jetzt</b> in diesem validierten Fenster liegen -- weder zu frisch
+    (Bestätigung steht noch aus) noch schon zu weit gelaufen (Edge nimmt laut Heatmap nach Tag ~10 spürbar
+    ab). Aktualisiert sich automatisch mit jedem neuen Report-Batch, kein manueller Rebuild nötig.
+    </div>
+    <div id="scanner-list" class="scanner-list"></div>
+  </div>
+
   <div class="toolbar">
     <div class="search-wrap"><input type="text" id="search" placeholder="Symbol suchen… z.B. AAPL, RHM.XETRA"></div>
     <select id="sortSelect">
@@ -373,6 +397,30 @@ function renderFilters() {
   document.querySelectorAll('.chip').forEach(c => c.addEventListener('click', () => { activeFilter = c.dataset.val; renderFilters(); render(); }));
 }
 
+// Validated (backtesting-report.html, two-period robustness check): Crypto confirmation sweet spot
+// is 5-8 days (peak), with the edge still holding reasonably through ~10 days before fading.
+function renderScanner() {
+  const panel = document.getElementById('scanner-panel');
+  const list = document.getElementById('scanner-list');
+  const candidates = REPORTS.filter(r => r.symbol.endsWith('.CC') && r.holdingDays != null && r.holdingDays >= 5 && r.holdingDays <= 10)
+    .sort((a, b) => a.holdingDays - b.holdingDays);
+  if (!candidates.length) {
+    list.innerHTML = '<div class="scanner-empty">Aktuell kein Crypto-Signal im validierten 5-10-Tage-Fenster.</div>';
+  } else {
+    list.innerHTML = candidates.map(r => {
+      const tier = r.holdingDays <= 8 ? 'peak' : 'good';
+      const tierLabel = tier === 'peak' ? 'PEAK-FENSTER' : 'GUT';
+      const retClass = (r.alignedReturn ?? 0) >= 0 ? 'pos' : 'neg';
+      return `<div class="scanner-card">
+        <span class="sym">${escapeHtml(r.symbol)}</span><span class="tier ${tier}">${tierLabel}</span>
+        <div class="meta">${escapeHtml(r.sentiment || '—')} · seit ${r.holdingDays} Tagen bestätigt</div>
+        <div class="ret ${retClass}">${r.alignedReturnText || '—'}</div>
+      </div>`;
+    }).join('');
+  }
+  panel.style.display = 'block';
+}
+
 async function init() {
   try {
     const res = await fetch('data.json', { signal: AbortSignal.timeout(15000) });
@@ -417,6 +465,7 @@ async function init() {
   document.getElementById('stat-retperday').textContent = (rpdPos != null && rpdNeg != null) ? '+' + rpdPos.toFixed(2) + '% / ' + rpdNeg.toFixed(2) + '%' : '—';
   document.getElementById('total-count').textContent = REPORTS.length;
 
+  renderScanner();
   renderFilters();
   render();
   document.getElementById('search').addEventListener('input', render);

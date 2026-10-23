@@ -226,6 +226,24 @@ zu sein. Live-Anwendung: **185 aktuell offene Signale** im Archiv laufen bereits
 (Filter **🎯 Bestätigter Trend** auf dem Index) -- aktuell 100 % davon im Plus, Ø +14,27 %. Volle
 Sweep-Heatmaps und Live-Kandidatenliste im Backtesting-Report.
 
+**Weitere Tests auf der validierten Crypto-Edge:** Pyramiding (Positionsgröße erhöhen je länger der Trend
+läuft) **schadet deutlich** -- Sharpe fällt von 0,73 auf 0,54, Drawdown springt auf -79,9 % (mehr Risiko kurz
+vor der wahrscheinlichsten Umkehr ist keine gute Idee). Trailing-Stops bringen keine klare Verbesserung
+gegenüber der simplen Baseline. Alternative Bestätigung über **Momentum-Stärke** statt Tage ist ein klarer
+Fehlschlag (durchgängig negativer Sharpe -- hohes Momentum markiert in Crypto oft das Ende statt den Anfang
+einer Bewegung). **RSI-Schwelle** (z. B. RSI > 55) funktioniert tatsächlich, ist aber weniger robust zwischen
+den Zeithälften als die Tage-Methode. Fazit: die einfache Tage-basierte Baseline bleibt die beste Wahl.
+
+**🔭 Live-Scanner** (neu auf dem Haupt-Index, clientseitig berechnet): zeigt automatisch, welche aktuell
+offenen Crypto-Signale gerade im validierten 5-10-Tage-Fenster liegen. Stand heute: BTC-USD.CC (6 Tage,
+Peak-Fenster), ADA-USD.CC und AVAX-USD.CC (je 9 Tage).
+
+**Hinweis zu Bonds:** 116 Government-Bond-Yields wurden geprüft, aber nicht als eigene Klasse aufgenommen --
+der Daten-Proxy liefert für diese Symbole bei historischen Kursreihen konsequent einen Server-Error (mehrfach
+über verschiedene Symbole/Zeiträume getestet), nur ein einzelner aktueller Wert ist verfügbar. Ohne tägliche
+Kurshistorie ist RSI/SMA20/Momentum nicht berechenbar -- eine echte Datenlücke der Quelle, kein
+Implementierungsfehler.
+
 ## Pipeline für weitere Reports
 
 Neue Downloads landen als `GLOBALO-{SYMBOL}-Analysis-{YYYY-MM-DD}.{html,txt}` in `reports/`.

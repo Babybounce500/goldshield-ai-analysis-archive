@@ -43,7 +43,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
 <body>
 <div class="wrap">
   <h1>📑 GOLDSHIELD AI — Backtesting Report</h1>
-  <div class="subtitle">Lookahead-freier Tages-Backtest über alle vier Asset-Klassen · erstellt 22. Oktober 2026</div>
+  <div class="subtitle">Lookahead-freier Tages-Backtest über alle vier Asset-Klassen · erstellt 23. Oktober 2026</div>
 
   <div class="callout">
   <b>Strategie:</b> das aktuelle Signal eingehen und halten, bis ein Regime-Wechsel eintritt -- also exakt
@@ -86,6 +86,15 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   irreführenden Ausschlag am rechten Rand erzeugen.
   </div>
 
+  <div class="callout" style="background:#fff;border-left-color:var(--muted);">
+  <b>Hinweis zu Bonds:</b> Government-Bond-Yields (116 Laufzeiten/Länder, z. B. US10Y, CA2Y) wurden geprüft,
+  aber nicht als eigene Asset-Klasse aufgenommen -- der Daten-Proxy liefert für diese Symbole bei
+  <code>/eod/historical/</code> konsequent einen 500-Server-Error (getestet über mehrere Symbole und
+  Zeiträume), die Realtime-Route liefert nur <code>previousClose</code>, keine vollständige OHLC-Zeitreihe.
+  Ohne tägliche Schlusskurs-Historie lässt sich RSI/SMA20/Momentum nicht berechnen -- eine echte
+  Daten-Lücke der Quelle, kein Implementierungsfehler, die hier ehrlich offengelegt statt umgangen wird.
+  </div>
+
   <div class="toc">
     <a href="#class-overall">🔄 Gesamtmarkt</a>
     <a href="#class-crypto">₿ Crypto</a>
@@ -93,6 +102,8 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#class-funds">📊 Funds</a>
     <a href="#class-strategy" style="border-color:var(--accent);color:var(--accent);font-weight:600;">🎯 Strategie-Brainstorm</a>
     <a href="#class-sweetspot" style="border-color:var(--accent);color:var(--accent);font-weight:600;">🔍 Sweet-Spot</a>
+    <a href="#class-pyramid" style="border-color:var(--accent);color:var(--accent);font-weight:600;">⚠️ Pyramiding/Stop</a>
+    <a href="#class-magnitude" style="border-color:var(--accent);color:var(--accent);font-weight:600;">🧪 RSI-Alternative</a>
   </div>
 
   
@@ -625,6 +636,167 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <tr><td>Älter</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.03</td><td class="num" style="background:rgba(21,128,61,0.02);">0.05</td><td class="num" style="background:rgba(21,128,61,0.02);">0.06</td><td class="num" style="background:rgba(21,128,61,0.02);">0.06</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.03);">0.07</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.03);">0.09</td><td class="num" style="background:rgba(21,128,61,0.04);">0.13</td><td class="num" style="background:rgba(185,28,28,0.03);">-0.08</td><td class="num" style="background:rgba(185,28,28,0.00);">-0.01</td></tr><tr><td>Neuer</td><td class="num" style="background:rgba(21,128,61,0.01);">0.02</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.03);">0.08</td><td class="num" style="background:rgba(21,128,61,0.03);">0.09</td><td class="num" style="background:rgba(21,128,61,0.03);">0.10</td><td class="num" style="background:rgba(21,128,61,0.03);">0.07</td><td class="num" style="background:rgba(21,128,61,0.02);">0.06</td><td class="num" style="background:rgba(185,28,28,0.00);">-0.01</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.02</td><td class="num" style="background:rgba(185,28,28,0.00);">-0.00</td><td class="num" style="background:rgba(21,128,61,0.00);">0.00</td></tr><tr><td>Full</td><td class="num" style="background:rgba(185,28,28,0.00);">-0.01</td><td class="num" style="background:rgba(21,128,61,0.02);">0.07</td><td class="num" style="background:rgba(21,128,61,0.02);">0.07</td><td class="num" style="background:rgba(21,128,61,0.02);">0.05</td><td class="num" style="background:rgba(21,128,61,0.02);">0.05</td><td class="num" style="background:rgba(21,128,61,0.01);">0.01</td><td class="num" style="background:rgba(21,128,61,0.01);">0.02</td><td class="num" style="background:rgba(185,28,28,0.02);">-0.05</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.03</td><td class="num" style="background:rgba(185,28,28,0.01);">-0.03</td><td class="num" style="background:rgba(21,128,61,0.01);">0.01</td></tr>
   </tbody></table>
   </section>
+  
+  <section class="class-section" id="class-pyramid">
+    <h2>⚠️ Verfeinerungs-Test: Pyramiding & Trailing-Stop auf der Crypto-Edge</h2>
+    <div class="regime-sub" style="font-size:11px;color:#5f7277;line-height:1.8;margin-bottom:16px;">
+    Naheliegende Idee: die validierte Crypto-Edge (Einstieg nach 6 Tagen Bestätigung) noch verbessern --
+    entweder durch <b>Pyramiding</b> (Positionsgröße erhöhen, je länger der bestätigte Trend bereits läuft,
+    1x bis max. 3x) oder einen <b>Trailing-Stop</b> (Position schließen, wenn der Kurs X% vom Hoch seit
+    Einstieg zurückfällt). Beide gegen die Baseline getestet, wieder über beide Zeithälften.
+    </div>
+    <table><thead><tr><th>Variante</th><th>Sharpe (gesamt)</th><th>Sharpe (älter)</th><th>Sharpe (neuer)</th><th>Rendite (gesamt)</th><th>Max DD (gesamt)</th></tr></thead><tbody>
+    <tr class="best-row">
+        <td>Baseline (Tag 6, fix 1x, kein Stop)</td>
+        <td class="num" style="background:rgba(21,128,61,0.26);">0.73</td>
+        <td class="num" style="background:rgba(21,128,61,0.28);">0.79</td>
+        <td class="num" style="background:rgba(21,128,61,0.30);">0.86</td>
+        <td class="num pos">+50.8%</td>
+        <td class="num neg">-36.5%</td>
+      </tr><tr>
+        <td>Pyramiding (1x -&gt; 3x über Zeit)</td>
+        <td class="num" style="background:rgba(21,128,61,0.19);">0.54</td>
+        <td class="num" style="background:rgba(21,128,61,0.21);">0.60</td>
+        <td class="num" style="background:rgba(21,128,61,0.24);">0.70</td>
+        <td class="num neg">-6.4%</td>
+        <td class="num neg">-79.9%</td>
+      </tr><tr>
+        <td>Trailing-Stop 10%</td>
+        <td class="num" style="background:rgba(21,128,61,0.25);">0.72</td>
+        <td class="num" style="background:rgba(21,128,61,0.23);">0.65</td>
+        <td class="num" style="background:rgba(21,128,61,0.26);">0.75</td>
+        <td class="num pos">+40.4%</td>
+        <td class="num neg">-26.8%</td>
+      </tr><tr>
+        <td>Trailing-Stop 15%</td>
+        <td class="num" style="background:rgba(21,128,61,0.24);">0.69</td>
+        <td class="num" style="background:rgba(21,128,61,0.18);">0.53</td>
+        <td class="num" style="background:rgba(21,128,61,0.31);">0.87</td>
+        <td class="num pos">+44.5%</td>
+        <td class="num neg">-35.1%</td>
+      </tr><tr>
+        <td>Trailing-Stop 20%</td>
+        <td class="num" style="background:rgba(21,128,61,0.22);">0.63</td>
+        <td class="num" style="background:rgba(21,128,61,0.18);">0.52</td>
+        <td class="num" style="background:rgba(21,128,61,0.28);">0.81</td>
+        <td class="num pos">+40.6%</td>
+        <td class="num neg">-35.9%</td>
+      </tr><tr>
+        <td>Pyramiding + Trailing-Stop 15%</td>
+        <td class="num" style="background:rgba(21,128,61,0.17);">0.48</td>
+        <td class="num" style="background:rgba(21,128,61,0.11);">0.31</td>
+        <td class="num" style="background:rgba(21,128,61,0.24);">0.70</td>
+        <td class="num pos">+33.0%</td>
+        <td class="num neg">-71.6%</td>
+      </tr>
+  </tbody></table>
+    <div class="regime-sub" style="font-size:11px;color:#5f7277;line-height:1.8;margin:16px 0;">
+    <b>Ergebnis: Pyramiding schadet deutlich</b> -- Sharpe fällt von 0,73 auf 0,54, die Rendite kippt in der
+    älteren Hälfte sogar ins Minus (-15,7% statt +22,4%), und der maximale Drawdown springt von -36,5% auf
+    -79,9%. Nachvollziehbar: die Positionsgröße wächst genau dann am größten, wenn der Trend am längsten
+    gelaufen ist -- also genau dann, wenn laut Regime-Dauer-Analyse eine Umkehr am wahrscheinlichsten wird.
+    Mehr Risiko kurz vor der statistisch wahrscheinlichsten Wende ist das Gegenteil von smart. <b>Trailing-Stops
+    bringen keine klare Verbesserung</b> -- 10% reduziert den Drawdown spürbar (-26,8% statt -36,5%), kostet
+    aber auch Rendite (40,4% statt 50,8%) bei ähnlichem Sharpe; 15%/20% sind in der älteren Hälfte sogar
+    schwächer als die Baseline. Fazit: <b>die einfache Baseline-Strategie ist bereits nahe am Optimum</b> --
+    zusätzliche Komplexität hilft hier nicht und kann aktiv schaden. Ein 10%-Trailing-Stop ist als
+    risiko-reduzierende Variante vertretbar, aber keine Verbesserung der risikoadjustierten Rendite.
+    </div>
+  </section>
+  
+  <section class="class-section" id="class-magnitude">
+    <h2>🧪 Alternative Bestätigung: Momentum-/RSI-Stärke statt Tage zählen (Crypto)</h2>
+    <div class="regime-sub" style="font-size:11px;color:#5f7277;line-height:1.8;margin-bottom:16px;">
+    Statt Tage seit Signalwechsel zu zählen: Einstieg erst, wenn die <b>Stärke</b> des Signals eine Schwelle
+    überschreitet -- entweder Momentum-Magnitude (z. B. erst bei Momentum &gt; 5%, nicht nur &gt; 0%) oder
+    RSI-Schwelle (z. B. RSI &gt; 60 statt nur "über 50"). Beide gegen die Tage-basierte Baseline verglichen.
+    </div>
+    <h3 style="font-size:12px;margin-bottom:8px;">Momentum-Magnitude -- durchgängig negativ</h3>
+    <table><thead><tr><th>Schwelle</th><th>Sharpe (gesamt)</th><th>Sharpe (älter)</th><th>Sharpe (neuer)</th></tr></thead><tbody>
+    <tr><td>0%</td>
+        <td class="num" style="background:rgba(185,28,28,0.16);">-0.44</td>
+        <td class="num" style="background:rgba(185,28,28,0.31);">-0.88</td>
+        <td class="num" style="background:rgba(21,128,61,0.03);">0.09</td>
+      </tr><tr><td>1%</td>
+        <td class="num" style="background:rgba(185,28,28,0.24);">-0.68</td>
+        <td class="num" style="background:rgba(185,28,28,0.35);">-1.03</td>
+        <td class="num" style="background:rgba(185,28,28,0.10);">-0.28</td>
+      </tr><tr><td>2%</td>
+        <td class="num" style="background:rgba(185,28,28,0.17);">-0.50</td>
+        <td class="num" style="background:rgba(185,28,28,0.27);">-0.76</td>
+        <td class="num" style="background:rgba(185,28,28,0.06);">-0.17</td>
+      </tr><tr><td>3%</td>
+        <td class="num" style="background:rgba(185,28,28,0.23);">-0.66</td>
+        <td class="num" style="background:rgba(185,28,28,0.27);">-0.77</td>
+        <td class="num" style="background:rgba(185,28,28,0.18);">-0.52</td>
+      </tr><tr><td>5%</td>
+        <td class="num" style="background:rgba(185,28,28,0.22);">-0.62</td>
+        <td class="num" style="background:rgba(185,28,28,0.27);">-0.76</td>
+        <td class="num" style="background:rgba(185,28,28,0.14);">-0.41</td>
+      </tr><tr><td>7%</td>
+        <td class="num" style="background:rgba(185,28,28,0.21);">-0.60</td>
+        <td class="num" style="background:rgba(185,28,28,0.23);">-0.66</td>
+        <td class="num" style="background:rgba(185,28,28,0.15);">-0.44</td>
+      </tr><tr><td>10%</td>
+        <td class="num" style="background:rgba(185,28,28,0.12);">-0.35</td>
+        <td class="num" style="background:rgba(185,28,28,0.07);">-0.21</td>
+        <td class="num" style="background:rgba(185,28,28,0.12);">-0.34</td>
+      </tr><tr><td>15%</td>
+        <td class="num" style="background:rgba(185,28,28,0.02);">-0.05</td>
+        <td class="num" style="background:rgba(21,128,61,0.10);">0.28</td>
+        <td class="num" style="background:rgba(185,28,28,0.10);">-0.29</td>
+      </tr>
+  </tbody></table>
+    <h3 style="font-size:12px;margin:16px 0 8px;">RSI-Schwelle -- funktioniert, aber weniger robust als Tage-basiert</h3>
+    <table><thead><tr><th>Schwelle</th><th>Sharpe (gesamt)</th><th>Sharpe (älter)</th><th>Sharpe (neuer)</th></tr></thead><tbody>
+    <tr><td>50 (RSI)</td>
+        <td class="num" style="background:rgba(21,128,61,0.17);">0.50</td>
+        <td class="num" style="background:rgba(21,128,61,0.25);">0.71</td>
+        <td class="num" style="background:rgba(21,128,61,0.09);">0.26</td>
+      </tr><tr><td>52 (RSI)</td>
+        <td class="num" style="background:rgba(21,128,61,0.18);">0.51</td>
+        <td class="num" style="background:rgba(21,128,61,0.24);">0.67</td>
+        <td class="num" style="background:rgba(21,128,61,0.13);">0.37</td>
+      </tr><tr><td>55 (RSI)</td>
+        <td class="num" style="background:rgba(21,128,61,0.23);">0.66</td>
+        <td class="num" style="background:rgba(21,128,61,0.23);">0.67</td>
+        <td class="num" style="background:rgba(21,128,61,0.27);">0.78</td>
+      </tr><tr><td>58 (RSI)</td>
+        <td class="num" style="background:rgba(21,128,61,0.17);">0.48</td>
+        <td class="num" style="background:rgba(21,128,61,0.09);">0.26</td>
+        <td class="num" style="background:rgba(21,128,61,0.30);">0.86</td>
+      </tr><tr><td>60 (RSI)</td>
+        <td class="num" style="background:rgba(21,128,61,0.19);">0.54</td>
+        <td class="num" style="background:rgba(21,128,61,0.14);">0.39</td>
+        <td class="num" style="background:rgba(21,128,61,0.26);">0.75</td>
+      </tr><tr><td>65 (RSI)</td>
+        <td class="num" style="background:rgba(21,128,61,0.15);">0.42</td>
+        <td class="num" style="background:rgba(21,128,61,0.22);">0.64</td>
+        <td class="num" style="background:rgba(21,128,61,0.13);">0.36</td>
+      </tr><tr><td>70 (RSI)</td>
+        <td class="num" style="background:rgba(21,128,61,0.19);">0.54</td>
+        <td class="num" style="background:rgba(21,128,61,0.33);">0.96</td>
+        <td class="num" style="background:rgba(21,128,61,0.08);">0.23</td>
+      </tr>
+  </tbody></table>
+    <div class="regime-sub" style="font-size:11px;color:#5f7277;line-height:1.8;margin:16px 0;">
+    <b>Momentum-Magnitude ist ein klarer Fehlschlag</b> -- Sharpe ist bei jeder getesteten Schwelle negativ,
+    schlechter sogar als der naive Sofort-Einstieg. Plausible Erklärung: hohes Momentum markiert in Crypto
+    oft eher das Ende einer Bewegung als deren Anfang (Erschöpfung) -- "warte auf starkes Momentum" kauft
+    damit tendenziell nahe am Hoch statt am Anfang des Trends. <b>RSI-Schwelle funktioniert tatsächlich</b>
+    (Sharpe 0,42 bis 0,96 je nach Schwelle) -- aber weniger stabil zwischen den Zeithälften als die Tage-Methode:
+    beste RSI-Schwelle (55) erreicht min(älter,neuer)=0,67, die Tage-Methode bei 6-8 Tagen erreicht 0,79-0,81.
+    <b>Fazit: Tage-basierte Bestätigung bleibt die robustere Wahl</b>, RSI-Schwelle könnte als Zusatzfilter
+    (z. B. "6+ Tage UND RSI &gt; 55") einen Versuch wert sein, ersetzt die Tage-Methode aber nicht.
+    </div>
+  </section>
+
+  <div class="callout" style="border-left-color:#2a5fa0;">
+  <b>🔭 Live-Scanner:</b> der <a href="index.html" target="_blank" rel="noopener noreferrer">Haupt-Index</a>
+  zeigt jetzt automatisch (clientseitig aus data.json berechnet, kein manueller Rebuild nötig), welche
+  aktuell offenen Crypto-Signale gerade im validierten 5-10-Tage-Fenster liegen -- Stand heute qualifizieren
+  sich BTC-USD.CC (6 Tage, Peak-Fenster), ADA-USD.CC und AVAX-USD.CC (je 9 Tage).
+  </div>
 
   <div class="footer-note">
   AI-generierte, computationale Analyse -- keine Anlageberatung, kein Backtest-Ergebnis stellt eine
