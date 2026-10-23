@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Forschungsprotokoll</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#b45309;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:980px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:30px 0 12px;}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
+.bstat{background:var(--panel);border-radius:6px;padding:10px 10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:18px;display:block;color:var(--bright);}
+.bstat b.pos{color:var(--green);} .bstat b.neg{color:var(--red);}
+.bstat span{font-size:8px;color:var(--muted);letter-spacing:.3px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:12px;}
+table{width:100%;min-width:720px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
+td{padding:8px;border-bottom:1px solid var(--border);vertical-align:top;}
+td.hyp{max-width:220px;color:var(--text);}
+td.verdict{text-align:center;font-size:14px;white-space:nowrap;}
+td.finding{color:var(--muted);font-size:9.5px;line-height:1.6;}
+td.source{font-size:9px;white-space:nowrap;}
+td.source a{color:var(--accent);text-decoration:none;}
+td.source a:hover{text-decoration:underline;}
+tr:hover{background:var(--panel);}
+.section-note{font-size:10.5px;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+@media (max-width:640px){.stat-grid{grid-template-columns:repeat(1,1fr);}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <h1>🔬 Forschungsprotokoll: Was wurde getestet -- und verworfen</h1>
+  <div class="subtitle">Jede Hypothese, jeder Datenfehler, jeder verworfene Ansatz aus diesem Projekt an einem Ort -- nicht nur die Funde, die am Ende überlebt haben · erstellt 23. Oktober 2026</div>
+
+  <div class="callout">
+  <b>Warum diese Seite existiert:</b> ein Archiv, das nur die erfolgreichen Funde zeigt, ist nicht von
+  Rosinenpickerei zu unterscheiden. Hier stehen auch die Ideen, die <b>nicht</b> funktioniert haben --
+  Pyramiding, Volatilitäts-Gewichtung, enge Stop-Losses, verkürzte Haltedauer, Confirmed-Trend außerhalb
+  von Crypto -- und die Datenfehler, die unterwegs gefunden und korrigiert wurden, bevor sie in ein Ergebnis
+  einfließen konnten. Jede Zeile verlinkt auf den Report-Abschnitt, in dem die Zahlen dahinter stehen.
+  </div>
+
+  <div class="stat-grid">
+    <div class="bstat"><b class="pos">6</b><span>BESTÄTIGTE FUNDE</span></div>
+    <div class="bstat"><b class="neg">8</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b>5</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
+  </div>
+
+  <h2>📦 DAX-Weekly-Breakout: Strategie-Varianten</h2>
+  <div class="section-note">Jede Zeile wurde über zwei unabhängige Zeithälften getestet, nicht nur über die Gesamtperiode.</div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Hypothese</th><th>Verdikt</th><th>Befund</th><th>Quelle</th></tr></thead><tbody>
+    <tr>
+    <td class="hyp">Equal-Weight pro Signal schlägt Volatilitäts-Gewichtung</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Vol-Weighting (invers zur Kanal-Breite) senkt den Sharpe bei der breiten Aktien-Stichprobe fast um die Hälfte (0,44→0,16), in der neueren Hälfte bleibt praktisch keine Edge.</td>
+    <td class="source"><a href="dax-breakout-report.html#moneymgmt">Money Management</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Pyramiding (bei starkem Trend nachkaufen) verbessert die Rendite</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Senkt die Robustheit gegenüber einfachem Equal-Weight -- dieselbe "nicht klüger werden"-Lektion wie bei Vol-Weighting.</td>
+    <td class="source"><a href="dax-breakout-report.html#verdict">Einschätzung</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Fester Preis-Stop-Loss (-3% bis -5%) verbessert die Strategie</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Sharpe verdoppelt bis verdreifacht sich in DAX und Aktien-Stichprobe; vormals gebrochene "neuere Hälfte" (Sharpe -0,06) wird robust positiv.</td>
+    <td class="source"><a href="dax-breakout-report.html#drawdowns">Drawdowns &amp; Stop-Loss</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Je enger der Stop, desto besser (Backtest zeigt Sharpe &gt;2 bei -0,25% bis -1%)</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Kostenmodell-Artefakt: bei so engen Stops wären reale Handelskosten 30-60% der Stop-Breite selbst -- kein echter Fund, sondern ein Backtest-Blindspot.</td>
+    <td class="source"><a href="dax-breakout-report.html#drawdowns">Drawdowns &amp; Stop-Loss</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">-4% ist der ausgewogenste Stop (False-Stop-Analyse statt reinem Sharpe)</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Feiner 0,25%-Sweep + Kosten-Sensitivität + False-Stop-Breakdown zeigen -4% als besten Kompromiss zwischen Gewinner-Schnitt und Verlierer-Kappung.</td>
+    <td class="source"><a href="dax-breakout-report.html#stop35">3-5%-Stop im Detail</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Früh aussteigen, wenn der Kurs in der Woche zurück in den Kanal fällt</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Intraweek-Deep-Dive: Early-Exit verbessert das Ergebnis nicht gegenüber dem festen Freitag-Exit.</td>
+    <td class="source"><a href="dax-breakout-report.html#deepdive">Deep-Dive</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Einstieg per Stop-Order (sofort bei Kanal-Durchbruch, nicht erst Montag-Close)</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Trigger-Rate steigt von 47,6% auf 82,3%, aber Sharpe fällt in DAX (0,368→0,326) und Aktien (0,440→0,328) -- Montag-Close wirkt selbst als Bestätigungssignal.</td>
+    <td class="source"><a href="dax-breakout-report.html#entrytiming">Einstiegs-Timing</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Mittwoch-Exit statt Freitag-Exit (kürzer im Markt = weniger Risiko)</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Sharpe sinkt deutlich auf Populations- UND Korb-Ebene (DAX 0,76→0,45, N=3-Korb verliert über ein Drittel der Rendite) -- die Strategie lebt von der vollen Wochen-Haltedauer.</td>
+    <td class="source"><a href="dax-breakout-report.html#scenarios">Weitere Korb-Szenarien</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Fixer Kapital-Slot pro Korb-Aktie statt volles Kapital auf Signale</td>
+    <td class="verdict mixed">➖</td>
+    <td class="finding">Senkt Max-Drawdown deutlich (N=3: -7,1%→-4,0%) und verbessert bei kleinen Körben sogar den Sharpe, kostet aber absolutes Endkapital -- konservativere, nicht per se bessere Variante.</td>
+    <td class="source"><a href="dax-breakout-report.html#scenarios">Weitere Korb-Szenarien</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Sektor-diversifizierte Korb-Auswahl schlägt naive Pool-Reihenfolge</td>
+    <td class="verdict mixed">➖</td>
+    <td class="finding">Hilft deutlich bei N=10 (Sharpe 1,58→2,35), schadet leicht bei N=3/5, verschwindet ab N=50 -- kein Wundermittel, aber bei 10-20 Aktien ein sinnvoller Zusatzbaustein.</td>
+    <td class="source"><a href="dax-breakout-report.html#scenarios">Weitere Korb-Szenarien</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Ein Korb von 10-20 Aktien ist praktikabel für ein echtes Depot</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Ab N=10 verschwindet das Klumpenrisiko (0 Einzelaktien-Wochen) komplett, Strategie bleibt fast jede Woche aktiv, ohne auf Kapazität von ~230 gleichzeitigen Positionen angewiesen zu sein.</td>
+    <td class="source"><a href="dax-breakout-report.html#retail">Retail-Depot 100K€</a></td>
+  </tr>
+  </tbody></table>
+  </div>
+
+  <h2>🔭 Confirmed-Trend / Sentiment-Signale</h2>
+  <div class="table-scroll">
+  <table><thead><tr><th>Hypothese</th><th>Verdikt</th><th>Befund</th><th>Quelle</th></tr></thead><tbody>
+    <tr>
+    <td class="hyp">Bestätigter Trend (mehrtägige Signal-Bestätigung) verbessert die Treffsicherheit bei Crypto</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Sweet Spot bei 5-8 Tagen, Sharpe 0,79 (ältere Hälfte) / 0,86 (neuere Hälfte) -- robust über beide unabhängig getesteten Zeiträume.</td>
+    <td class="source"><a href="backtesting-report.html#class-sweetspot">Backtesting-Report</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Dieselbe Confirmed-Trend-Strategie funktioniert auch bei Aktien/Forex/Funds</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Aktien-Sharpe nahe Null in beiden Hälften (0,05/0,08), Forex kippt zwischen den Hälften (0,51→0,05), Funds auf zu dünner Stichprobe (22 Symbole) -- nur Crypto ist robust genug für Copy-Trading.</td>
+    <td class="source"><a href="index.html#scanner-panel">Live-Scanner</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Je höher die aktuelle Signal-Rendite, desto besser der Copy-Trade-Kandidat</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Genau umgekehrt: die 6 Crypto-Signale mit der höchsten aktuellen Rendite (z.B. SOL +6,89%) liegen bei Tag 14 -- jenseits von Tag 10, wo die Edge laut Heatmap auf Sharpe ~0,07 kollabiert.</td>
+    <td class="source"><a href="index.html#scanner-panel">Live-Scanner</a></td>
+  </tr>
+  </tbody></table>
+  </div>
+
+  <h2>🗂️ Portfolio-Konstruktion</h2>
+  <div class="table-scroll">
+  <table><thead><tr><th>Hypothese</th><th>Verdikt</th><th>Befund</th><th>Quelle</th></tr></thead><tbody>
+    <tr>
+    <td class="hyp">DAX-Breakout und Crypto-Confirmed-Trend sind unkorreliert genug, um echt zu diversifizieren</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Wöchentliche Korrelation ~0,02 über 49 gemeinsame Wochen -- praktisch Null. 50/50-Blend liefert in der neueren Zeithälfte den höchsten Sharpe aller drei Portfolios.</td>
+    <td class="source"><a href="model-portfolios.html#korrelation">Musterportfolios</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Die breite 525/533-Aktien-Stichprobe ist für ein echtes Depot direkt handelbar</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Ø ~230 gleichzeitige Positionen pro Woche -- ohne algorithmische Order-Ausführung oder Auswahlregel schlicht nicht umsetzbar für ein normales Konto.</td>
+    <td class="source"><a href="dax-breakout-report.html#moneymgmt">Money Management</a></td>
+  </tr>
+  </tbody></table>
+  </div>
+
+  <h2>🐛 Gefundene &amp; korrigierte Datenfehler</h2>
+  <div class="section-note">Jeder dieser Fehler wurde vor Veröffentlichung des jeweiligen Reports gefangen -- hier transparent dokumentiert statt still gefixt.</div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Fehler</th><th>Status</th><th>Ursache &amp; Fix</th><th>Quelle</th></tr></thead><tbody>
+    <tr>
+    <td class="hyp">BKNG.US zeigte einen unplausiblen ~7:1-Kurssprung</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Unadjustierter Aktiensplit in den Rohdaten, keine echte Kursbewegung. Erkennungsregel (Tagesratio &lt;0,6 oder &gt;1,67) seither Standard-Check für jede neue Symbol-Liste.</td>
+    <td class="source">Backtesting-Report</td>
+  </tr>
+    <tr>
+    <td class="hyp">8 weitere Split-Artefakte in der 525/533-Aktien-Stichprobe</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">U.a. CTD.AU (16,07→2,25 in einer Woche, ~7:1-Split), CVNA.US, MRNA.US -- alle per derselben Ratio-Regel gefunden und aus allen betroffenen Analysen ausgeschlossen.</td>
+    <td class="source"><a href="dax-breakout-report.html#moneymgmt">Money Management</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">"Gesamtrendite" durch Pooled-Compounding war eine sinnlose Kennzahl</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Trade-Returns wurden in Loop-Reihenfolge (nach Symbol gruppiert, nicht chronologisch) multipliziert -- impliziert fälschlich "ein Jahr nur Symbol A halten, dann nur B...". Ersetzt durch Avg/Sharpe/Win-Rate.</td>
+    <td class="source">Diverse Deep-Dives</td>
+  </tr>
+    <tr>
+    <td class="hyp">Vol-Weighting crashte bei Symbolen mit 3 identischen Freitags-Closes</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">1/Kanalbreite wurde Infinity bei Kanalbreite=0 (CTD.AU, 5 Wochen identischer Stale-Kurs), vergiftete den Durchschnitt und crashte die Auswertung. Fix: Kanalbreite&gt;0 als Vorbedingung für Vol-Weighting.</td>
+    <td class="source"><a href="dax-breakout-report.html#moneymgmt">Money Management</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Eine frühere "Funds-Koinzidenz" hielt der Robustheits-Prüfung nicht stand</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Ein erster Fund sah über die Gesamtperiode stark aus, fiel aber beim Split in zwei unabhängige Zeithälften auseinander -- als Zufallstreffer verworfen statt veröffentlicht.</td>
+    <td class="source">Backtesting-Report</td>
+  </tr>
+  </tbody></table>
+  </div>
+
+  <div class="footer-note">
+  Diese Seite wird fortgeschrieben, sobald neue Hypothesen getestet werden -- auch die, die nicht
+  überleben. AI-generierte, computationale Analyse -- keine Anlageberatung. © 2026 GENITUS INC. —
+  GoldShield AI.
+  </div>
+</div>
+</body>
+</html>
