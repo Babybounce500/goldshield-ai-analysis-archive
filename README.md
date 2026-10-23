@@ -277,6 +277,15 @@ vor Freitag zurück in den Kanal. Sofortiges Schließen bei diesem Rückfall ist
 Freitag zu halten (Sharpe 0,12 vs. 0,37) -- dieselbe Lektion wie beim Crypto-Pyramiding-Test: aktives
 Nachjustieren schadet öfter als es hilft.
 
+**Money Management** (ebenfalls im Report): Long trägt bei DAX die Edge (Sharpe 0,59 vs. 0,13 für Short),
+bei der breiten Aktien-Stichprobe dreht sich das leicht zu Short (0,59 vs. 0,31). Volatilitäts-basierte
+Positionsgrößen (invers zur Kanal-Breite) **schaden** -- bei Aktien fällt der Sharpe fast auf die Hälfte,
+Equal-Weight bleibt die bessere Regel (dritte Bestätigung derselben Lektion). Größter praktischer Haken:
+Kapazität, nicht Rendite -- bei der breiten Aktien-Stichprobe laufen im Schnitt **~230 Positionen
+gleichzeitig**, bei DAX dagegen nur ~17 (gut handhabbar). Nebenbei gefunden und ausgeschlossen: 8 Symbole mit
+unadjustierten Aktiensplits in den Rohdaten (z. B. CTD.AU: 16,07 → 2,25 in einer Woche, ein ~7:1-Split) --
+gleiche Daten-Qualitätsprüfung wie beim Haupt-Archiv.
+
 ## Pipeline für weitere Reports
 
 Neue Downloads landen als `GLOBALO-{SYMBOL}-Analysis-{YYYY-MM-DD}.{html,txt}` in `reports/`.

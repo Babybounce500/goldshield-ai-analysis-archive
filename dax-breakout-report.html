@@ -74,6 +74,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#dax">📦 DAX</a>
     <a href="#other-markets">🌍 Andere Märkte</a>
     <a href="#deepdive">🔎 Deep-Dive</a>
+    <a href="#moneymgmt">💰 Money Management</a>
     <a href="#verdict">💭 Einschätzung</a>
   </div>
 
@@ -353,6 +354,69 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   dazwischen nichts anfassen" bleibt die bessere Regel.
   </div>
 
+  <h2 id="moneymgmt">💰 Money Management: Long/Short, Gleichzeitigkeit & Positionsgrößen</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Drei Fragen für DAX und die breite Aktien-Stichprobe (533, nach Ausschluss von 8 Symbolen mit
+  Aktiensplit-Artefakten in den Rohdaten -- gleiche Daten-Qualitätsprüfung wie schon beim Haupt-Archiv, hier
+  konkret über CTD.AU gefunden: Rohkurs springt 16,07 → 2,25 in einer Woche, ein ~7:1-Split, kein echter
+  Kursverlust): (1) Long- vs. Short-Performance, (2) wie viele Positionen laufen tatsächlich gleichzeitig,
+  (3) hilft Positionsgrößen-Steuerung nach Kanal-Breite (Risiko-Proxy) gegenüber simplem Equal-Weight?
+  </div>
+
+  <h3 style="font-size:12px;margin-bottom:8px;">Long vs. Short</h3>
+  <table><thead><tr><th>Klasse</th><th>Richtung</th><th>Anteil</th><th>Ø Rendite</th><th>Sharpe</th><th>Win-Rate</th></tr></thead><tbody>
+    <tr class="best-row"><td>DAX</td><td>LONG</td><td class="num">54.9%</td><td class="num pos">+0.308%</td><td class="num pos">0.59</td><td class="num">54.4%</td></tr>
+    <tr><td>DAX</td><td>SHORT</td><td class="num">45.1%</td><td class="num pos">+0.072%</td><td class="num pos">0.12</td><td class="num">49.1%</td></tr>
+    <tr><td>Aktien (525)</td><td>LONG</td><td class="num">50.6%</td><td class="num pos">+0.229%</td><td class="num pos">0.31</td><td class="num">51.8%</td></tr>
+    <tr class="best-row"><td>Aktien (525)</td><td>SHORT</td><td class="num">49.4%</td><td class="num pos">+0.396%</td><td class="num pos">0.59</td><td class="num">52.9%</td></tr>
+  </tbody></table>
+  <div class="methodology" style="margin:14px 0;">
+  Bei DAX trägt <b>Long</b> den Großteil der Edge (Sharpe 0.59 vs. nur
+  0.12 für Short) -- passt zum grundsätzlichen Aufwärtstrend des DAX im
+  Testzeitraum. Bei der breiten globalen Aktien-Stichprobe dreht sich das Bild leicht: <b>Short</b> schneidet
+  etwas besser ab (0.59 vs. 0.31). Beide
+  Richtungen bleiben aber in beiden Klassen jeweils positiv -- keine Richtung ist nutzlos, aber auch keine
+  Klasse zeigt dieselbe Long/Short-Balance.
+  </div>
+
+  <h3 style="font-size:12px;margin:20px 0 8px;">Gleichzeitige Positionen pro Woche</h3>
+  <div class="stat-grid">
+    <div class="bstat"><b>17.2</b><span>DAX: Ø POSITIONEN/WOCHE (VON 37)</span></div>
+    <div class="bstat"><b>31</b><span>DAX: MAX POSITIONEN IN EINER WOCHE</span></div>
+    <div class="bstat"><b>229.9</b><span>AKTIEN: Ø POSITIONEN/WOCHE (VON 525)</span></div>
+    <div class="bstat"><b>324</b><span>AKTIEN: MAX POSITIONEN IN EINER WOCHE</span></div>
+  </div>
+  <div class="methodology" style="margin:14px 0;">
+  Bei DAX sind im Schnitt <b>17.2 von 37</b> Aktien gleichzeitig
+  im Signal (47%) -- überschaubar für ein normales
+  Depot. Bei der breiten Aktien-Stichprobe sind es im Schnitt <b>230 von 525</b>
+  Positionen pro Woche (44%) -- praktisch
+  undurchführbar ohne algorithmische Order-Ausführung oder eine explizite Auswahlregel (z. B. nur die N
+  stärksten Ausbrüche nach Kanal-Breite/Momentum). Fast alle aktiven Wochen sind "gemischt" (Long und Short
+  gleichzeitig) -- 98%
+  bei DAX, 100%
+  bei Aktien -- der Markt bewegt sich also nicht geschlossen in eine Richtung, was das Klumpenrisiko
+  (alle Positionen gleichzeitig falsch) begrenzt.
+  </div>
+
+  <h3 style="font-size:12px;margin:20px 0 8px;">Equal-Weight vs. Volatilitäts-Gewichtung (invers zur Kanal-Breite)</h3>
+  <table><thead><tr><th>Klasse</th><th>Variante</th><th>Ø Rendite</th><th>Sharpe (gesamt)</th><th>Sharpe (älter)</th><th>Sharpe (neuer)</th></tr></thead><tbody>
+    <tr class="best-row"><td>DAX</td><td>Equal-Weight</td><td class="num pos">+0.202%</td><td class="num">0.37</td><td class="num">0.75</td><td class="num">-0.06</td></tr>
+    <tr><td>DAX</td><td>Vol-Weighted</td><td class="num pos">+0.345%</td><td class="num">0.35</td><td class="num">0.96</td><td class="num">-0.25</td></tr>
+    <tr class="best-row"><td>Aktien (525)</td><td>Equal-Weight</td><td class="num pos">+0.311%</td><td class="num">0.44</td><td class="num">0.44</td><td class="num">0.44</td></tr>
+    <tr><td>Aktien (525)</td><td>Vol-Weighted</td><td class="num pos">+0.179%</td><td class="num">0.16</td><td class="num">0.40</td><td class="num">0.00</td></tr>
+  </tbody></table>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Volatilitäts-Gewichtung hilft nicht -- bei Aktien schadet sie deutlich.</b> Positionsgröße invers zur
+  Kanal-Breite (volatilere Aktien kleiner gewichten) senkt bei der breiten Stichprobe den Sharpe fast auf
+  die Hälfte (0.44 → 0.16),
+  in der neueren Zeithälfte bleibt praktisch keine Edge mehr übrig
+  (0.00). Bei DAX ist das Bild gemischt (höhere Rendite, aber
+  schlechtere Robustheit zwischen den Hälften). <b>Dieselbe Lektion wie beim Pyramiding- und Early-Exit-Test:
+  einfaches Equal-Weight schlägt die cleverere Positionsgrößen-Regel.</b> Empfehlung: pro ausgelöstem Signal
+  gleich viel Kapital einsetzen, nicht nach Volatilität skalieren.
+  </div>
+
   <h2 id="verdict">💭 Einschätzung: ist die Strategie nutzbar?</h2>
   <div class="callout" style="border-left-color:#2a5fa0;">
   <b>Für DAX allein: eher nicht ohne Weiteres.</b> Drei Gründe: <b>(1) Die Edge ist dünn.</b> Ø Wochenrendite
@@ -366,9 +430,16 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Aktien-Pool filtert die DAX-spezifische Ausreißer-Abhängigkeit heraus. Crypto und Forex sind für diese
   wöchentliche Variante dagegen nicht robust (Vorzeichen-Kipper zwischen den Zeithälften), anders als bei der
   Bestätigungs-Strategie im <a href="backtesting-report.html#class-sweetspot" target="_blank" rel="noopener noreferrer">Haupt-Backtesting-Report</a>,
-  wo genau umgekehrt Crypto am robustesten war. <b>Fazit:</b> als reines DAX-System eher ein Screening-Tool
-  als ein Autopilot; über eine breite globale Aktien-Stichprobe ist die Edge dagegen real und robust genug,
-  um als ernsthafter Kandidat für weitere Prüfung (inkl. Handelskosten-Modellierung) zu gelten.
+  wo genau umgekehrt Crypto am robustesten war. <b>Money-Management-Fazit:</b> Equal-Weight pro Signal schlägt
+  Volatilitäts-Gewichtung klar (siehe oben) -- keine Positionsgrößen-Tricks nötig, einfach bleibt besser,
+  dieselbe Lektion wie bei Pyramiding und Early-Exit. Der größte praktische Haken ist nicht die Rendite,
+  sondern die <b>Kapazität</b>: bei der breiten Aktien-Stichprobe laufen im Schnitt ~230 Positionen gleichzeitig
+  -- ohne algorithmische Ausführung oder eine Auswahlregel (z. B. nur die N stärksten Ausbrüche) schlicht nicht
+  umsetzbar für ein normales Depot. DAX mit ~17 gleichzeitigen Positionen ist dagegen gut handhabbar.
+  <b>Gesamt-Fazit:</b> als reines DAX-System eher ein Screening-Tool als ein Autopilot; über eine breite
+  globale Aktien-Stichprobe ist die Edge real und robust genug, um als ernsthafter Kandidat für weitere
+  Prüfung zu gelten (inkl. Handelskosten-Modellierung und einer Auswahlregel, die die ~230 wöchentlichen
+  Signale auf eine handhabbare Positionsanzahl reduziert).
   </div>
 
   <div class="footer-note">
