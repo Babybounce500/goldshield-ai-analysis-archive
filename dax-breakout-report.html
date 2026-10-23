@@ -82,6 +82,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#drawdowns">📉 Drawdowns & Stop-Loss</a>
     <a href="#stop35">🔬 3-5%-Stop im Detail</a>
     <a href="#moneymgmt">💰 Money Management</a>
+    <a href="#retail">🧺 Retail-Depot 100K€</a>
     <a href="#verdict">💭 Einschätzung</a>
   </div>
 
@@ -621,6 +622,200 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   gleich viel Kapital einsetzen, nicht nach Volatilität skalieren.
   </div>
 
+  <h2 id="retail">🧺 Retail-Depot: 100.000€ in kleinen Körben (3-100 Werte)</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Der größte praktische Haken aus dem Money-Management-Abschnitt: bei der breiten Aktien-Stichprobe laufen
+  Ø ~230 Positionen gleichzeitig -- niemand mit einem normalen Depot kann das handhaben. Hier wird deshalb
+  ein echtes <b>100.000€-Konto</b> durchgerechnet, aber beschränkt auf feste, kleine Körbe von
+  <b>3, 5, 10, 50 und 100 Aktien</b> -- realistisch für eine Privatperson, nicht für eine Bank.
+  <b>Auswahl-Regel (bewusst NICHT performance-basiert, um Hindsight-Bias zu vermeiden):</b> ein fester Pool
+  aus den 37 DAX-Werten (Original-Reihenfolge) gefolgt von S&amp;P-500-Titeln mit nutzbarer Historie
+  (Cache-Reihenfolge) -- für Korbgröße N werden einfach die ersten N aus diesem Pool genommen, nicht die
+  N mit dem besten Backtest-Ergebnis. Das ist ein konservativer, unoptimierter Test, kein "bestmöglicher"
+  Korb. <b>Money Management:</b> pro aktiver Woche wird das gesamte verfügbare Kapital gleich auf alle
+  Körbe-Aktien verteilt, die diese Woche ein Signal auslösen (Equal-Weight, wie im Money-Management-Fund
+  oben) -- Montag-Einstieg, Freitag-Ausstieg, getestet mit und ohne den empfohlenen <b>-4%-Preis-Stop</b>.
+  Testfenster: ~52 Kalenderwochen (22.09.2025–16.10.2026).
+  </div>
+
+  <h3 style="font-size:12px;margin-bottom:8px;">Kapazität & Klumpenrisiko je Korbgröße</h3>
+  <table><thead><tr><th>Korb (N)</th><th>Aktive Wochen</th><th>Ø Positionen</th><th>Max Positionen</th><th>Wochen mit nur 1 Position</th></tr></thead><tbody>
+    <tr>
+    <td>3</td>
+    <td class="num">37 / 52</td>
+    <td class="num">1.68</td>
+    <td class="num">3</td>
+    <td class="num">16 (43%)</td>
+  </tr><tr>
+    <td>5</td>
+    <td class="num">45 / 52</td>
+    <td class="num">2.38</td>
+    <td class="num">4</td>
+    <td class="num">11 (24%)</td>
+  </tr><tr>
+    <td>10</td>
+    <td class="num">49 / 52</td>
+    <td class="num">4.61</td>
+    <td class="num">9</td>
+    <td class="num">0 (0%)</td>
+  </tr><tr>
+    <td>50</td>
+    <td class="num">52 / 52</td>
+    <td class="num">21.77</td>
+    <td class="num">35</td>
+    <td class="num">0 (0%)</td>
+  </tr><tr>
+    <td>100</td>
+    <td class="num">52 / 52</td>
+    <td class="num">42.92</td>
+    <td class="num">69</td>
+    <td class="num">0 (0%)</td>
+  </tr>
+  </tbody></table>
+  <div class="methodology" style="margin:14px 0;">
+  Je kleiner der Korb, desto öfter steht das Konto <b>komplett in Cash</b>: bei N=3 lösen nur 37 von 52
+  Wochen überhaupt ein Signal aus (15 Wochen ganz ohne Position), bei N=50/100 praktisch jede Woche. Und je
+  kleiner der Korb, desto größer das <b>Klumpenrisiko</b>: bei N=3 ist in 16 von 37 aktiven Wochen nur eine
+  einzige Aktie im Signal -- dann steckt 100% des Kapitals in einem einzigen Trade. Ab N=10 verschwindet
+  dieses Risiko (0 Einzelaktien-Wochen), weil fast immer mehrere Werte gleichzeitig triggern.
+  </div>
+
+  <h3 style="font-size:12px;margin:20px 0 8px;">Portfolio-Ergebnis ohne Stop (nur Zeit-Stop)</h3>
+  <table><thead><tr><th>Korb (N)</th><th>Endkapital</th><th>Gesamtrendite</th><th>Max Drawdown</th><th>Sharpe</th></tr></thead><tbody>
+    <tr>
+    <td>3</td>
+    <td class="num">€119.990</td>
+    <td class="num pos">+20.0%</td>
+    <td class="num neg">-10.9%</td>
+    <td class="num">1.39</td>
+  </tr><tr>
+    <td>5</td>
+    <td class="num">€120.937</td>
+    <td class="num pos">+20.9%</td>
+    <td class="num neg">-7.1%</td>
+    <td class="num">1.30</td>
+  </tr><tr>
+    <td>10</td>
+    <td class="num">€107.911</td>
+    <td class="num pos">+7.9%</td>
+    <td class="num neg">-11.9%</td>
+    <td class="num">0.59</td>
+  </tr><tr>
+    <td>50</td>
+    <td class="num">€106.290</td>
+    <td class="num pos">+6.3%</td>
+    <td class="num neg">-4.6%</td>
+    <td class="num">0.65</td>
+  </tr><tr>
+    <td>100</td>
+    <td class="num">€111.583</td>
+    <td class="num pos">+11.6%</td>
+    <td class="num neg">-6.5%</td>
+    <td class="num">1.10</td>
+  </tr>
+  </tbody></table>
+
+  <h3 style="font-size:12px;margin:20px 0 8px;">Portfolio-Ergebnis mit -4%-Preis-Stop</h3>
+  <table><thead><tr><th>Korb (N)</th><th>Endkapital</th><th>Gesamtrendite</th><th>Max Drawdown</th><th>Sharpe</th></tr></thead><tbody>
+    <tr>
+    <td>3</td>
+    <td class="num">€125.825</td>
+    <td class="num pos">+25.8%</td>
+    <td class="num neg">-7.1%</td>
+    <td class="num">1.87</td>
+  </tr><tr>
+    <td>5</td>
+    <td class="num">€130.694</td>
+    <td class="num pos">+30.7%</td>
+    <td class="num neg">-4.3%</td>
+    <td class="num">1.91</td>
+  </tr><tr>
+    <td>10</td>
+    <td class="num">€122.295</td>
+    <td class="num pos">+22.3%</td>
+    <td class="num neg">-7.0%</td>
+    <td class="num">1.58</td>
+  </tr><tr>
+    <td>50</td>
+    <td class="num">€121.696</td>
+    <td class="num pos">+21.7%</td>
+    <td class="num neg">-2.9%</td>
+    <td class="num">2.19</td>
+  </tr><tr>
+    <td>100</td>
+    <td class="num">€129.054</td>
+    <td class="num pos">+29.1%</td>
+    <td class="num neg">-2.8%</td>
+    <td class="num">2.76</td>
+  </tr>
+  </tbody></table>
+  <div class="methodology" style="margin:14px 0;">
+  Der Stop-Loss ist bei kleinen Körben <b>kein optionales Extra, sondern tragend</b>: ohne Stop liegt der
+  Sharpe bei N=10/50 nur bei 0.59/0.65
+  (ein einzelner schlechter Trade trifft das Konto hart, wenn nur wenige Positionen gleichzeitig laufen),
+  mit -4%-Stop springt er auf 1.58/2.19.
+  Durchgängig über alle Korbgrößen verbessert der Stop sowohl Rendite als auch Max-Drawdown -- am stärksten
+  dort, wo Klumpenrisiko am größten ist (kleine Körbe).
+  </div>
+
+  <h3 style="font-size:12px;margin:20px 0 8px;">Equity-Kurven (mit -4%-Stop, Start = 100.000€)</h3>
+  <div class="tables">
+    <div class="chart-wrap"><div style="font-size:10.5px;color:var(--muted);margin-bottom:4px;">N=3 (ADS.XETRA, AIR.XETRA, ALV.XETRA)</div><svg viewBox="0 0 820 220" width="100%" height="220" preserveAspectRatio="xMidYMid meet">
+    <line x1="40" y1="171.4" x2="780" y2="171.4" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="780" y="166.4" font-family="JetBrains Mono,monospace" font-size="10" fill="#898781" text-anchor="end">Start (0%)</text>
+    <path d="M40.0 171.4 L60.0 176.7 L80.0 180.0 L100.0 150.2 L120.0 150.7 L140.0 137.6 L160.0 147.9 L180.0 157.0 L200.0 150.1 L220.0 152.3 L240.0 157.1 L260.0 156.4 L280.0 136.8 L300.0 117.3 L320.0 124.5 L340.0 142.8 L360.0 145.4 L380.0 127.0 L400.0 124.4 L420.0 120.3 L440.0 101.3 L460.0 77.8 L480.0 69.8 L500.0 58.2 L520.0 54.2 L540.0 40.0 L560.0 50.1 L580.0 71.4 L600.0 78.3 L620.0 71.0 L640.0 67.1 L660.0 73.4 L680.0 69.4 L700.0 67.8 L720.0 60.4 L740.0 55.8 L760.0 69.4 L780.0 65.4 L780.0 180 L40.0 180 Z" fill="#2a5fa0" fill-opacity="0.12" stroke="none"/>
+    <path d="M40.0 171.4 L60.0 176.7 L80.0 180.0 L100.0 150.2 L120.0 150.7 L140.0 137.6 L160.0 147.9 L180.0 157.0 L200.0 150.1 L220.0 152.3 L240.0 157.1 L260.0 156.4 L280.0 136.8 L300.0 117.3 L320.0 124.5 L340.0 142.8 L360.0 145.4 L380.0 127.0 L400.0 124.4 L420.0 120.3 L440.0 101.3 L460.0 77.8 L480.0 69.8 L500.0 58.2 L520.0 54.2 L540.0 40.0 L560.0 50.1 L580.0 71.4 L600.0 78.3 L620.0 71.0 L640.0 67.1 L660.0 73.4 L680.0 69.4 L700.0 67.8 L720.0 60.4 L740.0 55.8 L760.0 69.4 L780.0 65.4" fill="none" stroke="#2a5fa0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="780.0" cy="65.4" r="4" fill="#2a5fa0" stroke="#fff" stroke-width="2"/>
+    <text x="774.0" y="55.4" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#2a5fa0" text-anchor="end">+25.83%</text>
+  </svg></div><div class="chart-wrap"><div style="font-size:10.5px;color:var(--muted);margin-bottom:4px;">N=5 (ADS.XETRA, AIR.XETRA, ALV.XETRA, …)</div><svg viewBox="0 0 820 220" width="100%" height="220" preserveAspectRatio="xMidYMid meet">
+    <line x1="40" y1="171.7" x2="780" y2="171.7" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="780" y="166.7" font-family="JetBrains Mono,monospace" font-size="10" fill="#898781" text-anchor="end">Start (0%)</text>
+    <path d="M40.0 171.7 L56.4 176.9 L72.9 180.0 L89.3 151.3 L105.8 150.1 L122.2 137.5 L138.7 139.4 L155.1 148.4 L171.6 146.0 L188.0 139.2 L204.4 141.4 L220.9 143.1 L237.3 136.2 L253.8 130.2 L270.2 130.8 L286.7 119.7 L303.1 118.4 L319.6 136.3 L336.0 133.6 L352.4 108.5 L368.9 111.1 L385.3 107.0 L401.8 100.6 L418.2 103.7 L434.7 98.5 L451.1 75.6 L467.6 68.8 L484.0 83.4 L500.4 90.0 L516.9 82.1 L533.3 42.3 L549.8 40.0 L566.2 48.0 L582.7 51.2 L599.1 54.7 L615.6 61.6 L632.0 55.4 L648.4 54.3 L664.9 60.5 L681.3 57.6 L697.8 56.4 L714.2 49.1 L730.7 53.3 L747.1 43.5 L763.6 53.7 L780.0 50.6 L780.0 180 L40.0 180 Z" fill="#2a5fa0" fill-opacity="0.12" stroke="none"/>
+    <path d="M40.0 171.7 L56.4 176.9 L72.9 180.0 L89.3 151.3 L105.8 150.1 L122.2 137.5 L138.7 139.4 L155.1 148.4 L171.6 146.0 L188.0 139.2 L204.4 141.4 L220.9 143.1 L237.3 136.2 L253.8 130.2 L270.2 130.8 L286.7 119.7 L303.1 118.4 L319.6 136.3 L336.0 133.6 L352.4 108.5 L368.9 111.1 L385.3 107.0 L401.8 100.6 L418.2 103.7 L434.7 98.5 L451.1 75.6 L467.6 68.8 L484.0 83.4 L500.4 90.0 L516.9 82.1 L533.3 42.3 L549.8 40.0 L566.2 48.0 L582.7 51.2 L599.1 54.7 L615.6 61.6 L632.0 55.4 L648.4 54.3 L664.9 60.5 L681.3 57.6 L697.8 56.4 L714.2 49.1 L730.7 53.3 L747.1 43.5 L763.6 53.7 L780.0 50.6" fill="none" stroke="#2a5fa0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="780.0" cy="50.6" r="4" fill="#2a5fa0" stroke="#fff" stroke-width="2"/>
+    <text x="774.0" y="40.6" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#2a5fa0" text-anchor="end">+30.69%</text>
+  </svg></div><div class="chart-wrap"><div style="font-size:10.5px;color:var(--muted);margin-bottom:4px;">N=10 (ADS.XETRA, AIR.XETRA, ALV.XETRA, …)</div><svg viewBox="0 0 820 220" width="100%" height="220" preserveAspectRatio="xMidYMid meet">
+    <line x1="40" y1="180.0" x2="780" y2="180.0" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="780" y="175.0" font-family="JetBrains Mono,monospace" font-size="10" fill="#898781" text-anchor="end">Start (0%)</text>
+    <path d="M40.0 180.0 L55.1 179.8 L70.2 178.9 L85.3 160.9 L100.4 157.2 L115.5 150.0 L130.6 145.5 L145.7 148.0 L160.8 143.5 L175.9 150.8 L191.0 144.4 L206.1 147.4 L221.2 151.3 L236.3 143.4 L251.4 144.4 L266.5 144.9 L281.6 137.6 L296.7 137.3 L311.8 145.8 L326.9 144.7 L342.0 96.3 L357.1 105.8 L372.2 74.9 L387.3 68.1 L402.4 52.3 L417.6 60.7 L432.7 74.0 L447.8 80.8 L462.9 67.3 L478.0 66.9 L493.1 67.8 L508.2 72.2 L523.3 68.1 L538.4 40.0 L553.5 54.5 L568.6 64.2 L583.7 67.8 L598.8 66.9 L613.9 75.4 L629.0 72.7 L644.1 72.3 L659.2 81.4 L674.3 84.0 L689.4 85.4 L704.5 81.9 L719.6 79.3 L734.7 62.8 L749.8 69.6 L764.9 63.4 L780.0 65.8 L780.0 180 L40.0 180 Z" fill="#2a5fa0" fill-opacity="0.12" stroke="none"/>
+    <path d="M40.0 180.0 L55.1 179.8 L70.2 178.9 L85.3 160.9 L100.4 157.2 L115.5 150.0 L130.6 145.5 L145.7 148.0 L160.8 143.5 L175.9 150.8 L191.0 144.4 L206.1 147.4 L221.2 151.3 L236.3 143.4 L251.4 144.4 L266.5 144.9 L281.6 137.6 L296.7 137.3 L311.8 145.8 L326.9 144.7 L342.0 96.3 L357.1 105.8 L372.2 74.9 L387.3 68.1 L402.4 52.3 L417.6 60.7 L432.7 74.0 L447.8 80.8 L462.9 67.3 L478.0 66.9 L493.1 67.8 L508.2 72.2 L523.3 68.1 L538.4 40.0 L553.5 54.5 L568.6 64.2 L583.7 67.8 L598.8 66.9 L613.9 75.4 L629.0 72.7 L644.1 72.3 L659.2 81.4 L674.3 84.0 L689.4 85.4 L704.5 81.9 L719.6 79.3 L734.7 62.8 L749.8 69.6 L764.9 63.4 L780.0 65.8" fill="none" stroke="#2a5fa0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="780.0" cy="65.8" r="4" fill="#2a5fa0" stroke="#fff" stroke-width="2"/>
+    <text x="774.0" y="55.8" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#2a5fa0" text-anchor="end">+22.29%</text>
+  </svg></div><div class="chart-wrap"><div style="font-size:10.5px;color:var(--muted);margin-bottom:4px;">N=50 (ADS.XETRA, AIR.XETRA, ALV.XETRA, …)</div><svg viewBox="0 0 820 220" width="100%" height="220" preserveAspectRatio="xMidYMid meet">
+    <line x1="40" y1="165.8" x2="780" y2="165.8" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="780" y="160.8" font-family="JetBrains Mono,monospace" font-size="10" fill="#898781" text-anchor="end">Start (0%)</text>
+    <path d="M40.0 165.8 L54.2 168.3 L68.5 169.5 L82.7 169.6 L96.9 171.7 L111.2 171.0 L125.4 169.0 L139.6 168.6 L153.8 162.9 L168.1 166.3 L182.3 167.6 L196.5 174.6 L210.8 180.0 L225.0 169.8 L239.2 163.5 L253.5 166.2 L267.7 170.9 L281.9 162.3 L296.2 157.7 L310.4 161.3 L324.6 165.6 L338.8 137.2 L353.1 142.3 L367.3 129.4 L381.5 123.5 L395.8 116.5 L410.0 100.9 L424.2 107.5 L438.5 107.7 L452.7 96.3 L466.9 96.2 L481.2 78.1 L495.4 73.8 L509.6 74.6 L523.8 80.9 L538.1 75.0 L552.3 66.8 L566.5 73.3 L580.8 84.7 L595.0 78.0 L609.2 82.1 L623.5 77.2 L637.7 75.0 L651.9 65.8 L666.2 75.7 L680.4 79.6 L694.6 76.7 L708.8 72.6 L723.1 75.1 L737.3 63.0 L751.5 61.6 L765.8 62.5 L780.0 40.0 L780.0 180 L40.0 180 Z" fill="#2a5fa0" fill-opacity="0.12" stroke="none"/>
+    <path d="M40.0 165.8 L54.2 168.3 L68.5 169.5 L82.7 169.6 L96.9 171.7 L111.2 171.0 L125.4 169.0 L139.6 168.6 L153.8 162.9 L168.1 166.3 L182.3 167.6 L196.5 174.6 L210.8 180.0 L225.0 169.8 L239.2 163.5 L253.5 166.2 L267.7 170.9 L281.9 162.3 L296.2 157.7 L310.4 161.3 L324.6 165.6 L338.8 137.2 L353.1 142.3 L367.3 129.4 L381.5 123.5 L395.8 116.5 L410.0 100.9 L424.2 107.5 L438.5 107.7 L452.7 96.3 L466.9 96.2 L481.2 78.1 L495.4 73.8 L509.6 74.6 L523.8 80.9 L538.1 75.0 L552.3 66.8 L566.5 73.3 L580.8 84.7 L595.0 78.0 L609.2 82.1 L623.5 77.2 L637.7 75.0 L651.9 65.8 L666.2 75.7 L680.4 79.6 L694.6 76.7 L708.8 72.6 L723.1 75.1 L737.3 63.0 L751.5 61.6 L765.8 62.5 L780.0 40.0" fill="none" stroke="#2a5fa0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="780.0" cy="40.0" r="4" fill="#2a5fa0" stroke="#fff" stroke-width="2"/>
+    <text x="774.0" y="30.0" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#2a5fa0" text-anchor="end">+21.70%</text>
+  </svg></div><div class="chart-wrap"><div style="font-size:10.5px;color:var(--muted);margin-bottom:4px;">N=100 (ADS.XETRA, AIR.XETRA, ALV.XETRA, …)</div><svg viewBox="0 0 820 220" width="100%" height="220" preserveAspectRatio="xMidYMid meet">
+    <line x1="40" y1="167.9" x2="780" y2="167.9" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="780" y="162.9" font-family="JetBrains Mono,monospace" font-size="10" fill="#898781" text-anchor="end">Start (0%)</text>
+    <path d="M40.0 167.9 L54.2 169.7 L68.5 170.4 L82.7 173.3 L96.9 171.5 L111.2 173.6 L125.4 172.2 L139.6 173.3 L153.8 171.9 L168.1 175.5 L182.3 175.8 L196.5 176.3 L210.8 180.0 L225.0 173.0 L239.2 166.8 L253.5 168.8 L267.7 164.4 L281.9 153.3 L296.2 145.2 L310.4 148.1 L324.6 152.4 L338.8 139.4 L353.1 142.2 L367.3 138.3 L381.5 136.7 L395.8 116.6 L410.0 102.5 L424.2 106.2 L438.5 100.7 L452.7 83.8 L466.9 82.0 L481.2 76.2 L495.4 72.7 L509.6 75.5 L523.8 79.2 L538.1 74.4 L552.3 76.4 L566.5 81.6 L580.8 86.8 L595.0 80.9 L609.2 87.2 L623.5 81.0 L637.7 70.2 L651.9 66.4 L666.2 75.4 L680.4 79.6 L694.6 80.7 L708.8 77.4 L723.1 75.4 L737.3 66.7 L751.5 62.2 L765.8 58.8 L780.0 40.0 L780.0 180 L40.0 180 Z" fill="#2a5fa0" fill-opacity="0.12" stroke="none"/>
+    <path d="M40.0 167.9 L54.2 169.7 L68.5 170.4 L82.7 173.3 L96.9 171.5 L111.2 173.6 L125.4 172.2 L139.6 173.3 L153.8 171.9 L168.1 175.5 L182.3 175.8 L196.5 176.3 L210.8 180.0 L225.0 173.0 L239.2 166.8 L253.5 168.8 L267.7 164.4 L281.9 153.3 L296.2 145.2 L310.4 148.1 L324.6 152.4 L338.8 139.4 L353.1 142.2 L367.3 138.3 L381.5 136.7 L395.8 116.6 L410.0 102.5 L424.2 106.2 L438.5 100.7 L452.7 83.8 L466.9 82.0 L481.2 76.2 L495.4 72.7 L509.6 75.5 L523.8 79.2 L538.1 74.4 L552.3 76.4 L566.5 81.6 L580.8 86.8 L595.0 80.9 L609.2 87.2 L623.5 81.0 L637.7 70.2 L651.9 66.4 L666.2 75.4 L680.4 79.6 L694.6 80.7 L708.8 77.4 L723.1 75.4 L737.3 66.7 L751.5 62.2 L765.8 58.8 L780.0 40.0" fill="none" stroke="#2a5fa0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="780.0" cy="40.0" r="4" fill="#2a5fa0" stroke="#fff" stroke-width="2"/>
+    <text x="774.0" y="30.0" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#2a5fa0" text-anchor="end">+29.05%</text>
+  </svg></div>
+  </div>
+  <div class="methodology" style="margin:14px 0;">
+  <b>Wichtige Einschränkung:</b> das Testfenster umfasst nur ~52 Wochen -- zu kurz, um es nochmal in zwei
+  unabhängige Hälften zu splitten (wie bei jedem anderen Fund in diesem Report), ohne dass die Stichprobe
+  pro Hälfte zu dünn wird. Diese Korb-Ergebnisse sind daher <b>indikativ, nicht unabhängig robustheits-geprüft</b>
+  -- sie zeigen die Mechanik (Kapazität, Klumpenrisiko, Stop-Loss-Wirkung), nicht eine verlässliche
+  Renditeerwartung für die Zukunft.
+  </div>
+
+  <div class="callout" style="border-left-color:#2a5fa0;margin-top:16px;">
+  <b>Realistische Retail-Strategie:</b> ein Korb von <b>10-20 Aktien</b> ist der sinnvolle Mittelweg --
+  groß genug, dass Klumpenrisiko praktisch verschwindet (ab N=10 keine Einzelaktien-Wochen mehr) und die
+  Strategie fast jede Woche aktiv ist, klein genug, dass eine Privatperson die Werte jeden Montag/Freitag
+  von Hand prüfen kann (anders als bei 230 gleichzeitigen Positionen). Der <b>-4%-Preis-Stop ist dabei keine
+  Option, sondern Pflicht</b> -- ohne ihn trägt ein einzelner schlechter Trade bei so wenigen gleichzeitigen
+  Positionen überproportional viel Risiko. Die Auswahl der konkreten N Aktien in diesem Test war bewusst
+  performance-blind (fester Pool, keine Rückschau) -- ein echter Trader, der die N Werte bewusst nach
+  Sektor-Streuung oder Liquidität auswählt, dürfte hier eher besser als schlechter abschneiden.
+  </div>
+
   <h2 id="verdict">💭 Einschätzung: ist die Strategie nutzbar?</h2>
   <div class="callout" style="border-left-color:#2a5fa0;">
   <b>Ohne Stop-Loss (nur Zeit-Stop): für DAX allein eher nicht ohne Weiteres.</b> Drei Gründe: dünne Edge
@@ -642,8 +837,10 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Schnitt ~230 Positionen gleichzeitig -- ohne algorithmische Ausführung oder eine Auswahlregel schlicht nicht
   umsetzbar für ein normales Depot. DAX mit ~17 gleichzeitigen Positionen ist dagegen gut handhabbar.
   <b>Gesamt-Fazit:</b> mit Stop-Loss ist sowohl DAX als auch die breite Aktien-Stichprobe ein ernsthafter
-  Kandidat für weitere Prüfung (inkl. echter Handelskosten-Modellierung und einer Auswahlregel, die die ~230 wöchentlichen
-  Signale auf eine handhabbare Positionsanzahl reduziert).
+  Kandidat für weitere Prüfung (inkl. echter Handelskosten-Modellierung). Die Kapazitätsfrage selbst ist im
+  <a href="#retail">Retail-Depot-Abschnitt</a> oben durchgerechnet: ein fester, performance-blind gewählter
+  Korb von 10-20 Aktien plus -4%-Stop reduziert die ~230 wöchentlichen Signale auf eine für eine
+  Privatperson handhabbare Positionsanzahl, ohne das Klumpenrisiko kleinerer Körbe (N=3/5) einzugehen.
   </div>
 
   <div class="footer-note">
