@@ -45,6 +45,10 @@ input[type=number]:focus{outline:none;border-color:var(--accent);}
 .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
 table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
 th{text-align:left;color:var(--muted);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
+th[data-sort]{cursor:pointer;user-select:none;position:sticky;top:0;background:var(--surface);}
+th[data-sort]:hover{color:var(--accent);}
+th[data-sort].sort-active{color:var(--accent);}
+th[data-sort] .arrow{display:inline-block;margin-left:3px;opacity:.6;}
 td{padding:6px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
 td.num{text-align:right;font-variant-numeric:tabular-nums;}
 td.pos{color:var(--green);} td.neg{color:var(--red);}
@@ -156,8 +160,18 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
 
     <h2>📋 Alle Trades (Validierung)</h2>
     <div class="methodology" id="trades-note"></div>
-    <div class="table-scroll" style="max-height:480px;overflow-y:auto;">
-    <table><thead><tr><th>#</th><th>Symbol</th><th>Montag (Einstieg)</th><th>Richtung</th><th>Rendite (brutto)</th><th>Gestoppt bei -4%?</th><th>Rendite (final)</th></tr></thead><tbody id="trades-body"></tbody></table>
+    <div class="table-scroll" style="max-height:480px;overflow-y:auto;overflow-x:auto;">
+    <table><thead><tr id="trades-head">
+      <th data-sort="idx">#</th>
+      <th data-sort="symbol">Symbol</th>
+      <th data-sort="monday">Montag (Einstieg)</th>
+      <th data-sort="direction">Richtung</th>
+      <th data-sort="positionSize">Positionsgröße</th>
+      <th data-sort="grossReturn">Rendite (brutto)</th>
+      <th data-sort="wasStopped">Gestoppt bei -4%?</th>
+      <th data-sort="finalReturn">Rendite (final)</th>
+      <th data-sort="pnlAbs">P&amp;L (absolut)</th>
+    </tr></thead><tbody id="trades-body"></tbody></table>
     </div>
   </div>
 
@@ -245,13 +259,24 @@ function simulateAccount(allTrades, basketN, startCapital, stopPct, sizingMode) 
   let capital = startCapital, peak = startCapital, maxDrawdownPct = 0;
   const equityCurve = [1];
   const weeklyReturns = [];
+  const tradeDetails = []; // per-trade record with real position size & absolute P&L at the time
   for (const wk of weekKeys) {
     const weekTrades = byWeek.get(wk).trades;
     const n = weekTrades.length;
     if (n === 0) { equityCurve.push(capital / startCapital); continue; }
     const perPosition = sizingMode === 'fixedSlot' ? capital / basketN : capital / n;
     let pnl = 0;
-    for (const t of weekTrades) pnl += perPosition * returnWithStop(t, stopPct);
+    for (const t of weekTrades) {
+      const retPct = returnWithStop(t, stopPct);
+      const wasStopped = stopPct != null && retPct !== t.finalReturn;
+      const pnlAbs = perPosition * retPct;
+      pnl += pnlAbs;
+      tradeDetails.push({
+        symbol: t.symbol, monday: t.monday, direction: t.direction,
+        grossReturn: t.finalReturn, finalReturn: retPct, wasStopped,
+        positionSize: perPosition, pnlAbs, capitalBefore: capital,
+      });
+    }
     const weekReturn = pnl / capital;
     capital += pnl;
     weeklyReturns.push(weekReturn);
@@ -262,7 +287,7 @@ function simulateAccount(allTrades, basketN, startCapital, stopPct, sizingMode) 
   const stats = statsFromReturns(weeklyReturns);
   return {
     finalCapital: capital, totalReturnPct: (capital - startCapital) / startCapital * 100,
-    maxDrawdownPct, sharpe: stats.sharpe, winRate: stats.winRate, n: stats.n, equityCurve,
+    maxDrawdownPct, sharpe: stats.sharpe, winRate: stats.winRate, n: stats.n, equityCurve, tradeDetails,
   };
 }
 
@@ -382,6 +407,78 @@ document.querySelectorAll('[data-stop]').forEach(btn => btn.addEventListener('cl
 
 const statusEl = document.getElementById('status');
 const computeBtn = document.getElementById('compute-btn');
+
+function fmtEurSigned(v) { return (v >= 0 ? '+' : '-') + '€' + Math.round(Math.abs(v)).toLocaleString('de-DE'); }
+
+let currentTradeDetails = [];
+let tradeSort = { key: 'monday', dir: 'desc' };
+
+const SORT_ACCESSORS = {
+  idx: null, // handled specially (original chronological order)
+  symbol: t => t.symbol,
+  monday: t => t.monday,
+  direction: t => t.direction,
+  positionSize: t => t.positionSize,
+  grossReturn: t => t.grossReturn,
+  wasStopped: t => t.wasStopped ? 1 : 0,
+  finalReturn: t => t.finalReturn,
+  pnlAbs: t => t.pnlAbs,
+};
+
+function renderTradesTable() {
+  const n = currentTradeDetails.length;
+  // chronological index (#) always reflects trade order regardless of current sort
+  const withIdx = currentTradeDetails.map((t, i) => ({ ...t, idx: i + 1 }));
+  let sorted = withIdx;
+  if (tradeSort.key !== 'idx') {
+    const acc = SORT_ACCESSORS[tradeSort.key];
+    sorted = withIdx.slice().sort((a, b) => {
+      const av = acc(a), bv = acc(b);
+      const cmp = typeof av === 'string' ? av.localeCompare(bv) : av - bv;
+      return tradeSort.dir === 'asc' ? cmp : -cmp;
+    });
+  } else {
+    sorted = withIdx.slice().sort((a, b) => tradeSort.dir === 'asc' ? a.idx - b.idx : b.idx - a.idx);
+  }
+
+  document.querySelectorAll('#trades-head th[data-sort]').forEach(th => {
+    th.classList.toggle('sort-active', th.dataset.sort === tradeSort.key);
+    const existingArrow = th.querySelector('.arrow');
+    if (existingArrow) existingArrow.remove();
+    if (th.dataset.sort === tradeSort.key) {
+      th.insertAdjacentHTML('beforeend', '<span class="arrow">' + (tradeSort.dir === 'asc' ? '▲' : '▼') + '</span>');
+    }
+  });
+
+  const tradesBody = document.getElementById('trades-body');
+  tradesBody.innerHTML = sorted.map(t => '<tr>' +
+    '<td class="num">' + t.idx + '</td>' +
+    '<td>' + esc(t.symbol) + '</td>' +
+    '<td>' + esc(t.monday) + '</td>' +
+    '<td><span class="badge ' + (t.direction === 'LONG' ? 'long' : 'short') + '">' + t.direction + '</span></td>' +
+    '<td class="num">' + fmtEur(t.positionSize) + '</td>' +
+    '<td class="num ' + (t.grossReturn >= 0 ? 'pos' : 'neg') + '">' + fmtPct(t.grossReturn * 100, 2) + '</td>' +
+    '<td>' + (t.wasStopped ? '<span class="neg">ja</span>' : 'nein') + '</td>' +
+    '<td class="num ' + (t.finalReturn >= 0 ? 'pos' : 'neg') + '">' + fmtPct(t.finalReturn * 100, 2) + '</td>' +
+    '<td class="num ' + (t.pnlAbs >= 0 ? 'pos' : 'neg') + '">' + fmtEurSigned(t.pnlAbs) + '</td>' +
+  '</tr>').join('');
+
+  const avgFinal = n ? currentTradeDetails.reduce((a, t) => a + t.finalReturn, 0) / n : 0;
+  const totalPnlAbs = currentTradeDetails.reduce((a, t) => a + t.pnlAbs, 0);
+  const stoppedCount = currentTradeDetails.filter(t => t.wasStopped).length;
+  document.getElementById('trades-note').innerHTML = n
+    ? n + ' Einzel-Trades gesamt -- jede Zahl in der Tabelle oben entsteht direkt aus dieser Liste, Spaltenköpfe anklicken zum Sortieren. Durchschnittliche finale Rendite pro Trade: <b>' + fmtPct(avgFinal * 100, 3) + '</b> (× √52 annualisiert = der Sharpe oben), Summe aller Einzel-P&amp;L: <b>' + fmtEurSigned(totalPnlAbs) + '</b>' + (stoppedCount ? ', davon <b>' + stoppedCount + '</b> durch den Stop begrenzt' : '') + '. Positionsgröße = tatsächliches Kapital zum Einstiegszeitpunkt, je nach Sizing-Modus aufgeteilt -- deshalb wächst/schrumpft sie mit dem Konto über die Zeit.'
+    : 'Keine Trades im gewählten Zeitraum -- zu kurze Historie oder kein Symbol hat in diesem Fenster ausgelöst.';
+}
+
+document.querySelectorAll('#trades-head th[data-sort]').forEach(th => {
+  th.addEventListener('click', () => {
+    const key = th.dataset.sort;
+    if (tradeSort.key === key) tradeSort.dir = tradeSort.dir === 'asc' ? 'desc' : 'asc';
+    else tradeSort = { key, dir: key === 'idx' || key === 'monday' ? 'desc' : 'desc' };
+    renderTradesTable();
+  });
+});
 
 computeBtn.addEventListener('click', async () => {
   const symbols = parseSymbols();
@@ -513,26 +610,9 @@ computeBtn.addEventListener('click', async () => {
     '</tr>';
   }).join('');
 
-  const sortedTrades = allTrades.slice().sort((a, b) => b.monday.localeCompare(a.monday));
-  const tradesBody = document.getElementById('trades-body');
-  tradesBody.innerHTML = sortedTrades.map((t, i) => {
-    const finalRet = returnWithStop(t, stopPct);
-    const wasStopped = stopPct != null && finalRet !== t.finalReturn;
-    return '<tr>' +
-      '<td class="num">' + (sortedTrades.length - i) + '</td>' +
-      '<td>' + esc(t.symbol) + '</td>' +
-      '<td>' + esc(t.monday) + '</td>' +
-      '<td><span class="badge ' + (t.direction === 'LONG' ? 'long' : 'short') + '">' + t.direction + '</span></td>' +
-      '<td class="num ' + (t.finalReturn >= 0 ? 'pos' : 'neg') + '">' + fmtPct(t.finalReturn * 100, 2) + '</td>' +
-      '<td>' + (wasStopped ? '<span class="neg">ja</span>' : 'nein') + '</td>' +
-      '<td class="num ' + (finalRet >= 0 ? 'pos' : 'neg') + '">' + fmtPct(finalRet * 100, 2) + '</td>' +
-    '</tr>';
-  }).join('');
-  const avgFinal = sortedTrades.length ? sortedTrades.reduce((a, t) => a + returnWithStop(t, stopPct), 0) / sortedTrades.length : 0;
-  const stoppedCount = stopPct != null ? sortedTrades.filter(t => returnWithStop(t, stopPct) !== t.finalReturn).length : 0;
-  document.getElementById('trades-note').innerHTML = sortedTrades.length
-    ? sortedTrades.length + ' Einzel-Trades gesamt, neueste zuerst -- jede Zahl in der Tabelle oben entsteht direkt aus dieser Liste. Durchschnittliche finale Rendite pro Trade: <b>' + fmtPct(avgFinal * 100, 3) + '</b> (× √52 annualisiert = der Sharpe oben)' + (stopPct != null ? ', davon <b>' + stoppedCount + '</b> durch den -4%-Stop begrenzt' : '') + '. Scrollbar, falls mehr als die sichtbaren Zeilen.'
-    : 'Keine Trades im gewählten Zeitraum -- zu kurze Historie oder kein Symbol hat in diesem Fenster ausgelöst.';
+  currentTradeDetails = result.tradeDetails;
+  tradeSort = { key: 'monday', dir: 'desc' };
+  renderTradesTable();
 
   document.getElementById('results').classList.remove('hidden');
   statusEl.className = '';
