@@ -89,6 +89,8 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
       <button class="opt-btn" id="load-realestate">Beispiel: Immobilien-Mix</button>
       <button class="opt-btn" id="load-nebenwerte">Beispiel: Nebenwerte-Mix (MDAX/SDAX)</button>
       <button class="opt-btn" id="load-crypto">Beispiel: Crypto-Mix ⚠️</button>
+      <button class="opt-btn" id="load-altcoins">Beispiel: Altcoin-Mix ⚠️</button>
+      <button class="opt-btn" id="load-highvol">Beispiel: Hochvolatil-Mix</button>
     </div>
   </div>
 
@@ -317,6 +319,8 @@ const examples = {
   'load-realestate': 'VNA.XETRA, LEG.XETRA, ARE.US, AMT.US, CSGP.US, CCI.US, DLR.US, HST.US',
   'load-nebenwerte': 'PUM.XETRA, KGX.XETRA, EVK.XETRA, GXI.XETRA, RAA.XETRA, SZU.XETRA, KBX.XETRA, FPE3.XETRA, HOT.XETRA, AIXA.XETRA',
   'load-crypto': 'BTC-USD.CC, ETH-USD.CC, SOL-USD.CC, XRP-USD.CC, BNB-USD.CC, ADA-USD.CC, DOGE-USD.CC, DOT-USD.CC, AVAX-USD.CC, LINK-USD.CC',
+  'load-altcoins': 'LTC-USD.CC, ATOM-USD.CC, NEAR-USD.CC, OP-USD.CC, SHIB-USD.CC, TRX-USD.CC, ETC-USD.CC, FIL-USD.CC, ICP-USD.CC, HBAR-USD.CC, INJ-USD.CC, RNDR-USD.CC, BCH-USD.CC',
+  'load-highvol': 'MSTR.US, RIOT.US, MARA.US, SMCI.US, HOOD.US, LCID.US, AMC.US, AFRM.US, PLTR.US, UPST.US, GME.US, TSLA.US',
 };
 Object.keys(examples).forEach(id => {
   document.getElementById(id).addEventListener('click', () => { document.getElementById('symbols-input').value = examples[id]; });
@@ -354,7 +358,11 @@ computeBtn.addEventListener('click', async () => {
     try {
       const series = await fetchHistorical(sym);
       const artifact = detectSplitArtifact(series);
-      if (artifact) { splitWarnings.push(sym + ' (Kurssprung ' + artifact.ratio.toFixed(2) + 'x am ' + artifact.date + ' -- vermutlich unadjustierter Split, ausgeschlossen)'); return; }
+      if (artifact) {
+        const reason = sym.endsWith('.CC') ? 'ungewöhnlich großer Tagessprung -- Datenfehler oder extreme Volatilität, sicherheitshalber ausgeschlossen' : 'vermutlich unadjustierter Split, ausgeschlossen';
+        splitWarnings.push(sym + ' (Kurssprung ' + artifact.ratio.toFixed(2) + 'x am ' + artifact.date + ' -- ' + reason + ')');
+        return;
+      }
       seriesBySymbol[sym] = series;
     } catch (e) {
       failed.push(sym + ' (' + e.message + ')');
@@ -423,7 +431,7 @@ computeBtn.addEventListener('click', async () => {
     warningsHtml += '<div class="warn-box"><b>Crypto im Korb:</b> die Montag-Freitag-Breakout-Logik wurde für Crypto in den etablierten Backtests NICHT als robust bestätigt (Sharpe kippt zwischen den Zeithälften, siehe <a href="dax-breakout-report.html#other-markets" style="color:#7a1f1f;">Andere Märkte</a>) -- anders als die separat validierte <a href="backtesting-report.html#class-sweetspot" style="color:#7a1f1f;">Confirmed-Trend-Strategie für Crypto</a> (5-8 Tage Bestätigung). Zahlen unten sind real berechnet, aber ohne dieselbe Absicherung wie bei Aktien zu lesen.</div>';
   }
   if (splitWarnings.length) {
-    warningsHtml += '<div class="warn-box"><b>Split-Artefakte ausgeschlossen:</b> ' + splitWarnings.map(esc).join('; ') + '</div>';
+    warningsHtml += '<div class="warn-box"><b>Symbole mit unplausiblem Kurssprung ausgeschlossen:</b> ' + splitWarnings.map(esc).join('; ') + '</div>';
   }
   warningsEl.innerHTML = warningsHtml;
 
