@@ -25,7 +25,7 @@ h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:28px 0 14px
 .bstat b.pos{color:var(--green);} .bstat b.neg{color:var(--red);}
 .bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.4px;}
 .chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:16px;}
-.tables{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.tables{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
 .tables h3{font-size:10.5px;color:var(--text);margin-bottom:6px;}
 .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
 table{width:100%;min-width:560px;border-collapse:collapse;font-size:9.5px;margin-bottom:0;}
@@ -41,7 +41,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
 .toc a:hover{background:var(--panel);}
 .footer-note{font-size:9.5px;color:var(--muted);margin-top:30px;border-top:1px solid var(--border);padding-top:14px;}
 .back{font-family:var(--mono);font-size:10px;color:var(--accent);text-decoration:none;}
-@media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr);}.tables{grid-template-columns:1fr;}}
+@media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr);}.tables{grid-template-columns:minmax(0,1fr);}}
 </style>
 </head>
 <body>
