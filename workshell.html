@@ -46,10 +46,23 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
   <div class="callout">
   Jede Kachel unten ist ein <b>echtes Live-Fenster</b> in die jeweilige Seite -- kein Screenshot, sondern
   ein skaliertes Iframe, das sich mit jedem Report-Rebuild automatisch aktualisiert. Klick auf die Kachel
-  (oder "Öffnen") führt zur vollen Seite in neuem Tab.
+  (oder "Öffnen") führt zur vollen Seite in neuem Tab. Der <b>Live-Portfolio-Baukasten</b> ganz oben geht
+  noch weiter: der ruft bei jedem Klick echte, frische Kursdaten ab -- kein vorgerechnetes Ergebnis.
   </div>
 
   <div class="grid">
+    <a class="tile" href="live-portfolio.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#0891b2;">
+    <div class="tile-badge">Live-Tool</div>
+    <div class="tile-head"><span class="tile-icon">📡</span><h3>Live-Portfolio-Baukasten</h3></div>
+    <p class="tile-desc">Eigenen Aktienkorb eingeben, echte Live-Kurse per Klick vom selben Daten-Proxy abrufen wie der Rest des Archivs -- keine Caches, keine vorgerechneten Zahlen. Zeigt sofort, was die DAX-Breakout-Strategie diese Woche live für diesen Korb tatsächlich halten würde, inklusive Live-P&amp;L.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>25</b><span>MAX. SYMBOLE</span></div><div class="tile-stat"><b>0s</b><span>CACHE-VERZÖGERUNG</span></div></div>
+    <div class="tile-preview">
+      <iframe src="live-portfolio.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
     <a class="tile" href="index.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#2a5fa0;">
     <div class="tile-badge">Archiv</div>
     <div class="tile-head"><span class="tile-icon">🛡</span><h3>Signal-Archiv</h3></div>

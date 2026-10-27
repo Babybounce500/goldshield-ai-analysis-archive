@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Live-Portfolio-Baukasten</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#0891b2;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid #b45309;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;font-weight:700;margin-right:6px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:18px;}
+textarea{width:100%;font-family:var(--mono);font-size:11px;padding:10px 12px;border:1.5px solid var(--border);border-radius:6px;background:var(--panel);color:var(--text);resize:vertical;min-height:60px;}
+textarea:focus{outline:none;border-color:var(--accent);}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.opt-btn{font-family:var(--mono);font-size:11px;padding:8px 16px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;transition:all .12s;}
+.opt-btn:hover{border-color:var(--accent);}
+.opt-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
+.opt-btn:disabled{opacity:.5;cursor:not-allowed;}
+.control-label{font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:.3px;}
+.control-group{margin-bottom:16px;}
+input[type=number]{font-family:var(--mono);font-size:12px;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;background:var(--panel);color:var(--text);width:160px;}
+input[type=number]:focus{outline:none;border-color:var(--accent);}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-weight:700;letter-spacing:.3px;}
+.primary-btn:hover{background:#0e7490;}
+.primary-btn:disabled{background:var(--muted);cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-right:5px;animation:pulse 1.4s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
+.bstat{background:var(--panel);border-radius:6px;padding:10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
+.bstat b.pos{color:var(--green);} .bstat b.neg{color:var(--red);}
+.bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.3px;}
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:16px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
+td{padding:6px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+td.pos{color:var(--green);} td.neg{color:var(--red);}
+.badge{font-size:8.5px;padding:2px 7px;border-radius:999px;font-weight:600;}
+.badge.long{background:rgba(21,128,61,.12);color:var(--green);}
+.badge.short{background:rgba(185,28,28,.12);color:var(--red);}
+.badge.flat{background:rgba(95,114,119,.12);color:var(--muted);}
+.warn-box{background:#fde8e8;border:1px solid #f0b4b4;border-left:4px solid var(--red);border-radius:6px;padding:10px 14px;font-size:10px;color:#7a1f1f;margin-bottom:14px;line-height:1.6;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.hidden{display:none;}
+@media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <h1>📡 Live-Portfolio-Baukasten</h1>
+  <div class="subtitle">Eigenen Korb wählen, echte Live-Kurse abrufen, die validierte DAX-Weekly-Breakout-Logik live darauf anwenden -- inklusive aktueller Positionen diese Woche.</div>
+
+  <div class="callout">
+  <b>Echte Live-Daten, keine Simulation:</b> jeder Klick auf "Berechnen" ruft frische Kursdaten direkt vom
+  selben Daten-Proxy ab, der auch den Rest des Archivs speist (EOD Historical Data) -- keine Caches, kein
+  vorgerechnetes Ergebnis. Strategie-Logik identisch zum <a href="dax-breakout-report.html" style="color:var(--accent);">DAX-Breakout-Report</a>:
+  Montag-Einstieg, Freitag-Ausstieg, Kanal aus den 3 vorherigen Freitags-Schlusskursen.
+  </div>
+
+  <h2><span class="step-num">1</span>Basket wählen</h2>
+  <div class="panel">
+    <div class="control-label">TICKER, KOMMAGETRENNT (MAX. 25) -- FORMAT WIE IM ARCHIV: AAPL.US, SAP.XETRA, BMW.XETRA</div>
+    <textarea id="symbols-input">ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BEI.XETRA, BMW.XETRA, BNR.XETRA, CBK.XETRA, CON.XETRA</textarea>
+    <div class="btn-row">
+      <button class="opt-btn" id="load-dax10">Beispiel: 10 DAX-Aktien</button>
+      <button class="opt-btn" id="load-dax5">Beispiel: 5 DAX-Aktien</button>
+      <button class="opt-btn" id="load-mixed">Beispiel: DAX + US-Mix</button>
+    </div>
+  </div>
+
+  <h2><span class="step-num">2</span>Strategie-Einstellungen</h2>
+  <div class="panel">
+    <div class="control-group">
+      <div class="control-label">STARTKAPITAL (€)</div>
+      <input type="number" id="capital-input" value="100000" min="1000" step="1000">
+    </div>
+    <div class="control-group">
+      <div class="control-label">POSITIONSGRÖSSE</div>
+      <div class="btn-row">
+        <button class="opt-btn active" data-sizing="full">Volles Kapital auf Signale</button>
+        <button class="opt-btn" data-sizing="fixedSlot">Fixer Slot (1/N)</button>
+      </div>
+    </div>
+    <div class="control-group" style="margin-bottom:0;">
+      <div class="control-label">STOP-LOSS</div>
+      <div class="btn-row">
+        <button class="opt-btn" data-stop="none">Ohne (nur Zeit-Stop)</button>
+        <button class="opt-btn active" data-stop="stop4">Mit -4%-Preis-Stop</button>
+      </div>
+    </div>
+  </div>
+
+  <h2><span class="step-num">3</span>Live berechnen</h2>
+  <div class="panel">
+    <button class="primary-btn" id="compute-btn">📡 Live-Daten laden &amp; Portfolio berechnen</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>📊 Historisches Ergebnis (mit soeben geladenen Live-Daten gerechnet)</h2>
+    <div class="stat-grid" id="stats"></div>
+    <div class="chart-wrap" id="chart"></div>
+    <div class="methodology" id="meta"></div>
+
+    <h2><span class="live-dot"></span>Aktuelle Woche: was würde ich JETZT halten?</h2>
+    <div id="current-week-note" class="methodology"></div>
+    <div id="warnings"></div>
+    <table><thead><tr><th>Symbol</th><th>Kanal (Long &gt;)</th><th>Kanal (Short &lt;)</th><th>Montag-Close</th><th>Signal</th><th>Live-Kurs jetzt</th><th>Unrealisiert</th></tr></thead><tbody id="current-week-body"></tbody></table>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Datenquelle:
+  derselbe EOD-Proxy wie der Rest des Archivs, in Echtzeit vom Browser aus abgerufen (kein eigener Server).
+  Historische Backtest-Fenster unterscheiden sich je nach gewähltem Korb und Verfügbarkeit der Live-Daten --
+  nicht direkt mit den fest vorgerechneten Zahlen in anderen Reports vergleichbar. © 2026 GENITUS INC. —
+  GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const MAX_SYMBOLS = 25;
+const FETCH_DAYS_BACK = 400;
+
+const state = { sizing: 'full', stop: 'stop4' };
+
+// ---------- strategy engine (ported 1:1 from the project's Node backtest scripts) ----------
+function buildWeeklySeries(series) {
+  const weeks = new Map();
+  for (const p of series) {
+    const d = new Date(p.date + 'T00:00:00Z');
+    const dow = d.getUTCDay();
+    if (dow !== 1 && dow !== 5) continue;
+    const thursday = new Date(d);
+    thursday.setUTCDate(d.getUTCDate() + (4 - (dow === 0 ? 7 : dow)));
+    const isoYear = thursday.getUTCFullYear();
+    const jan1 = new Date(Date.UTC(isoYear, 0, 1));
+    const isoWeek = Math.ceil((((thursday - jan1) / 86400000) + 1) / 7);
+    const key = isoYear + '-W' + isoWeek;
+    if (!weeks.has(key)) weeks.set(key, {});
+    if (dow === 1) { weeks.get(key).monday = p.date; weeks.get(key).mondayClose = p.close; }
+    if (dow === 5) { weeks.get(key).friday = p.date; weeks.get(key).fridayClose = p.close; }
+  }
+  return [...weeks.entries()].filter(([, w]) => w.mondayClose != null && w.fridayClose != null)
+    .map(([key, w]) => ({ weekKey: key, ...w })).sort((a, b) => a.monday.localeCompare(b.monday));
+}
+
+function gatherTradesWithMAE(symbol, series) {
+  const trades = [];
+  const weeks = buildWeeklySeries(series);
+  if (weeks.length < 5) return { trades, weeks };
+  for (let i = 3; i < weeks.length; i++) {
+    const priorFridays = [weeks[i-3].fridayClose, weeks[i-2].fridayClose, weeks[i-1].fridayClose];
+    const LONG = Math.max.apply(null, priorFridays), SHORT = Math.min.apply(null, priorFridays);
+    const mondayClose = weeks[i].mondayClose, fridayClose = weeks[i].fridayClose;
+    let direction = null;
+    if (mondayClose > LONG) direction = 'LONG';
+    else if (mondayClose < SHORT) direction = 'SHORT';
+    if (!direction) continue;
+    const path_ = series.filter(p => p.date > weeks[i].monday && p.date <= weeks[i].friday).map(p => p.close);
+    let worst = 0;
+    for (const close of path_) {
+      const r = direction === 'LONG' ? (close - mondayClose) / mondayClose : (mondayClose - close) / mondayClose;
+      if (r < worst) worst = r;
+    }
+    const finalReturn = direction === 'LONG' ? (fridayClose - mondayClose) / mondayClose : (mondayClose - fridayClose) / mondayClose;
+    trades.push({ symbol, weekKey: weeks[i].weekKey, monday: weeks[i].monday, direction, finalReturn, mae: worst });
+  }
+  return { trades, weeks };
+}
+
+function returnWithStop(t, stopPct) {
+  if (stopPct == null) return t.finalReturn;
+  return t.mae <= -stopPct ? -stopPct : t.finalReturn;
+}
+
+function statsFromReturns(returns) {
+  if (!returns.length) return { n: 0, sharpe: null, winRate: null };
+  const m = returns.reduce((a,b) => a+b, 0) / returns.length;
+  const variance = returns.reduce((a,b) => a + (b-m)**2, 0) / returns.length;
+  const std = Math.sqrt(variance);
+  return { n: returns.length, sharpe: std > 0 ? (m/std) * Math.sqrt(52) : null, winRate: (returns.filter(r=>r>0).length / returns.length) * 100 };
+}
+
+function simulateAccount(allTrades, basketN, startCapital, stopPct, sizingMode) {
+  const byWeek = new Map();
+  for (const t of allTrades) {
+    if (!byWeek.has(t.weekKey)) byWeek.set(t.weekKey, { monday: t.monday, trades: [] });
+    byWeek.get(t.weekKey).trades.push(t);
+  }
+  const weekKeys = [...byWeek.keys()].sort((a,b) => byWeek.get(a).monday.localeCompare(byWeek.get(b).monday));
+  let capital = startCapital, peak = startCapital, maxDrawdownPct = 0;
+  const equityCurve = [1];
+  const weeklyReturns = [];
+  for (const wk of weekKeys) {
+    const weekTrades = byWeek.get(wk).trades;
+    const n = weekTrades.length;
+    if (n === 0) { equityCurve.push(capital / startCapital); continue; }
+    const perPosition = sizingMode === 'fixedSlot' ? capital / basketN : capital / n;
+    let pnl = 0;
+    for (const t of weekTrades) pnl += perPosition * returnWithStop(t, stopPct);
+    const weekReturn = pnl / capital;
+    capital += pnl;
+    weeklyReturns.push(weekReturn);
+    peak = Math.max(peak, capital);
+    maxDrawdownPct = Math.min(maxDrawdownPct, (capital - peak) / peak * 100);
+    equityCurve.push(capital / startCapital);
+  }
+  const stats = statsFromReturns(weeklyReturns);
+  return {
+    finalCapital: capital, totalReturnPct: (capital - startCapital) / startCapital * 100,
+    maxDrawdownPct, sharpe: stats.sharpe, winRate: stats.winRate, n: stats.n, equityCurve,
+  };
+}
+
+function mostRecentMondayISO(fromDate) {
+  const d = new Date(Date.UTC(fromDate.getUTCFullYear(), fromDate.getUTCMonth(), fromDate.getUTCDate()));
+  const day = d.getUTCDay();
+  const diff = day === 0 ? 6 : day - 1;
+  d.setUTCDate(d.getUTCDate() - diff);
+  return d.toISOString().slice(0, 10);
+}
+
+function detectSplitArtifact(series) {
+  for (let i = 1; i < series.length; i++) {
+    const ratio = series[i].close / series[i-1].close;
+    if (ratio < 0.6 || ratio > 1.67) return { date: series[i].date, ratio };
+  }
+  return null;
+}
+
+// ---------- data fetching ----------
+async function fetchHistorical(symbol) {
+  const from = new Date();
+  from.setUTCDate(from.getUTCDate() - FETCH_DAYS_BACK);
+  const fromStr = from.toISOString().slice(0, 10);
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromStr);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+async function fetchRealtime(symbol) {
+  const res = await fetch(PROXY + '/eod/realtime/' + encodeURIComponent(symbol));
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+// ---------- rendering ----------
+function fmtEur(v) { return '€' + Math.round(v).toLocaleString('de-DE'); }
+function fmtPct(v, dp) { dp = dp == null ? 1 : dp; return (v >= 0 ? '+' : '') + v.toFixed(dp) + '%'; }
+function fmtNum(v, dp) { dp = dp == null ? 2 : dp; return v == null ? '—' : v.toFixed(dp); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+
+function equityCurveSvg(curve, color) {
+  const W = 820, H = 220, PAD = 40;
+  const min = Math.min.apply(null, curve.concat([1])), max = Math.max.apply(null, curve.concat([1]));
+  const span = (max - min) || 1;
+  const n = curve.length;
+  const x = i => PAD + (i / (n - 1)) * (W - PAD * 2);
+  const y = v => PAD + (1 - (v - min) / span) * (H - PAD * 2);
+  const pts = curve.map((v, i) => [x(i), y(v)]);
+  const linePath = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  const areaPath = linePath + ' L' + pts[n-1][0].toFixed(1) + ' ' + (H-PAD) + ' L' + pts[0][0].toFixed(1) + ' ' + (H-PAD) + ' Z';
+  const baselineY = y(1);
+  const finalVal = curve[curve.length - 1];
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" preserveAspectRatio="xMidYMid meet">' +
+    '<line x1="' + PAD + '" y1="' + baselineY.toFixed(1) + '" x2="' + (W-PAD) + '" y2="' + baselineY.toFixed(1) + '" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>' +
+    '<text x="' + (W-PAD) + '" y="' + (baselineY-5).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="10" fill="#898781" text-anchor="end">Start (0%)</text>' +
+    '<path d="' + areaPath + '" fill="' + color + '" fill-opacity="0.12" stroke="none"/>' +
+    '<path d="' + linePath + '" fill="none" stroke="' + color + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<circle cx="' + pts[n-1][0].toFixed(1) + '" cy="' + pts[n-1][1].toFixed(1) + '" r="4" fill="' + color + '" stroke="#fff" stroke-width="2"/>' +
+    '<text x="' + (pts[n-1][0]-6).toFixed(1) + '" y="' + (pts[n-1][1]-10).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="' + color + '" text-anchor="end">' + fmtPct((finalVal-1)*100) + '</text>' +
+    '</svg>';
+}
+
+function parseSymbols() {
+  return document.getElementById('symbols-input').value
+    .split(',').map(s => s.trim().toUpperCase()).filter(Boolean);
+}
+
+const examples = {
+  'load-dax10': 'ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BEI.XETRA, BMW.XETRA, BNR.XETRA, CBK.XETRA, CON.XETRA',
+  'load-dax5': 'ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA',
+  'load-mixed': 'SAP.XETRA, SIE.XETRA, BMW.XETRA, AAPL.US, MSFT.US, AVGO.US, INTC.US, AMAT.US',
+};
+Object.keys(examples).forEach(id => {
+  document.getElementById(id).addEventListener('click', () => { document.getElementById('symbols-input').value = examples[id]; });
+});
+
+document.querySelectorAll('[data-sizing]').forEach(btn => btn.addEventListener('click', () => {
+  state.sizing = btn.dataset.sizing;
+  document.querySelectorAll('[data-sizing]').forEach(b => b.classList.toggle('active', b === btn));
+}));
+document.querySelectorAll('[data-stop]').forEach(btn => btn.addEventListener('click', () => {
+  state.stop = btn.dataset.stop;
+  document.querySelectorAll('[data-stop]').forEach(b => b.classList.toggle('active', b === btn));
+}));
+
+const statusEl = document.getElementById('status');
+const computeBtn = document.getElementById('compute-btn');
+
+computeBtn.addEventListener('click', async () => {
+  const symbols = parseSymbols();
+  if (!symbols.length) { statusEl.textContent = 'Bitte mindestens ein Symbol eingeben.'; statusEl.className = 'err'; return; }
+  if (symbols.length > MAX_SYMBOLS) { statusEl.textContent = 'Maximal ' + MAX_SYMBOLS + ' Symbole auf einmal.'; statusEl.className = 'err'; return; }
+  const capital = Number(document.getElementById('capital-input').value) || 100000;
+  const stopPct = state.stop === 'stop4' ? 0.04 : null;
+
+  computeBtn.disabled = true;
+  document.getElementById('results').classList.add('hidden');
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + symbols.length + ' Symbole...';
+
+  const seriesBySymbol = {};
+  const failed = [];
+  const splitWarnings = [];
+
+  await Promise.all(symbols.map(async sym => {
+    try {
+      const series = await fetchHistorical(sym);
+      const artifact = detectSplitArtifact(series);
+      if (artifact) { splitWarnings.push(sym + ' (Kurssprung ' + artifact.ratio.toFixed(2) + 'x am ' + artifact.date + ' -- vermutlich unadjustierter Split, ausgeschlossen)'); return; }
+      seriesBySymbol[sym] = series;
+    } catch (e) {
+      failed.push(sym + ' (' + e.message + ')');
+    }
+  }));
+
+  const usableSymbols = Object.keys(seriesBySymbol);
+  if (!usableSymbols.length) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Keine verwertbaren Daten erhalten. Prüfe die Symbol-Schreibweise (z.B. AAPL.US, SAP.XETRA).';
+    computeBtn.disabled = false;
+    return;
+  }
+
+  statusEl.textContent = 'Berechne Strategie auf ' + usableSymbols.length + ' Symbolen...';
+
+  let allTrades = [];
+  const perSymbol = {};
+  for (const sym of usableSymbols) {
+    const { trades, weeks } = gatherTradesWithMAE(sym, seriesBySymbol[sym]);
+    allTrades = allTrades.concat(trades);
+    perSymbol[sym] = { weeks, series: seriesBySymbol[sym] };
+  }
+
+  const result = simulateAccount(allTrades, usableSymbols.length, capital, stopPct, state.sizing);
+
+  // current week signals
+  const todayMondayISO = mostRecentMondayISO(new Date());
+  const currentWeekRows = [];
+  for (const sym of usableSymbols) {
+    const { weeks, series } = perSymbol[sym];
+    if (weeks.length < 3) { currentWeekRows.push({ sym, error: 'zu wenig Historie für Kanal' }); continue; }
+    const lastThree = weeks.slice(-3).map(w => w.fridayClose);
+    const LONG = Math.max.apply(null, lastThree), SHORT = Math.min.apply(null, lastThree);
+    const mondayBar = series.find(p => p.date === todayMondayISO);
+    if (!mondayBar) { currentWeekRows.push({ sym, LONG, SHORT, error: 'kein Montag-Kurs verfügbar (Feiertag oder Markt noch offen)' }); continue; }
+    let direction = null;
+    if (mondayBar.close > LONG) direction = 'LONG';
+    else if (mondayBar.close < SHORT) direction = 'SHORT';
+    currentWeekRows.push({ sym, LONG, SHORT, mondayClose: mondayBar.close, direction });
+  }
+
+  // live realtime prices for symbols with an open position
+  const openSymbols = currentWeekRows.filter(r => r.direction).map(r => r.sym);
+  const realtimeBySymbol = {};
+  await Promise.all(openSymbols.map(async sym => {
+    try { realtimeBySymbol[sym] = await fetchRealtime(sym); } catch (e) { /* no live quote -- fine, just omit */ }
+  }));
+
+  // ---- render ----
+  document.getElementById('stats').innerHTML =
+    '<div class="bstat"><b class="' + (result.totalReturnPct>=0?'pos':'neg') + '">' + fmtPct(result.totalReturnPct) + '</b><span>GESAMTRENDITE</span></div>' +
+    '<div class="bstat"><b>' + fmtEur(result.finalCapital) + '</b><span>ENDKAPITAL</span></div>' +
+    '<div class="bstat"><b>' + fmtNum(result.sharpe) + '</b><span>SHARPE</span></div>' +
+    '<div class="bstat"><b class="neg">' + fmtPct(result.maxDrawdownPct) + '</b><span>MAX DRAWDOWN</span></div>';
+  document.getElementById('chart').innerHTML = result.equityCurve.length > 1 ? equityCurveSvg(result.equityCurve, '#0891b2') : '<p style="font-size:10.5px;color:var(--muted);">Zu wenig vollständige Handelswochen für eine Kurve (Korb oder Zeitraum zu klein).</p>';
+  document.getElementById('meta').innerHTML = usableSymbols.length + ' von ' + symbols.length + ' Symbolen verwertbar · ' + result.n + ' Handelswochen im Backtest · Win-Rate ' + fmtNum(result.winRate,0) + '% · Abruf gerade eben live vom Proxy, Zeitraum ~' + FETCH_DAYS_BACK + ' Tage zurück.' +
+    (failed.length ? '<br><b style="color:var(--red);">Nicht abrufbar:</b> ' + failed.map(esc).join(', ') : '');
+
+  document.getElementById('current-week-note').textContent = 'Aktuelle Kalenderwoche (Montag ' + todayMondayISO + '). Kanal = letzte 3 abgeschlossene Freitags-Schlusskurse. "LONG"/"SHORT" = das Signal, das die Strategie diese Woche mit Montag-Einstieg tatsächlich nehmen würde.';
+
+  const warningsEl = document.getElementById('warnings');
+  warningsEl.innerHTML = splitWarnings.length
+    ? '<div class="warn-box"><b>Split-Artefakte ausgeschlossen:</b> ' + splitWarnings.map(esc).join('; ') + '</div>' : '';
+
+  const tbody = document.getElementById('current-week-body');
+  tbody.innerHTML = currentWeekRows.map(r => {
+    if (r.error) {
+      return '<tr><td>' + esc(r.sym) + '</td><td colspan="6" style="color:var(--muted);">' + esc(r.error) + '</td></tr>';
+    }
+    const badgeClass = r.direction === 'LONG' ? 'long' : r.direction === 'SHORT' ? 'short' : 'flat';
+    const badgeLabel = r.direction || 'KEINE POSITION';
+    let liveCell = '—', pnlCell = '—';
+    const rt = realtimeBySymbol[r.sym];
+    if (r.direction && rt && Number.isFinite(rt.close)) {
+      const live = rt.close;
+      const pnl = r.direction === 'LONG' ? (live - r.mondayClose) / r.mondayClose * 100 : (r.mondayClose - live) / r.mondayClose * 100;
+      liveCell = '€' + live.toFixed(2);
+      pnlCell = '<span class="' + (pnl>=0?'pos':'neg') + '">' + fmtPct(pnl, 2) + '</span>';
+    }
+    return '<tr>' +
+      '<td>' + esc(r.sym) + '</td>' +
+      '<td class="num">' + fmtNum(r.LONG) + '</td>' +
+      '<td class="num">' + fmtNum(r.SHORT) + '</td>' +
+      '<td class="num">' + (r.mondayClose != null ? fmtNum(r.mondayClose) : '—') + '</td>' +
+      '<td><span class="badge ' + badgeClass + '">' + badgeLabel + '</span></td>' +
+      '<td class="num">' + liveCell + '</td>' +
+      '<td class="num">' + pnlCell + '</td>' +
+    '</tr>';
+  }).join('');
+
+  document.getElementById('results').classList.remove('hidden');
+  statusEl.className = '';
+  statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.';
+  computeBtn.disabled = false;
+});
+</script>
+</body>
+</html>
