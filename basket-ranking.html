@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Körbe-Ranking &amp; Bot-Spec</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#0891b2;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:980px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid #b45309;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:28px 0 12px;}
+h3{font-size:12px;color:var(--bright);margin:18px 0 8px;}
+.toc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.toc a{font-size:10px;color:var(--text);background:var(--panel);padding:6px 12px;border-radius:999px;text-decoration:none;border:1px solid var(--border);}
+.toc a:hover{border-color:var(--accent);color:var(--accent);}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
+table{width:100%;min-width:720px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
+td{padding:6px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+td.pos{color:var(--green);} td.neg{color:var(--red);}
+tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
+tr.caution td{color:var(--muted);}
+.badge{font-size:8px;padding:2px 6px;border-radius:999px;font-weight:600;}
+.badge.ok{background:rgba(21,128,61,.12);color:var(--green);}
+.badge.warn{background:rgba(185,28,28,.12);color:var(--red);}
+.badge.small{background:rgba(95,114,119,.12);color:var(--muted);}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.code-block{background:#0b1620;color:#9ad7e8;font-family:var(--mono);font-size:10px;padding:16px 18px;border-radius:8px;overflow-x:auto;line-height:1.7;margin-bottom:16px;white-space:pre;}
+.spec-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-bottom:16px;}
+.spec-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;}
+.spec-card h4{font-size:10.5px;color:var(--accent);margin-bottom:6px;}
+.spec-card p{font-size:10px;color:var(--muted);line-height:1.7;}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+@media (max-width:640px){.spec-grid{grid-template-columns:minmax(0,1fr);}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <h1>🏆 Körbe-Ranking &amp; Algo-Bot-Spezifikation</h1>
+  <div class="subtitle">Alle 30 Live-Portfolio-Körbe nach Sharpe gerankt, plus eine vollständige Spezifikation für eine automatisierte Umsetzung dieser Logik · Momentaufnahme vom 27. Oktober 2026</div>
+
+  <div class="callout">
+  <b>Momentaufnahme, kein Dauer-Ranking:</b> alle Zahlen stammen aus einem einmaligen Live-Sweep über den
+  <a href="live-portfolio.html" style="color:#b45309;">Live-Portfolio-Baukasten</a> am 27.10.2026 -- jeder
+  Korb mit echten, frisch abgerufenen Kursdaten (~400 Tage Historie), Equal-Weight, -4%-Preis-Stop. Da neue
+  Handelswochen laufend dazukommen, verschiebt sich dieses Ranking mit der Zeit -- im Live-Tool selbst lässt
+  sich jeder Korb jederzeit neu rechnen. Sharpe-Werte aus &lt;40 Wochen Historie sind mit Vorsicht zu lesen
+  (siehe <a href="research-log.html" style="color:#b45309;">Forschungsprotokoll</a> zur generellen
+  Stichproben-Disziplin dieses Projekts).
+  </div>
+
+  <div class="toc">
+    <a href="#ranking">🏆 Ranking</a>
+    <a href="#empfehlung">💡 Empfehlung</a>
+    <a href="#bot-spec">🤖 Bot-Spezifikation</a>
+    <a href="#pseudocode">⚙️ Pseudocode</a>
+    <a href="#risiken">⚠️ Risiken</a>
+  </div>
+
+  <h2 id="ranking">🏆 Ranking: alle 30 Körbe nach Sharpe</h2>
+  <div class="table-scroll">
+  <table><thead><tr><th>#</th><th>Korb</th><th>Sharpe</th><th>Rendite</th><th>Max DD</th><th>Symbole</th><th>Wochen</th><th>Hinweis</th></tr></thead><tbody>
+    <tr class="best-row"><td>1</td><td>Hochvolatil-Mix</td><td class="num">2.71</td><td class="num pos">+113.5%</td><td class="num neg">-9.3%</td><td class="num">12</td><td class="num">47</td><td><span class="badge warn">Pennystocks</span></td></tr>
+    <tr class="best-row"><td>2</td><td>Space/Defense-Mix</td><td class="num">2.39</td><td class="num pos">+70.1%</td><td class="num neg">-7.8%</td><td class="num">4</td><td class="num">42</td><td><span class="badge small">kleiner Korb</span></td></tr>
+    <tr class="best-row"><td>3</td><td>Alle 37 DAX-Aktien</td><td class="num">2.14</td><td class="num pos">+23.4%</td><td class="num neg">-3.0%</td><td class="num">37</td><td class="num">50</td><td><span class="badge ok">robust</span></td></tr>
+    <tr><td>4</td><td>20er-Mix (DAX+S&amp;P500)</td><td class="num">1.99</td><td class="num pos">+24.3%</td><td class="num neg">-4.3%</td><td class="num">20</td><td class="num">53</td><td><span class="badge ok">robust</span></td></tr>
+    <tr><td>5</td><td>Quantencomputing-Mix</td><td class="num">1.92</td><td class="num pos">+84.0%</td><td class="num neg">-20.1%</td><td class="num">3</td><td class="num">34</td><td><span class="badge warn">sehr kleiner Korb</span></td></tr>
+    <tr><td>6</td><td>Pleitegeier-Mix</td><td class="num">1.88</td><td class="num pos">+60.6%</td><td class="num neg">-17.8%</td><td class="num">6</td><td class="num">46</td><td><span class="badge warn">Pennystocks</span></td></tr>
+    <tr><td>7</td><td>E-Auto-Mix</td><td class="num">1.80</td><td class="num pos">+41.1%</td><td class="num neg">-10.8%</td><td class="num">4</td><td class="num">38</td><td><span class="badge warn">Pennystocks, klein</span></td></tr>
+    <tr><td>7</td><td>Airlines-Mix</td><td class="num">1.80</td><td class="num pos">+57.3%</td><td class="num neg">-12.2%</td><td class="num">6</td><td class="num">40</td><td><span class="badge small">kleiner Korb</span></td></tr>
+    <tr><td>9</td><td>5 DAX-Aktien</td><td class="num">1.79</td><td class="num pos">+28.9%</td><td class="num neg">-4.3%</td><td class="num">5</td><td class="num">46</td><td><span class="badge small">kleiner Korb</span></td></tr>
+    <tr><td>10</td><td>Fintech-Mix</td><td class="num">1.78</td><td class="num pos">+53.7%</td><td class="num neg">-17.1%</td><td class="num">4</td><td class="num">41</td><td><span class="badge small">kleiner Korb</span></td></tr>
+    <tr><td>11</td><td>China-ADR-Mix</td><td class="num">1.77</td><td class="num pos">+32.8%</td><td class="num neg">-7.9%</td><td class="num">8</td><td class="num">43</td><td>—</td></tr>
+    <tr><td>12</td><td>DAX + US-Mix</td><td class="num">1.61</td><td class="num pos">+41.8%</td><td class="num neg">-12.3%</td><td class="num">8</td><td class="num">53</td><td>—</td></tr>
+    <tr><td>13</td><td>10 DAX-Aktien</td><td class="num">1.60</td><td class="num pos">+22.8%</td><td class="num neg">-7.0%</td><td class="num">10</td><td class="num">50</td><td><span class="badge ok">robust</span></td></tr>
+    <tr><td>14</td><td>Biotech-Mix</td><td class="num">1.51</td><td class="num pos">+37.7%</td><td class="num neg">-11.8%</td><td class="num">6</td><td class="num">44</td><td><span class="badge small">kleiner Korb</span></td></tr>
+    <tr><td>15</td><td>Streaming-Mix</td><td class="num">1.40</td><td class="num pos">+18.5%</td><td class="num neg">-8.3%</td><td class="num">2</td><td class="num">30</td><td><span class="badge warn">zu klein für Aussage</span></td></tr>
+    <tr><td>16</td><td>US-Regionalbanken-Mix</td><td class="num">1.33</td><td class="num pos">+19.4%</td><td class="num neg">-8.8%</td><td class="num">8</td><td class="num">39</td><td>—</td></tr>
+    <tr><td>17</td><td>Gaming-Mix</td><td class="num">1.24</td><td class="num pos">+29.7%</td><td class="num neg">-10.4%</td><td class="num">4</td><td class="num">45</td><td><span class="badge small">kleiner Korb</span></td></tr>
+    <tr><td>18</td><td>Tech-Mix</td><td class="num">1.22</td><td class="num pos">+29.9%</td><td class="num neg">-13.3%</td><td class="num">11</td><td class="num">52</td><td>—</td></tr>
+    <tr><td>19</td><td>Crypto-Miner-Mix</td><td class="num">1.17</td><td class="num pos">+49.3%</td><td class="num neg">-25.9%</td><td class="num">6</td><td class="num">44</td><td><span class="badge warn">hoher Drawdown</span></td></tr>
+    <tr><td>20</td><td>Crypto-Mix</td><td class="num">1.13</td><td class="num pos">+37.5%</td><td class="num neg">-12.9%</td><td class="num">10</td><td class="num">50</td><td><span class="badge warn">Strategie für Crypto nicht robust</span></td></tr>
+    <tr><td>21</td><td>Solar-Mix</td><td class="num">0.99</td><td class="num pos">+24.5%</td><td class="num neg">-13.3%</td><td class="num">7</td><td class="num">47</td><td>—</td></tr>
+    <tr><td>22</td><td>Kreuzfahrt-Mix</td><td class="num">0.93</td><td class="num pos">+16.4%</td><td class="num neg">-10.2%</td><td class="num">3</td><td class="num">36</td><td><span class="badge warn">sehr kleiner Korb</span></td></tr>
+    <tr><td>23</td><td>Uran/Nuklear-Mix</td><td class="num">0.77</td><td class="num pos">+20.9%</td><td class="num neg">-24.8%</td><td class="num">5</td><td class="num">42</td><td><span class="badge warn">hoher Drawdown</span></td></tr>
+    <tr><td>24</td><td>AI-Mix</td><td class="num">0.65</td><td class="num pos">+12.4%</td><td class="num neg">-13.2%</td><td class="num">5</td><td class="num">41</td><td><span class="badge warn">Pennystocks</span></td></tr>
+    <tr><td>25</td><td>Finanzwerte-Mix</td><td class="num">0.28</td><td class="num pos">+2.9%</td><td class="num neg">-9.2%</td><td class="num">12</td><td class="num">52</td><td><span class="badge small">schwache Edge</span></td></tr>
+    <tr><td>26</td><td>Altcoin-Mix</td><td class="num">0.24</td><td class="num pos">+2.9%</td><td class="num neg">-17.9%</td><td class="num">12</td><td class="num">52</td><td><span class="badge warn">Strategie für Crypto nicht robust</span></td></tr>
+    <tr><td>27</td><td>Immobilien-Mix</td><td class="num">0.19</td><td class="num pos">+1.6%</td><td class="num neg">-16.7%</td><td class="num">8</td><td class="num">49</td><td><span class="badge small">schwache Edge</span></td></tr>
+    <tr><td>28</td><td>Rohstoff/Minen-Mix</td><td class="num">0.06</td><td class="num neg">-1.2%</td><td class="num neg">-24.0%</td><td class="num">3</td><td class="num">45</td><td><span class="badge warn">keine Edge</span></td></tr>
+    <tr><td>29</td><td>Nebenwerte-Mix (MDAX/SDAX)</td><td class="num">0.01</td><td class="num neg">-0.5%</td><td class="num neg">-17.0%</td><td class="num">10</td><td class="num">49</td><td><span class="badge warn">keine Edge</span></td></tr>
+    <tr><td>30</td><td>Cannabis-Mix</td><td class="num">-0.39</td><td class="num neg">-7.7%</td><td class="num neg">-21.9%</td><td class="num">4</td><td class="num">40</td><td><span class="badge warn">negative Edge</span></td></tr>
+  </tbody></table>
+  </div>
+  <div class="methodology">
+  <b>Lesehilfe:</b> hohe Sharpe + kleiner Korb (3-6 Symbole) + kurze Historie (&lt;40 Wochen) ist meist
+  Stichproben-Glück, nicht bestätigte Edge -- Platz 2 (Space/Defense, nur 4 Symbole) und Platz 5
+  (Quantencomputing, nur 3 Symbole) sind Paradebeispiele. Die wirklich belastbaren Ergebnisse stehen bei
+  Plätzen mit <span class="badge ok">robust</span>-Markierung: große, liquide, lange getestete Körbe (DAX-37,
+  20er-Mix, DAX-10), die auch im <a href="dax-breakout-report.html" style="color:#b45309;">Haupt-Report</a>
+  über Monate und zwei unabhängige Zeithälften bestätigt wurden.
+  </div>
+
+  <h2 id="empfehlung">💡 Empfehlung: welcher Korb für einen Bot?</h2>
+  <div class="callout" style="border-left-color:#15803d;">
+  <b>Alle 37 DAX-Aktien (Platz 3, Sharpe 2,14) ist der ehrlichste Top-Kandidat</b> für eine automatisierte
+  Umsetzung -- nicht Platz 1 oder 2. Begründung: 37 Symbole und 50 Wochen sind die mit Abstand größte
+  Stichprobe unter den Top 5, die Strategie wurde für genau dieses Universum im
+  <a href="dax-breakout-report.html" style="color:#15803d;">DAX-Breakout-Report</a> bereits über zwei
+  unabhängige Zeithälften bestätigt (nicht nur dieser eine Snapshot), und der Max-Drawdown (-3,0%) ist der
+  niedrigste aller Top-10-Plätze. Für ein reales Konto mit Kapazitätsgrenzen: siehe die
+  <a href="dax-breakout-report.html#retail" style="color:#15803d;">Retail-Depot-Analyse</a> für Körbe von
+  10-20 Aktien als praktikablen Mittelweg zwischen Diversifikation und Handhabbarkeit.
+  </div>
+
+  <h2 id="bot-spec">🤖 Bot-Spezifikation: diese Logik automatisiert umsetzen</h2>
+  <div class="spec-grid">
+    <div class="spec-card"><h4>1. Universum</h4><p>Fester Korb (z.B. die 37 DAX-Aktien oder ein performance-blind gewählter 10-20er Pool). Basket-Auswahl VOR dem Live-Betrieb festlegen, nicht nachträglich auf Basis der besten Backtest-Performance anpassen (Survivorship-Bias).</p></div>
+    <div class="spec-card"><h4>2. Kanal-Berechnung</h4><p>Pro Symbol: LONG-Schwelle = max(letzte 3 Freitags-Schlusskurse), SHORT-Schwelle = min(letzte 3 Freitags-Schlusskurse). Nur abgeschlossene Wochen verwenden, nie die laufende Woche (lookahead-frei).</p></div>
+    <div class="spec-card"><h4>3. Einstiegsregel</h4><p>Jeden Montag beim Markt-Schlusskurs prüfen: Montag-Close &gt; LONG-Schwelle → Long-Order (Market-on-Close). Montag-Close &lt; SHORT-Schwelle → Short-Order. Sonst: keine Order, Symbol bleibt flach diese Woche.</p></div>
+    <div class="spec-card"><h4>4. Positionsgröße</h4><p>Equal-Weight pro ausgelöstem Signal (Kapital / Anzahl aktueller Trigger) für maximale Rendite, ODER fixer Slot (Kapital / Korbgröße) für deutlich geringeren Drawdown -- siehe <a href="live-portfolio.html">Live-Tool</a>-Vergleich. Fixer Slot empfohlen für den ersten Live-Betrieb.</p></div>
+    <div class="spec-card"><h4>5. Stop-Loss</h4><p>-4% vom Einstiegskurs, als Preis-Stop (nicht Zeit-Stop) -- intraday-Überwachung oder Standing-Stop-Order nötig, nicht nur Tagesschluss-Check. Validiert als bester Kompromiss zwischen Gewinner-Schnitt und Verlierer-Kappung.</p></div>
+    <div class="spec-card"><h4>6. Ausstiegsregel</h4><p>Jeden Freitag beim Markt-Schlusskurs: alle offenen Positionen schließen (Market-on-Close), unabhängig vom Kursverlauf -- keine mehrwöchigen Positionen, kein Wochenend-Risiko. Mittwoch-Exit oder andere Verkürzungen wurden getestet und verschlechtern das Ergebnis.</p></div>
+    <div class="spec-card"><h4>7. Datenquelle</h4><p>Tägliche OHLC-Schlusskurse pro Symbol (EOD-Feed), Mindesthistorie: 3 abgeschlossene Wochen für den Kanal. Für Stop-Loss-Überwachung zusätzlich ein Intraday-/Realtime-Feed nötig.</p></div>
+    <div class="spec-card"><h4>8. Rhythmus</h4><p>Wöchentlicher Takt: 1x Montag-Check (Einstieg), 1x Freitag-Check (Ausstieg), dazwischen nur Stop-Loss-Überwachung. Kein täglicher Neu-Einstieg -- mehrfach getestet und verworfen (siehe <a href="dax-breakout-report.html#daily-check">Tägliche Variante</a>).</p></div>
+  </div>
+
+  <h2 id="pseudocode">⚙️ Pseudocode (wöchentlicher Takt)</h2>
+  <div class="code-block">JEDEN MONTAG (Markt-Schluss):
+  für jedes Symbol im Korb:
+    kanal_long  = max(letzte 3 Freitags-Schlusskurse)
+    kanal_short = min(letzte 3 Freitags-Schlusskurse)
+    montag_close = aktueller Schlusskurs
+    wenn montag_close > kanal_long:
+      öffne LONG-Position (Market-on-Close)
+    sonst wenn montag_close < kanal_short:
+      öffne SHORT-Position (Market-on-Close)
+    sonst:
+      keine Position diese Woche
+
+  positionsgröße = kapital / anzahl_ausgelöster_signale   # Equal-Weight
+  # ODER: positionsgröße = kapital / korbgröße            # Fixer Slot
+
+TÄGLICH (während offener Positionen, Mo-Fr):
+  für jede offene Position:
+    aktueller_verlust = (position_richtung == LONG)
+      ? (einstiegskurs - aktueller_kurs) / einstiegskurs
+      : (aktueller_kurs - einstiegskurs) / einstiegskurs
+    wenn aktueller_verlust >= 0.04:
+      schließe Position sofort (Stop-Loss ausgelöst)
+
+JEDEN FREITAG (Markt-Schluss):
+  für jede noch offene Position:
+    schließe Position (Market-on-Close)
+  # Konto ist übers Wochenende immer vollständig flach</div>
+
+  <h2 id="risiken">⚠️ Risiken für den Live-Betrieb (nicht im Backtest enthalten)</h2>
+  <div class="table-scroll">
+  <table><thead><tr><th>Risiko</th><th>Warum relevant</th></tr></thead><tbody>
+    <tr><td>Handelskosten &amp; Slippage</td><td>Kein Backtest in diesem Projekt rechnet Gebühren oder Slippage ein -- bei wöchentlicher Rebalancierung über 10-37 Symbole können sich Kosten spürbar summieren, besonders bei kleineren Positionsgrößen.</td></tr>
+    <tr><td>Market-on-Close-Ausführung</td><td>Backtest unterstellt exakten Schlusskurs als Fill -- reale MOC-Orders können abweichen, besonders bei volatilen/illiquiden Werten (siehe Pennystock-Warnhinweise im Ranking oben).</td></tr>
+    <tr><td>Kurze Testhistorie</td><td>~1 Jahr Beobachtung für die meisten Körbe, nicht mehrjährig über unabhängige Marktregime bestätigt (Ausnahme: DAX-Breakout-Kernstrategie, dort zwei Zeithälften getestet).</td></tr>
+    <tr><td>Daten-Feed-Qualität</td><td>Unadjustierte Splits (siehe <a href="research-log.html">Forschungsprotokoll</a>) müssen laufend erkannt werden, nicht nur einmalig -- ein Bot braucht denselben Kurssprung-Filter dauerhaft im Live-Betrieb.</td></tr>
+    <tr><td>Kapazität bei großen Körben</td><td>Breite Universen (&gt;100 Symbole) erzeugen laut <a href="dax-breakout-report.html#moneymgmt">Money-Management-Analyse</a> bis zu ~230 gleichzeitige Positionen -- ohne algorithmische Order-Verteilung nicht praktikabel.</td></tr>
+    <tr><td>Strategie-Drift</td><td>Was heute funktioniert, kann in neuen Marktphasen aufhören zu funktionieren -- regelmäßige Neubewertung mit frischen Daten (z.B. über dieses Ranking oder den Live-Rechner) statt einmalig einrichten und vergessen.</td></tr>
+  </tbody></table>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie, kein
+  fertiges Handelssystem. Diese Spezifikation beschreibt die in diesem Archiv validierte Backtest-Logik,
+  ersetzt aber keine eigene Risikoprüfung, kein Backtesting mit Kostenmodell und keine regulatorische
+  Prüfung vor echtem Kapitaleinsatz. © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+</body>
+</html>
