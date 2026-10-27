@@ -92,6 +92,19 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
       <button class="opt-btn" id="load-altcoins">Beispiel: Altcoin-Mix ⚠️</button>
       <button class="opt-btn" id="load-highvol">Beispiel: Hochvolatil-Mix</button>
     </div>
+    <div class="control-label" style="margin-top:16px;">THEMEN-KÖRBE: WEITERE VOLATILITÄT (JEDER TICKER EINZELN LIVE GEPRÜFT -- MANCHE KANDIDATEN KAMEN LEER ZURÜCK UND WURDEN AUSGESCHLOSSEN, Z.B. BEREITS VOM MARKT GENOMMENE WERTE)</div>
+    <div class="btn-row">
+      <button class="opt-btn" id="load-pleitegeier">Beispiel: Pleitegeier-Mix ⚠️</button>
+      <button class="opt-btn" id="load-cryptominer">Beispiel: Crypto-Miner-Mix</button>
+      <button class="opt-btn" id="load-biotech">Beispiel: Biotech-Mix</button>
+      <button class="opt-btn" id="load-evmix">Beispiel: E-Auto-Mix</button>
+      <button class="opt-btn" id="load-chinaadr">Beispiel: China-ADR-Mix</button>
+      <button class="opt-btn" id="load-solar">Beispiel: Solar-Mix</button>
+      <button class="opt-btn" id="load-cannabis">Beispiel: Cannabis-Mix</button>
+      <button class="opt-btn" id="load-airlines">Beispiel: Airlines-Mix</button>
+      <button class="opt-btn" id="load-cruise">Beispiel: Kreuzfahrt-Mix</button>
+      <button class="opt-btn" id="load-regionalbanks">Beispiel: US-Regionalbanken-Mix</button>
+    </div>
   </div>
 
   <h2><span class="step-num">2</span>Strategie-Einstellungen</h2>
@@ -321,6 +334,16 @@ const examples = {
   'load-crypto': 'BTC-USD.CC, ETH-USD.CC, SOL-USD.CC, XRP-USD.CC, BNB-USD.CC, ADA-USD.CC, DOGE-USD.CC, DOT-USD.CC, AVAX-USD.CC, LINK-USD.CC',
   'load-altcoins': 'LTC-USD.CC, ATOM-USD.CC, NEAR-USD.CC, OP-USD.CC, SHIB-USD.CC, TRX-USD.CC, ETC-USD.CC, FIL-USD.CC, ICP-USD.CC, HBAR-USD.CC, INJ-USD.CC, RNDR-USD.CC, BCH-USD.CC',
   'load-highvol': 'MSTR.US, RIOT.US, MARA.US, SMCI.US, HOOD.US, LCID.US, AMC.US, AFRM.US, PLTR.US, UPST.US, GME.US, TSLA.US',
+  'load-pleitegeier': 'SPWR.US, PARA.US, WOLF.US, LUMN.US, RIG.US, WW.US, BYND.US, M.US',
+  'load-cryptominer': 'CLSK.US, HUT.US, CIFR.US, WULF.US, CORZ.US, IREN.US',
+  'load-biotech': 'NVAX.US, VKTX.US, CRSP.US, BEAM.US, NTLA.US, SRPT.US, BNTX.US',
+  'load-evmix': 'RIVN.US, NIO.US, XPEV.US, LI.US, PSNY.US, CHPT.US',
+  'load-chinaadr': 'BABA.US, PDD.US, NIO.US, XPEV.US, BIDU.US, JD.US, BILI.US, TME.US',
+  'load-solar': 'ENPH.US, SEDG.US, PLUG.US, RUN.US, ARRY.US, SHLS.US, BE.US',
+  'load-cannabis': 'TLRY.US, CGC.US, ACB.US, CRON.US, SNDL.US',
+  'load-airlines': 'AAL.US, UAL.US, DAL.US, LUV.US, JBLU.US, ALK.US',
+  'load-cruise': 'CCL.US, RCL.US, NCLH.US',
+  'load-regionalbanks': 'KEY.US, CFG.US, ZION.US, FITB.US, HBAN.US, RF.US, TFC.US, WAL.US',
 };
 Object.keys(examples).forEach(id => {
   document.getElementById(id).addEventListener('click', () => { document.getElementById('symbols-input').value = examples[id]; });
@@ -426,9 +449,16 @@ computeBtn.addEventListener('click', async () => {
 
   const warningsEl = document.getElementById('warnings');
   const hasCrypto = usableSymbols.some(s => s.endsWith('.CC'));
+  const pennyStocks = usableSymbols.filter(s => {
+    const series = seriesBySymbol[s];
+    return series && series.length && series[series.length - 1].close < 5;
+  });
   let warningsHtml = '';
   if (hasCrypto) {
     warningsHtml += '<div class="warn-box"><b>Crypto im Korb:</b> die Montag-Freitag-Breakout-Logik wurde für Crypto in den etablierten Backtests NICHT als robust bestätigt (Sharpe kippt zwischen den Zeithälften, siehe <a href="dax-breakout-report.html#other-markets" style="color:#7a1f1f;">Andere Märkte</a>) -- anders als die separat validierte <a href="backtesting-report.html#class-sweetspot" style="color:#7a1f1f;">Confirmed-Trend-Strategie für Crypto</a> (5-8 Tage Bestätigung). Zahlen unten sind real berechnet, aber ohne dieselbe Absicherung wie bei Aktien zu lesen.</div>';
+  }
+  if (pennyStocks.length) {
+    warningsHtml += '<div class="warn-box"><b>Pennystocks/Distressed-Werte im Korb (Kurs &lt; 5€/$):</b> ' + pennyStocks.map(esc).join(', ') + '. Bei so niedrigen Kursen bedeuten schon kleine Cent-Bewegungen große Prozentsprünge -- das kann echte extreme Volatilität sein, aber auch die Split-Artefakt-Prüfung öfter auslösen. Diese Strategie wurde nie speziell für Distressed-/Penny-Werte validiert, nur für die liquiden Large-Cap-Körbe oben.</div>';
   }
   if (splitWarnings.length) {
     warningsHtml += '<div class="warn-box"><b>Symbole mit unplausiblem Kurssprung ausgeschlossen:</b> ' + splitWarnings.map(esc).join('; ') + '</div>';
