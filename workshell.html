@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Workshell</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#b45309;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:1180px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:26px;}
+.callout b{color:var(--bright);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;}
+.tile{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px 16px;text-decoration:none;color:var(--text);position:relative;border-top:4px solid var(--tile-color);transition:transform .15s,box-shadow .15s;}
+.tile:hover{transform:translateY(-3px);box-shadow:0 10px 28px -8px rgba(11,22,32,.18);}
+.tile-badge{position:absolute;top:14px;right:16px;font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--tile-color);background:color-mix(in srgb, var(--tile-color) 12%, transparent);padding:3px 8px;border-radius:999px;font-weight:600;}
+.tile-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;padding-right:70px;}
+.tile-icon{font-size:20px;}
+.tile-head h3{font-family:var(--head);font-size:14.5px;color:var(--bright);}
+.tile-desc{font-size:10.5px;color:var(--muted);line-height:1.75;margin-bottom:12px;min-height:72px;}
+.tile-stats{display:flex;gap:16px;margin-bottom:14px;}
+.tile-stat b{font-family:var(--head);font-size:14px;color:var(--tile-color);display:block;}
+.tile-stat span{font-size:7.5px;color:var(--muted);letter-spacing:.3px;}
+.tile-preview{position:relative;width:100%;height:230px;overflow:hidden;border-radius:8px;border:1px solid var(--border);background:var(--panel);}
+.tile-fade{position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(to bottom, transparent, var(--surface) 92%);pointer-events:none;}
+.tile-open{margin-top:12px;font-size:10px;font-weight:600;color:var(--tile-color);display:flex;align-items:center;gap:4px;}
+.tile-open span{transition:transform .15s;}
+.tile:hover .tile-open span{transform:translateX(3px);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:36px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+@media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr);} .tile-desc{min-height:0;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <h1>🛠️ Workshell</h1>
+  <div class="subtitle">Kuratierte Übersicht: alle Protokolle, Rechner und Backtests dieses Projekts an einem Ort -- mit Live-Vorschau statt bloßer Linkliste · erstellt 27. Oktober 2026</div>
+
+  <div class="callout">
+  Jede Kachel unten ist ein <b>echtes Live-Fenster</b> in die jeweilige Seite -- kein Screenshot, sondern
+  ein skaliertes Iframe, das sich mit jedem Report-Rebuild automatisch aktualisiert. Klick auf die Kachel
+  (oder "Öffnen") führt zur vollen Seite in neuem Tab.
+  </div>
+
+  <div class="grid">
+    <a class="tile" href="index.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#2a5fa0;">
+    <div class="tile-badge">Archiv</div>
+    <div class="tile-head"><span class="tile-icon">🛡</span><h3>Signal-Archiv</h3></div>
+    <p class="tile-desc">Die Basis von allem: 659 live Reports über Aktien, Krypto, Forex und Funds -- echte Kennzahlen, echte Kursverläufe im Original-Signal-Flag-Design. Durchsuchbar, filterbar, inklusive Live-Scanner für aktuell copy-trade-taugliche Crypto-Signale.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>659</b><span>REPORTS</span></div><div class="tile-stat"><b>76,5%</b><span>WIN-RATE</span></div><div class="tile-stat"><b>7,8x</b><span>GEWINNER LAUFEN WEITER</span></div></div>
+    <div class="tile-preview">
+      <iframe src="index.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:1250px;height:1250px;transform:scale(0.413);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="backtesting-report.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#b45309;">
+    <div class="tile-badge">Backtest</div>
+    <div class="tile-head"><span class="tile-icon">📑</span><h3>Backtesting-Report</h3></div>
+    <p class="tile-desc">"Signal eingehen, halten bis Regime-Wechsel" -- über die komplette Historie von 659 Symbolen simuliert, lookahead-frei. Deckt den einzigen robusten Confirmed-Trend-Fund auf: Crypto, 5-8 Tage Bestätigung -- und zeigt ebenso ehrlich, wo dieselbe Idee NICHT trägt.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>0,79/0,86</b><span>SHARPE CRYPTO (BEIDE HÄLFTEN)</span></div><div class="tile-stat"><b>5-8 Tg</b><span>SWEET SPOT</span></div></div>
+    <div class="tile-preview">
+      <iframe src="backtesting-report.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:940px;height:1000px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="dax-breakout-report.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#2a5fa0;">
+    <div class="tile-badge">Backtest</div>
+    <div class="tile-head"><span class="tile-icon">📦</span><h3>DAX-Breakout-Report</h3></div>
+    <p class="tile-desc">Komplett andere Handelslogik: wöchentlicher Donchian-Channel-Breakout statt Sentiment. Von 37 DAX-Aktien bis zur 525-Aktien-Welt getestet -- Money-Management, Stop-Loss-Deep-Dive und eine echte 100.000€-Retail-Depot-Simulation mit Korbgrößen von 1 bis 100.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>2,76</b><span>SHARPE (N=100, -4% STOP)</span></div><div class="tile-stat"><b>-4%</b><span>EMPFOHLENER STOP</span></div></div>
+    <div class="tile-preview">
+      <iframe src="dax-breakout-report.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:940px;height:1000px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="model-portfolios.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#15803d;">
+    <div class="tile-badge">Portfolio</div>
+    <div class="tile-head"><span class="tile-icon">🗂️</span><h3>Musterportfolios</h3></div>
+    <p class="tile-desc">Vier konkrete Portfolios, gebaut ausschließlich aus bereits validierten Bausteinen. Kernfund: DAX-Breakout und Crypto-Confirmed-Trend korrelieren nur mit 0,02 -- echte Diversifikation. Von "Solide" (-3% Max-Drawdown) bis "Retail-Realistisch" (von Hand nachbaubar).</p>
+    <div class="tile-stats"><div class="tile-stat"><b>0,02</b><span>KORRELATION DAX↔CRYPTO</span></div><div class="tile-stat"><b>4</b><span>PORTFOLIOS</span></div></div>
+    <div class="tile-preview">
+      <iframe src="model-portfolios.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:940px;height:1000px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="research-log.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#5f7277;">
+    <div class="tile-badge">Protokoll</div>
+    <div class="tile-head"><span class="tile-icon">🔬</span><h3>Forschungsprotokoll</h3></div>
+    <p class="tile-desc">Nicht nur die Erfolge: 8 verworfene Hypothesen (Pyramiding, enge Stops, Mittwoch-Exit...) und 5 gefundene Datenfehler stehen hier genauso wie die bestätigten Funde, jede Zeile verlinkt zur Quelle. Transparenz als Methode, nicht als Behauptung.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>6</b><span>BESTÄTIGT</span></div><div class="tile-stat"><b>8</b><span>VERWORFEN</span></div><div class="tile-stat"><b>5</b><span>BUGS GEFUNDEN</span></div></div>
+    <div class="tile-preview">
+      <iframe src="research-log.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:980px;height:1000px;transform:scale(0.527);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="strategie-rechner.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#7c3aed;">
+    <div class="tile-badge">Rechner</div>
+    <div class="tile-head"><span class="tile-icon">🎛️</span><h3>Strategie-Rechner</h3></div>
+    <p class="tile-desc">Korbgröße, Positionsgröße und Stop-Loss live kombinieren -- alle 24 Varianten vorab echt gerechnet, nicht im Browser simuliert. Von einer einzelnen Aktie bis zu 100 gleichzeitig, in Echtzeit vergleichbar.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>24</b><span>KOMBINATIONEN</span></div><div class="tile-stat"><b>1-100</b><span>KORBGRÖSSE</span></div></div>
+    <div class="tile-preview">
+      <iframe src="strategie-rechner.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung. Jede Kachel lädt die echte, aktuelle
+  Version der verlinkten Seite als Live-Vorschau. © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+</body>
+</html>
