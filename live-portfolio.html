@@ -173,6 +173,20 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
       <th data-sort="pnlAbs">P&amp;L (absolut)</th>
     </tr></thead><tbody id="trades-body"></tbody></table>
     </div>
+
+    <h2>🔮 3- und 5-Jahres-Projektion (Bootstrap-Simulation)</h2>
+    <div class="callout" style="border-left-color:#0891b2;">
+    <b>Das ist eine Projektion, kein Backtest.</b> Methode: 2.000 simulierte Pfade pro Zeithorizont, jeder
+    Pfad zieht 156 bzw. 260 Mal <b>zufällig mit Zurücklegen</b> aus den gerade beobachteten echten
+    Wochenrenditen dieses Korbs (nicht aus einer angenommenen Normalverteilung) und compoundiert sie. Da
+    die Positionsgröße immer ein Prozentsatz des <b>aktuellen</b> Kapitals ist, werden Positionen in der
+    Simulation automatisch größer, wenn das Konto wächst -- das ist bereits eingerechnet, nicht zusätzlich
+    modelliert. <b>Wichtige Einschränkungen:</b> basiert auf nur ~1 Jahr echter Beobachtung, geht von einer
+    unveränderten Renditeverteilung über 3-5 Jahre aus (Marktregime ändern sich erfahrungsgemäß, siehe
+    <a href="research-log.html" style="color:#0e7490;">Forschungsprotokoll</a>), rechnet keine Handelskosten
+    oder Steuern ein. Die Bandbreite unten (P10-P90) zeigt die Unsicherheit -- nicht als Garantie lesen.
+    </div>
+    <div id="projection-content"></div>
   </div>
 
   <div class="footer-note">
@@ -288,7 +302,86 @@ function simulateAccount(allTrades, basketN, startCapital, stopPct, sizingMode) 
   return {
     finalCapital: capital, totalReturnPct: (capital - startCapital) / startCapital * 100,
     maxDrawdownPct, sharpe: stats.sharpe, winRate: stats.winRate, n: stats.n, equityCurve, tradeDetails,
+    weeklyReturns,
   };
+}
+
+// Bootstrap Monte Carlo: resamples (with replacement) from the ACTUAL observed weekly portfolio
+// returns -- not a fitted distribution, not a straight-line average-return projection -- to build an
+// honest uncertainty band for multi-year compounding. Percentage-based position sizing already means
+// position size scales with capital automatically; this just plays that forward with real variance
+// instead of pretending the path is smooth.
+function bootstrapProjection(weeklyReturns, horizonWeeks, numSims) {
+  if (!weeklyReturns || weeklyReturns.length < 10) return null;
+  const n = weeklyReturns.length;
+  const paths = [];
+  for (let s = 0; s < numSims; s++) {
+    let capRatio = 1, peak = 1, maxDD = 0;
+    const path = new Float64Array(horizonWeeks + 1);
+    path[0] = 1;
+    for (let w = 1; w <= horizonWeeks; w++) {
+      const r = weeklyReturns[(Math.random() * n) | 0];
+      capRatio *= (1 + r);
+      if (capRatio > peak) peak = capRatio;
+      const dd = (capRatio - peak) / peak;
+      if (dd < maxDD) maxDD = dd;
+      path[w] = capRatio;
+    }
+    paths.push({ path, finalRatio: capRatio, maxDD: maxDD * 100 });
+  }
+  const quantileBand = [];
+  for (let w = 0; w <= horizonWeeks; w++) {
+    const vals = paths.map(p => p.path[w]).sort((a, b) => a - b);
+    quantileBand.push({
+      p10: vals[(numSims * 0.10) | 0],
+      p50: vals[(numSims * 0.50) | 0],
+      p90: vals[(numSims * 0.90) | 0],
+    });
+  }
+  const finals = paths.map(p => p.finalRatio).sort((a, b) => a - b);
+  const dds = paths.map(p => p.maxDD).sort((a, b) => a - b);
+  return {
+    quantileBand,
+    finalP10: finals[(numSims * 0.10) | 0],
+    finalP50: finals[(numSims * 0.50) | 0],
+    finalP90: finals[(numSims * 0.90) | 0],
+    medianMaxDD: dds[(numSims * 0.50) | 0],
+    worstMaxDD: dds[(numSims * 0.05) | 0],
+    lossProb: finals.filter(f => f < 1).length / numSims * 100,
+  };
+}
+
+function fanChartSvg(band, color, weeksPerYear) {
+  const W = 820, H = 260, PAD = 44;
+  const n = band.length;
+  const allVals = band.flatMap(b => [b.p10, b.p90]).concat([1]);
+  const min = Math.min.apply(null, allVals), max = Math.max.apply(null, allVals);
+  const span = (max - min) || 1;
+  const x = i => PAD + (i / (n - 1)) * (W - PAD * 2);
+  const y = v => PAD + (1 - (v - min) / span) * (H - PAD * 2 - 20) + 10;
+  const p10Pts = band.map((b, i) => [x(i), y(b.p10)]);
+  const p90Pts = band.map((b, i) => [x(i), y(b.p90)]);
+  const p50Pts = band.map((b, i) => [x(i), y(b.p50)]);
+  const bandPath = p90Pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ') +
+    ' ' + p10Pts.slice().reverse().map(p => 'L' + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ') + ' Z';
+  const medianPath = p50Pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  const baselineY = y(1);
+  let yearMarks = '';
+  for (let yr = 1; yr * weeksPerYear < n; yr++) {
+    const xi = x(yr * weeksPerYear);
+    yearMarks += '<line x1="' + xi.toFixed(1) + '" y1="' + PAD + '" x2="' + xi.toFixed(1) + '" y2="' + (H-PAD) + '" stroke="#d6e2ea" stroke-width="1" stroke-dasharray="2,3"/>' +
+      '<text x="' + xi.toFixed(1) + '" y="' + (H-PAD+14) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="#898781" text-anchor="middle">Jahr ' + yr + '</text>';
+  }
+  const lastP10 = band[n-1].p10, lastP50 = band[n-1].p50, lastP90 = band[n-1].p90;
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" preserveAspectRatio="xMidYMid meet">' +
+    yearMarks +
+    '<line x1="' + PAD + '" y1="' + baselineY.toFixed(1) + '" x2="' + (W-PAD) + '" y2="' + baselineY.toFixed(1) + '" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>' +
+    '<path d="' + bandPath + '" fill="' + color + '" fill-opacity="0.14" stroke="none"/>' +
+    '<path d="' + medianPath + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<text x="' + (W-PAD) + '" y="' + (y(lastP90)-6).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="9.5" fill="' + color + '" text-anchor="end">P90: ' + fmtPct((lastP90-1)*100,0) + '</text>' +
+    '<text x="' + (W-PAD) + '" y="' + (y(lastP50)-6).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="10.5" font-weight="700" fill="' + color + '" text-anchor="end">Median: ' + fmtPct((lastP50-1)*100,0) + '</text>' +
+    '<text x="' + (W-PAD) + '" y="' + (y(lastP10)+14).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="9.5" fill="' + color + '" text-anchor="end">P10: ' + fmtPct((lastP10-1)*100,0) + '</text>' +
+    '</svg>';
 }
 
 function mostRecentMondayISO(fromDate) {
@@ -471,6 +564,40 @@ function renderTradesTable() {
     : 'Keine Trades im gewählten Zeitraum -- zu kurze Historie oder kein Symbol hat in diesem Fenster ausgelöst.';
 }
 
+const WEEKS_PER_YEAR = 52;
+
+function projectionBlock(label, horizonYears, band, startCapital) {
+  if (!band) return '<h3 style="font-size:12px;margin:18px 0 8px;">' + label + '</h3><p style="font-size:10.5px;color:var(--muted);">Zu wenig Handelswochen (&lt;10) im aktuellen Korb für eine verlässliche Projektion.</p>';
+  const p10Cap = startCapital * band.finalP10, p50Cap = startCapital * band.finalP50, p90Cap = startCapital * band.finalP90;
+  const annualizedMedian = (Math.pow(band.finalP50, 1 / horizonYears) - 1) * 100;
+  const sanityWarning = annualizedMedian > 40
+    ? '<div class="warn-box"><b>Unrealistisch hohe Hochrechnung:</b> die Median-Linie unterstellt ~' + fmtNum(annualizedMedian,0) + '% Rendite PRO JAHR, dauerhaft über ' + horizonYears + ' Jahre -- das übertrifft jede bekannte reale Strategie dieser Größenordnung deutlich. Das ist kein Zeichen einer außergewöhnlich guten Strategie, sondern ein Warnsignal, dass die kurze, oft sehr volatile Beobachtungsperiode (aktuell nur ~1 Jahr) nicht repräsentativ für mehrere Jahre ist. Zahlen unten trotzdem transparent gezeigt, aber nicht als Erwartung lesen.</div>'
+    : '';
+  return '<h3 style="font-size:12px;margin:18px 0 8px;">' + label + '</h3>' +
+    sanityWarning +
+    '<div class="stat-grid">' +
+      '<div class="bstat"><b>' + fmtEur(p50Cap) + '</b><span>MEDIAN-ENDKAPITAL</span></div>' +
+      '<div class="bstat"><b class="neg">' + fmtEur(p10Cap) + '</b><span>P10 (PESSIMISTISCH)</span></div>' +
+      '<div class="bstat"><b class="pos">' + fmtEur(p90Cap) + '</b><span>P90 (OPTIMISTISCH)</span></div>' +
+      '<div class="bstat"><b class="neg">' + fmtPct(band.worstMaxDD, 1) + '</b><span>SCHLECHTESTER MAX-DRAWDOWN (P5)</span></div>' +
+    '</div>' +
+    '<div class="chart-wrap">' + fanChartSvg(band.quantileBand, '#0891b2', WEEKS_PER_YEAR) + '</div>' +
+    '<div class="methodology" style="margin-bottom:0;">Median Max-Drawdown über den Zeitraum: ' + fmtPct(band.medianMaxDD, 1) + '. Anteil der 2.000 simulierten Pfade, die nach ' + horizonYears + ' Jahren unter dem Startkapital liegen: <b>' + fmtNum(band.lossProb, 1) + '%</b>.</div>';
+}
+
+function renderProjection(weeklyReturns, startCapital) {
+  const content = document.getElementById('projection-content');
+  if (!weeklyReturns || weeklyReturns.length < 10) {
+    content.innerHTML = '<p style="font-size:10.5px;color:var(--muted);">Zu wenig Handelswochen (&lt;10) im aktuellen Korb für eine Projektion -- größeren Korb oder andere Symbole wählen.</p>';
+    return;
+  }
+  const band3y = bootstrapProjection(weeklyReturns, 3 * WEEKS_PER_YEAR, 2000);
+  const band5y = bootstrapProjection(weeklyReturns, 5 * WEEKS_PER_YEAR, 2000);
+  content.innerHTML =
+    projectionBlock('3-Jahres-Projektion (156 Wochen)', 3, band3y, startCapital) +
+    projectionBlock('5-Jahres-Projektion (260 Wochen)', 5, band5y, startCapital);
+}
+
 document.querySelectorAll('#trades-head th[data-sort]').forEach(th => {
   th.addEventListener('click', () => {
     const key = th.dataset.sort;
@@ -613,6 +740,8 @@ computeBtn.addEventListener('click', async () => {
   currentTradeDetails = result.tradeDetails;
   tradeSort = { key: 'monday', dir: 'desc' };
   renderTradesTable();
+
+  renderProjection(result.weeklyReturns, capital);
 
   document.getElementById('results').classList.remove('hidden');
   statusEl.className = '';
