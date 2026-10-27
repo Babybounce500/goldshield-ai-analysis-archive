@@ -54,9 +54,9 @@ tr:hover{background:var(--panel);}
   </div>
 
   <div class="stat-grid">
-    <div class="bstat"><b class="pos">6</b><span>BESTÄTIGTE FUNDE</span></div>
+    <div class="bstat"><b class="pos">7</b><span>BESTÄTIGTE FUNDE</span></div>
     <div class="bstat"><b class="neg">9</b><span>VERWORFENE HYPOTHESEN</span></div>
-    <div class="bstat"><b>5</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
+    <div class="bstat"><b>9</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
   <h2>📦 DAX-Weekly-Breakout: Strategie-Varianten</h2>
@@ -177,6 +177,12 @@ tr:hover{background:var(--panel);}
     <td class="finding">Ø ~230 gleichzeitige Positionen pro Woche -- ohne algorithmische Order-Ausführung oder Auswahlregel schlicht nicht umsetzbar für ein normales Konto.</td>
     <td class="source"><a href="dax-breakout-report.html#moneymgmt">Money Management</a></td>
   </tr>
+    <tr>
+    <td class="hyp">Ein echtes Live-Tool (eigener Korb, Live-Kurse, Live-Berechnung im Browser) ist technisch machbar</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Der EOD-Proxy erlaubt CORS von jedem Origin (Access-Control-Allow-Origin: *) -- komplette Strategie-Logik lässt sich 1:1 nach Vanilla-JS portieren und läuft client-seitig, ohne eigenen Server. 40-Symbol-Körbe fetchen in ~2,5 Sekunden.</td>
+    <td class="source"><a href="live-portfolio.html">Live-Portfolio-Baukasten</a></td>
+  </tr>
   </tbody></table>
   </div>
 
@@ -213,6 +219,30 @@ tr:hover{background:var(--panel);}
     <td class="verdict pos">🐛</td>
     <td class="finding">Ein erster Fund sah über die Gesamtperiode stark aus, fiel aber beim Split in zwei unabhängige Zeithälften auseinander -- als Zufallstreffer verworfen statt veröffentlicht.</td>
     <td class="source">Backtesting-Report</td>
+  </tr>
+    <tr>
+    <td class="hyp">MATIC-USD.CC, UNI-USD.CC, APT-USD.CC lieferten beim Live-Portfolio-Baukasten leere Daten</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Kein Tippfehler -- alle drei kommen über jeden Datumsbereich hinweg konsequent leer zurück, nicht nur für die letzten Wochen. Beim Live-Tool ausgeschlossen statt angenommen, dass es sich um ein Datenloch handelt.</td>
+    <td class="source"><a href="live-portfolio.html">Live-Portfolio-Baukasten</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">ARB-USD.CC zeigte einen konstant flachen Kurs bei Volumen=0</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Über Monate exakt derselbe Preis (0,00062902878022) und durchgehend Volumen=0 -- klares Platzhalter-/Fehlerdatum, keine echte Kursreihe. Von der Split-Artefakt-Prüfung miterkannt und ausgeschlossen.</td>
+    <td class="source"><a href="live-portfolio.html">Live-Portfolio-Baukasten</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">EA.US und SQ.US liefern ebenfalls leere Daten</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Beide real erklärbar statt Datenfehler: Electronic Arts ging 2025 von der Börse (Private-Equity-Übernahme), Block Inc. benennt seinen Ticker seit 2025 in XYZ.US um. Mit XYZ.US statt SQ.US weitergearbeitet, nachdem echte Daten bestätigt waren.</td>
+    <td class="source"><a href="live-portfolio.html">Live-Portfolio-Baukasten</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Die stock-Split-Erkennung (für Aktien gebaut) griff beim Live-Korb unverändert korrekt</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">PSNY.US zeigte einen 32,83x-Kurssprung -- passt exakt zu Polestars echtem 1-zu-25-Reverse-Split 2024. Bestätigt, dass die Tagesratio-Regel (&lt;0,6 oder &gt;1,67) auch auf frisch abgerufene Live-Daten zuverlässig anschlägt, nicht nur auf die statischen Caches.</td>
+    <td class="source"><a href="live-portfolio.html">Live-Portfolio-Baukasten</a></td>
   </tr>
   </tbody></table>
   </div>

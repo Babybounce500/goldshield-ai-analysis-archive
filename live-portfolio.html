@@ -75,7 +75,12 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
   <b>Echte Live-Daten, keine Simulation:</b> jeder Klick auf "Berechnen" ruft frische Kursdaten direkt vom
   selben Daten-Proxy ab, der auch den Rest des Archivs speist (EOD Historical Data) -- keine Caches, kein
   vorgerechnetes Ergebnis. Strategie-Logik identisch zum <a href="dax-breakout-report.html" style="color:var(--accent);">DAX-Breakout-Report</a>:
-  Montag-Einstieg, Freitag-Ausstieg, Kanal aus den 3 vorherigen Freitags-Schlusskursen.
+  Montag-Einstieg, Freitag-Ausstieg, Kanal aus den 3 vorherigen Freitags-Schlusskursen. <b>Eine Einschränkung,
+  die sonst leicht übersehen wird:</b> das Startkapital läuft als ein einziges Konto in "€", auch wenn ein
+  Korb nur USD-notierte Aktien enthält (z.B. Tech-Mix, Biotech-Mix) -- es wird <b>keine echte
+  Währungsumrechnung</b> simuliert, Kursbewegungen in Fremdwährung fließen 1:1 wie € ein. Für reine
+  US-Körbe ist das Ergebnis also ein €-Konto ohne reales EUR/USD-Wechselkursrisiko, nicht ein tatsächliches
+  Multi-Währungs-Portfolio.
   </div>
 
   <h2><span class="step-num">1</span>Basket wählen</h2>
@@ -157,6 +162,14 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
     <div id="current-week-note" class="methodology"></div>
     <div id="warnings"></div>
     <table><thead><tr><th>Symbol</th><th>Kanal (Long &gt;)</th><th>Kanal (Short &lt;)</th><th>Montag-Close</th><th>Signal</th><th>Live-Kurs jetzt</th><th>Unrealisiert</th></tr></thead><tbody id="current-week-body"></tbody></table>
+
+    <h2>🔍 Aufschlüsselung: Long/Short &amp; pro Symbol</h2>
+    <div class="table-scroll">
+    <table><thead><tr><th>Richtung</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite</th><th>Summe P&amp;L</th></tr></thead><tbody id="direction-breakdown-body"></tbody></table>
+    </div>
+    <div class="table-scroll" style="max-height:320px;overflow-y:auto;">
+    <table><thead><tr><th>Symbol</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite</th><th>Summe P&amp;L</th><th>Anteil am Gesamtergebnis</th></tr></thead><tbody id="symbol-breakdown-body"></tbody></table>
+    </div>
 
     <h2>📋 Alle Trades (Validierung)</h2>
     <div class="methodology" id="trades-note"></div>
@@ -518,6 +531,57 @@ const SORT_ACCESSORS = {
   pnlAbs: t => t.pnlAbs,
 };
 
+function renderBreakdowns(trades) {
+  function groupStats(groupKeyFn) {
+    const groups = new Map();
+    for (const t of trades) {
+      const key = groupKeyFn(t);
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(t);
+    }
+    return groups;
+  }
+  function statsFor(groupTrades) {
+    const n = groupTrades.length;
+    const wins = groupTrades.filter(t => t.finalReturn > 0).length;
+    const avgRet = n ? groupTrades.reduce((a, t) => a + t.finalReturn, 0) / n : 0;
+    const totalPnl = groupTrades.reduce((a, t) => a + t.pnlAbs, 0);
+    return { n, winRate: n ? wins / n * 100 : 0, avgRet, totalPnl };
+  }
+
+  const dirGroups = groupStats(t => t.direction);
+  const dirBody = document.getElementById('direction-breakdown-body');
+  dirBody.innerHTML = ['LONG', 'SHORT'].map(dir => {
+    const g = dirGroups.get(dir) || [];
+    const s = statsFor(g);
+    if (!s.n) return '<tr><td><span class="badge ' + (dir === 'LONG' ? 'long' : 'short') + '">' + dir + '</span></td><td colspan="4" style="color:var(--muted);">keine Trades</td></tr>';
+    return '<tr>' +
+      '<td><span class="badge ' + (dir === 'LONG' ? 'long' : 'short') + '">' + dir + '</span></td>' +
+      '<td class="num">' + s.n + '</td>' +
+      '<td class="num">' + fmtNum(s.winRate, 0) + '%</td>' +
+      '<td class="num ' + (s.avgRet >= 0 ? 'pos' : 'neg') + '">' + fmtPct(s.avgRet * 100, 3) + '</td>' +
+      '<td class="num ' + (s.totalPnl >= 0 ? 'pos' : 'neg') + '">' + fmtEurSigned(s.totalPnl) + '</td>' +
+    '</tr>';
+  }).join('');
+
+  const totalPnlAll = trades.reduce((a, t) => a + t.pnlAbs, 0);
+  const symGroups = groupStats(t => t.symbol);
+  const symRows = [...symGroups.entries()].map(([sym, g]) => ({ sym, ...statsFor(g) }))
+    .sort((a, b) => b.totalPnl - a.totalPnl);
+  const symBody = document.getElementById('symbol-breakdown-body');
+  symBody.innerHTML = symRows.map(r => {
+    const share = totalPnlAll !== 0 ? r.totalPnl / Math.abs(totalPnlAll) * 100 : 0;
+    return '<tr>' +
+      '<td>' + esc(r.sym) + '</td>' +
+      '<td class="num">' + r.n + '</td>' +
+      '<td class="num">' + fmtNum(r.winRate, 0) + '%</td>' +
+      '<td class="num ' + (r.avgRet >= 0 ? 'pos' : 'neg') + '">' + fmtPct(r.avgRet * 100, 3) + '</td>' +
+      '<td class="num ' + (r.totalPnl >= 0 ? 'pos' : 'neg') + '">' + fmtEurSigned(r.totalPnl) + '</td>' +
+      '<td class="num ' + (share >= 0 ? 'pos' : 'neg') + '">' + fmtPct(share, 0) + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
 function renderTradesTable() {
   const n = currentTradeDetails.length;
   // chronological index (#) always reflects trade order regardless of current sort
@@ -602,7 +666,7 @@ document.querySelectorAll('#trades-head th[data-sort]').forEach(th => {
   th.addEventListener('click', () => {
     const key = th.dataset.sort;
     if (tradeSort.key === key) tradeSort.dir = tradeSort.dir === 'asc' ? 'desc' : 'asc';
-    else tradeSort = { key, dir: key === 'idx' || key === 'monday' ? 'desc' : 'desc' };
+    else tradeSort = { key, dir: 'desc' };
     renderTradesTable();
   });
 });
@@ -611,7 +675,8 @@ computeBtn.addEventListener('click', async () => {
   const symbols = parseSymbols();
   if (!symbols.length) { statusEl.textContent = 'Bitte mindestens ein Symbol eingeben.'; statusEl.className = 'err'; return; }
   if (symbols.length > MAX_SYMBOLS) { statusEl.textContent = 'Maximal ' + MAX_SYMBOLS + ' Symbole auf einmal.'; statusEl.className = 'err'; return; }
-  const capital = Number(document.getElementById('capital-input').value) || 100000;
+  const capitalRaw = Number(document.getElementById('capital-input').value);
+  const capital = Number.isFinite(capitalRaw) && capitalRaw >= 1000 ? capitalRaw : 100000;
   const stopPct = state.stop === 'stop4' ? 0.04 : null;
 
   computeBtn.disabled = true;
@@ -736,6 +801,8 @@ computeBtn.addEventListener('click', async () => {
       '<td class="num">' + pnlCell + '</td>' +
     '</tr>';
   }).join('');
+
+  renderBreakdowns(result.tradeDetails);
 
   currentTradeDetails = result.tradeDetails;
   tradeSort = { key: 'monday', dir: 'desc' };
