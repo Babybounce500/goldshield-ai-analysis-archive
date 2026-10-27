@@ -43,7 +43,7 @@ tr:hover{background:var(--panel);}
 <div class="wrap">
   <a href="index.html" class="backlink">← Zurück zum Archiv</a>
   <h1>🔬 Forschungsprotokoll: Was wurde getestet -- und verworfen</h1>
-  <div class="subtitle">Jede Hypothese, jeder Datenfehler, jeder verworfene Ansatz aus diesem Projekt an einem Ort -- nicht nur die Funde, die am Ende überlebt haben · erstellt 23. Oktober 2026</div>
+  <div class="subtitle">Jede Hypothese, jeder Datenfehler, jeder verworfene Ansatz aus diesem Projekt an einem Ort -- nicht nur die Funde, die am Ende überlebt haben · erstellt 27. Oktober 2026</div>
 
   <div class="callout">
   <b>Warum diese Seite existiert:</b> ein Archiv, das nur die erfolgreichen Funde zeigt, ist nicht von
@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">6</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">8</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">9</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>5</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -128,6 +128,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict pos">✅</td>
     <td class="finding">Ab N=10 verschwindet das Klumpenrisiko (0 Einzelaktien-Wochen) komplett, Strategie bleibt fast jede Woche aktiv, ohne auf Kapazität von ~230 gleichzeitigen Positionen angewiesen zu sein.</td>
     <td class="source"><a href="dax-breakout-report.html#retail">Retail-Depot 100K€</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Ein echtes Tages-System (Kanal aus 10-20 Handelstagen, täglicher Einstieg, feste Haltedauer) schlägt den wöchentlichen Rhythmus</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Bestes DAX-Tages-System erreicht nur Sharpe 0,21 (nicht robust, Vorzeichen kippt zwischen Kombinationen) gegen 0,76 wöchentlich; bei Aktien bestenfalls 0,76 gegen 1,06 wöchentlich -- durchgängig schlechter, nicht nur die bereits getestete Stop-Order-Annäherung.</td>
+    <td class="source"><a href="dax-breakout-report.html#daily-check">Täglich statt wöchentlich</a></td>
   </tr>
   </tbody></table>
   </div>

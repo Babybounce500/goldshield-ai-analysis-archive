@@ -48,7 +48,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
 <div class="wrap">
   <a class="back" href="index.html">← Zurück zum Archiv</a>
   <h1 style="margin-top:10px;">📦 Weekly Breakout — Backtest (DAX + weitere Märkte)</h1>
-  <div class="subtitle">Wöchentlicher Donchian-Channel-Breakout, erst über 37 DAX-Aktien, dann über Crypto/Forex/Funds/533 globale Aktien gegengetestet · erstellt 23. Oktober 2026</div>
+  <div class="subtitle">Wöchentlicher Donchian-Channel-Breakout, erst über 37 DAX-Aktien, dann über Crypto/Forex/Funds/533 globale Aktien gegengetestet · erstellt 27. Oktober 2026</div>
 
   <div class="callout">
   <b>Herkunft:</b> die Strategie stammt aus <code>OPEN-ORDNERBOOK.html</code> (GoldShield-Quellcode-Fundus) --
@@ -86,6 +86,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#moneymgmt">💰 Money Management</a>
     <a href="#retail">🧺 Retail-Depot 100K€</a>
     <a href="#scenarios">🧪 Weitere Korb-Szenarien</a>
+    <a href="#daily-check">📅 Täglich statt wöchentlich</a>
     <a href="#verdict">💭 Einschätzung</a>
   </div>
 
@@ -1163,6 +1164,103 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   (Sharpe 2.76 → 3.15),
   aber das widerspricht dem klaren Populationsbefund und wirkt wie Stichproben-Rauschen, nicht wie ein echter
   Fund. <b>Fazit: beim Freitag-Exit bleiben, nicht künstlich verkürzen.</b>
+  </div>
+
+  <h2 id="daily-check">📅 Täglich statt wöchentlich prüfen -- hilft das?</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Naheliegende Frage: warum nur wöchentlich (Montag-Einstieg, Freitag-Ausstieg) statt jeden Tag zu prüfen,
+  ob der Kurs über/unter dem Kanal liegt? <b>Wichtig: das ist nicht dasselbe wie der bereits getestete
+  "Stop-Order"-Einstieg</b> (siehe <a href="#entrytiming">Einstiegs-Timing</a> oben) -- der war nur eine
+  Annäherung an eine Order <i>innerhalb</i> des wöchentlichen Zyklus (immer noch Freitag-Ausstieg). Hier wird
+  ein echtes <b>eigenständiges Tages-System</b> getestet: Kanal aus den letzten 10-20 Handelstagen (nicht 3
+  Freitagen), Einstieg an jedem beliebigen Tag bei Kanal-Durchbruch, Ausstieg nach einer festen Anzahl
+  Handelstage (3-10), keine überlappenden Positionen pro Symbol. 5 Lookback/Haltedauer-Kombinationen
+  getestet, mit und ohne -4%-Stop, über zwei unabhängige Zeithälften.
+  </div>
+
+  <h3 style="font-size:12px;margin-bottom:8px;">DAX (37 Symbole)</h3>
+  <div class="table-scroll"><table><thead><tr><th>Kanal-Lookback / Haltedauer</th><th>Sharpe ohne Stop</th><th>Sharpe mit -4%</th><th>Robustheit (älter/neuer, mit Stop)</th><th>Trades</th></tr></thead><tbody>
+    <tr>
+        <td>15 Tage / 5 Tage</td>
+        <td class="num neg">-0.44</td>
+        <td class="num pos">0.02</td>
+        <td class="num">0.35 / -0.31</td>
+        <td class="num">985</td>
+      </tr><tr>
+        <td>15 Tage / 3 Tage</td>
+        <td class="num neg">-0.62</td>
+        <td class="num neg">-0.19</td>
+        <td class="num">-0.20 / -0.18</td>
+        <td class="num">1221</td>
+      </tr><tr>
+        <td>10 Tage / 5 Tage</td>
+        <td class="num neg">-0.44</td>
+        <td class="num pos">0.00</td>
+        <td class="num">0.25 / -0.25</td>
+        <td class="num">1152</td>
+      </tr><tr>
+        <td>20 Tage / 10 Tage</td>
+        <td class="num neg">-0.16</td>
+        <td class="num pos">0.21</td>
+        <td class="num">0.31 / 0.11</td>
+        <td class="num">571</td>
+      </tr><tr>
+        <td>15 Tage / 10 Tage</td>
+        <td class="num neg">-0.17</td>
+        <td class="num pos">0.16</td>
+        <td class="num">0.46 / -0.12</td>
+        <td class="num">657</td>
+      </tr>
+  </tbody></table></div>
+
+  <h3 style="font-size:12px;margin:20px 0 8px;">Aktien (breite Stichprobe)</h3>
+  <div class="table-scroll"><table><thead><tr><th>Kanal-Lookback / Haltedauer</th><th>Sharpe ohne Stop</th><th>Sharpe mit -4%</th><th>Robustheit (älter/neuer, mit Stop)</th><th>Trades</th></tr></thead><tbody>
+    <tr>
+        <td>15 Tage / 5 Tage</td>
+        <td class="num neg">-0.03</td>
+        <td class="num pos">0.76</td>
+        <td class="num">0.95 / 0.56</td>
+        <td class="num">13886</td>
+      </tr><tr>
+        <td>15 Tage / 3 Tage</td>
+        <td class="num neg">-0.09</td>
+        <td class="num pos">0.72</td>
+        <td class="num">0.75 / 0.70</td>
+        <td class="num">17590</td>
+      </tr><tr>
+        <td>10 Tage / 5 Tage</td>
+        <td class="num neg">-0.08</td>
+        <td class="num pos">0.72</td>
+        <td class="num">0.88 / 0.55</td>
+        <td class="num">16372</td>
+      </tr><tr>
+        <td>20 Tage / 10 Tage</td>
+        <td class="num neg">-0.02</td>
+        <td class="num pos">0.60</td>
+        <td class="num">0.73 / 0.46</td>
+        <td class="num">8428</td>
+      </tr><tr>
+        <td>15 Tage / 10 Tage</td>
+        <td class="num neg">-0.01</td>
+        <td class="num pos">0.58</td>
+        <td class="num">0.72 / 0.44</td>
+        <td class="num">9423</td>
+      </tr>
+  </tbody></table></div>
+
+  <div class="callout" style="border-left-color:#b91c1c;margin-top:16px;">
+  <b>Ergebnis: Nein, tägliches Prüfen hilft nicht -- im Gegenteil.</b> Bester täglicher DAX-Kandidat
+  (20 Tage Kanal / 10 Tage Haltedauer, mit -4%-Stop) erreicht Sharpe 0.21,
+  weit unter dem wöchentlichen Referenzwert von <b>0,76</b> -- und ist nicht robust (ältere Hälfte
+  0.31, neuere
+  0.11, Vorzeichen kippt teils zwischen
+  Kombinationen). Bei der breiten Aktien-Stichprobe sieht die tägliche Variante auf den ersten Blick besser
+  aus (bester Kandidat: Sharpe 0.76, robust
+  in beiden Hälften) -- bleibt aber klar unter dem wöchentlichen Referenzwert von <b>1,06</b>. <b>Ohne
+  Stop-Loss ist die tägliche Variante in praktisch jeder Kombination negativ oder nahe Null</b> -- dieselbe
+  Lektion wie beim Mittwoch-Exit-Test: öfter hinschauen und häufiger reagieren macht die Strategie nicht
+  besser, es verwässert die Edge. Der wöchentliche Rhythmus ist nicht Zufall, sondern Teil dessen, was
+  funktioniert.
   </div>
 
   <h2 id="verdict">💭 Einschätzung: ist die Strategie nutzbar?</h2>

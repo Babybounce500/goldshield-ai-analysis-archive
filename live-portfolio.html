@@ -76,12 +76,15 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
 
   <h2><span class="step-num">1</span>Basket wählen</h2>
   <div class="panel">
-    <div class="control-label">TICKER, KOMMAGETRENNT (MAX. 25) -- FORMAT WIE IM ARCHIV: AAPL.US, SAP.XETRA, BMW.XETRA</div>
+    <div class="control-label">TICKER, KOMMAGETRENNT (MAX. 40) -- FORMAT WIE IM ARCHIV: AAPL.US, SAP.XETRA, BMW.XETRA</div>
     <textarea id="symbols-input">ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BEI.XETRA, BMW.XETRA, BNR.XETRA, CBK.XETRA, CON.XETRA</textarea>
     <div class="btn-row">
-      <button class="opt-btn" id="load-dax10">Beispiel: 10 DAX-Aktien</button>
       <button class="opt-btn" id="load-dax5">Beispiel: 5 DAX-Aktien</button>
+      <button class="opt-btn" id="load-dax10">Beispiel: 10 DAX-Aktien</button>
+      <button class="opt-btn" id="load-dax37">Beispiel: Alle 37 DAX-Aktien</button>
       <button class="opt-btn" id="load-mixed">Beispiel: DAX + US-Mix</button>
+      <button class="opt-btn" id="load-mix20">Beispiel: 20er-Mix (DAX+S&amp;P500)</button>
+      <button class="opt-btn" id="load-financials">Beispiel: Finanzwerte-Mix</button>
     </div>
   </div>
 
@@ -136,7 +139,7 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
 
 <script>
 const PROXY = 'https://theserver-open-ai.replit.app';
-const MAX_SYMBOLS = 25;
+const MAX_SYMBOLS = 40;
 const FETCH_DAYS_BACK = 400;
 
 const state = { sizing: 'full', stop: 'stop4' };
@@ -300,9 +303,12 @@ function parseSymbols() {
 }
 
 const examples = {
-  'load-dax10': 'ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BEI.XETRA, BMW.XETRA, BNR.XETRA, CBK.XETRA, CON.XETRA',
   'load-dax5': 'ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA',
+  'load-dax10': 'ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BEI.XETRA, BMW.XETRA, BNR.XETRA, CBK.XETRA, CON.XETRA',
+  'load-dax37': 'ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BEI.XETRA, BMW.XETRA, BNR.XETRA, CBK.XETRA, CON.XETRA, 1COV.XETRA, DTG.XETRA, DBK.XETRA, DB1.XETRA, DTE.XETRA, DHL.XETRA, EOAN.XETRA, FRE.XETRA, HNR1.XETRA, HEI.XETRA, HEN3.XETRA, IFX.XETRA, MBG.XETRA, MRK.XETRA, MTX.XETRA, MUV2.XETRA, RHM.XETRA, RWE.XETRA, SAP.XETRA, SRT3.XETRA, SIE.XETRA, ENR.XETRA, SHL.XETRA, SY1.XETRA, VOW3.XETRA, VNA.XETRA, ZAL.XETRA',
   'load-mixed': 'SAP.XETRA, SIE.XETRA, BMW.XETRA, AAPL.US, MSFT.US, AVGO.US, INTC.US, AMAT.US',
+  'load-mix20': 'ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BMW.XETRA, SAP.XETRA, SIE.XETRA, DTE.XETRA, MBG.XETRA, AAPL.US, MSFT.US, AVGO.US, INTC.US, AMAT.US, SCHW.US, CBOE.US, ACN.US, AMP.US, T.US',
+  'load-financials': 'ALV.XETRA, CBK.XETRA, DBK.XETRA, DB1.XETRA, HNR1.XETRA, MUV2.XETRA, AMP.US, SCHW.US, CBOE.US, KKR.US, IBKR.US, COIN.US',
 };
 Object.keys(examples).forEach(id => {
   document.getElementById(id).addEventListener('click', () => { document.getElementById('symbols-input').value = examples[id]; });
