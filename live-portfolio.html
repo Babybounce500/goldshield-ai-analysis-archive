@@ -104,6 +104,14 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
       <button class="opt-btn" id="load-airlines">Beispiel: Airlines-Mix</button>
       <button class="opt-btn" id="load-cruise">Beispiel: Kreuzfahrt-Mix</button>
       <button class="opt-btn" id="load-regionalbanks">Beispiel: US-Regionalbanken-Mix</button>
+      <button class="opt-btn" id="load-gaming">Beispiel: Gaming-Mix</button>
+      <button class="opt-btn" id="load-aimix">Beispiel: AI-Mix</button>
+      <button class="opt-btn" id="load-quantum">Beispiel: Quantencomputing-Mix</button>
+      <button class="opt-btn" id="load-uranium">Beispiel: Uran/Nuklear-Mix</button>
+      <button class="opt-btn" id="load-spacedefense">Beispiel: Space/Defense-Mix</button>
+      <button class="opt-btn" id="load-streaming">Beispiel: Streaming-Mix</button>
+      <button class="opt-btn" id="load-fintech">Beispiel: Fintech-Mix</button>
+      <button class="opt-btn" id="load-rareearth">Beispiel: Rohstoff/Minen-Mix</button>
     </div>
   </div>
 
@@ -145,6 +153,12 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
     <div id="current-week-note" class="methodology"></div>
     <div id="warnings"></div>
     <table><thead><tr><th>Symbol</th><th>Kanal (Long &gt;)</th><th>Kanal (Short &lt;)</th><th>Montag-Close</th><th>Signal</th><th>Live-Kurs jetzt</th><th>Unrealisiert</th></tr></thead><tbody id="current-week-body"></tbody></table>
+
+    <h2>📋 Alle Trades (Validierung)</h2>
+    <div class="methodology" id="trades-note"></div>
+    <div class="table-scroll" style="max-height:480px;overflow-y:auto;">
+    <table><thead><tr><th>#</th><th>Symbol</th><th>Montag (Einstieg)</th><th>Richtung</th><th>Rendite (brutto)</th><th>Gestoppt bei -4%?</th><th>Rendite (final)</th></tr></thead><tbody id="trades-body"></tbody></table>
+    </div>
   </div>
 
   <div class="footer-note">
@@ -344,6 +358,14 @@ const examples = {
   'load-airlines': 'AAL.US, UAL.US, DAL.US, LUV.US, JBLU.US, ALK.US',
   'load-cruise': 'CCL.US, RCL.US, NCLH.US',
   'load-regionalbanks': 'KEY.US, CFG.US, ZION.US, FITB.US, HBAN.US, RF.US, TFC.US, WAL.US',
+  'load-gaming': 'RBLX.US, TTWO.US, U.US, NTES.US',
+  'load-aimix': 'NVDA.US, AMD.US, AI.US, SOUN.US, BBAI.US',
+  'load-quantum': 'IONQ.US, RGTI.US, QBTS.US',
+  'load-uranium': 'CCJ.US, UEC.US, SMR.US, OKLO.US, LEU.US',
+  'load-spacedefense': 'RKLB.US, BA.US, ASTS.US, LMT.US',
+  'load-streaming': 'NFLX.US, DIS.US, ROKU.US',
+  'load-fintech': 'XYZ.US, PYPL.US, AFRM.US, SOFI.US',
+  'load-rareearth': 'MP.US, FCX.US, AA.US',
 };
 Object.keys(examples).forEach(id => {
   document.getElementById(id).addEventListener('click', () => { document.getElementById('symbols-input').value = examples[id]; });
@@ -490,6 +512,27 @@ computeBtn.addEventListener('click', async () => {
       '<td class="num">' + pnlCell + '</td>' +
     '</tr>';
   }).join('');
+
+  const sortedTrades = allTrades.slice().sort((a, b) => b.monday.localeCompare(a.monday));
+  const tradesBody = document.getElementById('trades-body');
+  tradesBody.innerHTML = sortedTrades.map((t, i) => {
+    const finalRet = returnWithStop(t, stopPct);
+    const wasStopped = stopPct != null && finalRet !== t.finalReturn;
+    return '<tr>' +
+      '<td class="num">' + (sortedTrades.length - i) + '</td>' +
+      '<td>' + esc(t.symbol) + '</td>' +
+      '<td>' + esc(t.monday) + '</td>' +
+      '<td><span class="badge ' + (t.direction === 'LONG' ? 'long' : 'short') + '">' + t.direction + '</span></td>' +
+      '<td class="num ' + (t.finalReturn >= 0 ? 'pos' : 'neg') + '">' + fmtPct(t.finalReturn * 100, 2) + '</td>' +
+      '<td>' + (wasStopped ? '<span class="neg">ja</span>' : 'nein') + '</td>' +
+      '<td class="num ' + (finalRet >= 0 ? 'pos' : 'neg') + '">' + fmtPct(finalRet * 100, 2) + '</td>' +
+    '</tr>';
+  }).join('');
+  const avgFinal = sortedTrades.length ? sortedTrades.reduce((a, t) => a + returnWithStop(t, stopPct), 0) / sortedTrades.length : 0;
+  const stoppedCount = stopPct != null ? sortedTrades.filter(t => returnWithStop(t, stopPct) !== t.finalReturn).length : 0;
+  document.getElementById('trades-note').innerHTML = sortedTrades.length
+    ? sortedTrades.length + ' Einzel-Trades gesamt, neueste zuerst -- jede Zahl in der Tabelle oben entsteht direkt aus dieser Liste. Durchschnittliche finale Rendite pro Trade: <b>' + fmtPct(avgFinal * 100, 3) + '</b> (× √52 annualisiert = der Sharpe oben)' + (stopPct != null ? ', davon <b>' + stoppedCount + '</b> durch den -4%-Stop begrenzt' : '') + '. Scrollbar, falls mehr als die sichtbaren Zeilen.'
+    : 'Keine Trades im gewählten Zeitraum -- zu kurze Historie oder kein Symbol hat in diesem Fenster ausgelöst.';
 
   document.getElementById('results').classList.remove('hidden');
   statusEl.className = '';
