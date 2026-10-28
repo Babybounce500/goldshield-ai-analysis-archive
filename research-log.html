@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">18</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">19</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>10</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -200,6 +200,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict neg">❌</td>
     <td class="finding">Schlechter als sogar die einfache Baseline (Sharpe 0,15 vs. 0,19), deutlich schlechter als der Trailing-Stop (0,28). Max-Drawdown verdoppelt sich gegenüber dem Trailing-Stop (-11,9%→-25,5%) bei ähnlicher Gesamtrendite -- die Ø Gewinn-Rückgabe pro Trade verdoppelt sich fast (5,5pp→10,4pp), weil die Schwelle nicht mit neuen Hochs mitwächst. Nicht "ab +4% länger halten" ist der entscheidende Baustein, sondern das Nachziehen der Absicherung selbst.</td>
     <td class="source"><a href="dax-breakout-report.html#fixed-floor">Fixer Floor statt Trailing</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">"Turnaround Tuesday" -- ein roter Montag kehrt sich am Dienstag häufig um</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Korrelation Montag-Rendite↔Dienstag-Rendite liegt bei 0,026 -- praktisch null (ein echter Umkehr-Effekt müsste klar negativ sein). Dienstags-Win-Rate nach rotem Montag (52,9%) ist statistisch nicht von der Baseline (52,3%) oder von grünen Montagen (51,7%) unterscheidbar, auch nicht nach starken Einbrüchen &lt;-1% (53,5%) -- und nicht konsistent über die Zeithälften. Trading-Floor-Folklore, kein messbarer Effekt.</td>
+    <td class="source"><a href="dax-breakout-report.html#turnaround-tuesday">Markt-Mythos: Turnaround Tuesday</a></td>
   </tr>
     <tr>
     <td class="hyp">Jeden Trade mechanisch 2-3 Wochen statt 1 Woche halten verbessert das Ergebnis</td>

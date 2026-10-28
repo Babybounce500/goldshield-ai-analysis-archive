@@ -90,6 +90,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#fixed-floor">📏 Fixer Floor statt Trailing</a>
     <a href="#trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte</a>
     <a href="#ride-green-weeks">📈 Laufen lassen, solange die Woche grün ist</a>
+    <a href="#turnaround-tuesday">📅 Markt-Mythos: Turnaround Tuesday</a>
     <a href="#timestop-extension">🗓️ Längere Haltedauer (2-3 Wochen)</a>
     <a href="#drawdowns">📉 Drawdowns & Stop-Loss</a>
     <a href="#stop35">🔬 3-5%-Stop im Detail</a>
@@ -828,6 +829,33 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Trades verlängern sich dadurch) -- der Trailing-Stop verlangt eine echte, bedeutsame +4%-Bewegung,
   bevor er überhaupt erst in den "laufen lassen"-Modus schaltet. Nicht "lief es diese Woche positiv"
   ist der richtige Filter, sondern "hat sich der Trade schon deutlich bewährt".
+  </div>
+
+  <h2 id="turnaround-tuesday">📅 Markt-Mythos-Check: Gibt es einen "Turnaround Tuesday"?</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Kurzer Abstecher außerhalb der eigentlichen Breakout-Engine: unter Tradern kursiert die Faustregel, ein
+  roter Montag kehre sich am Dienstag häufig um ("Turnaround Tuesday"). Direkter Test auf Tagesbasis:
+  Korrelation zwischen Montag- und Dienstag-Tagesrendite über alle 37 DAX-Aktien, 2020-2026 (nur echte
+  Montag→Dienstag-Tagespaare, Feiertagswochen ehrlich übersprungen statt angenommen).
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Bedingung</th><th>n</th><th>Ø Dienstag-Rendite</th><th>Dienstag-Win-Rate</th></tr></thead><tbody>
+    <tr><td>Nach rotem Montag</td><td class="num">5859</td><td class="num pos">+0.1296%</td><td class="num">52.9%</td></tr>
+    <tr><td>Nach grünem Montag</td><td class="num">6478</td><td class="num pos">+0.1480%</td><td class="num">51.7%</td></tr>
+    <tr><td>Nach Montag &lt;-1% (starker roter Montag)</td><td class="num">2828</td><td class="num pos">+0.1691%</td><td class="num">53.5%</td></tr>
+    <tr class="best-row"><td>Alle Dienstage (Baseline, unabhängig vom Montag)</td><td class="num">12441</td><td class="num pos">+0.1373%</td><td class="num">52.3%</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Mythos nicht bestätigt.</b> Die Korrelation zwischen Montag- und Dienstag-Rendite liegt bei
+  0.0258 -- praktisch null (ein echter "Umkehr"-Effekt müsste klar
+  negativ sein). Dienstags-Performance ist nach einem roten Montag
+  (52.9% Win-Rate), nach einem grünen Montag
+  (51.7%) und selbst nach einem starken Einbruch &lt;-1%
+  (53.5%) <b>statistisch nicht unterscheidbar</b> von der
+  Baseline (52.3%) -- und auch nicht konsistent über die
+  Zeithälften (Korrelation 0.0440 älter vs.
+  -0.0029 neuer). Dienstag verhält sich unabhängig davon, was Montag
+  passiert ist -- "Turnaround Tuesday" bleibt Trading-Floor-Folklore, kein messbarer Effekt in diesen
+  Daten.
   </div>
 
   <h2 id="timestop-extension">🗓️ Was, wenn man einfach mechanisch länger hält? (2 und 3 Wochen fix)</h2>
