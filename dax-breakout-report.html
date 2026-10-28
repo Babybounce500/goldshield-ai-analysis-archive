@@ -88,6 +88,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#volume-filter">📊 Volumen-Filter</a>
     <a href="#trailing-winners">🚀 Gewinner laufen lassen</a>
     <a href="#trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte</a>
+    <a href="#ride-green-weeks">📈 Laufen lassen, solange die Woche grün ist</a>
     <a href="#timestop-extension">🗓️ Längere Haltedauer (2-3 Wochen)</a>
     <a href="#drawdowns">📉 Drawdowns & Stop-Loss</a>
     <a href="#stop35">🔬 3-5%-Stop im Detail</a>
@@ -744,6 +745,48 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   zusätzlichen Vorteil und kann sogar schaden. <b>Praktische Konsequenz:</b> der Trailing-Stop-Fund oben
   bleibt für den DAX-37 über die getestete Gesamtperiode gültig, sollte aber nicht blind auf andere
   Körbe oder Marktphasen übertragen werden, ohne es dort erneut zu prüfen.
+  </div>
+
+  <h2 id="ride-green-weeks">📈 Dritte Exit-Philosophie: einfach laufen lassen, solange die Woche grün ist</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Weder der tägliche Trailing-Stop (feste %-Schwelle, jeden Tag geprüft) noch das mechanische
+  Mehrwochen-Halten (fixe Dauer, unabhängig vom Verlauf) oben -- hier eine dritte, einfachere Regel:
+  die Position rollt automatisch in die nächste Woche, <b>solange die zuletzt abgeschlossene Woche
+  (Freitag-zu-Freitag, richtungsbereinigt) selbst im Plus war</b>. Sobald eine Woche flach oder negativ
+  schließt, wird genau dort ausgestiegen. Der bereits bestätigte -4%-Stop bleibt täglich aktiv (feste
+  Basis zum ursprünglichen Einstieg) -- das ist kein stop-loser Test. Jede Woche trägt ihre eigene,
+  nicht kompoundierte Wochenrendite zur Renditeserie bei, Sharpe bleibt auf derselben √52-Basis wie die
+  ursprüngliche Baseline.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Mehrwöchig</th><th>Ø Wochen gehalten</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr><td>Fixer Freitag-Exit (Baseline)</td><td class="num pos">+20.55%</td><td class="num">0.189</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">0%</td><td class="num">1,00</td><td class="num pos">+20.84%</td><td class="num neg">-13.40%</td></tr>
+    <tr><td>Laufen lassen bei grüner Woche (neu)</td><td class="num pos">+22.52%</td><td class="num">0.189</td><td class="num">33.2%</td><td class="num">3811</td><td class="num">50.0%</td><td class="num">2.00</td><td class="num pos">+22.56%</td><td class="num neg">-13.58%</td></tr>
+  </tbody></table></div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>Fixer Freitag-Exit</th><th>Laufen lassen bei grüner Woche</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num">0.29</td><td class="num pos">0.35</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num pos">0.02</td><td class="num neg">-0.04</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin:14px 0;">
+  <b>Sanity-Check, SAP.XETRA:</b> Short-Einstieg 24.02.2020 (COVID) läuft über 5 grüne/knapp-grüne Wochen
+  (+7,98%, +3,62%, +13,81%, +1,52%) bis Woche 2020-W13 mit -9,43% schließt → Exit, Gesamtrendite +17,63%
+  trotz des negativen letzten Abschnitts -- die Regel funktioniert wie spezifiziert.
+  </div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Verworfen -- kein echter Fortschritt gegenüber der Baseline, und nicht robust.</b> Über die
+  Gesamtperiode ist der Sharpe praktisch identisch (0.189 vs.
+  0.189 -- ein Wash), die Win-Rate fällt dabei deutlich
+  (50.1%→33.2%,
+  weil jeder Trade, der nach einer anfänglich grünen Woche in einer negativen Woche endet, als Verlierer
+  zählt, selbst wenn die erste Woche profitabel war). Und über die Zeithälften kippt das Vorzeichen
+  (0.29→0.35
+  älter, aber 0.02→-0.04
+  neuer) -- derselbe Überfitting-Verdacht wie beim Freitag-Extrempunkt-Test. Der entscheidende Unterschied
+  zum oben <a href="#trailing-winners">bestätigten täglichen Trailing-Stop</a>: "irgendeine grüne Woche"
+  ist eine viel zu schwache Hürde (50.0% aller
+  Trades verlängern sich dadurch) -- der Trailing-Stop verlangt eine echte, bedeutsame +4%-Bewegung,
+  bevor er überhaupt erst in den "laufen lassen"-Modus schaltet. Nicht "lief es diese Woche positiv"
+  ist der richtige Filter, sondern "hat sich der Trade schon deutlich bewährt".
   </div>
 
   <h2 id="timestop-extension">🗓️ Was, wenn man einfach mechanisch länger hält? (2 und 3 Wochen fix)</h2>

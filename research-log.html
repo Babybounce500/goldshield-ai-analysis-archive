@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">16</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">17</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>10</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -188,6 +188,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict neg">❌</td>
     <td class="finding">Crypto und ETFs/Funds werden durch Trailing sogar schlechter, Forex bleibt unberührt (in keinem der 1205 Trades wurde je +4% erreicht, Trigger greift nie), die breite 525/533-Aktien-Stichprobe wird leicht schlechter statt besser. Sogar der DAX selbst zeigt auf einem kürzeren, ruhigeren ~13-Monats-Fenster keinen Trailing-Vorteil (0,127→0,026) -- der Effekt hängt an der COVID-Crash-Phase mit ungewöhnlich lang anhaltenden Trends, nicht am DAX als Korb per se.</td>
     <td class="source"><a href="dax-breakout-report.html#trailing-allmarkets">Trailing-Stop auf andere Märkte</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Position einfach laufen lassen, solange die zuletzt abgeschlossene Woche im Plus war, schlägt den fixen Freitag-Exit</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Sharpe über die Gesamtperiode praktisch identisch (0,189 vs. 0,189, ein Wash), Win-Rate fällt deutlich (50,1%→33,2%). Zeithälften kippen das Vorzeichen (älter 0,29→0,35 besser, neuer 0,02→-0,04 schlechter) -- derselbe Überfitting-Verdacht wie beim Freitag-Extrempunkt-Test. "Irgendeine grüne Woche" ist eine zu schwache Hürde (50% aller Trades verlängern sich dadurch); der oben bestätigte tägliche Trailing-Stop verlangt dagegen eine echte +4%-Bewegung, bevor er in den Laufenlassen-Modus schaltet.</td>
+    <td class="source"><a href="dax-breakout-report.html#ride-green-weeks">Laufen lassen bei grüner Woche</a></td>
   </tr>
     <tr>
     <td class="hyp">Jeden Trade mechanisch 2-3 Wochen statt 1 Woche halten verbessert das Ergebnis</td>
