@@ -170,6 +170,16 @@ td.num{font-family:var(--mono);text-align:right;white-space:nowrap;}
   (Schritt ★) sollte vor dem Live-Einsatz auf dem jeweils aktuellen Datenfenster neu validiert werden,
   nicht blind aus diesem Backtest übernommen werden.
   </div>
+  <div class="methodology">
+  Zusätzlicher Vorbehalt beim Trailing-Upgrade: es lässt ~15-17% der Trades mehrwöchig offen, mit echter
+  <a href="dax-breakout-report.html#weekend-gap-risk" target="_blank" rel="noopener noreferrer">Wochenend-Gap-Exposition</a>,
+  die der schlusskurs-basierte Stop nicht abdecken kann. Mit echten Montag-Open-Kursen quantifiziert: in
+  3,5% der wochenend-exponierten Positionen durchbricht der Montag-Open den Freitag-Stop (schlechtester
+  Fall: -14,2%), und in 1,5% aller Fälle erholt sich der Kurs bis Montag-Close wieder -- unsichtbar für
+  den Backtest, aber real für eine echte Stop-Order. Eine pauschale Options-Absicherung lohnt sich bei
+  dieser niedrigen Breach-Rate nicht, aber wer das Upgrade live fährt, sollte sich dieses Restrisikos
+  bewusst sein.
+  </div>
 
   <div class="footer-note">
   * Trailing-Stop-Zahlen gelten für den DAX-37 über 2020-2026 (inkl. Corona-Crash), siehe Vorbehalte oben.

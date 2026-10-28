@@ -88,6 +88,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#volume-filter">📊 Volumen-Filter</a>
     <a href="#trailing-winners">🚀 Gewinner laufen lassen</a>
     <a href="#fixed-floor">📏 Fixer Floor statt Trailing</a>
+    <a href="#weekend-gap-risk">🕳️ Wochenend-Gap-Risiko quantifiziert</a>
     <a href="#trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte</a>
     <a href="#ride-green-weeks">📈 Laufen lassen, solange die Woche grün ist</a>
     <a href="#turnaround-tuesday">📅 Markt-Mythos: Turnaround Tuesday</a>
@@ -749,6 +750,53 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   wird. <b>Das Nachziehen selbst ist der entscheidende Baustein</b> -- nicht nur "ab +4% länger halten",
   sondern "die Absicherung mit jedem neuen Hoch mitziehen" macht den Unterschied zwischen dem oben
   bestätigten Fund und dieser schwächeren Variante.
+  </div>
+
+  <h2 id="weekend-gap-risk">🕳️ Wochenend-Gap-Risiko quantifiziert -- lohnt sich eine Options-Absicherung?</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Der Trailing-Stop lässt ~15-17% der Trades mehrwöchig offen -- jedes Mal mit echter Wochenend-Exposition,
+  die unser schlusskurs-basierter Check nicht abdecken kann (keine untertägige Reaktion, siehe oben).
+  Bevor man über eine Options-Absicherung (Protective Put/Call, Collar) nachdenkt, lässt sich das Risiko
+  direkt mit den echten Montag-Open-Kursen quantifizieren, statt es zu schätzen: für jede
+  Trailing-Position, die an einem Freitag noch offen war, wird geprüft, wo der folgende Montag-Open relativ
+  zum Freitag-Trail-Stop-Niveau lag.
+  </div>
+  <div class="stat-grid">
+    <div class="bstat"><b>1885</b><span>WOCHENEND-EXPONIERTE TRAILING-POSITIONEN</span></div>
+    <div class="bstat"><b class="neg">3.5%</b><span>MONTAG-OPEN DURCHBRICHT DEN FREITAG-STOP</span></div>
+    <div class="bstat"><b class="neg">1.5%</b><span>DAVON VOM CLOSE-ONLY-BACKTEST NIE ERFASST</span></div>
+    <div class="bstat"><b class="neg">-14.2%</b><span>SCHLECHTESTER EINZELNER GAP</span></div>
+  </div>
+  <div class="methodology" style="margin-bottom:16px;">
+  Ø Gap übers Wochenende: +0.253% (Median exakt 0% -- die meisten Wochenenden sind
+  ein Nicht-Ereignis), aber die Flanken sind real: 201 von
+  1885 Positionen (10.7%)
+  gappen schlechter als -1% gegen die Position, 68
+  (3.6%) schlechter als -2%. Wird der
+  Stop tatsächlich durchbrochen, liegt der Montag-Open im Schnitt
+  -1.31% weiter unten/oben als das Stop-Niveau selbst -- im
+  schlechtesten Fall -10.63%.
+  </div>
+  <div class="table-scroll">
+  <div class="table-scroll"><table><thead><tr><th>Symbol</th><th>Richtung</th><th>Freitag-Close</th><th>Trail-Stop</th><th>Montag-Open</th><th>Gap</th><th>Status</th></tr></thead><tbody>
+    <tr><td>SRT3.XETRA</td><td>LONG</td><td class="num">355.50</td><td class="num">341.28</td><td class="num">305.00</td><td class="num neg">-14.21%</td><td>durchbrochen</td></tr><tr><td>RHM.XETRA</td><td>SHORT</td><td class="num">82.32</td><td class="num">85.61</td><td class="num">89.96</td><td class="num neg">-9.28%</td><td>vom Backtest verpasst</td></tr><tr><td>MBG.XETRA</td><td>LONG</td><td class="num">67.10</td><td class="num">64.42</td><td class="num">61.79</td><td class="num neg">-7.91%</td><td>durchbrochen</td></tr><tr><td>AIR.XETRA</td><td>SHORT</td><td class="num">49.59</td><td class="num">51.57</td><td class="num">53.45</td><td class="num neg">-7.78%</td><td>durchbrochen</td></tr><tr><td>CBK.XETRA</td><td>LONG</td><td class="num">8.81</td><td class="num">8.64</td><td class="num">8.28</td><td class="num neg">-6.05%</td><td>durchbrochen</td></tr>
+  </tbody></table></div>
+  </div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Das Risiko ist real, aber selten -- genau das Profil, für das eine Options-Absicherung Sinn
+  ergeben kann.</b> In 3.5% der Fälle gapt der
+  Kurs tatsächlich durch den Stop, und in 1.5%
+  aller Wochenend-Exposition erholt sich der Kurs bis Montag-Close wieder -- diese Fälle sieht der
+  Close-only-Backtest <b>nie</b>, obwohl eine echte Stop-Order dort ausgelöst und zu einem schlechteren
+  Kurs gefüllt worden wäre (derselbe Blindspot, den der <a href="#turtle-trading">Turtle-Sanity-Check</a>
+  oben am SAP-Beispiel schon zeigte). Ein einzelner, wöchentlich gekaufter Protective Put/Call wäre bei
+  dieser niedrigen Breach-Rate (~3,5%) über die meisten Wochen reine Prämienverschwendung -- aber für den
+  Extremfall (schlechtester Einzelfall -14.2%, SRT3.XETRA) würde er genau den
+  Verlust abfedern, den der Backtest als "normalen" Stop-Verlust verbucht, der real aber deutlich
+  schlimmer hätte ausfallen können. <b>Praktischer Schluss:</b> keine pauschale Wochenabsicherung, aber
+  ein günstiges, portfolio-weites Hedge (z.B. ein DAX-Put statt Einzeltitel-Optionen) speziell in Wochen
+  mit großen offenen Trailing-Gewinnen wäre der kosteneffizienteste Ansatz -- echte Optionspreis-Daten
+  fehlen uns aber, um das selbst kostenseitig zu backtesten.
   </div>
 
   <h2 id="trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte übertragen -- gilt der Fund universell?</h2>

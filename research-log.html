@@ -56,7 +56,7 @@ tr:hover{background:var(--panel);}
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
     <div class="bstat"><b class="neg">19</b><span>VERWORFENE HYPOTHESEN</span></div>
-    <div class="bstat"><b>10</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
+    <div class="bstat"><b>11</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
   <h2>📦 DAX-Weekly-Breakout: Strategie-Varianten</h2>
@@ -321,6 +321,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict pos">🐛</td>
     <td class="finding">PSNY.US zeigte einen 32,83x-Kurssprung -- passt exakt zu Polestars echtem 1-zu-25-Reverse-Split 2024. Bestätigt, dass die Tagesratio-Regel (&lt;0,6 oder &gt;1,67) auch auf frisch abgerufene Live-Daten zuverlässig anschlägt, nicht nur auf die statischen Caches.</td>
     <td class="source"><a href="live-portfolio.html">Live-Portfolio-Baukasten</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Schlusskurs-basierte Stops haben einen blinden Fleck bei Wochenend-Gaps</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Mit echten Montag-Open-Kursen nachgerechnet: in 3,5% der 1.885 wochenend-exponierten Trailing-Positionen durchbricht der Montag-Open den Freitag-Trail-Stop, in 1,5% ALLER Positionen erholt sich der Kurs bis Montag-Close wieder -- diese Fälle sieht der schlusskurs-basierte Backtest nie, obwohl eine echte Stop-Order dort zu einem schlechteren Kurs gefüllt worden wäre. Schlechtester Einzelfall: -14,2% Gap (SRT3.XETRA). Kein Rechenfehler, sondern eine inhärente, jetzt explizit quantifizierte Grenze der Methodik.</td>
+    <td class="source"><a href="dax-breakout-report.html#weekend-gap-risk">Wochenend-Gap-Risiko quantifiziert</a></td>
   </tr>
     <tr>
     <td class="hyp">Short-Trades über mehrere Tage wurden beim täglichen Mark-to-Market falsch verrechnet</td>
