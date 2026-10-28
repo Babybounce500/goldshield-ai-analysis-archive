@@ -48,7 +48,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
 <div class="wrap">
   <a class="back" href="index.html">← Zurück zum Archiv</a>
   <h1 style="margin-top:10px;">📦 Weekly Breakout — Backtest (DAX + weitere Märkte)</h1>
-  <div class="subtitle">Wöchentlicher Donchian-Channel-Breakout, erst über 37 DAX-Aktien, dann über Crypto/Forex/Funds/533 globale Aktien gegengetestet · erstellt 27. Oktober 2026</div>
+  <div class="subtitle">Wöchentlicher Donchian-Channel-Breakout, erst über 37 DAX-Aktien, dann über Crypto/Forex/Funds/533 globale Aktien gegengetestet · erstellt 28. Oktober 2026</div>
 
   <div class="callout">
   <b>Herkunft:</b> die Strategie stammt aus <code>OPEN-ORDNERBOOK.html</code> (GoldShield-Quellcode-Fundus) --
@@ -81,6 +81,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#other-markets">🌍 Andere Märkte</a>
     <a href="#deepdive">🔎 Deep-Dive</a>
     <a href="#entrytiming">⏱️ Einstiegs-Timing</a>
+    <a href="#friday-extreme">📍 Freitag-Extrempunkt-Einstieg</a>
     <a href="#drawdowns">📉 Drawdowns & Stop-Loss</a>
     <a href="#stop35">🔬 3-5%-Stop im Detail</a>
     <a href="#moneymgmt">💰 Money Management</a>
@@ -399,6 +400,48 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   funktioniert hat. Ein reiner untertägiger Durchbruch (wie ihn eine Stop-Order abgreifen würde) ist dagegen
   öfter Rauschen, das bis Freitag nicht trägt. <b>Fazit:</b> Montag-Close-Einstieg ist nicht nur methodisch
   einfacher, sondern empirisch auch die bessere Wahl -- kein Grund, auf eine Stop-Order umzustellen.
+  </div>
+
+  <h2 id="friday-extreme">📍 Freitag-Extrempunkt-Einstieg: Sofort kaufen, wenn der Freitag selbst der Ausbruch ist</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Verfeinerung der Einstiegs-Timing-Frage oben: statt einer Stop-Order an jedem Tag wird hier gezielt ein
+  Spezialfall getestet, den der Nutzer vorgeschlagen hat -- was, wenn der <b>Freitag-Schlusskurs selbst</b>
+  bereits der neue Hoch- bzw. Tiefpunkt der letzten 3 Freitags-Schlusskurse ist (also exakt der Kurs, der
+  sonst erst am folgenden Montag bestätigt würde)? Dann sofort <b>an diesem Freitag</b> einsteigen, statt
+  3 Kalendertage bis Montag zu warten. Ausstieg konsistent beim darauffolgenden Freitag-Schlusskurs
+  (derselbe Ausstiegspunkt, den die Baseline für diese Woche ohnehin genutzt hätte) -- der einzige
+  strukturelle Unterschied ist also der um 3 Tage frühere Einstieg, mit doppelter Wochenend-Gap-Exposition
+  statt keiner. Frisch von 2020-01-01 bis heute über den Live-Proxy nachgeladen (daher leichte Abweichungen
+  zu den Kopfzahlen oben, die auf dem ursprünglichen, kürzeren Cache-Fenster basieren) -- beide Varianten
+  auf exakt demselben Datensatz gerechnet, damit der Vergleich fair ist.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr class="best-row"><td>Montag-Close (Baseline)</td><td class="num pos">+28.45%</td><td class="num">0.228</td><td class="num">51.0%</td><td class="num">5802</td><td class="num pos">+29.53%</td><td class="num neg">-15.80%</td></tr>
+    <tr><td>Freitag-Extrempunkt (neu)</td><td class="num pos">+25.51%</td><td class="num">0.125</td><td class="num">49.9%</td><td class="num">8846</td><td class="num pos">+16.15%</td><td class="num neg">-26.22%</td></tr>
+  </tbody></table></div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit: Baseline vs. Freitag-Extrempunkt über beide Zeithälften</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>Baseline Sharpe</th><th>Freitag-Extrempunkt Sharpe</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num pos">0.33</td><td class="num">0.36</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num">0.08</td><td class="num neg">-0.20</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Hypothese verworfen -- und zwar deutlich.</b> Über die Gesamtperiode liegt der Freitag-Extrempunkt-Einstieg
+  bei Sharpe 0.125 gegen 0.228 bei der
+  Montag-Baseline -- schon das ein klarer Nachteil, trotz fast 53% mehr Trades
+  (8846 vs. 5802: ein 2-Freitags-Kanal ist ein
+  engerer, leichter auslösbarer Filter). Der Portfolio-Max-Drawdown verschlechtert sich von
+  -15.8% auf -26.2%.
+  Entscheidend ist aber die Robustheits-Prüfung: die ältere Zeithälfte sieht beim neuen Einstieg noch gut aus
+  (Sharpe sogar über der Baseline), aber in der neueren Hälfte <b>kippt das Vorzeichen komplett ins
+  Negative</b> -- exakt das Muster, das dieses Projekt durchgängig als Überfitting-Warnsignal behandelt
+  (siehe z.B. den verworfenen engen-Stop-Fund oben). Der direkte Grund dafür zeigt sich im
+  Überschneidungs-Check: in nur <b>49.4%</b> der Fälle, in denen der
+  Freitag-Schlusskurs selbst schon der neue Extrempunkt war, bestätigt der <b>folgende Montag</b> dieselbe
+  Richtung gegen denselben Kanal -- praktisch eine Münzwurf-Quote. Rund die Hälfte dieser "Freitag-Extreme"
+  sind also bereits Fehlausbrüche, die sich übers Wochenende oder bis Montag wieder zurückziehen. Das
+  bestätigt und verschärft den bereits oben verworfenen <a href="#entrytiming">Stop-Order-Einstieg</a>-Fund:
+  der Montag-Close ist keine bloße Verzögerung, sondern ein echter, wirksamer Bestätigungsfilter -- und
+  diese spezifische Variante liefert sogar eine konkrete Zahl dafür, wie oft er genau deshalb nötig ist.
   </div>
 
   <h2 id="drawdowns">📉 Drawdowns & Stop-Loss (bisher nur Zeit-Stop)</h2>

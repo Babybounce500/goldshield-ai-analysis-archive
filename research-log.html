@@ -43,7 +43,7 @@ tr:hover{background:var(--panel);}
 <div class="wrap">
   <a href="index.html" class="backlink">← Zurück zum Archiv</a>
   <h1>🔬 Forschungsprotokoll: Was wurde getestet -- und verworfen</h1>
-  <div class="subtitle">Jede Hypothese, jeder Datenfehler, jeder verworfene Ansatz aus diesem Projekt an einem Ort -- nicht nur die Funde, die am Ende überlebt haben · erstellt 27. Oktober 2026</div>
+  <div class="subtitle">Jede Hypothese, jeder Datenfehler, jeder verworfene Ansatz aus diesem Projekt an einem Ort -- nicht nur die Funde, die am Ende überlebt haben · erstellt 28. Oktober 2026</div>
 
   <div class="callout">
   <b>Warum diese Seite existiert:</b> ein Archiv, das nur die erfolgreichen Funde zeigt, ist nicht von
@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">7</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">9</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">10</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>9</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -134,6 +134,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict neg">❌</td>
     <td class="finding">Bestes DAX-Tages-System erreicht nur Sharpe 0,21 (nicht robust, Vorzeichen kippt zwischen Kombinationen) gegen 0,76 wöchentlich; bei Aktien bestenfalls 0,76 gegen 1,06 wöchentlich -- durchgängig schlechter, nicht nur die bereits getestete Stop-Order-Annäherung.</td>
     <td class="source"><a href="dax-breakout-report.html#daily-check">Täglich statt wöchentlich</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Sofort am Freitag einsteigen, wenn der Freitag-Schlusskurs selbst schon der neue Hoch-/Tiefpunkt der letzten 3 Freitage ist</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Sharpe sinkt (0,23→0,13), Portfolio-Max-Drawdown verdoppelt sich fast (-15,8%→-26,2%), und das Vorzeichen kippt zwischen den Zeithälften (+0,36→-0,20) -- klassisches Überfitting-Muster. Nur 49,4% dieser "Freitag-Extreme" werden vom folgenden Montag überhaupt bestätigt, der Rest ist Fehlausbruch.</td>
+    <td class="source"><a href="dax-breakout-report.html#friday-extreme">Freitag-Extrempunkt-Einstieg</a></td>
   </tr>
   </tbody></table>
   </div>
