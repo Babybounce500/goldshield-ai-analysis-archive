@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Empfohlene Strategie</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#2a5fa0;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:980px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid #b45309;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:30px 0 12px;}
+.toc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.toc a{font-size:10px;color:var(--text);background:var(--panel);padding:6px 12px;border-radius:999px;text-decoration:none;border:1px solid var(--border);}
+.toc a:hover{border-color:var(--accent);color:var(--accent);}
+.stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:24px;}
+.bstat{background:var(--panel);border-radius:6px;padding:12px 10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:17px;display:block;color:var(--bright);}
+.bstat b.pos{color:var(--green);}
+.bstat span{font-size:7.8px;color:var(--muted);letter-spacing:.3px;}
+.recipe{display:flex;flex-direction:column;gap:12px;margin-bottom:12px;}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;}
+.step .n{font-family:var(--head);font-size:20px;color:var(--accent);line-height:1;}
+.step h3{font-family:var(--head);font-size:12.5px;color:var(--bright);margin-bottom:6px;}
+.step p{font-size:10.5px;color:var(--muted);line-height:1.75;}
+.step p a{color:var(--accent);text-decoration:none;}
+.step p a:hover{text-decoration:underline;}
+.step.upgrade{border-left:4px solid #b45309;}
+.rejects{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:4px 0;margin-bottom:16px;}
+.rejects li{list-style:none;padding:10px 16px;border-bottom:1px solid var(--border);font-size:10.5px;color:var(--muted);line-height:1.7;}
+.rejects li:last-child{border-bottom:none;}
+.rejects li b{color:var(--red);}
+.rejects li a{color:var(--accent);text-decoration:none;font-size:9.5px;}
+.rejects li a:hover{text-decoration:underline;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.table-scroll{overflow-x:auto;margin-bottom:16px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
+td{padding:8px;border-bottom:1px solid var(--border);}
+td.num{font-family:var(--mono);text-align:right;white-space:nowrap;}
+.pos{color:var(--green);} .neg{color:var(--red);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+@media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,minmax(0,1fr));} .step{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <h1>🏁 Empfohlene Strategie: das validierte Gesamt-Rezept</h1>
+  <div class="subtitle">Die Synthese aus 30 getesteten Hypothesen zum DAX-Weekly-Breakout -- was tatsächlich übrig bleibt, wenn man alles Verworfene weglässt</div>
+
+  <div class="callout">
+  <b>Woher das hier kommt:</b> dieses Rezept ist keine neue Behauptung, sondern die Zusammenfassung von
+  8 bestätigten, 18 verworfenen und 4 gemischten Hypothesen aus dem
+  <a href="research-log.html" target="_blank" rel="noopener noreferrer" style="color:#b45309;">🔬 Forschungsprotokoll</a>
+  und dem <a href="dax-breakout-report.html" target="_blank" rel="noopener noreferrer" style="color:#b45309;">📦 DAX-Breakout-Report</a>.
+  Jeder Baustein unten wurde explizit gegen Alternativen getestet und über zwei unabhängige
+  Zeithälften auf Robustheit geprüft -- nichts davon ist eine Annahme.
+  </div>
+
+  <div class="stat-grid">
+    <div class="bstat"><b>10-20</b><span>AKTIEN IM KORB</span></div>
+    <div class="bstat"><b class="pos">-4%</b><span>PREIS-STOP-LOSS</span></div>
+    <div class="bstat"><b class="pos">0,56</b><span>SHARPE MIT STOP (DAX-37)</span></div>
+    <div class="bstat"><b class="pos">+37%</b><span>PORTFOLIO MIT TRAILING-UPGRADE*</span></div>
+  </div>
+
+  <div class="toc">
+    <a href="#rezept">🧩 Das Rezept</a>
+    <a href="#nicht">🚫 Was NICHT reingehört</a>
+    <a href="#vorbehalte">⚠️ Geltungsbereich &amp; Vorbehalte</a>
+  </div>
+
+  <h2 id="rezept">🧩 Das Rezept</h2>
+  <div class="recipe">
+    <div class="step">
+      <div class="n">1</div>
+      <div>
+        <h3>Einstieg: Montag-Close gegen den 3-Freitags-Kanal</h3>
+        <p>Kanal = Max/Min der letzten 3 abgeschlossenen Freitags-Schlusskurse. Bricht der Montag-Schlusskurs
+        darüber/darunter aus, LONG bzw. SHORT. Das ist der eigentliche, robuste Kern der Strategie -- jeder
+        Versuch, den Einstieg zu verändern, ist gescheitert: nicht der
+        <a href="dax-breakout-report.html#entrytiming" target="_blank" rel="noopener noreferrer">Stop-Order-Einstieg</a>,
+        nicht der <a href="dax-breakout-report.html#friday-extreme" target="_blank" rel="noopener noreferrer">Freitag-Extrempunkt</a>,
+        nicht der <a href="dax-breakout-report.html#midpoint-trend" target="_blank" rel="noopener noreferrer">Midpoint-Trend</a>,
+        nicht das <a href="dax-breakout-report.html#turtle-trading" target="_blank" rel="noopener noreferrer">echte Turtle-System</a>.
+        Montag-Close wirkt selbst schon als Bestätigungsfilter gegen Fehlausbrüche.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <div>
+        <h3>Ausstieg: Freitag-Close + fixer -4%-Preis-Stop</h3>
+        <p>Ohne Stop nur Zeit-Stop (immer Freitag, egal was dazwischen passiert). Mit einem fixen
+        <a href="dax-breakout-report.html#stop35" target="_blank" rel="noopener noreferrer">-4%-Preis-Stop</a>
+        (täglich geprüft, feste Basis zum Einstieg) steigt der Sharpe deutlich -- bester Kompromiss aus
+        Gewinner-Schnitt und Verlierer-Kappung. Enger als -3% ist ein Kostenmodell-Artefakt: bei so engen
+        Stops wären reale Spreads/Slippage ein Großteil der Stop-Breite selbst, kein echter Fund.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <div>
+        <h3>Positionsgröße: Equal-Weight pro Signal</h3>
+        <p><a href="dax-breakout-report.html#moneymgmt" target="_blank" rel="noopener noreferrer">Equal-Weight</a>
+        (volles verfügbares Kapital gleichmäßig auf die Signale der Woche) schlägt Volatilitäts-Gewichtung
+        deutlich. Fixer Kapital-Slot pro Korb-Aktie ist eine mögliche, konservativere Alternative -- senkt
+        den Drawdown, kostet aber absolute Rendite (kein klarer Gewinner, reine Risikopräferenz).</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="n">4</div>
+      <div>
+        <h3>Korb: 10-20 liquide Aktien, nicht mehr, nicht weniger</h3>
+        <p>Ab <a href="dax-breakout-report.html#retail" target="_blank" rel="noopener noreferrer">N=10</a>
+        verschwindet das Klumpenrisiko komplett, die Strategie bleibt fast jede Woche aktiv. Sektor-Diversifikation
+        hilft zusätzlich speziell bei N=10. Die breite 525/533-Aktien-Stichprobe ist dagegen für ein echtes
+        Depot <b>nicht</b> direkt handelbar (zu viele gleichzeitige Positionen nötig) -- kuratierte Breite
+        schlägt rohe Masse.</p>
+      </div>
+    </div>
+    <div class="step upgrade">
+      <div class="n">★</div>
+      <div>
+        <h3>Optionales Upgrade: Trailing-Stop für bewiesene Gewinner</h3>
+        <p>Sobald ein Trade +4% im Gewinn erreicht, auf einen <a href="dax-breakout-report.html#trailing-winners" target="_blank" rel="noopener noreferrer">Trailing-Stop</a>
+        umschalten (4% unter dem seit Einstieg erreichten Hoch) statt zwangsweise am Freitag zu schließen --
+        robust bestätigt für den DAX-37 über 2020-2026: Sharpe 0,19→0,28, Portfolio +20,8%→+37,4%, UND
+        kleinerer statt größerer Max-Drawdown. Entscheidend ist dabei das <b>Nachziehen</b> des Stops selbst,
+        nicht nur das längere Halten (siehe Vorbehalte unten).</p>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="nicht">🚫 Was NICHT reingehört</h2>
+  <ul class="rejects">
+    <li><b>Pyramiding</b> (Nachkaufen bei starkem Trend) -- schadet allein, bringt nichts zusätzlich selbst in Kombination mit dem Trailing-Stop. <a href="research-log.html" target="_blank" rel="noopener noreferrer">→ Forschungsprotokoll</a></li>
+    <li><b>Engere Stops als -3%</b> -- Kostenmodell-Artefakt, kein echter Fund (Sharpe &gt;2,6 im Backtest, aber nur weil Spread/Slippage ignoriert werden). <a href="dax-breakout-report.html#drawdowns" target="_blank" rel="noopener noreferrer">→ Drawdowns &amp; Stop-Loss</a></li>
+    <li><b>Früher einsteigen</b> (Stop-Order, Freitag-Extrempunkt) -- Montag-Close ist selbst ein Bestätigungsfilter; ~50% der "Extreme" sind Fehlausbrüche, die bis Montag wieder verschwinden. <a href="dax-breakout-report.html#friday-extreme" target="_blank" rel="noopener noreferrer">→ Freitag-Extrempunkt</a></li>
+    <li><b>Tages-System statt Wochen-Rhythmus</b> (10-20 Tage-Kanal, auch das echte Turtle-System mit 2N-Stop) -- durchgängig schlechter, mehr Fehlausbrüche, höherer Drawdown. <a href="dax-breakout-report.html#turtle-trading" target="_blank" rel="noopener noreferrer">→ Echtes Turtle-Trading-System</a></li>
+    <li><b>Mittwoch-Exit statt Freitag</b> -- die Strategie lebt von der vollen Wochen-Haltedauer, kürzer im Markt kostet Sharpe. <a href="dax-breakout-report.html#scenarios" target="_blank" rel="noopener noreferrer">→ Weitere Korb-Szenarien</a></li>
+    <li><b>Mechanisch 2-3 Wochen statt 1 Woche halten</b> -- 2 Wochen ein Wash, 3 Wochen klar schlechter. Haltedauer ist kein Hebel für sich. <a href="dax-breakout-report.html#timestop-extension" target="_blank" rel="noopener noreferrer">→ Längere Haltedauer</a></li>
+    <li><b>Fixer Floor statt nachziehendem Trailing-Stop</b> -- ohne das Nachziehen gibt ein Trade fast allen Zwischengewinn wieder her, bevor er ausgestoppt wird; schlechter als sogar die einfache Baseline. <a href="dax-breakout-report.html#fixed-floor" target="_blank" rel="noopener noreferrer">→ Fixer Floor statt Trailing</a></li>
+    <li><b>"Irgendeine grüne Woche" als Weiterlaufen-Kriterium</b> -- zu schwache Hürde (50% aller Trades verlängern sich dadurch), kein robuster Gewinn. <a href="dax-breakout-report.html#ride-green-weeks" target="_blank" rel="noopener noreferrer">→ Laufen lassen bei grüner Woche</a></li>
+    <li><b>Volumen-Filter beim Ausbruch</b> -- sieht im Gesamtbild gut aus, scheitert aber am Zweiperioden-Check (Sign-Flip zwischen den Hälften). <a href="dax-breakout-report.html#volume-filter" target="_blank" rel="noopener noreferrer">→ Volumen-Filter</a></li>
+    <li><b>Donchian-Kanal-Mittellinie als Stop</b> -- schwankt mit der Kanal-Breite, mal zu eng, mal zu weit; schlechter als sogar gar kein Stop. <a href="dax-breakout-report.html#donchian-midline-stop" target="_blank" rel="noopener noreferrer">→ Kanal-Mittellinie als Stop</a></li>
+  </ul>
+
+  <h2 id="vorbehalte">⚠️ Geltungsbereich &amp; Vorbehalte</h2>
+  <div class="table-scroll">
+  <table><thead><tr><th>Baustein</th><th>Gilt für</th><th>Gilt NICHT ohne erneuten Test für</th></tr></thead><tbody>
+    <tr><td>Montag-Kanal-Einstieg + -4%-Stop + Equal-Weight + 10-20er-Korb</td><td class="num pos">DAX-37, breite Aktien-Stichprobe</td><td class="num">--</td></tr>
+    <tr><td>Trailing-Stop-Upgrade</td><td class="num pos">DAX-37 über die volle 2020-2026-Historie</td><td class="num neg">Crypto, Forex, ETFs/Funds, breite Aktien-Stichprobe -- und sogar der DAX selbst auf kürzeren, ruhigeren Zeitfenstern</td></tr>
+  </tbody></table>
+  </div>
+  <div class="methodology">
+  Der <a href="dax-breakout-report.html#trailing-allmarkets" target="_blank" rel="noopener noreferrer">Übertragungstest</a>
+  zeigt: der Trailing-Stop-Vorteil hängt an Marktphasen mit seltenen, aber lang anhaltenden Trends (wie dem
+  Corona-Crash 2020) -- nicht an einem bestimmten Markt oder Korb per se. In ruhigeren Phasen oder bei
+  anderen Asset-Klassen bringt er keinen Vorteil und kann sogar schaden. <b>Praktische Konsequenz:</b> das
+  Grundrezept (Schritte 1-4) ist die verlässliche Basis, einsetzbar ohne Vorbehalt. Das Trailing-Upgrade
+  (Schritt ★) sollte vor dem Live-Einsatz auf dem jeweils aktuellen Datenfenster neu validiert werden,
+  nicht blind aus diesem Backtest übernommen werden.
+  </div>
+
+  <div class="footer-note">
+  * Trailing-Stop-Zahlen gelten für den DAX-37 über 2020-2026 (inkl. Corona-Crash), siehe Vorbehalte oben.
+  AI-generierte, computationale Analyse -- keine Anlageberatung. Jede Zahl auf dieser Seite stammt aus
+  einem bereits veröffentlichten, über zwei Zeithälften getesteten Backtest im
+  <a href="dax-breakout-report.html" target="_blank" rel="noopener noreferrer">DAX-Breakout-Report</a>
+  bzw. <a href="research-log.html" target="_blank" rel="noopener noreferrer">Forschungsprotokoll</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+</body>
+</html>
