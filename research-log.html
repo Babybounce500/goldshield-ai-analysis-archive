@@ -142,6 +142,12 @@ tr:hover{background:var(--panel);}
     <td class="source"><a href="dax-breakout-report.html#rsi">RSI-Mean-Reversion</a></td>
   </tr>
     <tr>
+    <td class="hyp">Kanal-Breakout und RSI-Mean-Reversion als zwei parallele Kapital-Sleeves kombiniert verbessern das Ergebnis robust gegenüber dem Kanal allein</td>
+    <td class="verdict mixed">➖</td>
+    <td class="finding">Echte Diversifikation: Korrelation der wöchentlichen Portfolio-Renditen -0,20 (spürbar negativ, Trendfolge und Gegentrend kompensieren sich). 50/50-Blend senkt den Max-Drawdown spürbar bei fast gleichem Sharpe. Älteres Zeitfenster: Blend übertrifft sogar beide Einzelstrategien. Neueres Zeitfenster: RSIs eigene Schwäche zieht den Blend unter den Kanal allein. Als Bestätigungssignal auf Trade-Ebene dagegen unbrauchbar: nur 8 von 5802 Kanal-Trades haben je eine RSI-Bestätigung (die beiden Bedingungen schließen sich fast aus).</td>
+    <td class="source"><a href="dax-breakout-report.html#channel-rsi-combo">Kanal + RSI kombiniert</a></td>
+  </tr>
+    <tr>
     <td class="hyp">Aktien mit prozentual engerem Kanal haben ein besseres Chance-Risiko als Aktien mit breiterem Kanal</td>
     <td class="verdict neg">❌</td>
     <td class="finding">Das Gegenteil ist der Fall, robust in beiden Zeithälften: der breiteste Kanal-Quartil liefert die beste Ø-Trade-Rendite, der engste die schlechteste -- Faktor ~3x. Pro Symbol ist der Zusammenhang noch stärker (Korrelation Ø-Kanalbreite↔Ø-Rendite von 0,63 über alle 37 Symbole). Enge Kanäle = ruhige Seitwärtsaktien, deren Ausbrüche oft nur Rauschen sind; breite Kanäle = bereits volatile Aktien, deren weitere Ausbrüche aussagekräftiger sind.</td>

@@ -84,6 +84,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#rolling-3day">📐 3-Tages-Rolling-Channel</a>
     <a href="#channel-width">📏 Enger vs. breiter Kanal</a>
     <a href="#rsi">🔄 RSI-Mean-Reversion</a>
+    <a href="#channel-rsi-combo">🧩 Kanal + RSI kombiniert</a>
     <a href="#friday-extreme">📍 Freitag-Extrempunkt-Einstieg</a>
     <a href="#midpoint-trend">⚖️ Midpoint-Trendfolge</a>
     <a href="#donchian-midline-stop">🎯 Kanal-Mittellinie als Stop</a>
@@ -2028,6 +2029,68 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   in der ruhigeren neueren Hälfte hilft er leicht (0.02→0.07)
   -- dieselbe Regime-Abhängigkeit, die auch den Trailing-Stop-Fund einschränkt. Als Gegensignal <b>auf
   der Trendfolge</b> funktioniert RSI also nicht, als eigenständige Strategie (A) dagegen schon.
+  </div>
+
+  <h2 id="channel-rsi-combo">🧩 Kanal + RSI kombiniert: nebeneinander laufen lassen, nicht ersetzen</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Direkte Folgefrage zum RSI-Fund oben: kann man den Kanal-Breakout (Trendfolge) und RSI-Mean-Reversion
+  (Gegentrend) <b>kombinieren</b> -- entweder als zwei parallele Kapital-Sleeves (wie bei den
+  <a href="model-portfolios.html" target="_blank" rel="noopener noreferrer">Musterportfolios</a>, dort
+  DAX-Breakout + Crypto-Confirmed-Trend) oder als gegenseitiges Bestätigungssignal auf Symbol-Ebene?
+  Beide Varianten auf demselben DAX-37-2020-2026-Datensatz getestet. <b>Methodischer Hinweis:</b> die
+  Sharpe-Werte hier sind <b>Portfolio-Sharpe</b> (ein gepooltes Wochenrendite-Konto über alle 37 Symbole,
+  genau wie im Live-Tool) -- deutlich höher als die an anderer Stelle in diesem Report verwendete
+  "Ø-Sharpe-über-37-Einzelsymbole", weil hier der echte Diversifikationseffekt über viele gleichzeitige
+  Positionen mitgerechnet wird. Nicht direkt mit den Einzelsymbol-Durchschnittswerten oben vergleichbar.
+  </div>
+
+  <h3 style="font-size:12px;margin-bottom:8px;">A) Als zwei parallele Kapital-Sleeves (50/50-Blend)</h3>
+  <div class="table-scroll"><table><thead><tr><th>Sleeve</th><th>Sharpe (Portfolio)</th><th>Gesamtrendite</th><th>Max-DD</th></tr></thead><tbody>
+    <tr><td>Kanal allein</td><td class="num pos">1.608</td><td class="num pos">+242.34%</td><td class="num neg">-10.06%</td></tr>
+    <tr><td>RSI allein</td><td class="num pos">0.617</td><td class="num pos">+77.18%</td><td class="num neg">-16.87%</td></tr>
+    <tr class="best-row"><td>50/50-Blend</td><td class="num pos">1.613</td><td class="num pos">+156.72%</td><td class="num neg">-7.83%</td></tr>
+  </tbody></table></div>
+  <div class="table-scroll"><table class="period-table" style="margin-top:12px;"><thead><tr><th>Zeitraum</th><th>Kanal</th><th>RSI</th><th>Blend</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num">1.64</td><td class="num">1.03</td><td class="num pos">2.11</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num pos">1.68</td><td class="num">0.15</td><td class="num">1.05</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Gemischt -- echte Diversifikation, aber nicht robust genug für einen klaren "besser"-Fund.</b> Die
+  Korrelation der wöchentlichen Portfolio-Renditen beider Strategien liegt bei
+  <b>-0.196</b> -- spürbar negativ (anders als die nahe-null-Korrelation beim
+  DAX-Breakout/Crypto-Combo in den Musterportfolios), ein echtes Diversifikationssignal: Trendfolge und
+  Gegentrend tendieren dazu, sich gegenseitig zu kompensieren. Der 50/50-Blend senkt den Max-Drawdown
+  spürbar (-10.1% → -7.8%)
+  bei nahezu gleichem Sharpe wie der Kanal allein. In der <b>älteren</b> Zeithälfte zeigt sich der
+  Diversifikationseffekt stark -- der Blend (2.11) übertrifft
+  sogar BEIDE Einzelstrategien. In der <b>neueren</b> Hälfte dagegen zieht RSIs eigene Schwäche
+  (0.15) den Blend unter den Kanal allein
+  (1.68 → 1.05). Fazit:
+  die Diversifikation ist real (negative Korrelation, niedrigerer Drawdown), aber der Nutzen hängt von
+  der Marktphase ab -- dieselbe Regime-Abhängigkeit, die auch RSI allein einschränkt.
+  </div>
+
+  <h3 style="font-size:12px;margin:20px 0 8px;">B) Als gegenseitiges Bestätigungssignal auf Symbol-Ebene</h3>
+  <div class="table-scroll"><table><thead><tr><th>Kategorie</th><th>n</th><th>Ø Rendite</th><th>Win-Rate</th></tr></thead><tbody>
+    <tr><td>Bestätigt (Kanal + RSI gleiche Richtung)</td><td class="num">8</td><td class="num pos">+1.578%</td><td class="num">62.5%</td></tr>
+    <tr><td>Konflikt (Kanal + RSI entgegengesetzt)</td><td class="num">696</td><td class="num pos">+0.406%</td><td class="num">47.3%</td></tr>
+    <tr><td>Nur Kanal (RSI neutral)</td><td class="num">5098</td><td class="num pos">+0.432%</td><td class="num">50.4%</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Strukturell nicht nutzbar -- zu selten, um eine Aussage zu erlauben.</b> Nur
+  <b>8</b> von 5802
+  Kanal-Trades hatten überhaupt eine RSI-Bestätigung in dieselbe Richtung -- viel zu wenig für
+  Stichproben-Vertrauen (vgl. die Robustheits-Disziplin in den <a href="#retail">Retail-Depot</a>- und
+  <a href="basket-ranking.html">Körbe-Ranking</a>-Abschnitten). Das hat einen strukturellen Grund: ein
+  Kanal-Ausbruch nach oben setzt einen bereits aufwärts laufenden Kurs voraus, während RSI&lt;30 einen
+  bereits ERSCHÖPFTEN, überverkauften Kurs verlangt -- beide Bedingungen gleichzeitig zu erfüllen ist fast
+  ein Widerspruch in sich. Konflikt-Trades (Kanal bricht aus, RSI zeigt gleichzeitig das Gegenteil-Extrem)
+  sind dagegen häufig (n=696) und schneiden minimal schlechter ab als Kanal-Trades
+  ohne RSI-Signal (Win-Rate 47.3% vs.
+  50.4%) -- ein kleiner, plausibler, aber nicht belastbar
+  getesteter Effekt. <b>Fazit:</b> RSI als Bestätigungsfilter auf Trade-Ebene funktioniert nicht, weil die
+  beiden Signale sich fast gegenseitig ausschließen -- die Diversifikation lohnt sich nur auf
+  Portfolio-Ebene (siehe A), nicht auf Einzeltrade-Ebene.
   </div>
 
   <h2 id="verdict">💭 Einschätzung: ist die Strategie nutzbar?</h2>
