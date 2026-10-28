@@ -87,6 +87,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#turtle-trading">🐢 Echtes Turtle-Trading-System</a>
     <a href="#volume-filter">📊 Volumen-Filter</a>
     <a href="#trailing-winners">🚀 Gewinner laufen lassen</a>
+    <a href="#trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte</a>
     <a href="#timestop-extension">🗓️ Längere Haltedauer (2-3 Wochen)</a>
     <a href="#drawdowns">📉 Drawdowns & Stop-Loss</a>
     <a href="#stop35">🔬 3-5%-Stop im Detail</a>
@@ -705,6 +706,44 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   <b>unangetastet weiterlaufen zu lassen</b>, nicht daher, zusätzliches Kapital in sie nachzuschießen --
   mehr Größe bei schon bestätigten Trends bringt auf dieser Stichprobe keinen zusätzlichen Vorteil, aber
   auch keinen Nachteil.
+  </div>
+
+  <h2 id="trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte übertragen -- gilt der Fund universell?</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Wichtiger Gegencheck: derselbe Trailing-Stop (+4%-Trigger, 4%-Trail, identischer Montag-Einstieg) auf
+  die bereits in diesem Projekt untersuchten anderen Märkte angewendet -- Crypto, Forex, ETFs/Funds, die
+  breite 525/533-Aktien-Stichprobe. Nutzt denselben bestehenden Daten-Cache wie die ursprüngliche
+  Andere-Märkte-Analyse (~13 Monate, kürzer als das 2020-2026-DAX-Fenster -- das war schon bei der
+  ursprünglichen Analyse die verfügbare Historie für diese Symbole, also direkt vergleichbar mit jenem
+  Präzedenzfall, keine Abwertung extra für diesen Test).
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Markt</th><th>Symbole</th><th>Sharpe (Freitag-Exit)</th><th>Sharpe (Trailing)</th><th>Portfolio (Freitag-Exit)</th><th>Portfolio (Trailing)</th></tr></thead><tbody>
+    <tr><td>Crypto</td><td class="num">10</td><td class="num">-0.011</td><td class="num neg">-0.167</td><td class="num neg">-7.28%</td><td class="num neg">-12.84%</td></tr>
+    <tr><td>Forex</td><td class="num">50</td><td class="num">0.246</td><td class="num">0.246</td><td class="num pos">+1.00%</td><td class="num pos">+1.00%</td></tr>
+    <tr><td>ETFs/Funds</td><td class="num">19</td><td class="num">-0.066</td><td class="num neg">-0.073</td><td class="num neg">-0.39%</td><td class="num neg">-1.77%</td></tr>
+    <tr><td>Aktien (525/533)</td><td class="num">525</td><td class="num pos">0.239</td><td class="num">0.181</td><td class="num pos">+4.85%</td><td class="num pos">+3.57%</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin:14px 0;">
+  <b>Zwei Diagnosen hinterher:</b> (1) bei Forex sind die Zahlen identisch, weil in
+  <b>keinem einzigen</b> der 1205 geprüften Trades der Kurs je +4% erreicht hat (selbst am besten Punkt,
+  Freitag) -- FX-Wochenbewegungen sind schlicht zu klein für diesen Trigger, der Trailing-Mechanismus
+  aktiviert sich nie. (2) Um "anderer Markt" von "anderes Zeitfenster" zu trennen: DAX selbst auf genau
+  diesem kürzeren ~13-Monats-Fenster (statt 2020-2026) gerechnet zeigt Sharpe 0,127 (Freitag-Exit) gegen
+  nur 0,026 (Trailing): <b>auch der DAX selbst profitiert auf diesem jüngeren, ruhigeren Fenster nicht vom
+  Trailing-Stop.</b>
+  </div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Der Fund ist real, aber nicht universell -- er ist an die Marktphase gebunden, nicht nur an den DAX
+  als Körper.</b> Crypto und ETFs/Funds werden durch Trailing sogar schlechter, Forex bleibt unberührt
+  (Trigger greift nie), die breite Aktien-Stichprobe wird leicht schlechter statt besser. Und selbst der
+  DAX selbst zeigt auf dem jüngeren, ruhigeren 13-Monats-Fenster keinen Trailing-Vorteil -- nur über die
+  volle 2020-2026-Historie (die den COVID-Crash mit seinen ungewöhnlich lang anhaltenden,
+  einseitigen Bewegungen enthält) kommt der Effekt robust zustande. Plausibelste Lesart: Trailing-Stops
+  gewinnen vor allem in Phasen mit seltenen, aber sehr lang anhaltenden Trends (wie der Corona-Crash) --
+  in ruhigeren oder schon diversifizierten/gemischten Phasen bringt das verlängerte Halten keinen
+  zusätzlichen Vorteil und kann sogar schaden. <b>Praktische Konsequenz:</b> der Trailing-Stop-Fund oben
+  bleibt für den DAX-37 über die getestete Gesamtperiode gültig, sollte aber nicht blind auf andere
+  Körbe oder Marktphasen übertragen werden, ohne es dort erneut zu prüfen.
   </div>
 
   <h2 id="timestop-extension">🗓️ Was, wenn man einfach mechanisch länger hält? (2 und 3 Wochen fix)</h2>

@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">15</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">16</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>10</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -182,6 +182,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict mixed">➖</td>
     <td class="finding">Praktisch kein Effekt trotz 727 ausgelöster Zukäufe: Sharpe bewegt sich von 0,275 auf 0,276 (Rundungsrauschen), die leicht höhere Rendite wird von leicht höherem Max-Drawdown kompensiert. Der Trailing-Stop-Gewinn kommt vom Laufenlassen bestehender Positionen, nicht vom Nachkaufen.</td>
     <td class="source"><a href="dax-breakout-report.html#trailing-winners">Gewinner laufen lassen</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Der Trailing-Stop-Vorteil gilt genauso für andere Märkte (Crypto, Forex, ETFs/Funds, breite Aktien-Stichprobe)</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Crypto und ETFs/Funds werden durch Trailing sogar schlechter, Forex bleibt unberührt (in keinem der 1205 Trades wurde je +4% erreicht, Trigger greift nie), die breite 525/533-Aktien-Stichprobe wird leicht schlechter statt besser. Sogar der DAX selbst zeigt auf einem kürzeren, ruhigeren ~13-Monats-Fenster keinen Trailing-Vorteil (0,127→0,026) -- der Effekt hängt an der COVID-Crash-Phase mit ungewöhnlich lang anhaltenden Trends, nicht am DAX als Korb per se.</td>
+    <td class="source"><a href="dax-breakout-report.html#trailing-allmarkets">Trailing-Stop auf andere Märkte</a></td>
   </tr>
     <tr>
     <td class="hyp">Jeden Trade mechanisch 2-3 Wochen statt 1 Woche halten verbessert das Ergebnis</td>
