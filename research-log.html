@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">19</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">20</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>11</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -200,6 +200,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict neg">❌</td>
     <td class="finding">Schlechter als sogar die einfache Baseline (Sharpe 0,15 vs. 0,19), deutlich schlechter als der Trailing-Stop (0,28). Max-Drawdown verdoppelt sich gegenüber dem Trailing-Stop (-11,9%→-25,5%) bei ähnlicher Gesamtrendite -- die Ø Gewinn-Rückgabe pro Trade verdoppelt sich fast (5,5pp→10,4pp), weil die Schwelle nicht mit neuen Hochs mitwächst. Nicht "ab +4% länger halten" ist der entscheidende Baustein, sondern das Nachziehen der Absicherung selbst.</td>
     <td class="source"><a href="dax-breakout-report.html#fixed-floor">Fixer Floor statt Trailing</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Die Strategie funktioniert auch auf echten Indizes selbst gehandelt, nicht nur auf einem diversifizierten Aktienkorb</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Gepoolt über 8 globale Indizes (DAX, S&amp;P 500, Nasdaq 100, Dow Jones, Euro Stoxx 50, Nikkei 225, Hang Seng, ASX 200) ist der Sharpe negativ (-0,13). Nur DAX und Euro Stoxx 50 -- beide europäisch -- liefern ein positives Ergebnis, alle 6 anderen sind negativ, teils deutlich (Hang Seng -0,51). Max-Drawdowns durchgängig -21% bis -52%, deutlich schlimmer als jeder Aktienkorb-Test, weil ein Index eine einzige Position ist statt eines diversifizierten Korbs -- genau die Diversifikation fehlt, die den Korbgrößen-Fund trägt.</td>
+    <td class="source"><a href="dax-breakout-report.html#indices">Test auf echten Indizes</a></td>
   </tr>
     <tr>
     <td class="hyp">"Turnaround Tuesday" -- ein roter Montag kehrt sich am Dienstag häufig um</td>

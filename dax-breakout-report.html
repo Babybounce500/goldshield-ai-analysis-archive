@@ -89,6 +89,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#trailing-winners">🚀 Gewinner laufen lassen</a>
     <a href="#fixed-floor">📏 Fixer Floor statt Trailing</a>
     <a href="#weekend-gap-risk">🕳️ Wochenend-Gap-Risiko quantifiziert</a>
+    <a href="#indices">📈 Test auf echten Indizes</a>
     <a href="#trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte</a>
     <a href="#ride-green-weeks">📈 Laufen lassen, solange die Woche grün ist</a>
     <a href="#turnaround-tuesday">📅 Markt-Mythos: Turnaround Tuesday</a>
@@ -797,6 +798,38 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   ein günstiges, portfolio-weites Hedge (z.B. ein DAX-Put statt Einzeltitel-Optionen) speziell in Wochen
   mit großen offenen Trailing-Gewinnen wäre der kosteneffizienteste Ansatz -- echte Optionspreis-Daten
   fehlen uns aber, um das selbst kostenseitig zu backtesten.
+  </div>
+
+  <h2 id="indices">📈 Test auf echten Indizes -- funktioniert die Strategie auch ohne Einzelaktien-Korb?</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Alle bisherigen Tests liefen auf Körben aus <b>einzelnen Aktien</b> (DAX-37, breite Stichprobe, Crypto,
+  Forex, Funds). Naheliegende Frage: funktioniert dieselbe Montag-Kanal-Logik auch, wenn man direkt den
+  <b>Index selbst</b> handelt (z.B. über Futures/CFDs) statt einen diversifizierten Korb seiner
+  Bestandteile? 8 wichtige globale Indizes, frisch 2020-2026 abgerufen: DAX, S&amp;P 500, Nasdaq 100, Dow
+  Jones, Euro Stoxx 50, Nikkei 225, Hang Seng, ASX 200.
+  </div>
+  <div class="table-scroll">
+  <div class="table-scroll"><table><thead><tr><th>Index</th><th>Sharpe (Freitag-Exit)</th><th>Sharpe (Trailing)</th><th>Gesamtrendite (Freitag-Exit)</th><th>Max-DD (Freitag-Exit)</th></tr></thead><tbody>
+    <tr><td>DAX (Deutschland)</td><td class="num pos">0.295</td><td class="num pos">0.276</td><td class="num pos">+23.21%</td><td class="num neg">-35.30%</td></tr><tr><td>S&P 500 (USA)</td><td class="num neg">-0.316</td><td class="num neg">-0.367</td><td class="num neg">-23.98%</td><td class="num neg">-29.49%</td></tr><tr><td>Nasdaq 100 (USA)</td><td class="num neg">-0.082</td><td class="num neg">-0.030</td><td class="num neg">-12.71%</td><td class="num neg">-23.63%</td></tr><tr><td>Dow Jones (USA)</td><td class="num neg">-0.029</td><td class="num neg">-0.106</td><td class="num neg">-5.96%</td><td class="num neg">-26.20%</td></tr><tr><td>Euro Stoxx 50 (Europa)</td><td class="num pos">0.482</td><td class="num pos">0.387</td><td class="num pos">+45.23%</td><td class="num neg">-21.58%</td></tr><tr><td>Nikkei 225 (Japan)</td><td class="num neg">-0.413</td><td class="num neg">-0.260</td><td class="num neg">-33.04%</td><td class="num neg">-43.58%</td></tr><tr><td>Hang Seng (Hongkong)</td><td class="num neg">-0.505</td><td class="num neg">-0.307</td><td class="num neg">-44.78%</td><td class="num neg">-51.52%</td></tr><tr><td>ASX 200 (Australien)</td><td class="num neg">-0.448</td><td class="num neg">-0.390</td><td class="num neg">-28.42%</td><td class="num neg">-40.60%</td></tr>
+    <tr class="best-row"><td>Gepoolt (alle 8, gleichgewichtet)</td><td class="num neg">-0.127</td><td class="num neg">-0.100</td><td class="num neg">-10.06%</td><td class="num neg">-33.99%</td></tr>
+  </tbody></table></div>
+  </div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Scheitert außerhalb Europas deutlich -- und mit viel höherem Drawdown überall.</b> Gepoolt über alle
+  8 Indizes ist der Sharpe <b>negativ</b> (-0.127), nur 2 von 8
+  Indizes liefern überhaupt ein positives Ergebnis -- <b>DAX</b> und <b>Euro Stoxx 50</b>, beide
+  europäisch. S&amp;P 500, Nasdaq 100, Dow Jones, Nikkei 225, Hang Seng und ASX 200 sind alle negativ,
+  teils deutlich (Hang Seng -0.505, Nikkei
+  -0.413). Der Trailing-Stop hilft dabei nicht
+  zuverlässig -- bei manchen Indizes mildert er den Verlust leicht (Nasdaq, Hang Seng, ASX), bei anderen
+  verschlechtert er ihn (DAX, S&amp;P 500, Dow Jones, Euro Stoxx 50): kein klares Muster, weil er auf
+  einer bereits schwachen Basis aufsetzt. <b>Noch auffälliger: die Max-Drawdowns liegen durchgängig
+  zwischen -21% und -52%</b> -- deutlich schlimmer als bei jedem Aktienkorb-Test oben (dort -5% bis
+  -17%). Der Grund ist strukturell: ein einzelner Index ist <b>eine einzige Position</b>, kein
+  diversifizierter Korb -- genau die Diversifikation über 10-20+ Einzelaktien, die im
+  <a href="#retail">Korbgrößen-Fund</a> bereits als Schlüssel-Baustein bestätigt wurde, fehlt hier
+  komplett. <b>Fazit:</b> die Strategie ist ein Korb-Ansatz, kein Einzelinstrument-Ansatz -- der Index
+  selbst (auch der DAX) ist kein Ersatz für den diversifizierten Aktienkorb, trotz desselben Namens.
   </div>
 
   <h2 id="trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte übertragen -- gilt der Fund universell?</h2>
