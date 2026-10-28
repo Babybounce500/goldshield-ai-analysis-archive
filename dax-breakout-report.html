@@ -81,6 +81,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#other-markets">🌍 Andere Märkte</a>
     <a href="#deepdive">🔎 Deep-Dive</a>
     <a href="#entrytiming">⏱️ Einstiegs-Timing</a>
+    <a href="#rolling-3day">📐 3-Tages-Rolling-Channel</a>
     <a href="#friday-extreme">📍 Freitag-Extrempunkt-Einstieg</a>
     <a href="#midpoint-trend">⚖️ Midpoint-Trendfolge</a>
     <a href="#donchian-midline-stop">🎯 Kanal-Mittellinie als Stop</a>
@@ -1881,6 +1882,43 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Lektion wie beim Mittwoch-Exit-Test: öfter hinschauen und häufiger reagieren macht die Strategie nicht
   besser, es verwässert die Edge. Der wöchentliche Rhythmus ist nicht Zufall, sondern Teil dessen, was
   funktioniert.
+  </div>
+
+  <h2 id="rolling-3day">📐 3-Tages-Rolling-Channel: dieselbe Logik, aber kontinuierlich statt wöchentlich</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Eine weitere, noch nicht getestete Variante des Tages-Systems oben: statt eines 10-20-Tage-Kanals mit
+  fester Haltedauer wird hier derselbe <b>3er-Lookback</b> wie beim Original (3 Fridays) direkt auf
+  Tagesbasis übertragen -- Kanal aus den letzten 3 Handelstagen, <b>an jedem neuen Tag neu geprüft</b>.
+  Signal = LONG wenn Close über dem 3-Tages-Hoch, SHORT wenn darunter, sonst flach. Die Position folgt
+  dem Signal kontinuierlich: neue Position bei neuem Signal, sofortiger Richtungswechsel bei
+  Gegensignal, Schließung sobald der Kurs wieder in den Kanal zurückfällt. Getestet mit und ohne den
+  bereits bestätigten -4%-Stop.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Stop-Rate</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr><td>Ohne Stop</td><td class="num pos">+6.43%</td><td class="num">0.037</td><td class="num">33.5%</td><td class="num">19796</td><td class="num">--</td><td class="num pos">+12.41%</td><td class="num neg">-27.89%</td></tr>
+    <tr><td>Mit -4%-Stop</td><td class="num pos">+6.43%</td><td class="num">0.037</td><td class="num">33.5%</td><td class="num">19796</td><td class="num">3.3%</td><td class="num pos">+12.41%</td><td class="num neg">-27.89%</td></tr>
+  </tbody></table></div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>Ohne Stop</th><th>Mit -4%-Stop</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num neg">-0.03</td><td class="num neg">-0.03</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num pos">0.11</td><td class="num pos">0.11</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Verworfen -- deutlicher als jede andere Variante dieses Abschnitts.</b> Sharpe liegt bei nur
+  0.037 (praktisch Rauschen), Win-Rate fällt auf
+  33.5% -- weit unter 50%, weil der enge 3-Tages-Kanal auf fast
+  jede kleine Kursschwankung anspringt. Bezeichnend: der bereits bestätigte -4%-Stop ändert
+  <b>überhaupt nichts</b> an den Zahlen (Stop-Rate nur 3.3%) --
+  das System schließt Positionen durch den eigenen Signalwechsel so schnell wieder, dass der Stop kaum
+  je zum Zug kommt. Mit 19796 Trades insgesamt (ca.
+  535 pro Symbol über 6 Jahre) ist das außerdem ein extrem
+  umsatzstarkes System -- bei realen Handelskosten vermutlich vollständig aufgezehrt. Nicht robust über
+  die Zeithälften (-0.03 älter, 0.11
+  neuer -- beide nahe null, unterschiedliches Vorzeichen). Bestätigt dieselbe Lektion wie der
+  10-20-Tage-Test und der Mittwoch-Exit-Test, jetzt am kürzestmöglichen Lookback: je öfter man hinschaut
+  und reagiert, desto mehr verwässert sich die Edge -- der wöchentliche 3-Fridays-Rhythmus ist kein
+  beliebig skalierbares Prinzip, das auch bei 3 Tagen funktioniert, sondern an genau diesen Zeithorizont
+  gebunden.
   </div>
 
   <h2 id="verdict">💭 Einschätzung: ist die Strategie nutzbar?</h2>

@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">21</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">22</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>12</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -128,6 +128,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict pos">✅</td>
     <td class="finding">Ab N=10 verschwindet das Klumpenrisiko (0 Einzelaktien-Wochen) komplett, Strategie bleibt fast jede Woche aktiv, ohne auf Kapazität von ~230 gleichzeitigen Positionen angewiesen zu sein.</td>
     <td class="source"><a href="dax-breakout-report.html#retail">Retail-Depot 100K€</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Derselbe 3er-Lookback wie beim Original, aber auf Tagesbasis kontinuierlich geprüft (3-Tages-Rolling-Channel, Signal jeden Tag aktualisiert) schlägt den wöchentlichen Rhythmus</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Sharpe nur 0,04 (praktisch Rauschen), Win-Rate 33,5% weit unter 50%. Der bereits bestätigte -4%-Stop ändert nichts (Stop-Rate nur 3,3%) -- Positionen schließen durch eigenen Signalwechsel so schnell, dass der Stop kaum zum Zug kommt. ~535 Trades pro Symbol über 6 Jahre, bei realen Kosten vermutlich aufgezehrt. Nicht robust (Vorzeichen kippt zwischen den Zeithälften). Bestätigt am kürzestmöglichen Lookback dieselbe Lektion wie der 10-20-Tage-Test.</td>
+    <td class="source"><a href="dax-breakout-report.html#rolling-3day">3-Tages-Rolling-Channel</a></td>
   </tr>
     <tr>
     <td class="hyp">Ein echtes Tages-System (Kanal aus 10-20 Handelstagen, täglicher Einstieg, feste Haltedauer) schlägt den wöchentlichen Rhythmus</td>
