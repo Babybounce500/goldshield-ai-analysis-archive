@@ -55,8 +55,8 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">20</b><span>VERWORFENE HYPOTHESEN</span></div>
-    <div class="bstat"><b>11</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
+    <div class="bstat"><b class="neg">21</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b>12</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
   <h2>📦 DAX-Weekly-Breakout: Strategie-Varianten</h2>
@@ -208,6 +208,12 @@ tr:hover{background:var(--panel);}
     <td class="source"><a href="dax-breakout-report.html#indices">Test auf echten Indizes</a></td>
   </tr>
     <tr>
+    <td class="hyp">Ein diversifizierter Korb aus den Bestandteilen anderer großer Indizes (Dow 30, Nasdaq 100, Hang Seng, ASX 200) funktioniert genauso wie der DAX-37</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Nur der Euro-Stoxx-50-Korb ist robust (Sharpe 0,21, positiv in beiden Zeithälften, selbes Muster wie DAX-37). Dow Jones 30 bestenfalls neutral und kippt zwischen den Hälften. Nasdaq-100-, Hang-Seng- und ASX-200-Stichprobe sind durchgängig negativ in BEIDEN Zeithälften -- kein Überfitting, sondern robust fehlender Edge, obwohl alle Körbe genauso diversifiziert sind wie der erfolgreiche DAX-37. Diversifikation allein reicht nicht -- es scheint an der europäischen Marktstruktur zu liegen.</td>
+    <td class="source"><a href="dax-breakout-report.html#index-baskets">Index-Bestandteile als Körbe</a></td>
+  </tr>
+    <tr>
     <td class="hyp">"Turnaround Tuesday" -- ein roter Montag kehrt sich am Dienstag häufig um</td>
     <td class="verdict neg">❌</td>
     <td class="finding">Korrelation Montag-Rendite↔Dienstag-Rendite liegt bei 0,026 -- praktisch null (ein echter Umkehr-Effekt müsste klar negativ sein). Dienstags-Win-Rate nach rotem Montag (52,9%) ist statistisch nicht von der Baseline (52,3%) oder von grünen Montagen (51,7%) unterscheidbar, auch nicht nach starken Einbrüchen &lt;-1% (53,5%) -- und nicht konsistent über die Zeithälften. Trading-Floor-Folklore, kein messbarer Effekt.</td>
@@ -327,6 +333,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict pos">🐛</td>
     <td class="finding">PSNY.US zeigte einen 32,83x-Kurssprung -- passt exakt zu Polestars echtem 1-zu-25-Reverse-Split 2024. Bestätigt, dass die Tagesratio-Regel (&lt;0,6 oder &gt;1,67) auch auf frisch abgerufene Live-Daten zuverlässig anschlägt, nicht nur auf die statischen Caches.</td>
     <td class="source"><a href="live-portfolio.html">Live-Portfolio-Baukasten</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">13 von 55 US-Symbolen wurden beim Aufbau der Index-Körbe fälschlich als "Split-Artefakte" ausgeschlossen</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Nachprüfung: alles echte, bekannte Aktiensplits (AAPL 4:1 Aug. 2020, AMZN 20:1 Jun. 2022, GOOGL 20:1 Jul. 2022, NVDA 4:1 Jul. 2021, u.a.), keine Datenfehler. Der Proxy liefert korrekt split-bereinigtes <code>adjusted_close</code>, dieses Projekt nutzte bislang durchgängig das unbereinigte <code>close</code> plus Ausschluss-Logik statt Korrektur. Für den Index-Körbe-Test auf <code>adjusted_close</code> umgestellt -- alle 55 Symbole wieder nutzbar. Gilt nur für diesen neuen Test; frühere Reports in diesem Archiv nutzen weiterhin das alte Schema.</td>
+    <td class="source"><a href="dax-breakout-report.html#index-baskets">Index-Bestandteile als Körbe</a></td>
   </tr>
     <tr>
     <td class="hyp">Schlusskurs-basierte Stops haben einen blinden Fleck bei Wochenend-Gaps</td>

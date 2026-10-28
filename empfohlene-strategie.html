@@ -161,18 +161,24 @@ td.num{font-family:var(--mono);text-align:right;white-space:nowrap;}
   <h2 id="vorbehalte">⚠️ Geltungsbereich &amp; Vorbehalte</h2>
   <div class="table-scroll">
   <table><thead><tr><th>Baustein</th><th>Gilt für</th><th>Gilt NICHT ohne erneuten Test für</th></tr></thead><tbody>
-    <tr><td>Montag-Kanal-Einstieg + -4%-Stop + Equal-Weight + 10-20er-Korb</td><td class="num pos">DAX-37, breite Aktien-Stichprobe</td><td class="num">--</td></tr>
+    <tr><td>Montag-Kanal-Einstieg + -4%-Stop + Equal-Weight + 10-20er-Korb</td><td class="num pos">DAX-37, breite Aktien-Stichprobe, Euro-Stoxx-50-Korb</td><td class="num neg">Dow-30-, Nasdaq-100-, Hang-Seng- und ASX-200-Körbe (robust negativ bzw. bestenfalls neutral, trotz identischer Diversifikation) -- und erst recht die Indizes selbst statt eines Aktienkorbs</td></tr>
     <tr><td>Trailing-Stop-Upgrade</td><td class="num pos">DAX-37 über die volle 2020-2026-Historie</td><td class="num neg">Crypto, Forex, ETFs/Funds, breite Aktien-Stichprobe -- und sogar der DAX selbst auf kürzeren, ruhigeren Zeitfenstern</td></tr>
   </tbody></table>
   </div>
   <div class="methodology">
-  Der <a href="dax-breakout-report.html#trailing-allmarkets" target="_blank" rel="noopener noreferrer">Übertragungstest</a>
-  zeigt: der Trailing-Stop-Vorteil hängt an Marktphasen mit seltenen, aber lang anhaltenden Trends (wie dem
-  Corona-Crash 2020) -- nicht an einem bestimmten Markt oder Korb per se. In ruhigeren Phasen oder bei
-  anderen Asset-Klassen bringt er keinen Vorteil und kann sogar schaden. <b>Praktische Konsequenz:</b> das
-  Grundrezept (Schritte 1-4) ist die verlässliche Basis, einsetzbar ohne Vorbehalt. Das Trailing-Upgrade
-  (Schritt ★) sollte vor dem Live-Einsatz auf dem jeweils aktuellen Datenfenster neu validiert werden,
-  nicht blind aus diesem Backtest übernommen werden.
+  Der <a href="dax-breakout-report.html#index-baskets" target="_blank" rel="noopener noreferrer">Index-Körbe-Test</a>
+  zeigt: selbst ein genauso diversifizierter Korb wie der DAX-37, aber aus Dow-30-, Nasdaq-100-, Hang-Seng-
+  oder ASX-200-Werten, bringt keinen robusten Edge -- Diversifikation allein reicht nicht. Nur der
+  Euro-Stoxx-50-Korb funktioniert ähnlich gut wie der DAX. Der
+  <a href="dax-breakout-report.html#trailing-allmarkets" target="_blank" rel="noopener noreferrer">Trailing-Stop-Übertragungstest</a>
+  zeigt zusätzlich: der Trailing-Stop-Vorteil hängt an Marktphasen mit seltenen, aber lang anhaltenden
+  Trends (wie dem Corona-Crash 2020) -- nicht an einem bestimmten Markt oder Korb per se. In ruhigeren
+  Phasen oder bei anderen Asset-Klassen bringt er keinen Vorteil und kann sogar schaden. <b>Praktische
+  Konsequenz:</b> das Grundrezept (Schritte 1-4) ist für europäische (insbesondere deutsche/Eurozonen-)
+  Blue-Chip-Körbe die verlässliche Basis -- für US-, Hongkong- oder australische Körbe müsste die
+  Strategie erst eigenständig neu validiert werden, nicht einfach übertragen werden. Das Trailing-Upgrade
+  (Schritt ★) sollte zusätzlich vor dem Live-Einsatz auf dem jeweils aktuellen Datenfenster neu validiert
+  werden, nicht blind aus diesem Backtest übernommen werden.
   </div>
   <div class="methodology">
   Zusätzlicher Vorbehalt beim Trailing-Upgrade: es lässt ~15-17% der Trades mehrwöchig offen, mit echter

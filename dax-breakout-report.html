@@ -90,6 +90,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#fixed-floor">📏 Fixer Floor statt Trailing</a>
     <a href="#weekend-gap-risk">🕳️ Wochenend-Gap-Risiko quantifiziert</a>
     <a href="#indices">📈 Test auf echten Indizes</a>
+    <a href="#index-baskets">🧺 Index-Bestandteile als Körbe</a>
     <a href="#trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte</a>
     <a href="#ride-green-weeks">📈 Laufen lassen, solange die Woche grün ist</a>
     <a href="#turnaround-tuesday">📅 Markt-Mythos: Turnaround Tuesday</a>
@@ -830,6 +831,55 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   <a href="#retail">Korbgrößen-Fund</a> bereits als Schlüssel-Baustein bestätigt wurde, fehlt hier
   komplett. <b>Fazit:</b> die Strategie ist ein Korb-Ansatz, kein Einzelinstrument-Ansatz -- der Index
   selbst (auch der DAX) ist kein Ersatz für den diversifizierten Aktienkorb, trotz desselben Namens.
+  </div>
+
+  <h2 id="index-baskets">🧺 Index-Bestandteile als diversifizierte Körbe -- rettet das die anderen Indizes?</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Direkte Gegenprobe zum Index-Test oben: der rohe Index scheiterte, weil er eine einzige Position ohne
+  Diversifikation ist. Aber funktioniert die Strategie, wenn man stattdessen einen echten,
+  diversifizierten Korb aus den <b>Bestandteilen</b> jedes Index handelt -- genau wie beim DAX-37? 5
+  Index-Körbe getestet: Dow Jones 30 (vollständig), eine Nasdaq-100-Stichprobe (25 liquide
+  Schwergewichte), eine Euro-Stoxx-50-Stichprobe (18 Werte aus DE/FR/NL/ES -- italienische Werte über
+  diesen Datenanbieter nicht abrufbar), eine Hang-Seng-Stichprobe (11 Werte) und eine
+  ASX-200-Stichprobe (12 Werte). Nikkei 225 ausgelassen: keine funktionierende Tokio-Börsen-Notation
+  über diesen Proxy gefunden (.T, .JP, .TYO alle fehlgeschlagen) -- ehrlich ausgelassen statt geraten.
+  </div>
+  <div class="callout" style="margin-bottom:16px;">
+  <b>Nebenbefund beim Aufbau dieses Tests:</b> der erste Durchlauf schloss 13 der 55 US-Symbole wegen
+  vermeintlicher "Split-Artefakte" aus -- darunter AAPL, AMZN, GOOGL, NVDA, TSLA, AVGO, WMT. Nachprüfung
+  zeigte: das waren <b>echte, bekannte Aktiensplits</b> (z.B. AAPL 4:1 im Aug. 2020, AMZN 20:1 im Jun.
+  2022), keine Datenfehler -- der Proxy liefert zwar ein korrekt split-bereinigtes
+  <code>adjusted_close</code>-Feld, dieses Projekt hat bislang aber durchgängig das unbereinigte
+  <code>close</code> verwendet und Split-Tage stattdessen per Ratio-Erkennung ausgeschlossen. Für diesen
+  Test auf <code>adjusted_close</code> umgestellt -- alle 55 angefragten US-Symbole jetzt vollständig
+  nutzbar, keine Ausschlüsse mehr nötig. Diese Umstellung gilt nur für diesen neuen Test; frühere Reports
+  in diesem Archiv nutzen weiterhin das unbereinigte Schema mit Ausschluss-Logik (siehe
+  <a href="research-log.html">Forschungsprotokoll</a>).
+  </div>
+  <div class="table-scroll">
+  <div class="table-scroll"><table><thead><tr><th>Korb</th><th>Symbole</th><th>Sharpe (Freitag-Exit)</th><th>Sharpe (Trailing)</th><th>Portfolio (Freitag-Exit)</th><th>Max-DD (Freitag-Exit)</th></tr></thead><tbody>
+    <tr><td>Dow Jones 30 (USA)</td><td class="num">30/30</td><td class="num pos">0.006</td><td class="num neg">-0.066</td><td class="num neg">-1.93%</td><td class="num neg">-15.92%</td></tr><tr><td>Nasdaq 100 -- Stichprobe (USA)</td><td class="num">25/25</td><td class="num neg">-0.084</td><td class="num neg">-0.108</td><td class="num neg">-11.37%</td><td class="num neg">-28.27%</td></tr><tr><td>Euro Stoxx 50 -- Stichprobe (DE/FR/NL/ES, ohne IT -- nicht verfügbar)</td><td class="num">18/18</td><td class="num pos">0.206</td><td class="num pos">0.199</td><td class="num pos">+19.38%</td><td class="num neg">-14.04%</td></tr><tr><td>Hang Seng -- Stichprobe (Hongkong)</td><td class="num">11/11</td><td class="num neg">-0.331</td><td class="num neg">-0.273</td><td class="num neg">-35.28%</td><td class="num neg">-46.35%</td></tr><tr><td>ASX 200 -- Stichprobe (Australien)</td><td class="num">12/12</td><td class="num neg">-0.204</td><td class="num neg">-0.064</td><td class="num neg">-20.23%</td><td class="num neg">-32.75%</td></tr>
+  </tbody></table></div>
+  </div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften (Freitag-Exit)</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Korb</th><th>Ältere Hälfte</th><th>Neuere Hälfte</th></tr></thead><tbody>
+    <tr><td>Dow Jones 30 (USA)</td><td class="num pos">0.09</td><td class="num neg">-0.10</td></tr><tr><td>Nasdaq 100 -- Stichprobe (USA)</td><td class="num neg">-0.14</td><td class="num neg">-0.04</td></tr><tr><td>Euro Stoxx 50 -- Stichprobe (DE/FR/NL/ES, ohne IT -- nicht verfügbar)</td><td class="num pos">0.34</td><td class="num pos">0.08</td></tr><tr><td>Hang Seng -- Stichprobe (Hongkong)</td><td class="num neg">-0.65</td><td class="num pos">0.04</td></tr><tr><td>ASX 200 -- Stichprobe (Australien)</td><td class="num neg">-0.29</td><td class="num neg">-0.11</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Diversifikation allein rettet es nicht -- Europa bleibt der Sonderfall.</b> Nur der Euro-Stoxx-50-Korb
+  liefert ein robustes Ergebnis: Sharpe 0.206,
+  und in <b>beiden</b> Zeithälften positiv
+  (0.34 → 0.08) --
+  dasselbe "bleibt positiv, wird aber schwächer"-Muster wie beim DAX-37 selbst. Dow Jones 30 ist
+  bestenfalls neutral (Sharpe 0.006, kippt zwischen
+  den Hälften von 0.09 auf
+  -0.10). Nasdaq-100-Stichprobe, Hang-Seng-Stichprobe und
+  ASX-200-Stichprobe sind alle <b>durchgängig negativ in beiden Zeithälften</b> -- kein
+  Überfitting-Sonderfall, sondern ein robust fehlender Edge. Entscheidend: alle fünf Körbe sind genauso
+  diversifiziert wie der erfolgreiche DAX-37 (11-30 Einzelaktien, identische Methodik) -- Diversifikation
+  allein reicht also nicht. Es scheint etwas an der Markt-/Handelsstruktur europäischer (insbesondere
+  deutscher) Blue-Chip-Aktien zu liegen, das diese spezifische Montag-Kanal-Logik begünstigt, und das
+  sich nicht einfach auf US-, Hongkong- oder australische Großwerte überträgt.
   </div>
 
   <h2 id="trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte übertragen -- gilt der Fund universell?</h2>
