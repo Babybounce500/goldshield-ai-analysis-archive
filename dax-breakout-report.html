@@ -647,6 +647,66 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Projekt (Mittwoch-Exit, verschiedene Tages-Systeme) bislang immer gewonnen hat.
   </div>
 
+  <h3 style="font-size:12px;margin:24px 0 8px;">Stresstest 1: Parameter-Sensitivität -- war 4%/4% ein Zufallstreffer?</h3>
+  <div class="methodology" style="margin-bottom:14px;">
+  Der +4%-Trigger und der 4%-Trail-Abstand wurden oben einfach von der bereits bestätigten Stop-Breite
+  übernommen, nie eigenständig geprüft. Sweep über Trigger {2,3,4,5,6}% × Trail {3,4,5,6}% (20
+  Kombinationen), Sharpe pro Zelle:
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Trigger ↓ / Trail →</th><th>3%</th><th>4%</th><th>5%</th><th>6%</th></tr></thead><tbody>
+    <tr><td>+2%</td><td class="num">0.199</td><td class="num">0.201</td><td class="num">0.184</td><td class="num">0.167</td></tr><tr><td>+3%</td><td class="num">0.224</td><td class="num">0.235</td><td class="num">0.248</td><td class="num">0.243</td></tr><tr class="best-row"><td>+4%</td><td class="num pos">0.249</td><td class="num pos">0.275</td><td class="num pos">0.281</td><td class="num pos">0.297</td></tr><tr><td>+5%</td><td class="num">0.243</td><td class="num">0.241</td><td class="num">0.254</td><td class="num">0.246</td></tr><tr><td>+6%</td><td class="num">0.239</td><td class="num">0.241</td><td class="num">0.263</td><td class="num">0.252</td></tr>
+  </tbody></table></div>
+  <h4 style="font-size:11px;margin:16px 0 8px;color:var(--muted);">Robustheit für Original vs. die beiden Top-Kombinationen</h4>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Kombination</th><th>Ältere Hälfte</th><th>Neuere Hälfte</th></tr></thead><tbody>
+    <tr><td>4%/4% (Original)</td><td class="num pos">0.39</td><td class="num pos">0.10</td></tr><tr><td>4%/6% (Top)</td><td class="num pos">0.42</td><td class="num pos">0.10</td></tr><tr><td>4%/5% (Top)</td><td class="num pos">0.39</td><td class="num pos">0.11</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin:14px 0;">
+  <b>Kein Zufallstreffer.</b> +4% ist über alle vier Trail-Breiten hinweg durchgängig die beste
+  Trigger-Zeile im Raster -- kein Einzel-Ausreißer, sondern ein stabiles Muster. +2% ist dagegen
+  durchgängig am schlechtesten (löst zu früh aus, lässt zu viel Rauschen in den Trailing-Modus). Die
+  beste einzelne Zelle im gesamten Raster ist 4%/6% (Sharpe 0.297),
+  knapp vor dem ursprünglich gewählten 4%/4% -- ein etwas weiterer Trail-Abstand hätte minimal mehr
+  gebracht, aber die Verbesserung ist klein und beide Top-Kombinationen bleiben in beiden Zeithälften
+  ähnlich robust wie das Original. Fazit: 4% als Trigger ist der eigentlich entscheidende Hebel, der
+  Trail-Abstand selbst ist im getesteten Bereich (3-6%) eher zweitrangig.
+  </div>
+
+  <h3 style="font-size:12px;margin:24px 0 8px;">Stresstest 2: trägt der Fund nur ein paar Short-Ausreißer (COVID-Crash)?</h3>
+  <div class="table-scroll"><table><thead><tr><th>Richtung</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite/Trade</th><th>Trades ≥+10%</th><th>Trades ≥+20%</th></tr></thead><tbody>
+    <tr><td>LONG</td><td class="num">2754</td><td class="num">49.9%</td><td class="num pos">+0.277%</td><td class="num">107</td><td class="num">22</td></tr>
+    <tr><td>SHORT</td><td class="num">2169</td><td class="num">47.9%</td><td class="num pos">+0.312%</td><td class="num">94</td><td class="num">28</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin:14px 0;">
+  <b>Nein, breit verteilt.</b> LONG hat sogar mehr große Gewinner (107 Trades
+  ≥+10%) als SHORT (94), beide mit vergleichbarer Ø-Rendite pro Trade
+  (+0.28% vs. +0.31%). Das
+  SAP.XETRA-COVID-Short-Beispiel oben ist eine gute Illustration, aber nicht der Fund selbst -- der
+  Trailing-Stop-Vorteil ist über beide Richtungen verteilt, nicht von einer Handvoll Krisen-Shorts
+  getragen.
+  </div>
+
+  <h3 style="font-size:12px;margin:24px 0 8px;">Stresstest 3: hilft Pyramiding (Nachkaufen bei bestätigtem Trend) zusätzlich?</h3>
+  <div class="methodology" style="margin-bottom:14px;">
+  Pyramiding allein war oben bereits verworfen -- aber ohne Trailing-Stop. Jetzt: sobald eine Position
+  bereits im Trailing-Modus ist (also +4% bewiesen hat) UND ein frisches Signal in derselben Richtung
+  auftritt, wird eine 2. Einheit zum aktuellen Kurs hinzugefügt (max. 2 Einheiten, jede mit eigenem
+  Stop/Trailing, Symbol-Rendite = Durchschnitt der offenen Einheiten).
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Pyramiding-Zukäufe</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr><td>Nur Trailing (Baseline)</td><td class="num">0.275</td><td class="num">49.0%</td><td class="num">4923</td><td class="num">0</td><td class="num pos">+37.40%</td><td class="num neg">-11.86%</td></tr>
+    <tr><td>Trailing + Pyramiding</td><td class="num">0.276</td><td class="num">48.6%</td><td class="num">5645</td><td class="num">727</td><td class="num pos">+38.63%</td><td class="num neg">-12.65%</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Praktisch kein Effekt -- weder positiv noch negativ.</b> Sharpe bewegt sich von
+  0.275 auf 0.276
+  (Rundungsrauschen), die leicht höhere Portfolio-Rendite wird von einem leicht größeren Max-Drawdown
+  kompensiert -- trotz 727 tatsächlich ausgelösten
+  Pyramiding-Zukäufen. Der Trailing-Stop-Gewinn kommt also wirklich daher, bereits laufende Positionen
+  <b>unangetastet weiterlaufen zu lassen</b>, nicht daher, zusätzliches Kapital in sie nachzuschießen --
+  mehr Größe bei schon bestätigten Trends bringt auf dieser Stichprobe keinen zusätzlichen Vorteil, aber
+  auch keinen Nachteil.
+  </div>
+
   <h2 id="timestop-extension">🗓️ Was, wenn man einfach mechanisch länger hält? (2 und 3 Wochen fix)</h2>
   <div class="methodology" style="margin-bottom:16px;">
   Gegenprobe zum Trailing-Stop oben: was, wenn man statt trendstärke-abhängig einfach <b>jeden</b> Trade

@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">14</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">15</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>10</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -168,7 +168,19 @@ tr:hover{background:var(--panel);}
     <tr>
     <td class="hyp">Gewinner über die 1-Wochen-Grenze hinaus laufen lassen (Trailing-Stop ab +4% im Gewinn) verbessert das Ergebnis</td>
     <td class="verdict pos">✅</td>
-    <td class="finding">Sharpe steigt von 0,19 auf 0,28, Portfolio-Rendite fast verdoppelt (+20,8%→+37,4%) bei KLEINEREM statt größerem Max-Drawdown -- und robust in BEIDEN Zeithälften besser, kein Sign-Flip. Nur 15% der Trades laufen über eine Woche hinaus, liefern aber einen überproportionalen Anteil des Zugewinns.</td>
+    <td class="finding">Sharpe steigt von 0,19 auf 0,28, Portfolio-Rendite fast verdoppelt (+20,8%→+37,4%) bei KLEINEREM statt größerem Max-Drawdown -- und robust in BEIDEN Zeithälften besser, kein Sign-Flip. Nur 15% der Trades laufen über eine Woche hinaus, liefern aber einen überproportionalen Anteil des Zugewinns. Gegengecheckt: nicht von ein paar Short-Ausreißern getragen -- LONG hat sogar mehr große Gewinner (107 Trades ≥+10%) als SHORT (94), beide mit vergleichbarer Ø-Rendite.</td>
+    <td class="source"><a href="dax-breakout-report.html#trailing-winners">Gewinner laufen lassen</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Der 4%-Trigger/4%-Trail des Trailing-Stops war ein Zufallstreffer, eine andere Kombination wäre deutlich besser</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Sweep über Trigger {2-6%} × Trail {3-6%} (20 Kombinationen): +4% ist über ALLE Trail-Breiten hinweg durchgängig die beste Trigger-Zeile, +2% durchgängig die schlechteste -- stabiles Muster, kein Einzel-Ausreißer. Die beste Einzelzelle (4%/6%, Sharpe 0,297) liegt nur knapp vor dem Original (4%/4%, Sharpe 0,275), beide ähnlich robust über beide Zeithälften.</td>
+    <td class="source"><a href="dax-breakout-report.html#trailing-winners">Gewinner laufen lassen</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Pyramiding (2. Einheit nachkaufen, sobald die 1. bereits im Trailing-Modus ist) verbessert den Trailing-Stop zusätzlich</td>
+    <td class="verdict mixed">➖</td>
+    <td class="finding">Praktisch kein Effekt trotz 727 ausgelöster Zukäufe: Sharpe bewegt sich von 0,275 auf 0,276 (Rundungsrauschen), die leicht höhere Rendite wird von leicht höherem Max-Drawdown kompensiert. Der Trailing-Stop-Gewinn kommt vom Laufenlassen bestehender Positionen, nicht vom Nachkaufen.</td>
     <td class="source"><a href="dax-breakout-report.html#trailing-winners">Gewinner laufen lassen</a></td>
   </tr>
     <tr>
