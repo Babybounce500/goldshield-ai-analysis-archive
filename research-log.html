@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">17</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">18</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>10</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -194,6 +194,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict neg">❌</td>
     <td class="finding">Sharpe über die Gesamtperiode praktisch identisch (0,189 vs. 0,189, ein Wash), Win-Rate fällt deutlich (50,1%→33,2%). Zeithälften kippen das Vorzeichen (älter 0,29→0,35 besser, neuer 0,02→-0,04 schlechter) -- derselbe Überfitting-Verdacht wie beim Freitag-Extrempunkt-Test. "Irgendeine grüne Woche" ist eine zu schwache Hürde (50% aller Trades verlängern sich dadurch); der oben bestätigte tägliche Trailing-Stop verlangt dagegen eine echte +4%-Bewegung, bevor er in den Laufenlassen-Modus schaltet.</td>
     <td class="source"><a href="dax-breakout-report.html#ride-green-weeks">Laufen lassen bei grüner Woche</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Nach +4% ohne nachziehenden Trailing-Stop laufen lassen (fixer Floor bei +4%) schlägt den Trailing-Stop</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Schlechter als sogar die einfache Baseline (Sharpe 0,15 vs. 0,19), deutlich schlechter als der Trailing-Stop (0,28). Max-Drawdown verdoppelt sich gegenüber dem Trailing-Stop (-11,9%→-25,5%) bei ähnlicher Gesamtrendite -- die Ø Gewinn-Rückgabe pro Trade verdoppelt sich fast (5,5pp→10,4pp), weil die Schwelle nicht mit neuen Hochs mitwächst. Nicht "ab +4% länger halten" ist der entscheidende Baustein, sondern das Nachziehen der Absicherung selbst.</td>
+    <td class="source"><a href="dax-breakout-report.html#fixed-floor">Fixer Floor statt Trailing</a></td>
   </tr>
     <tr>
     <td class="hyp">Jeden Trade mechanisch 2-3 Wochen statt 1 Woche halten verbessert das Ergebnis</td>

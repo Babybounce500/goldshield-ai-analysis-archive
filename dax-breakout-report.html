@@ -87,6 +87,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#turtle-trading">🐢 Echtes Turtle-Trading-System</a>
     <a href="#volume-filter">📊 Volumen-Filter</a>
     <a href="#trailing-winners">🚀 Gewinner laufen lassen</a>
+    <a href="#fixed-floor">📏 Fixer Floor statt Trailing</a>
     <a href="#trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte</a>
     <a href="#ride-green-weeks">📈 Laufen lassen, solange die Woche grün ist</a>
     <a href="#timestop-extension">🗓️ Längere Haltedauer (2-3 Wochen)</a>
@@ -707,6 +708,46 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   <b>unangetastet weiterlaufen zu lassen</b>, nicht daher, zusätzliches Kapital in sie nachzuschießen --
   mehr Größe bei schon bestätigten Trends bringt auf dieser Stichprobe keinen zusätzlichen Vorteil, aber
   auch keinen Nachteil.
+  </div>
+
+  <h2 id="fixed-floor">📏 Alternative: fixer Floor bei +4% statt nachziehender Trailing-Stop</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Direkte Variante des bestätigten Trailing-Stops: statt den Stop beim neuen Hoch/Tief nachzuziehen
+  (Peak minus 4%), bleibt die Schwelle hier bei genau +4% vom ursprünglichen Einstieg <b>fixiert</b> --
+  kein Nachziehen. Sobald der Trade (nach dem Erreichen von +4%) wieder unter +4% fällt, egal wie hoch
+  er zwischenzeitlich stand, wird ausgestiegen. Vor dem Erreichen von +4% identisch zur Baseline
+  (-4%-Stop, Freitag-Exit). Gleicher 2020-2026-Datensatz, gleiche Tagesauflösung wie der Trailing-Test.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Ø Gewinn-Rückgabe</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr><td>Fixer Freitag-Exit (Baseline)</td><td class="num pos">+20.55%</td><td class="num">0.187</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">--</td><td class="num pos">+20.84%</td><td class="num neg">-16.16%</td></tr>
+    <tr class="best-row"><td>Trailing-Stop (bestätigt)</td><td class="num pos">+37.41%</td><td class="num">0.275</td><td class="num">49.0%</td><td class="num">4923</td><td class="num">5.45pp</td><td class="num pos">+37.40%</td><td class="num neg">-11.86%</td></tr>
+    <tr><td>Fixer Floor bei +4% (neu)</td><td class="num pos">+44.81%</td><td class="num">0.150</td><td class="num">50.4%</td><td class="num">3010</td><td class="num">10.42pp</td><td class="num pos">+37.06%</td><td class="num neg">-25.50%</td></tr>
+  </tbody></table></div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>Fixer Freitag-Exit</th><th>Trailing-Stop</th><th>Fixer Floor</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num">0.28</td><td class="num pos">0.39</td><td class="num neg">0.12</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num">0.04</td><td class="num pos">0.10</td><td class="num">0.08</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin:14px 0;">
+  <b>Sanity-Check, SAP.XETRA:</b> Short entsperrt am 27.02.2020 bei 115,54€ (+4,70%) -- statt dort oder
+  in der Nähe geschützt zu werden, pendelt der Trade über drei Monate um die +4%-Marke, bevor er am
+  03.06.2020 mit nur noch <b>+1,81%</b> ausgestoppt wird. Ohne Nachziehen gibt der Trade einen Großteil
+  dessen, was er zwischenzeitlich wert war, komplett wieder her, bevor überhaupt reagiert wird.
+  </div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Verworfen -- der fixe Floor ist schlechter als beides, Baseline UND Trailing.</b> Sharpe fällt auf
+  0.150 -- schlechter als sogar die einfache Baseline
+  (0.187), und deutlich schlechter als der Trailing-Stop
+  (0.275). Der Portfolio-Max-Drawdown verdoppelt sich mehr als
+  gegenüber dem Trailing-Stop (-11.9% →
+  -25.5%), bei ähnlicher Gesamtrendite -- also deutlich
+  schlechteres Risiko-Rendite-Verhältnis. Die Ø Gewinn-Rückgabe verdoppelt sich fast
+  (5.4pp → 10.4pp):
+  weil die Schwelle nicht mit neuen Hochs mitwächst, kann ein Trade, der zwischenzeitlich weit über +4%
+  stand, fast seinen gesamten Gewinn wieder abgeben, bevor er endlich unter +4% fällt und ausgestoppt
+  wird. <b>Das Nachziehen selbst ist der entscheidende Baustein</b> -- nicht nur "ab +4% länger halten",
+  sondern "die Absicherung mit jedem neuen Hoch mitziehen" macht den Unterschied zwischen dem oben
+  bestätigten Fund und dieser schwächeren Variante.
   </div>
 
   <h2 id="trailing-allmarkets">🌍 Trailing-Stop auf andere Märkte übertragen -- gilt der Fund universell?</h2>
