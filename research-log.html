@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">7</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">10</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">11</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>9</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -140,6 +140,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict neg">❌</td>
     <td class="finding">Sharpe sinkt (0,23→0,13), Portfolio-Max-Drawdown verdoppelt sich fast (-15,8%→-26,2%), und das Vorzeichen kippt zwischen den Zeithälften (+0,36→-0,20) -- klassisches Überfitting-Muster. Nur 49,4% dieser "Freitag-Extreme" werden vom folgenden Montag überhaupt bestätigt, der Rest ist Fehlausbruch.</td>
     <td class="source"><a href="dax-breakout-report.html#friday-extreme">Freitag-Extrempunkt-Einstieg</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Midpoint-Trendfolge (Montag über/unter dem Mittelwert der letzten 3 Freitage, Stop = der Mittelwert selbst) schlägt den Extremwert-Breakout</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Sharpe fällt praktisch auf null (0,23→0,03), Win-Rate sinkt unter 50% (44,4%), Portfolio dreht von +29,5% auf -6,8% bei fast verdoppeltem Max-Drawdown -- und zwar in BEIDEN Zeithälften konsistent schwach, kein Einzelperioden-Artefakt. Der Mittelwert löst fast jede Woche aus statt nur bei echten Ausbrüchen und handelt damit überwiegend Rauschen.</td>
+    <td class="source"><a href="dax-breakout-report.html#midpoint-trend">Midpoint-Trendfolge</a></td>
   </tr>
   </tbody></table>
   </div>

@@ -82,6 +82,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#deepdive">🔎 Deep-Dive</a>
     <a href="#entrytiming">⏱️ Einstiegs-Timing</a>
     <a href="#friday-extreme">📍 Freitag-Extrempunkt-Einstieg</a>
+    <a href="#midpoint-trend">⚖️ Midpoint-Trendfolge</a>
     <a href="#drawdowns">📉 Drawdowns & Stop-Loss</a>
     <a href="#stop35">🔬 3-5%-Stop im Detail</a>
     <a href="#moneymgmt">💰 Money Management</a>
@@ -442,6 +443,45 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   bestätigt und verschärft den bereits oben verworfenen <a href="#entrytiming">Stop-Order-Einstieg</a>-Fund:
   der Montag-Close ist keine bloße Verzögerung, sondern ein echter, wirksamer Bestätigungsfilter -- und
   diese spezifische Variante liefert sogar eine konkrete Zahl dafür, wie oft er genau deshalb nötig ist.
+  </div>
+
+  <h2 id="midpoint-trend">⚖️ Midpoint-Trendfolge: Montag über/unter dem Mittelwert, Stop = der Mittelwert selbst</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Andere Idee als der Donchian-Breakout oben: statt gegen die <b>Extremwerte</b> der letzten 3 Freitage zu
+  handeln, wird hier der <b>Midpoint</b> (Mittelwert) dieser 3 Freitags-Schlusskurse gebildet und einfach
+  der Trend-Seite gefolgt -- Montag-Close über dem Midpoint = LONG, darunter = SHORT. Das löst viel öfter
+  aus als der Breakout (fast jede Woche, nicht nur bei echten Ausbrüchen). Als Ausstieg gilt weiterhin
+  Freitag-Schlusskurs, <b>außer</b> der Kurs durchbricht den Midpoint schon vorher (Dienstag-Donnerstag)
+  wieder in die Gegenrichtung -- dann wird genau an diesem Tag zum Schlusskurs ausgestiegen. Der Midpoint
+  ist hier also kein fixer Prozent-Stop, sondern ein dynamisches Preis-Niveau. Lookahead-frei (Midpoint
+  nutzt nur die 3 Fridays strikt vor Woche i), auf demselben 2020-2026-Datensatz wie die
+  <a href="#friday-extreme">Freitag-Extrempunkt</a>-Variante oben gerechnet.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr class="best-row"><td>Donchian-Breakout (Baseline)</td><td class="num pos">+28.45%</td><td class="num">0.228</td><td class="num">51.0%</td><td class="num">5802</td><td class="num pos">+29.53%</td><td class="num neg">-15.80%</td></tr>
+    <tr><td>Midpoint-Trendfolge (neu)</td><td class="num neg">-2.77%</td><td class="num">0.030</td><td class="num">44.4%</td><td class="num">11849</td><td class="num neg">-6.83%</td><td class="num neg">-30.72%</td></tr>
+  </tbody></table></div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit: Baseline vs. Midpoint-Trendfolge über beide Zeithälften</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>Baseline Sharpe</th><th>Midpoint-Trendfolge Sharpe</th><th>Vorzeitig gestoppt (vor Freitag)</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num pos">0.33</td><td class="num neg">0.03</td><td class="num">27.9%</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num">0.08</td><td class="num neg">-0.01</td><td class="num">30.2%</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Hypothese verworfen -- und zwar in beiden Zeithälften konsistent, nicht nur im Gesamtbild.</b> Die
+  Midpoint-Trendfolge landet bei Sharpe 0.030 (praktisch null) gegen
+  0.228 bei der Breakout-Baseline, die Win-Rate fällt unter 50% auf
+  44.4%, und das Portfolio-Ergebnis dreht komplett ins Minus
+  (+29.5% → -6.8%),
+  bei fast verdoppeltem Max-Drawdown. Anders als beim Freitag-Extrempunkt-Test oben kippt hier nicht nur
+  das Vorzeichen zwischen den Zeithälften -- die Midpoint-Variante ist in <b>beiden</b> Hälften schwach bis
+  leicht negativ, kein Zufallsartefakt einer einzelnen Periode. Plausible Erklärung: der Donchian-Breakout
+  filtert gezielt auf echte Ausbrüche (seltene, aber aussagekräftige Signale), während "über/unter dem
+  3-Wochen-Mittelwert" fast jede Woche auslöst und damit überwiegend Markt-Rauschen um den Mittelwert
+  herum handelt -- genau das Rauschen, gegen das ein Mittelwert eigentlich eine Glättung sein soll, nicht
+  ein Handelssignal. Der Midpoint-Stop bremst dabei nur 29.1% der
+  Trades vorzeitig ab -- er fängt also auch nicht genug der schlechten Trades früh genug ab, um die
+  schwache Signalqualität auszugleichen. <b>Fazit:</b> der Extremwert-Breakout bleibt der bessere Filter
+  als der simple Mittelwert-Trend.
   </div>
 
   <h2 id="drawdowns">📉 Drawdowns & Stop-Loss (bisher nur Zeit-Stop)</h2>
