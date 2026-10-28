@@ -56,6 +56,7 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
 .badge.long{background:rgba(21,128,61,.12);color:var(--green);}
 .badge.short{background:rgba(185,28,28,.12);color:var(--red);}
 .badge.flat{background:rgba(95,114,119,.12);color:var(--muted);}
+.badge.stopped{background:rgba(180,83,9,.15);color:#b45309;}
 .warn-box{background:#fde8e8;border:1px solid #f0b4b4;border-left:4px solid var(--red);border-radius:6px;padding:10px 14px;font-size:10px;color:#7a1f1f;margin-bottom:14px;line-height:1.6;}
 .methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
 .backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
@@ -161,7 +162,9 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
     <h2><span class="live-dot"></span>Aktuelle Woche: was würde ich JETZT halten?</h2>
     <div id="current-week-note" class="methodology"></div>
     <div id="warnings"></div>
+    <div class="table-scroll">
     <table><thead><tr><th>Symbol</th><th>Kanal (Long &gt;)</th><th>Kanal (Short &lt;)</th><th>Montag-Close</th><th>Signal</th><th>Live-Kurs jetzt</th><th>Unrealisiert</th></tr></thead><tbody id="current-week-body"></tbody></table>
+    </div>
 
     <h2>🔍 Aufschlüsselung: Long/Short &amp; pro Symbol</h2>
     <div class="table-scroll">
@@ -757,7 +760,7 @@ computeBtn.addEventListener('click', async () => {
     let direction = null;
     if (mondayBar.close > LONG) direction = 'LONG';
     else if (mondayBar.close < SHORT) direction = 'SHORT';
-    currentWeekRows.push({ sym, LONG, SHORT, mondayClose: mondayBar.close, direction });
+    currentWeekRows.push({ sym, LONG, SHORT, mondayClose: mondayBar.close, monday: mondayBar.date, direction });
   }
 
   // live realtime prices for symbols with an open position
@@ -777,7 +780,8 @@ computeBtn.addEventListener('click', async () => {
   document.getElementById('meta').innerHTML = usableSymbols.length + ' von ' + symbols.length + ' Symbolen verwertbar · ' + result.n + ' Handelswochen im Backtest · Win-Rate ' + fmtNum(result.winRate,0) + '% · Abruf gerade eben live vom Proxy, Zeitraum ~' + FETCH_DAYS_BACK + ' Tage zurück.' +
     (failed.length ? '<br><b style="color:var(--red);">Nicht abrufbar:</b> ' + failed.map(esc).join(', ') : '');
 
-  document.getElementById('current-week-note').textContent = 'Aktuelle Kalenderwoche (Montag ' + todayMondayISO + '). Kanal = letzte 3 abgeschlossene Freitags-Schlusskurse. "LONG"/"SHORT" = das Signal, das die Strategie diese Woche mit Montag-Einstieg tatsächlich nehmen würde.';
+  document.getElementById('current-week-note').textContent = 'Aktuelle Kalenderwoche (Montag ' + todayMondayISO + '). Kanal = letzte 3 abgeschlossene Freitags-Schlusskurse. "LONG"/"SHORT" = das Signal, das die Strategie diese Woche mit Montag-Einstieg tatsächlich nehmen würde.' +
+    (stopPct != null ? ' Da oben der -4%-Stop aktiviert ist: Positionen, die diese Woche an irgendeinem Tag (inkl. jetzt) -4% oder mehr gegen sich hatten, werden hier als "GESTOPPT" markiert -- die Strategie wäre bereits ausgestiegen, auch wenn der Kurs seitdem weiter gefallen oder sich wieder erholt hat. Dieses Tool platziert keine echten Orders, es zeigt nur, was die Regel sagt.' : ' Kein Stop aktiv -- "Unrealisiert" zeigt den vollen, ungebremsten Stand seit Montag-Einstieg bis jetzt.');
 
   const warningsEl = document.getElementById('warnings');
   const hasCrypto = usableSymbols.some(s => s.endsWith('.CC'));
@@ -802,15 +806,35 @@ computeBtn.addEventListener('click', async () => {
     if (r.error) {
       return '<tr><td>' + esc(r.sym) + '</td><td colspan="6" style="color:var(--muted);">' + esc(r.error) + '</td></tr>';
     }
-    const badgeClass = r.direction === 'LONG' ? 'long' : r.direction === 'SHORT' ? 'short' : 'flat';
-    const badgeLabel = r.direction || 'KEINE POSITION';
+    let badgeClass = r.direction === 'LONG' ? 'long' : r.direction === 'SHORT' ? 'short' : 'flat';
+    let badgeLabel = r.direction || 'KEINE POSITION';
     let liveCell = '—', pnlCell = '—';
     const rt = realtimeBySymbol[r.sym];
-    if (r.direction && rt && Number.isFinite(rt.close)) {
-      const live = rt.close;
-      const pnl = r.direction === 'LONG' ? (live - r.mondayClose) / r.mondayClose * 100 : (r.mondayClose - live) / r.mondayClose * 100;
-      liveCell = '€' + live.toFixed(2);
-      pnlCell = '<span class="' + (pnl>=0?'pos':'neg') + '">' + fmtPct(pnl, 2) + '</span>';
+    if (r.direction) {
+      // MAE-so-far diese Woche: gleiche Logik wie gatherTradesWithMAE, über alle bislang bekannten
+      // Tagesschlusskurse seit Montag plus den aktuellen Live-Kurs, damit "gestoppt" exakt dasselbe
+      // bedeutet wie im Backtest (nicht nur der aktuelle Stand, auch ein zwischenzeitlicher Einbruch zählt).
+      const series = perSymbol[r.sym].series;
+      const path = series.filter(p => p.date > r.monday).map(p => p.close);
+      if (rt && Number.isFinite(rt.close)) path.push(rt.close);
+      let worst = 0, currentPnl = null;
+      path.forEach((close, idx) => {
+        const ret = r.direction === 'LONG' ? (close - r.mondayClose) / r.mondayClose : (r.mondayClose - close) / r.mondayClose;
+        if (ret < worst) worst = ret;
+        if (idx === path.length - 1) currentPnl = ret;
+      });
+      if (rt && Number.isFinite(rt.close)) liveCell = '€' + rt.close.toFixed(2);
+      if (currentPnl != null) {
+        const stoppedOut = stopPct != null && worst <= -stopPct;
+        if (stoppedOut) {
+          badgeClass = 'stopped';
+          badgeLabel = r.direction + ' ⚠ GESTOPPT';
+          pnlCell = '<span class="neg">' + fmtPct(-stopPct * 100, 2) + ' (Stop)</span>' +
+            '<br><span style="font-size:8.5px;color:var(--muted);">schlechtester Stand: ' + fmtPct(worst * 100, 2) + ' · live: ' + fmtPct(currentPnl * 100, 2) + '</span>';
+        } else {
+          pnlCell = '<span class="' + (currentPnl >= 0 ? 'pos' : 'neg') + '">' + fmtPct(currentPnl * 100, 2) + '</span>';
+        }
+      }
     }
     return '<tr>' +
       '<td>' + esc(r.sym) + '</td>' +
