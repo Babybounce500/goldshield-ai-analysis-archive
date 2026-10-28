@@ -83,6 +83,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#entrytiming">⏱️ Einstiegs-Timing</a>
     <a href="#rolling-3day">📐 3-Tages-Rolling-Channel</a>
     <a href="#channel-width">📏 Enger vs. breiter Kanal</a>
+    <a href="#rsi">🔄 RSI-Mean-Reversion</a>
     <a href="#friday-extreme">📍 Freitag-Extrempunkt-Einstieg</a>
     <a href="#midpoint-trend">⚖️ Midpoint-Trendfolge</a>
     <a href="#donchian-midline-stop">🎯 Kanal-Mittellinie als Stop</a>
@@ -1960,6 +1961,73 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Wochen schon stark bewegt hat -- ein weiterer Ausbruch darüber hinaus ist ein stärkeres, aussagekräftigeres
   Signal. <b>Praktische Idee für einen Folgetest:</b> ein Mindest-Kanalbreite-Filter (z.B. nur Trades ab
   Q2/Q3 nehmen) könnte die Strategie zusätzlich verbessern -- noch nicht getestet.
+  </div>
+
+  <h2 id="rsi">🔄 RSI-Mean-Reversion: eigenständig und als Gegensignal zur Trendfolge</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Erste komplett vom Donchian-Kanal unabhängige Strategie in diesem Report: RSI(14), klassisch mit
+  Wilder-Glättung aus den Tagesschlusskursen berechnet, lookahead-frei (RSI am Montag basiert auf dem
+  Stand vom letzten abgeschlossenen Freitag). Zwei Anwendungen getestet: (A) RSI als eigenständige
+  Gegentrend-Strategie, (B) RSI als Gewinnmitnahme-Signal, das eine laufende Trendfolge-Position vorzeitig
+  schließt, sobald der Kurs ins Gegenteil-Extrem läuft.
+  </div>
+
+  <h3 style="font-size:12px;margin-bottom:8px;">A) Eigenständig: Montag-Einstieg bei RSI-Extrem (&lt;30 LONG, &gt;70 SHORT)</h3>
+  <div class="methodology" style="margin-bottom:14px;">
+  Gleicher Wochen-Rhythmus und derselbe -4%-Stop wie die Baseline, aber Einstieg nicht bei
+  Kanal-Durchbruch, sondern wenn der RSI vom letzten Freitag überverkauft (&lt;30, LONG, Wette auf
+  Erholung) oder überkauft (&gt;70, SHORT, Wette auf Rücksetzer) war.
+  </div>
+  <div class="stat-grid">
+    <div class="bstat"><b class="pos">0.316</b><span>SHARPE</span></div>
+    <div class="bstat"><b>50.2%</b><span>WIN-RATE</span></div>
+    <div class="bstat"><b class="pos">+19.90%</b><span>PORTFOLIO-GESAMTRENDITE</span></div>
+    <div class="bstat"><b class="pos">-3.76%</b><span>PORTFOLIO MAX-DD</span></div>
+  </div>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num pos">0.46</td><td class="num">52.0%</td><td class="num">702</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num pos">0.12</td><td class="num">48.4%</td><td class="num">670</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Bestätigt -- ein echter, robuster, auffällig ruhiger Nebeneffekt.</b> Sharpe 0.316,
+  positiv in <b>beiden</b> Zeithälften (0.46 → 0.12,
+  dasselbe "bleibt positiv, wird schwächer"-Muster wie beim Kanal-System). Schwächer als die
+  Kanal-Baseline mit Stop (Sharpe 0,56), aber mit einem bemerkenswert <b>niedrigen Max-Drawdown von nur
+  -3.76%</b> -- deutlich ruhiger als jede andere in diesem
+  Report getestete Variante. Mit nur 1372 Trades insgesamt (RSI-Extreme sind
+  seltener als Kanal-Ausbrüche) ist es kein Ersatz für die Hauptstrategie, aber ein eigenständig
+  funktionierender, validierter Baustein -- z.B. als ruhigere Beimischung oder als Kandidat für ein
+  eigenes Live-Tool.
+  </div>
+
+  <h3 style="font-size:12px;margin:24px 0 8px;">B) Als Gegensignal: RSI-Extrem schließt eine laufende Trendfolge-Position vorzeitig</h3>
+  <div class="methodology" style="margin-bottom:14px;">
+  Gleicher Kanal-Einstieg wie die Baseline, aber zusätzlich zum -4%-Stop: wird die Position bereits LONG
+  gehalten und der RSI steigt unter der Woche über 70 (überkauft), sofort Gewinn mitnehmen statt bis
+  Freitag zu warten -- spiegelbildlich bei SHORT und RSI unter 30.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Sharpe</th><th>Win-Rate</th><th>Vorzeitig durch RSI geschlossen</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr class="best-row"><td>Baseline (kein RSI-Exit)</td><td class="num">0.189</td><td class="num">50.1%</td><td class="num">0%</td><td class="num pos">+20.84%</td><td class="num neg">-13.40%</td></tr>
+    <tr><td>Mit RSI-Gewinnmitnahme</td><td class="num">0.149</td><td class="num">52.2%</td><td class="num">25.9%</td><td class="num pos">+12.92%</td><td class="num neg">-11.89%</td></tr>
+  </tbody></table></div>
+  <div class="table-scroll"><table class="period-table" style="margin-top:12px;"><thead><tr><th>Zeitraum</th><th>Baseline Sharpe</th><th>Mit RSI-Exit Sharpe</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num pos">0.29</td><td class="num">0.18</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num">0.02</td><td class="num pos">0.07</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Verworfen -- derselbe "Gewinner klein halten"-Fehler wie beim Fixer-Floor-Test.</b> Sharpe fällt von
+  0.189 auf 0.149, Portfolio-Rendite
+  bricht von +20.8% auf
+  +12.9% ein -- trotz <b>höherer</b> Win-Rate
+  (50.1%→52.2%) und leicht
+  niedrigerem Max-Drawdown. Klassisches Muster: RSI-Gewinnmitnahme sorgt für mehr, aber kleinere Gewinne
+  und kappt genau die starken Trendbewegungen, von denen die Strategie eigentlich lebt (vgl.
+  <a href="#trailing-winners">Trailing-Stop-Fund</a>, der das Gegenteil -- Gewinner laufen lassen --
+  bestätigt). Interessante Nuance: in der älteren, stärker trendenden Hälfte (inkl. Corona-Crash) schadet
+  der RSI-Exit deutlich (0.29→0.18),
+  in der ruhigeren neueren Hälfte hilft er leicht (0.02→0.07)
+  -- dieselbe Regime-Abhängigkeit, die auch den Trailing-Stop-Fund einschränkt. Als Gegensignal <b>auf
+  der Trendfolge</b> funktioniert RSI also nicht, als eigenständige Strategie (A) dagegen schon.
   </div>
 
   <h2 id="verdict">💭 Einschätzung: ist die Strategie nutzbar?</h2>

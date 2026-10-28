@@ -54,8 +54,8 @@ tr:hover{background:var(--panel);}
   </div>
 
   <div class="stat-grid">
-    <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">23</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="pos">9</b><span>BESTÄTIGTE FUNDE</span></div>
+    <div class="bstat"><b class="neg">24</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>12</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -128,6 +128,18 @@ tr:hover{background:var(--panel);}
     <td class="verdict pos">✅</td>
     <td class="finding">Ab N=10 verschwindet das Klumpenrisiko (0 Einzelaktien-Wochen) komplett, Strategie bleibt fast jede Woche aktiv, ohne auf Kapazität von ~230 gleichzeitigen Positionen angewiesen zu sein.</td>
     <td class="source"><a href="dax-breakout-report.html#retail">Retail-Depot 100K€</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">RSI(14)-Mean-Reversion (Montag-Einstieg bei RSI&lt;30/&gt;70) funktioniert als eigenständige, vom Kanal unabhängige Strategie</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Sharpe 0,32, robust positiv in BEIDEN Zeithälften (0,46 älter → 0,12 neuer). Schwächer als die Kanal-Baseline mit Stop (0,56), aber mit auffällig niedrigem Max-Drawdown von nur -3,76% -- ruhiger als jede andere Variante in diesem Report. Weniger Trades als der Kanal (RSI-Extreme sind seltener), aber ein eigenständig funktionierender, validierter Baustein.</td>
+    <td class="source"><a href="dax-breakout-report.html#rsi">RSI-Mean-Reversion</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">RSI-Extrem als Gegensignal nutzen, um eine laufende Trendfolge-Position vorzeitig gewinnbringend zu schließen, verbessert die Kanal-Strategie</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Sharpe fällt von 0,19 auf 0,15, Portfolio-Rendite bricht von +20,8% auf +12,1% ein -- trotz höherer Win-Rate (50,1%→52,2%). Dasselbe "Gewinner klein halten"-Problem wie beim Fixer-Floor-Test: RSI-Gewinnmitnahme kappt genau die starken Trendbewegungen, von denen die Strategie lebt. Schadet besonders in der stärker trendenden älteren Hälfte, hilft leicht in der ruhigeren neueren -- dieselbe Regime-Abhängigkeit wie beim Trailing-Stop.</td>
+    <td class="source"><a href="dax-breakout-report.html#rsi">RSI-Mean-Reversion</a></td>
   </tr>
     <tr>
     <td class="hyp">Aktien mit prozentual engerem Kanal haben ein besseres Chance-Risiko als Aktien mit breiterem Kanal</td>
