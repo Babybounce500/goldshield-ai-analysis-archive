@@ -537,13 +537,13 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   <b>nicht direkt mit den Sharpe-Werten oben vergleichbar</b>, Gesamtrendite und Max-Drawdown aber schon.
   </div>
   <div class="table-scroll"><table><thead><tr><th>System</th><th>Ø Rendite/Symbol</th><th>Sharpe (täglich)</th><th>Win-Rate</th><th>Trades</th><th>Gestoppt (2N)</th><th>Ø Rendite/Trade</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
-    <tr><td>System 1 (20/10)</td><td class="num neg">-13.40%</td><td class="num">-0.059</td><td class="num">34.2%</td><td class="num">2061</td><td class="num">37.3%</td><td class="num">+0.00%</td><td class="num neg">-15.17%</td><td class="num neg">-40.45%</td></tr>
-    <tr><td>System 2 (55/20)</td><td class="num neg">-9.44%</td><td class="num">-0.178</td><td class="num">29.0%</td><td class="num">990</td><td class="num">51.1%</td><td class="num">-0.23%</td><td class="num neg">-11.85%</td><td class="num neg">-20.34%</td></tr>
+    <tr><td>System 1 (20/10)</td><td class="num neg">-2.26%</td><td class="num">-0.020</td><td class="num">34.2%</td><td class="num">2061</td><td class="num">37.3%</td><td class="num">+0.00%</td><td class="num neg">-4.67%</td><td class="num neg">-25.29%</td></tr>
+    <tr><td>System 2 (55/20)</td><td class="num neg">-0.41%</td><td class="num">-0.139</td><td class="num">29.0%</td><td class="num">990</td><td class="num">51.1%</td><td class="num">-0.23%</td><td class="num neg">-4.02%</td><td class="num neg">-20.20%</td></tr>
   </tbody></table></div>
   <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
   <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>System 1 Sharpe</th><th>System 2 Sharpe</th></tr></thead><tbody>
-    <tr><td>Ältere Hälfte</td><td class="num">0.01</td><td class="num neg">-0.16</td></tr>
-    <tr><td>Neuere Hälfte</td><td class="num neg">-0.16</td><td class="num neg">-0.20</td></tr>
+    <tr><td>Ältere Hälfte</td><td class="num">0.06</td><td class="num neg">-0.12</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num neg">-0.13</td><td class="num neg">-0.16</td></tr>
   </tbody></table></div>
   <div class="methodology" style="margin:14px 0;">
   <b>Sanity-Check, SAP.XETRA, die ersten 3 Trades von System 1 händisch nachvollzogen:</b> Einstieg
@@ -556,13 +556,13 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
   <div class="methodology" style="margin-top:14px;">
   <b>Hypothese klar verworfen -- deutlicher als jede andere Variante in diesem Abschnitt.</b> Beide
-  Systeme liefern ein negatives Gesamtergebnis (System 1: -15.2%,
-  System 2: -11.8%) mit Win-Raten deutlich unter 50%
+  Systeme liefern ein negatives Gesamtergebnis (System 1: -4.7%,
+  System 2: -4.0%) mit Win-Raten deutlich unter 50%
   (34.2% bzw. 29.0%) -- und
   das <b>robust in beiden Zeithälften negativ bis bestenfalls neutral</b>, kein Überfitting-Sonderfall wie
   beim Freitag-Extrempunkt-Test, sondern ein durchgängig schwaches Ergebnis auf dieser DAX-Stichprobe.
   System 1 hat zusätzlich den höchsten Portfolio-Max-Drawdown dieses gesamten Abschnitts
-  (-40.4%). Die kürzeren Tages-Kanäle lösen deutlich öfter
+  (-25.3%). Die kürzeren Tages-Kanäle lösen deutlich öfter
   aus (2061 abgeschlossene Trades bei System 1 allein) und mit
   schlechterer Treffsicherheit als der wöchentliche Freitags-Kanal -- die eigentliche Turtle-Idee
   (Trendfolge mit laufen lassen der Gewinner, 2N-Stop) rettet das hier nicht, weil die Einstiegssignale auf
@@ -617,13 +617,13 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   direkt vergleichbar sind.
   </div>
   <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Mehrwöchig</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
-    <tr><td>Fixer Freitag-Exit (Baseline)</td><td class="num pos">+20.13%</td><td class="num">0.184</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">0%</td><td class="num pos">+20.74%</td><td class="num neg">-17.20%</td></tr>
-    <tr class="best-row"><td>Trailing-Stop für Gewinner (neu)</td><td class="num pos">+39.99%</td><td class="num">0.275</td><td class="num">49.0%</td><td class="num">4923</td><td class="num">15.1%</td><td class="num pos">+41.16%</td><td class="num neg">-14.98%</td></tr>
+    <tr><td>Fixer Freitag-Exit (Baseline)</td><td class="num pos">+20.55%</td><td class="num">0.187</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">0%</td><td class="num pos">+20.84%</td><td class="num neg">-16.16%</td></tr>
+    <tr class="best-row"><td>Trailing-Stop für Gewinner (neu)</td><td class="num pos">+37.41%</td><td class="num">0.275</td><td class="num">49.0%</td><td class="num">4923</td><td class="num">15.1%</td><td class="num pos">+37.40%</td><td class="num neg">-11.86%</td></tr>
   </tbody></table></div>
   <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
   <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>Fixer Freitag-Exit</th><th>Trailing-Stop</th></tr></thead><tbody>
-    <tr><td>Ältere Hälfte</td><td class="num">0.27</td><td class="num pos">0.39</td></tr>
-    <tr><td>Neuere Hälfte</td><td class="num">0.04</td><td class="num pos">0.09</td></tr>
+    <tr><td>Ältere Hälfte</td><td class="num">0.28</td><td class="num pos">0.39</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num">0.04</td><td class="num pos">0.10</td></tr>
   </tbody></table></div>
   <div class="methodology" style="margin:14px 0;">
   <b>Sanity-Check, SAP.XETRA:</b> Short-Einstieg am 24.02.2020 (COVID-Crash) bei 121,24€ -- am 27.02.
@@ -633,12 +633,12 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
   <div class="methodology" style="margin-top:14px;">
   <b>Hypothese bestätigt -- und robust in beiden Zeithälften, nicht nur im Gesamtbild.</b> Sharpe steigt
-  von 0.184 auf 0.275,
-  Portfolio-Gesamtrendite fast verdoppelt sich (+20.7% →
-  +41.2%), und der Max-Drawdown wird dabei sogar
+  von 0.187 auf 0.275,
+  Portfolio-Gesamtrendite fast verdoppelt sich (+20.8% →
+  +37.4%), und der Max-Drawdown wird dabei sogar
   <b>kleiner</b>, nicht größer. Älter UND neuer bleibt die Trailing-Variante vorne
-  (0.27→0.39
-  bzw. 0.04→0.09) --
+  (0.28→0.39
+  bzw. 0.04→0.10) --
   kein Sign-Flip wie bei den meisten anderen Varianten in diesem Abschnitt. Nur
   15.1% der Trades laufen überhaupt über eine
   Woche hinaus, aber genau diese wenigen, bereits bestätigten Trends liefern einen überproportionalen
@@ -655,23 +655,23 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   2020-2026-Dataset, gleiche Tagesauflösung.
   </div>
   <div class="table-scroll"><table><thead><tr><th>Haltedauer</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Gestoppt</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
-    <tr class="best-row"><td>1 Woche (Baseline)</td><td class="num pos">+20.13%</td><td class="num">0.184</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">15.9%</td><td class="num pos">+20.74%</td><td class="num neg">-17.20%</td></tr>
-    <tr><td>2 Wochen</td><td class="num pos">+30.54%</td><td class="num">0.192</td><td class="num">48.0%</td><td class="num">4143</td><td class="num">32.0%</td><td class="num pos">+30.70%</td><td class="num neg">-16.94%</td></tr>
-    <tr><td>3 Wochen</td><td class="num pos">+6.48%</td><td class="num">0.084</td><td class="num">43.6%</td><td class="num">3372</td><td class="num">42.9%</td><td class="num neg">+3.78%</td><td class="num neg">-22.41%</td></tr>
+    <tr class="best-row"><td>1 Woche (Baseline)</td><td class="num pos">+20.55%</td><td class="num">0.187</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">15.9%</td><td class="num pos">+20.84%</td><td class="num neg">-16.16%</td></tr>
+    <tr><td>2 Wochen</td><td class="num pos">+30.52%</td><td class="num">0.194</td><td class="num">48.0%</td><td class="num">4143</td><td class="num">32.0%</td><td class="num pos">+29.57%</td><td class="num neg">-14.05%</td></tr>
+    <tr><td>3 Wochen</td><td class="num pos">+6.42%</td><td class="num">0.079</td><td class="num">43.6%</td><td class="num">3372</td><td class="num">42.9%</td><td class="num neg">+2.78%</td><td class="num neg">-19.33%</td></tr>
   </tbody></table></div>
   <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
   <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>1 Woche</th><th>2 Wochen</th><th>3 Wochen</th></tr></thead><tbody>
-    <tr><td>Ältere Hälfte</td><td class="num pos">0.27</td><td class="num">0.25</td><td class="num">0.20</td></tr>
+    <tr><td>Ältere Hälfte</td><td class="num pos">0.28</td><td class="num">0.25</td><td class="num">0.19</td></tr>
     <tr><td>Neuere Hälfte</td><td class="num pos">0.04</td><td class="num pos">0.06</td><td class="num neg">-0.08</td></tr>
   </tbody></table></div>
   <div class="methodology" style="margin-top:14px;">
   <b>2 Wochen: Wash, kein klarer Gewinn. 3 Wochen: verworfen.</b> 2 Wochen liegt im Gesamtbild sogar
-  leicht vorne (Sharpe 0.192 vs. 0.184), aber
+  leicht vorne (Sharpe 0.194 vs. 0.187), aber
   uneinheitlich über die Zeithälften (älter leicht schlechter, neuer leicht besser als 1 Woche) -- kein
   klarer Fund in die eine oder andere Richtung. 3 Wochen ist dagegen eindeutig schlechter: Win-Rate fällt
   auf 43.6%, Stop-Rate steigt auf 42.9%
   (fast jeder zweite Trade endet im Stop statt regulär), Portfolio-Ergebnis bricht auf
-  +3.8% ein, und die neuere Hälfte kippt ins Negative.
+  +2.8% ein, und die neuere Hälfte kippt ins Negative.
   <b>Die entscheidende Erkenntnis im Vergleich zum Trailing-Stop oben:</b> mechanisch jeden Trade länger
   zu halten hilft nicht -- es verlängert nur die Zeit, in der auch schwache/falsche Trades gegen den
   -4%-Stop laufen können. Der Trailing-Stop-Fund funktioniert gerade NICHT, weil er länger hält, sondern

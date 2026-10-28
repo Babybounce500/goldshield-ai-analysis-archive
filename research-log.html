@@ -56,7 +56,7 @@ tr:hover{background:var(--panel);}
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
     <div class="bstat"><b class="neg">14</b><span>VERWORFENE HYPOTHESEN</span></div>
-    <div class="bstat"><b>9</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
+    <div class="bstat"><b>10</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
   <h2>📦 DAX-Weekly-Breakout: Strategie-Varianten</h2>
@@ -156,7 +156,7 @@ tr:hover{background:var(--panel);}
     <tr>
     <td class="hyp">Das echte Turtle-Trading-System (Tages-Kanal, Kanal-Ausstieg statt fester Haltedauer, 2N-ATR-Stop) schlägt den wöchentlichen Freitags-Kanal</td>
     <td class="verdict neg">❌</td>
-    <td class="finding">Beide Original-Varianten (System 1: 20/10-Tage, System 2: 55/20-Tage) liefern ein negatives Portfolio-Ergebnis (-15,2% bzw. -11,9%) mit Win-Raten klar unter 50% (34,2% bzw. 29,0%) -- robust negativ bis neutral in beiden Zeithälften, kein Überfitting-Sonderfall wie beim Freitag-Extrempunkt-Test, sondern durchgängig schwach. Die kürzeren Tages-Kanäle produzieren zu viele Fehlausbrüche.</td>
+    <td class="finding">Beide Original-Varianten (System 1: 20/10-Tage, System 2: 55/20-Tage) liefern ein negatives Portfolio-Ergebnis (-4,7% bzw. -4,0%) mit Win-Raten klar unter 50% (34,2% bzw. 29,0%) -- robust negativ bis bestenfalls neutral in beiden Zeithälften, kein Überfitting-Sonderfall wie beim Freitag-Extrempunkt-Test, sondern durchgängig schwach. Die kürzeren Tages-Kanäle produzieren zu viele Fehlausbrüche.</td>
     <td class="source"><a href="dax-breakout-report.html#turtle-trading">Echtes Turtle-Trading-System</a></td>
   </tr>
     <tr>
@@ -168,7 +168,7 @@ tr:hover{background:var(--panel);}
     <tr>
     <td class="hyp">Gewinner über die 1-Wochen-Grenze hinaus laufen lassen (Trailing-Stop ab +4% im Gewinn) verbessert das Ergebnis</td>
     <td class="verdict pos">✅</td>
-    <td class="finding">Sharpe steigt von 0,18 auf 0,28, Portfolio-Rendite verdoppelt sich fast (+20,7%→+41,2%) bei KLEINEREM statt größerem Max-Drawdown -- und robust in BEIDEN Zeithälften besser, kein Sign-Flip. Nur 15% der Trades laufen über eine Woche hinaus, liefern aber einen überproportionalen Anteil des Zugewinns.</td>
+    <td class="finding">Sharpe steigt von 0,19 auf 0,28, Portfolio-Rendite fast verdoppelt (+20,8%→+37,4%) bei KLEINEREM statt größerem Max-Drawdown -- und robust in BEIDEN Zeithälften besser, kein Sign-Flip. Nur 15% der Trades laufen über eine Woche hinaus, liefern aber einen überproportionalen Anteil des Zugewinns.</td>
     <td class="source"><a href="dax-breakout-report.html#trailing-winners">Gewinner laufen lassen</a></td>
   </tr>
     <tr>
@@ -285,6 +285,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict pos">🐛</td>
     <td class="finding">PSNY.US zeigte einen 32,83x-Kurssprung -- passt exakt zu Polestars echtem 1-zu-25-Reverse-Split 2024. Bestätigt, dass die Tagesratio-Regel (&lt;0,6 oder &gt;1,67) auch auf frisch abgerufene Live-Daten zuverlässig anschlägt, nicht nur auf die statischen Caches.</td>
     <td class="source"><a href="live-portfolio.html">Live-Portfolio-Baukasten</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Short-Trades über mehrere Tage wurden beim täglichen Mark-to-Market falsch verrechnet</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Turtle-Trading-, Trailing-Stop- und Mehrwochen-Tests kompoundierten (Vortagesclose-Close)/Vortagesclose pro Tag -- das telescopiert bei LONG exakt zur echten Rendite, bei SHORT aber NICHT (eigene Gegenrechnung bestätigte z.B. 5,14% statt echter 4,96% bei einem 4-Tage-Short). Verzerrung wächst mit der Haltedauer -- betraf damit gerade die mehrwöchigen Trades am stärksten. Fix: fixer Equity-Multiplikator ab Einstiegspreis statt Vortages-Kette. Alle drei Reports mit korrigierten Zahlen neu veröffentlicht (Kernaussagen blieben in allen drei Fällen gleich, nur die genauen Werte änderten sich, bei System 1 der Turtle-Tests z.B. der Max-Drawdown von -40,4% auf -25,3%).</td>
+    <td class="source"><a href="dax-breakout-report.html#turtle-trading">Echtes Turtle-Trading-System</a></td>
   </tr>
   </tbody></table>
   </div>
