@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">7</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">11</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">13</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>9</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -146,6 +146,18 @@ tr:hover{background:var(--panel);}
     <td class="verdict neg">❌</td>
     <td class="finding">Sharpe fällt praktisch auf null (0,23→0,03), Win-Rate sinkt unter 50% (44,4%), Portfolio dreht von +29,5% auf -6,8% bei fast verdoppeltem Max-Drawdown -- und zwar in BEIDEN Zeithälften konsistent schwach, kein Einzelperioden-Artefakt. Der Mittelwert löst fast jede Woche aus statt nur bei echten Ausbrüchen und handelt damit überwiegend Rauschen.</td>
     <td class="source"><a href="dax-breakout-report.html#midpoint-trend">Midpoint-Trendfolge</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Donchian-Kanal-Mittellinie ((Kanal-Hoch+Kanal-Tief)/2) ist ein besserer Stop als der fixe -4%-Preis-Stop</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Schneidet schlechter ab als gar kein Stop (Sharpe 0,18 vs. 0,23) und deutlich schlechter als der fixe -4%-Stop (Sharpe 0,56), konsistent in beiden Zeithälften. Der Abstand Einstieg-zu-Mittellinie schwankt mit der Kanal-Breite -- mal zu eng, mal zu weit -- der fixe Prozentsatz ist pro Trade gleich kalibriert und deshalb verlässlicher.</td>
+    <td class="source"><a href="dax-breakout-report.html#donchian-midline-stop">Kanal-Mittellinie als Stop</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Das echte Turtle-Trading-System (Tages-Kanal, Kanal-Ausstieg statt fester Haltedauer, 2N-ATR-Stop) schlägt den wöchentlichen Freitags-Kanal</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Beide Original-Varianten (System 1: 20/10-Tage, System 2: 55/20-Tage) liefern ein negatives Portfolio-Ergebnis (-15,2% bzw. -11,9%) mit Win-Raten klar unter 50% (34,2% bzw. 29,0%) -- robust negativ bis neutral in beiden Zeithälften, kein Überfitting-Sonderfall wie beim Freitag-Extrempunkt-Test, sondern durchgängig schwach. Die kürzeren Tages-Kanäle produzieren zu viele Fehlausbrüche.</td>
+    <td class="source"><a href="dax-breakout-report.html#turtle-trading">Echtes Turtle-Trading-System</a></td>
   </tr>
   </tbody></table>
   </div>

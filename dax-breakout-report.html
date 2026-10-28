@@ -83,6 +83,8 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#entrytiming">⏱️ Einstiegs-Timing</a>
     <a href="#friday-extreme">📍 Freitag-Extrempunkt-Einstieg</a>
     <a href="#midpoint-trend">⚖️ Midpoint-Trendfolge</a>
+    <a href="#donchian-midline-stop">🎯 Kanal-Mittellinie als Stop</a>
+    <a href="#turtle-trading">🐢 Echtes Turtle-Trading-System</a>
     <a href="#drawdowns">📉 Drawdowns & Stop-Loss</a>
     <a href="#stop35">🔬 3-5%-Stop im Detail</a>
     <a href="#moneymgmt">💰 Money Management</a>
@@ -482,6 +484,89 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Trades vorzeitig ab -- er fängt also auch nicht genug der schlechten Trades früh genug ab, um die
   schwache Signalqualität auszugleichen. <b>Fazit:</b> der Extremwert-Breakout bleibt der bessere Filter
   als der simple Mittelwert-Trend.
+  </div>
+
+  <h2 id="donchian-midline-stop">🎯 Donchian-Kanal-Mittellinie als Stop (statt fixer -4%)</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Nochmal mit dem echten Donchian-Kanal, diesmal als Stop statt als Einstiegsfilter: Einstieg exakt wie
+  die Baseline (Montag-Close jenseits von LONG/SHORT = Max/Min der letzten 3 Freitage) -- aber statt bis
+  Freitag zu halten oder einen fixen -4%-Stop zu nutzen, wird hier die <b>Kanal-Mittellinie</b>
+  ((LONG+SHORT)/2, die klassische Turtle-Mittellinie) als dynamischer Stop verwendet: durchbricht der Kurs
+  die Mittellinie vor Freitag wieder in die Gegenrichtung, wird dort ausgestiegen. Alle drei Varianten auf
+  identischen Einstiegen (gleiche 5802 Trades) und demselben
+  2020-2026-Datensatz gerechnet.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Vorzeitig gestoppt</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr><td>Kein Stop (Baseline)</td><td class="num pos">+28.45%</td><td class="num">0.228</td><td class="num">51.0%</td><td class="num">--</td><td class="num pos">+29.53%</td><td class="num neg">-15.80%</td></tr>
+    <tr class="best-row"><td>Fixer -4%-Stop</td><td class="num pos">+91.53%</td><td class="num">0.558</td><td class="num">50.1%</td><td class="num">15.9%</td><td class="num pos">+88.65%</td><td class="num neg">-5.28%</td></tr>
+    <tr><td>Donchian-Mittellinie (neu)</td><td class="num pos">+20.06%</td><td class="num">0.180</td><td class="num">48.9%</td><td class="num">16.2%</td><td class="num pos">+20.43%</td><td class="num neg">-17.22%</td></tr>
+  </tbody></table></div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>Kein Stop</th><th>Fixer -4%</th><th>Kanal-Mittellinie</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num">0.33</td><td class="num pos">0.71</td><td class="num">0.27</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num">0.08</td><td class="num pos">0.32</td><td class="num">0.02</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Hypothese verworfen.</b> Die Kanal-Mittellinie als Stop ist nicht nur schlechter als der bereits
+  bestätigte fixe -4%-Stop (Sharpe 0.180 vs.
+  0.558), sie ist sogar <b>schlechter als gar kein Stop</b>
+  (0.228) -- und das konsistent in beiden Zeithälften, nicht nur im
+  Gesamtbild. Plausible Erklärung: der Abstand von der Mittellinie zum Einstiegspreis schwankt mit der
+  Kanal-Breite -- mal ist er winzig (Mittellinie wirkt wie ein viel zu enger Stop und wirft gute Trades
+  vorzeitig raus), mal ist er riesig (wirkt kaum als Stop). Der fixe -4%-Stop ist dagegen für jeden Trade
+  gleich kalibriert -- genau die Eigenschaft, die ihn oben in der <a href="#drawdowns">Drawdown-Analyse</a>
+  schon als besten Kompromiss ausgezeichnet hat. Ein "intelligenter", an den Kanal angepasster Stop ist
+  hier also nicht klüger als ein simpler fixer Prozentsatz, sondern schlechter.
+  </div>
+
+  <h2 id="turtle-trading">🐢 Echtes Turtle-Trading-System: Tages-Kanal, Kanal-Ausstieg, 2N-Stop</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Ein letzter, grundlegend anderer Test: das klassische <b>Turtle-Trading-System</b> von Richard Dennis --
+  nicht nur eine Annäherung, sondern mit den echten Original-Parametern. Anders als die wöchentliche
+  GoldShield-Strategie oben läuft dies auf <b>Tagesbasis mit echten Hoch/Tief-Kursen</b> (nicht nur
+  Schlusskursen) und hat <b>keine feste Haltedauer</b> -- eine Position bleibt offen, bis entweder der
+  gegenläufige, kürzere Kanal bricht oder der 2N-Stop (N = 20-Tage-Average-True-Range, der klassische
+  Turtle-"N") greift. Getestet: <b>System 1</b> (20-Tage-Einstiegskanal, 10-Tage-Ausstiegskanal) und
+  <b>System 2</b> (55-Tage-Einstieg, 20-Tage-Ausstieg), beide ohne Pyramiding (ein Einzel-Trade pro Signal,
+  Positionsgrößen-Fragen werden hier bewusst nicht mitgetestet). Entscheidungen und Fills bleiben
+  schlusskurs-basiert (keine untertägige Füllung simulierbar), nur die Kanal-Grenzen selbst nutzen die
+  echten Tages-Hoch/Tief-Werte. Sharpe hier mit √252 (täglich) annualisiert statt √52 (wöchentlich) --
+  <b>nicht direkt mit den Sharpe-Werten oben vergleichbar</b>, Gesamtrendite und Max-Drawdown aber schon.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>System</th><th>Ø Rendite/Symbol</th><th>Sharpe (täglich)</th><th>Win-Rate</th><th>Trades</th><th>Gestoppt (2N)</th><th>Ø Rendite/Trade</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr><td>System 1 (20/10)</td><td class="num neg">-13.40%</td><td class="num">-0.059</td><td class="num">34.2%</td><td class="num">2061</td><td class="num">37.3%</td><td class="num">+0.00%</td><td class="num neg">-15.17%</td><td class="num neg">-40.45%</td></tr>
+    <tr><td>System 2 (55/20)</td><td class="num neg">-9.44%</td><td class="num">-0.178</td><td class="num">29.0%</td><td class="num">990</td><td class="num">51.1%</td><td class="num">-0.23%</td><td class="num neg">-11.85%</td><td class="num neg">-20.34%</td></tr>
+  </tbody></table></div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>System 1 Sharpe</th><th>System 2 Sharpe</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num">0.01</td><td class="num neg">-0.16</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num neg">-0.16</td><td class="num neg">-0.20</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin:14px 0;">
+  <b>Sanity-Check, SAP.XETRA, die ersten 3 Trades von System 1 händisch nachvollzogen:</b> Einstieg
+  14.02.2020 LONG bei 127,14€ (N=2,28, Stop bei 122,57€) -- ausgestoppt am 24.02.2020 bei 121,24€
+  (-4,64%, der erste große Corona-Crash-Tag: der Kurs riss nach unten durch den Stop statt ihn exakt zu
+  treffen, genau das Slippage-Risiko, das ein schlusskurs-basierter Stop nicht kaschiert). Dann SHORT ab
+  28.02.2020 bei 111,56€, Ausstieg per Kanal-Exit am 26.03.2020 bei 103,96€ (+6,81%, fängt einen Teil des
+  Corona-Crashs ein). Dann wieder LONG ab 09.04.2020 bei 110€, Kanal-Exit am 14.05.2020 bei 103,90€
+  (-5,55%). Mechanik funktioniert wie spezifiziert.
+  </div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Hypothese klar verworfen -- deutlicher als jede andere Variante in diesem Abschnitt.</b> Beide
+  Systeme liefern ein negatives Gesamtergebnis (System 1: -15.2%,
+  System 2: -11.8%) mit Win-Raten deutlich unter 50%
+  (34.2% bzw. 29.0%) -- und
+  das <b>robust in beiden Zeithälften negativ bis bestenfalls neutral</b>, kein Überfitting-Sonderfall wie
+  beim Freitag-Extrempunkt-Test, sondern ein durchgängig schwaches Ergebnis auf dieser DAX-Stichprobe.
+  System 1 hat zusätzlich den höchsten Portfolio-Max-Drawdown dieses gesamten Abschnitts
+  (-40.4%). Die kürzeren Tages-Kanäle lösen deutlich öfter
+  aus (2061 abgeschlossene Trades bei System 1 allein) und mit
+  schlechterer Treffsicherheit als der wöchentliche Freitags-Kanal -- die eigentliche Turtle-Idee
+  (Trendfolge mit laufen lassen der Gewinner, 2N-Stop) rettet das hier nicht, weil die Einstiegssignale auf
+  dieser Stichprobe schlicht zu viele Fehlausbrüche produzieren. Bestätigt noch einmal, von einer ganz
+  anderen Richtung her, denselben Befund wie der oben bereits verworfene
+  <a href="#daily-check">Tages-System-Test</a>: der wöchentliche Rhythmus mit Freitags-Kanal bleibt auf
+  dieser DAX-Stichprobe die bessere Wahl.
   </div>
 
   <h2 id="drawdowns">📉 Drawdowns & Stop-Loss (bisher nur Zeit-Stop)</h2>
