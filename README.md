@@ -14,6 +14,18 @@ aktuell nicht funktionierenden Signalen.
 
 > AI-generierte, computationale Analyse — keine Anlageberatung. Marktdaten können verzögert sein.
 
+## 🛠️ Werkzeuge & Live-Tools
+
+**[Workshell öffnen](https://babybounce500.github.io/goldshield-ai-analysis-archive/workshell.html)** --
+kuratierte Übersicht über alle Protokolle, Rechner und Backtests, jede Kachel mit echter Live-Vorschau.
+
+- **[🏁 Empfohlene Strategie](https://babybounce500.github.io/goldshield-ai-analysis-archive/empfohlene-strategie.html)** -- die Synthese aus mittlerweile 38 getesteten Hypothesen: das validierte Gesamt-Rezept in 5 Schritten, plus eine explizite "Was NICHT reingehört"-Liste.
+- **[📡 Live-Portfolio-Baukasten](https://babybounce500.github.io/goldshield-ai-analysis-archive/live-portfolio.html)** -- eigenen Aktienkorb eingeben, echte Live-Kurse, die validierte DAX-Breakout-Strategie live darauf anwenden.
+- **[🔄 RSI-Mean-Reversion-Baukasten](https://babybounce500.github.io/goldshield-ai-analysis-archive/rsi-mean-reversion.html)** -- komplett vom Donchian-Kanal unabhängige Gegentrend-Strategie, ebenfalls live auf jedem Korb.
+- **[🏆 Körbe-Ranking](https://babybounce500.github.io/goldshield-ai-analysis-archive/basket-ranking.html)**, **[🔥 Signal-Heatmap](https://babybounce500.github.io/goldshield-ai-analysis-archive/signal-heatmap.html)**, **[🎚️ Risiko-Rechner](https://babybounce500.github.io/goldshield-ai-analysis-archive/risiko-rechner.html)**, **[🎛️ Strategie-Rechner](https://babybounce500.github.io/goldshield-ai-analysis-archive/strategie-rechner.html)**
+- **[🔬 Forschungsprotokoll](https://babybounce500.github.io/goldshield-ai-analysis-archive/research-log.html)** -- jede getestete Hypothese, bestätigt oder verworfen, nicht nur die erfolgreichen Funde.
+- **[📚 Docs](https://babybounce500.github.io/goldshield-ai-analysis-archive/docs.html)** -- Begriffs-Glossar + API-Referenz für eigene Bot-Implementierungen.
+
 ## Live-Index (durchsuchbar, sortierbar, filterbar nach Sentiment, High-Conviction ≥5% und Fehlsignal)
 
 **[Index öffnen](https://babybounce500.github.io/goldshield-ai-analysis-archive/)**
@@ -247,6 +259,11 @@ Implementierungsfehler.
 ## 📦 DAX Weekly Breakout -- eigene Strategie, eigener Backtest
 
 **[Report öffnen](https://babybounce500.github.io/goldshield-ai-analysis-archive/dax-breakout-report.html)**
+-- mittlerweile stark erweitert über das hier Zusammengefasste hinaus (Trailing-Stop für Gewinner,
+Kanalbreite-Analyse, RSI-Mean-Reversion, Kombination beider Strategien, Index- statt Aktienkorb-Test u.v.m.,
+38 Hypothesen gesamt). Die aktuelle Synthese steht auf der **[🏁 Empfohlene-Strategie-Seite](https://babybounce500.github.io/goldshield-ai-analysis-archive/empfohlene-strategie.html)**,
+der volle Verlauf im **[🔬 Forschungsprotokoll](https://babybounce500.github.io/goldshield-ai-analysis-archive/research-log.html)** --
+dieser Abschnitt hier zeigt nur den Stand zum Zeitpunkt seiner Entstehung.
 
 Andere Handelslogik als das GoldShield-Sentiment-System, aus `OPEN-ORDNERBOOK.html` im GoldShield-Quellcode-
 Fundus: ein wöchentlicher Donchian-Channel-Breakout über 37 DAX-Aktien (Kanal = Max/Min der letzten 3
