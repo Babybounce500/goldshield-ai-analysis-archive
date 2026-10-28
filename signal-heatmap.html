@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Signal-Heatmap</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#15803d;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:980px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid #b45309;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:18px;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.opt-btn{font-family:var(--mono);font-size:11px;padding:8px 16px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;}
+.opt-btn:hover{border-color:var(--accent);}
+.opt-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:12px 20px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-weight:700;}
+.primary-btn:hover{background:#116c33;}
+.primary-btn:disabled{background:var(--muted);}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;}
+#status.err{color:var(--red);}
+.heatgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:6px;margin-top:16px;}
+.cell{border-radius:6px;padding:9px 7px;text-align:center;color:#fff;font-size:9px;}
+.cell.long{background:var(--green);}
+.cell.short{background:var(--red);}
+.cell.flat{background:var(--muted);}
+.cell .sym{font-family:var(--head);font-size:9.5px;display:block;margin-bottom:3px;word-break:break-all;}
+.cell .sig{font-size:7.5px;opacity:.9;letter-spacing:.3px;}
+.legend{display:flex;gap:16px;font-size:9.5px;color:var(--muted);margin:14px 0;flex-wrap:wrap;}
+.legend span{display:inline-flex;align-items:center;gap:5px;}
+.dot{width:9px;height:9px;border-radius:3px;display:inline-block;}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <h1>🔥 Signal-Heatmap</h1>
+  <div class="subtitle">Live-Ampel-Raster: welche Aktien eines Korbs stehen diese Woche auf LONG, SHORT oder flach -- auf einen Blick, mit echten Live-Daten</div>
+
+  <div class="callout">
+  Dieselbe Logik und dieselben Live-Daten wie der <a href="live-portfolio.html" style="color:#b45309;">Live-Portfolio-Baukasten</a>
+  (Kanal aus den 3 letzten Freitags-Schlusskursen, Montag-Close entscheidet) -- hier nur als visuelles Raster
+  statt als Tabelle, für den schnellen Überblick über einen ganzen Korb.
+  </div>
+
+  <div class="panel">
+    <div class="btn-row">
+      <button class="opt-btn active" id="load-dax37">Alle 37 DAX-Aktien</button>
+      <button class="opt-btn" id="load-dax10">10 DAX-Aktien</button>
+      <button class="opt-btn" id="load-mix20">20er-Mix (DAX+S&amp;P500)</button>
+      <button class="opt-btn" id="load-crypto">Crypto-Mix</button>
+    </div>
+    <div class="btn-row">
+      <button class="primary-btn" id="compute-btn">📡 Heatmap laden</button>
+    </div>
+    <div id="status"></div>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot" style="background:var(--green);"></span>LONG</span>
+    <span><span class="dot" style="background:var(--red);"></span>SHORT</span>
+    <span><span class="dot" style="background:var(--muted);"></span>kein Signal diese Woche</span>
+  </div>
+
+  <div class="heatgrid" id="grid"></div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung. Daten live vom selben EOD-Proxy wie der
+  Rest des Archivs. © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const baskets = {
+  'load-dax37': 'ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BEI.XETRA, BMW.XETRA, BNR.XETRA, CBK.XETRA, CON.XETRA, 1COV.XETRA, DTG.XETRA, DBK.XETRA, DB1.XETRA, DTE.XETRA, DHL.XETRA, EOAN.XETRA, FRE.XETRA, HNR1.XETRA, HEI.XETRA, HEN3.XETRA, IFX.XETRA, MBG.XETRA, MRK.XETRA, MTX.XETRA, MUV2.XETRA, RHM.XETRA, RWE.XETRA, SAP.XETRA, SRT3.XETRA, SIE.XETRA, ENR.XETRA, SHL.XETRA, SY1.XETRA, VOW3.XETRA, VNA.XETRA, ZAL.XETRA',
+  'load-dax10': 'ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BEI.XETRA, BMW.XETRA, BNR.XETRA, CBK.XETRA, CON.XETRA',
+  'load-mix20': 'ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BMW.XETRA, SAP.XETRA, SIE.XETRA, DTE.XETRA, MBG.XETRA, AAPL.US, MSFT.US, AVGO.US, INTC.US, AMAT.US, SCHW.US, CBOE.US, ACN.US, AMP.US, T.US',
+  'load-crypto': 'BTC-USD.CC, ETH-USD.CC, SOL-USD.CC, XRP-USD.CC, BNB-USD.CC, ADA-USD.CC, DOGE-USD.CC, DOT-USD.CC, AVAX-USD.CC, LINK-USD.CC',
+};
+let activeBasket = 'load-dax37';
+Object.keys(baskets).forEach(id => document.getElementById(id).addEventListener('click', () => {
+  activeBasket = id;
+  Object.keys(baskets).forEach(i => document.getElementById(i).classList.toggle('active', i === id));
+}));
+
+function buildWeeklySeries(series) {
+  const weeks = new Map();
+  for (const p of series) {
+    const d = new Date(p.date + 'T00:00:00Z');
+    const dow = d.getUTCDay();
+    if (dow !== 1 && dow !== 5) continue;
+    const thursday = new Date(d);
+    thursday.setUTCDate(d.getUTCDate() + (4 - (dow === 0 ? 7 : dow)));
+    const isoYear = thursday.getUTCFullYear();
+    const jan1 = new Date(Date.UTC(isoYear, 0, 1));
+    const isoWeek = Math.ceil((((thursday - jan1) / 86400000) + 1) / 7);
+    const key = isoYear + '-W' + isoWeek;
+    if (!weeks.has(key)) weeks.set(key, {});
+    if (dow === 1) { weeks.get(key).monday = p.date; weeks.get(key).mondayClose = p.close; }
+    if (dow === 5) { weeks.get(key).friday = p.date; weeks.get(key).fridayClose = p.close; }
+  }
+  return [...weeks.entries()].filter(([, w]) => w.mondayClose != null && w.fridayClose != null)
+    .map(([key, w]) => ({ weekKey: key, ...w })).sort((a, b) => a.monday.localeCompare(b.monday));
+}
+
+function mostRecentMondayISO(fromDate) {
+  const d = new Date(Date.UTC(fromDate.getUTCFullYear(), fromDate.getUTCMonth(), fromDate.getUTCDate()));
+  const day = d.getUTCDay();
+  const diff = day === 0 ? 6 : day - 1;
+  d.setUTCDate(d.getUTCDate() - diff);
+  return d.toISOString().slice(0, 10);
+}
+
+async function fetchHistorical(symbol) {
+  const from = new Date();
+  from.setUTCDate(from.getUTCDate() - 60);
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + from.toISOString().slice(0, 10));
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close))).map(h => ({ date: h.date, close: Number(h.close) })).sort((a, b) => a.date.localeCompare(b.date));
+}
+
+const statusEl = document.getElementById('status');
+const computeBtn = document.getElementById('compute-btn');
+computeBtn.addEventListener('click', async () => {
+  const symbols = baskets[activeBasket].split(',').map(s => s.trim());
+  computeBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + symbols.length + ' Symbole...';
+  document.getElementById('grid').innerHTML = '';
+
+  const todayMondayISO = mostRecentMondayISO(new Date());
+  const cells = [];
+  await Promise.all(symbols.map(async sym => {
+    try {
+      const series = await fetchHistorical(sym);
+      const weeks = buildWeeklySeries(series);
+      if (weeks.length < 3) { cells.push({ sym, cls: 'flat', label: 'zu wenig Daten' }); return; }
+      const lastThree = weeks.slice(-3).map(w => w.fridayClose);
+      const LONG = Math.max.apply(null, lastThree), SHORT = Math.min.apply(null, lastThree);
+      const mondayBar = series.find(p => p.date === todayMondayISO);
+      if (!mondayBar) { cells.push({ sym, cls: 'flat', label: 'kein Montag-Kurs' }); return; }
+      if (mondayBar.close > LONG) cells.push({ sym, cls: 'long', label: 'LONG' });
+      else if (mondayBar.close < SHORT) cells.push({ sym, cls: 'short', label: 'SHORT' });
+      else cells.push({ sym, cls: 'flat', label: 'kein Signal' });
+    } catch (e) {
+      cells.push({ sym, cls: 'flat', label: 'Fehler' });
+    }
+  }));
+
+  cells.sort((a, b) => {
+    const order = { long: 0, short: 1, flat: 2 };
+    return order[a.cls] - order[b.cls] || a.sym.localeCompare(b.sym);
+  });
+  document.getElementById('grid').innerHTML = cells.map(c =>
+    '<div class="cell ' + c.cls + '"><span class="sym">' + c.sym + '</span><span class="sig">' + c.label + '</span></div>'
+  ).join('');
+
+  const longCount = cells.filter(c => c.cls === 'long').length;
+  const shortCount = cells.filter(c => c.cls === 'short').length;
+  statusEl.className = '';
+  statusEl.textContent = 'Fertig -- ' + longCount + ' LONG, ' + shortCount + ' SHORT, ' + (cells.length - longCount - shortCount) + ' ohne Signal (' + new Date().toLocaleTimeString('de-DE') + ').';
+  computeBtn.disabled = false;
+});
+
+computeBtn.click();
+</script>
+</body>
+</html>

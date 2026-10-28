@@ -9,6 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--card:#ffffff;--border:#d6e2ea;--accent:#b45309;--green:#15803d;--red:#b91c1c;--gold:#b45309;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#0b1620;--surface:#132430;--panel:#16293a;--card:#132430;--border:#24404f;--accent:#e0a860;--green:#34d399;--red:#f87171;--gold:#e0a860;--muted:#8aa0ab;--text:#cfdce2;--bright:#f4f7fb;}}
+:root[data-theme="dark"]{--bg:#0b1620;--surface:#132430;--panel:#16293a;--card:#132430;--border:#24404f;--accent:#e0a860;--green:#34d399;--red:#f87171;--gold:#e0a860;--muted:#8aa0ab;--text:#cfdce2;--bright:#f4f7fb;}
+#theme-toggle{font-family:var(--mono);font-size:10px;padding:7px 12px;border-radius:4px;border:1px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;}
+#theme-toggle:hover{border-color:var(--accent);color:var(--accent);}
 *{margin:0;padding:0;box-sizing:border-box}
 html,body{background:var(--bg);color:var(--text);font-family:var(--mono);}
 header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border-bottom:1px solid var(--border);padding:14px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;backdrop-filter:blur(6px);}
@@ -129,6 +133,9 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
     <a class="back" href="workshell.html" target="_blank" rel="noopener noreferrer" style="border-color:#0b1620;background:#0b1620;color:#fff;font-weight:600;">🛠️ Workshell</a>
     <a class="back" href="live-portfolio.html" target="_blank" rel="noopener noreferrer" style="border-color:#0891b2;color:#0891b2;font-weight:600;">📡 Live-Portfolio</a>
     <a class="back" href="basket-ranking.html" target="_blank" rel="noopener noreferrer" style="border-color:#b45309;color:#b45309;font-weight:600;">🏆 Körbe-Ranking</a>
+    <a class="back" href="signal-heatmap.html" target="_blank" rel="noopener noreferrer" style="border-color:#15803d;color:#15803d;font-weight:600;">🔥 Heatmap</a>
+    <a class="back" href="risiko-rechner.html" target="_blank" rel="noopener noreferrer" style="border-color:#7c3aed;color:#7c3aed;font-weight:600;">🎚️ Risiko-Rechner</a>
+    <a class="back" href="docs.html" target="_blank" rel="noopener noreferrer" style="border-color:#5f7277;color:#5f7277;font-weight:600;">📚 Docs</a>
     <a class="back" href="backtesting-report.html" target="_blank" rel="noopener noreferrer" style="border-color:var(--accent);color:var(--accent);font-weight:600;">📑 Backtesting-Report</a>
     <a class="back" href="dax-breakout-report.html" target="_blank" rel="noopener noreferrer" style="border-color:#2a5fa0;color:#2a5fa0;font-weight:600;">📦 DAX-Breakout-Report</a>
     <a class="back" href="model-portfolios.html" target="_blank" rel="noopener noreferrer" style="border-color:#15803d;color:#15803d;font-weight:600;">🗂️ Musterportfolios</a>
@@ -136,6 +143,7 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
     <a class="back" href="strategie-rechner.html" target="_blank" rel="noopener noreferrer" style="border-color:#7c3aed;color:#7c3aed;font-weight:600;">🎛️ Strategie-Rechner</a>
     <a class="back" href="https://globalfintech.net" target="_blank" rel="noopener noreferrer">🌐 GlobalFinTech.net</a>
     <a class="back" href="https://github.com/Babybounce500/goldshield-ai-analysis-archive" target="_blank" rel="noopener noreferrer">📦 Repository</a>
+    <button id="theme-toggle" type="button">🌙 Dark Mode</button>
   </div>
 </header>
 <div class="wrap">
@@ -148,7 +156,10 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
   anwenden, inklusive aktueller Positionen diese Woche mit Live-P&amp;L. Alle 30 vorbereiteten Körbe
   gerankt und eine vollständige Algo-Bot-Spezifikation gibt's im
   <a href="basket-ranking.html" target="_blank" rel="noopener noreferrer" style="color:#b45309;">🏆 Körbe-Ranking</a>.
-  Startpunkt für alles Weitere unten.<br><br>
+  Dazu drei neue Werkzeuge: die <a href="signal-heatmap.html" target="_blank" rel="noopener noreferrer" style="color:#15803d;">🔥 Signal-Heatmap</a>
+  (Live-Ampel-Raster für einen ganzen Korb auf einen Blick), der <a href="risiko-rechner.html" target="_blank" rel="noopener noreferrer" style="color:#7c3aed;">🎚️ Risiko-Rechner</a>
+  (Positionsgröße nach Risikoprozentsatz statt Equal-Weight) und die <a href="docs.html" target="_blank" rel="noopener noreferrer" style="color:#5f7277;">📚 Docs</a>-Seite
+  (Begriffs-Glossar + API-Referenz für eigene Bot-Implementierungen). Startpunkt für alles Weitere unten.<br><br>
   Echte, unveränderte Export-Reports von <b>GoldShield AI</b> (GENITUS INC) -- KI-gestützte technische
   Marktanalyse über Aktien, Krypto, Forex, Anleihen und globale Indizes (S&amp;P500, DAX, FTSE100, Hang Seng,
   ASX200, Nifty50 u.a.). Jede Kachel zeigt die echten Kennzahlen aus dem jeweiligen Report: Sentiment,
@@ -359,6 +370,25 @@ header{position:sticky;top:0;z-index:200;background:rgba(244,247,251,.94);border
 </div>
 
 <script>
+(function initTheme() {
+  const toggleBtn = document.getElementById('theme-toggle');
+  function applyTheme(theme) {
+    if (theme === 'dark') { document.documentElement.setAttribute('data-theme', 'dark'); toggleBtn.textContent = '☀️ Light Mode'; }
+    else if (theme === 'light') { document.documentElement.setAttribute('data-theme', 'light'); toggleBtn.textContent = '🌙 Dark Mode'; }
+    else { document.documentElement.removeAttribute('data-theme'); toggleBtn.textContent = '🌙 Dark Mode'; }
+  }
+  let saved = null;
+  try { saved = localStorage.getItem('goldshield-theme'); } catch (e) {}
+  applyTheme(saved);
+  toggleBtn.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme')
+      || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('goldshield-theme', next); } catch (e) {}
+  });
+})();
+
 let REPORTS = [];
 let activeFilter = 'all';
 

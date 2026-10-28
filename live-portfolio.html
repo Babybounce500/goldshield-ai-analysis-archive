@@ -173,6 +173,7 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
 
     <h2>📋 Alle Trades (Validierung)</h2>
     <div class="methodology" id="trades-note"></div>
+    <button class="opt-btn" id="export-csv-btn" style="margin-bottom:12px;">📥 Trades als CSV exportieren</button>
     <div class="table-scroll" style="max-height:480px;overflow-y:auto;overflow-x:auto;">
     <table><thead><tr id="trades-head">
       <th data-sort="idx">#</th>
@@ -627,6 +628,26 @@ function renderTradesTable() {
     ? n + ' Einzel-Trades gesamt -- jede Zahl in der Tabelle oben entsteht direkt aus dieser Liste, Spaltenköpfe anklicken zum Sortieren. Durchschnittliche finale Rendite pro Trade: <b>' + fmtPct(avgFinal * 100, 3) + '</b> (× √52 annualisiert = der Sharpe oben), Summe aller Einzel-P&amp;L: <b>' + fmtEurSigned(totalPnlAbs) + '</b>' + (stoppedCount ? ', davon <b>' + stoppedCount + '</b> durch den Stop begrenzt' : '') + '. Positionsgröße = tatsächliches Kapital zum Einstiegszeitpunkt, je nach Sizing-Modus aufgeteilt -- deshalb wächst/schrumpft sie mit dem Konto über die Zeit.'
     : 'Keine Trades im gewählten Zeitraum -- zu kurze Historie oder kein Symbol hat in diesem Fenster ausgelöst.';
 }
+
+document.getElementById('export-csv-btn').addEventListener('click', () => {
+  if (!currentTradeDetails.length) return;
+  const header = ['Symbol', 'Montag', 'Richtung', 'Positionsgroesse', 'Rendite_brutto_pct', 'Gestoppt', 'Rendite_final_pct', 'PnL_absolut'];
+  const rows = currentTradeDetails.map(t => [
+    t.symbol, t.monday, t.direction, t.positionSize.toFixed(2),
+    (t.grossReturn * 100).toFixed(3), t.wasStopped ? 'ja' : 'nein',
+    (t.finalReturn * 100).toFixed(3), t.pnlAbs.toFixed(2),
+  ]);
+  const csv = [header, ...rows].map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(';')).join('\r\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'goldshield-trades-' + new Date().toISOString().slice(0, 10) + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+});
 
 const WEEKS_PER_YEAR = 52;
 

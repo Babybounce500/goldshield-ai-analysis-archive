@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Docs</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#5f7277;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid #b45309;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:28px 0 12px;}
+.toc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.toc a{font-size:10px;color:var(--text);background:var(--panel);padding:6px 12px;border-radius:999px;text-decoration:none;border:1px solid var(--border);}
+.toc a:hover{border-color:var(--accent);color:var(--accent);}
+.term{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:10px;}
+.term dt{font-family:var(--head);font-size:11.5px;color:var(--bright);margin-bottom:4px;}
+.term dd{font-size:10.5px;color:var(--muted);line-height:1.7;}
+.code-block{background:#0b1620;color:#9ad7e8;font-family:var(--mono);font-size:10px;padding:16px 18px;border-radius:8px;overflow-x:auto;line-height:1.7;margin-bottom:16px;white-space:pre;}
+.table-scroll{overflow-x:auto;margin-bottom:16px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
+td{padding:6px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <h1>📚 Docs: Begriffe &amp; API-Referenz</h1>
+  <div class="subtitle">Alle Fachbegriffe aus dem Archiv erklärt, plus die genaue API, die der Live-Portfolio-Baukasten verwendet -- als Referenz für eigene Bot-Implementierungen</div>
+
+  <div class="toc">
+    <a href="#glossar">📖 Glossar</a>
+    <a href="#api">🔌 API-Referenz</a>
+    <a href="#beispiele">💻 Code-Beispiele</a>
+  </div>
+
+  <h2 id="glossar">📖 Glossar</h2>
+  <dl>
+    <div class="term"><dt>Sharpe Ratio</dt><dd>Risikoadjustierte Rendite: Ø Rendite pro Zeiteinheit geteilt durch die Standardabweichung der Renditen, annualisiert (hier × √52 bei Wochenrenditen, nicht × √252 wie bei Tagesrenditen). Höher = mehr Rendite pro Einheit Schwankung. Über 1,0 gilt als gut, über 2,0 als sehr stark -- aber immer im Kontext der Stichprobengröße lesen (siehe <a href="basket-ranking.html">Körbe-Ranking</a>).</dd></div>
+    <div class="term"><dt>Max Drawdown (Max DD)</dt><dd>Der größte prozentuale Rückgang vom bisherigen Höchststand der Kontokurve zu einem späteren Tiefpunkt. Zeigt den schlechtesten real erlebten Verlust, nicht nur die Endperformance.</dd></div>
+    <div class="term"><dt>MAE (Maximum Adverse Excursion)</dt><dd>Der schlechteste Punkt, den ein einzelner Trade zwischendurch erreicht hat, bevor er geschlossen wurde -- unabhängig davon, wie der Trade am Ende ausging. Basis für die Stop-Loss-Analyse in diesem Archiv.</dd></div>
+    <div class="term"><dt>Lookahead-Bias</dt><dd>Ein Backtest-Fehler, bei dem versehentlich zukünftige Daten in eine Entscheidung von heute einfließen (z.B. der Freitags-Kurs einer Woche fließt in das Signal ein, das am Montag derselben Woche ausgelöst wird). Jede Analyse in diesem Archiv ist explizit lookahead-frei konstruiert.</dd></div>
+    <div class="term"><dt>Donchian-Channel</dt><dd>Kanal aus dem höchsten und niedrigsten Kurs eines Rückblick-Fensters. Hier: die 3 vorherigen Freitags-Schlusskurse. Bricht der aktuelle Kurs über die Kanal-Obergrenze, gilt das als Long-Signal; unter die Untergrenze als Short-Signal.</dd></div>
+    <div class="term"><dt>Zweiperioden-Robustheit</dt><dd>Die Standard-Prüfung dieses Projekts: jeder Fund wird nicht nur über die Gesamtperiode, sondern separat über eine ältere und eine neuere Hälfte der Historie getestet. Ein Fund, der nur in einer Hälfte funktioniert, gilt als nicht robust (siehe <a href="research-log.html">Forschungsprotokoll</a>).</dd></div>
+    <div class="term"><dt>Bootstrap-Simulation</dt><dd>Eine Projektionsmethode, die zufällig (mit Zurücklegen) aus den tatsächlich beobachteten historischen Renditen zieht, statt eine angenommene Verteilung (z.B. Normalverteilung) zu unterstellen. Verwendet in der <a href="live-portfolio.html">3-/5-Jahres-Projektion</a>.</dd></div>
+    <div class="term"><dt>Equal-Weight vs. Fixer Slot</dt><dd>Zwei Positionsgrößen-Konventionen: Equal-Weight verteilt das gesamte verfügbare Kapital auf die Aktien, die diese Woche tatsächlich ein Signal auslösen. Fixer Slot reserviert von vornherein 1/N des Kapitals pro Korb-Aktie -- nicht ausgelöste Slots bleiben in Cash.</dd></div>
+    <div class="term"><dt>Split-Artefakt</dt><dd>Ein unadjustierter Aktiensplit in den Rohdaten, der wie ein riesiger Kurssturz/-sprung aussieht, aber keine echte Kursbewegung ist. Erkennungsregel in diesem Projekt: Tagesratio &lt;0,6 oder &gt;1,67 -- betroffene Symbole werden automatisch ausgeschlossen.</dd></div>
+  </dl>
+
+  <h2 id="api">🔌 API-Referenz: der EOD-Daten-Proxy</h2>
+  <div class="methodology">
+  Derselbe Proxy, den der <a href="live-portfolio.html">Live-Portfolio-Baukasten</a> direkt aus dem Browser
+  anspricht (CORS offen, <code>Access-Control-Allow-Origin: *</code>) -- für eine eigene Bot-Implementierung
+  direkt wiederverwendbar.
+  </div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Endpoint</th><th>Zweck</th><th>Beispiel</th></tr></thead><tbody>
+    <tr><td>GET /eod/historical/{symbol}?from={YYYY-MM-DD}</td><td>Tägliche OHLC-Historie ab Datum</td><td>/eod/historical/SAP.XETRA?from=2026-01-01</td></tr>
+    <tr><td>GET /eod/realtime/{symbol}</td><td>Aktueller Kurs (Live-Tick bzw. letzter Schlusskurs außerhalb der Handelszeit)</td><td>/eod/realtime/AAPL.US</td></tr>
+  </tbody></table>
+  </div>
+  <div class="methodology">
+  <b>Ticker-Format:</b> Suffix nach Börse -- <code>.XETRA</code> (Deutschland), <code>.US</code> (USA),
+  <code>.CC</code> (Crypto, z.B. BTC-USD.CC), <code>.AU</code> (Australien), <code>.LSE</code>
+  (London), <code>.NSE</code> (Indien) u.a. <b>Bekannte Lücken:</b> manche Symbole liefern konsequent leere
+  Arrays (meist reale Delistings/Übernahmen, siehe <a href="research-log.html">Forschungsprotokoll</a>) --
+  immer auf leere/fehlerhafte Antworten prüfen, nie blind vertrauen. <b>Datenqualität:</b> unadjustierte
+  Splits kommen vor -- die Tagesratio-Regel (&lt;0,6 oder &gt;1,67) sollte jeder Konsument dieser Daten
+  selbst implementieren, nicht nur dieses Archiv.
+  </div>
+
+  <h2 id="beispiele">💻 Code-Beispiele</h2>
+  <div class="code-block">// Historische Tagesdaten abrufen (Vanilla JS, browser- und node-kompatibel)
+async function fetchHistorical(symbol, daysBack) {
+  const from = new Date();
+  from.setUTCDate(from.getUTCDate() - daysBack);
+  const url = 'https://theserver-open-ai.replit.app/eod/historical/'
+    + encodeURIComponent(symbol) + '?from=' + from.toISOString().slice(0, 10);
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten für ' + symbol);
+  return raw.map(h => ({ date: h.date, close: Number(h.close) }));
+}
+
+// Split-Artefakt-Filter -- vor jeder weiteren Verwendung der Daten anwenden
+function hasSplitArtifact(series) {
+  for (let i = 1; i < series.length; i++) {
+    const ratio = series[i].close / series[i - 1].close;
+    if (ratio < 0.6 || ratio > 1.67) return true;
+  }
+  return false;
+}
+
+// Aktuellen Kurs abrufen (für Stop-Loss-Überwachung oder Live-P&L)
+async function fetchRealtime(symbol) {
+  const res = await fetch('https://theserver-open-ai.replit.app/eod/realtime/' + encodeURIComponent(symbol));
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json(); // { close, previousClose, change, change_p, timestamp, ... }
+}</div>
+  <div class="methodology">
+  Die vollständige Strategie-Engine (Kanal-Berechnung, Einstieg/Ausstieg, Positionsgröße, Stop-Loss) steht
+  als lesbarer Quelltext direkt im <a href="live-portfolio.html">Live-Portfolio-Baukasten</a> (Browser-Konsole
+  → Seitenquelltext) und als Pseudocode im <a href="basket-ranking.html#pseudocode">Körbe-Ranking</a>.
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung. Diese Seite dokumentiert, was in diesem
+  Archiv bereits gebaut und verifiziert wurde -- keine Garantie für die Verfügbarkeit oder Stabilität des
+  externen Daten-Proxys in der Zukunft. © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+</body>
+</html>

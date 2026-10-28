@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Risiko-Rechner</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#7c3aed;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:720px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid #b45309;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:18px;}
+.control-group{margin-bottom:16px;}
+.control-label{font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:.3px;display:block;}
+input[type=number]{font-family:var(--mono);font-size:13px;padding:9px 12px;border:1.5px solid var(--border);border-radius:6px;background:var(--panel);color:var(--text);width:100%;max-width:220px;}
+input[type=number]:focus{outline:none;border-color:var(--accent);}
+.stat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:16px 0;}
+.bstat{background:var(--panel);border-radius:6px;padding:14px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:18px;display:block;color:var(--bright);}
+.bstat span{font-size:8px;color:var(--muted);letter-spacing:.3px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.warn-box{background:#fde8e8;border:1px solid #f0b4b4;border-left:4px solid var(--red);border-radius:6px;padding:10px 14px;font-size:10px;color:#7a1f1f;margin-bottom:14px;line-height:1.6;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <h1>🎚️ Risiko-Rechner</h1>
+  <div class="subtitle">Positionsgröße nach Risikoprozentsatz statt Equal-Weight -- "wie viele Aktien darf ich bei diesem Stop-Loss kaufen?"</div>
+
+  <div class="callout">
+  Alle anderen Rechner in diesem Archiv (<a href="live-portfolio.html" style="color:#b45309;">Live-Portfolio-Baukasten</a>,
+  <a href="strategie-rechner.html" style="color:#b45309;">Strategie-Rechner</a>) verteilen Kapital nach
+  Equal-Weight oder festem Slot. Dieser Rechner macht das Gegenteil: du gibst vor, wie viel Prozent deines
+  Kontos du bei EINEM Trade maximal riskieren willst -- die Positionsgröße ergibt sich daraus, nicht
+  umgekehrt. Klassisches Risikomanagement, unabhängig von der konkreten Strategie.
+  </div>
+
+  <div class="panel">
+    <div class="control-group">
+      <label class="control-label">KONTOGRÖSSE (€)</label>
+      <input type="number" id="account" value="100000" min="0" step="1000">
+    </div>
+    <div class="control-group">
+      <label class="control-label">RISIKO PRO TRADE (% DES KONTOS)</label>
+      <input type="number" id="riskPct" value="1" min="0.1" max="20" step="0.1">
+    </div>
+    <div class="control-group">
+      <label class="control-label">STOP-LOSS-ABSTAND (%, z.B. 4 für den validierten -4%-Stop)</label>
+      <input type="number" id="stopPct" value="4" min="0.1" max="50" step="0.1">
+    </div>
+    <div class="control-group" style="margin-bottom:0;">
+      <label class="control-label">AKTUELLER AKTIENKURS (€, optional für Stückzahl)</label>
+      <input type="number" id="price" value="100" min="0" step="0.01">
+    </div>
+  </div>
+
+  <div id="warning"></div>
+
+  <h1 style="font-size:13px;margin-bottom:10px;">Ergebnis</h1>
+  <div class="stat-grid">
+    <div class="bstat"><b id="riskAmount">—</b><span>MAXIMALER VERLUST BEI DIESEM TRADE</span></div>
+    <div class="bstat"><b id="positionSize">—</b><span>EMPFOHLENE POSITIONSGRÖSSE (€)</span></div>
+    <div class="bstat"><b id="shares">—</b><span>ANZAHL AKTIEN (ABGERUNDET)</span></div>
+    <div class="bstat"><b id="pctOfAccount">—</b><span>ANTEIL AM GESAMTKONTO</span></div>
+  </div>
+
+  <div class="methodology">
+  <b>Formel:</b> maximaler Verlust = Kontogröße × Risiko% ÷ 100. Positionsgröße = maximaler Verlust ÷
+  (Stop-Loss% ÷ 100) -- denn wenn der Stop greift, verliert die Position genau Stop-Loss% ihres Werts, und
+  dieser Verlust soll genau dem gewünschten Risikobetrag entsprechen. <b>Faustregel:</b> 1-2% Risiko pro
+  Trade gilt als konservativ, &gt;5% als aggressiv -- bei mehreren gleichzeitig offenen Positionen (wie in der
+  DAX-Breakout-Strategie üblich) addiert sich das Risiko, siehe Warnhinweis oben bei Bedarf.
+  </div>
+
+  <div class="footer-note">
+  AI-generierte Hilfestellung -- keine Anlageberatung. Ersetzt keine eigene Risikoprüfung. © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+<script>
+function fmtEur(v) { return '€' + Math.round(v).toLocaleString('de-DE'); }
+function update() {
+  const account = Math.max(0, Number(document.getElementById('account').value) || 0);
+  const riskPct = Math.max(0, Number(document.getElementById('riskPct').value) || 0);
+  const stopPct = Math.max(0.01, Number(document.getElementById('stopPct').value) || 0.01);
+  const price = Math.max(0, Number(document.getElementById('price').value) || 0);
+
+  const riskAmount = account * (riskPct / 100);
+  const positionSize = riskAmount / (stopPct / 100);
+  const pctOfAccount = account > 0 ? (positionSize / account * 100) : 0;
+  const shares = price > 0 ? Math.floor(positionSize / price) : null;
+
+  document.getElementById('riskAmount').textContent = fmtEur(riskAmount);
+  document.getElementById('positionSize').textContent = fmtEur(positionSize);
+  document.getElementById('shares').textContent = shares == null ? '—' : shares.toLocaleString('de-DE');
+  document.getElementById('pctOfAccount').textContent = pctOfAccount.toFixed(1) + '%';
+
+  const warnEl = document.getElementById('warning');
+  warnEl.innerHTML = pctOfAccount > 100
+    ? '<div class="warn-box"><b>Positionsgröße übersteigt das gesamte Konto</b> -- bei so engem Stop-Loss relativ zum gewünschten Risiko würde diese Position mehr Kapital brauchen, als vorhanden ist. Entweder Stop-Loss-Abstand vergrößern oder Risiko pro Trade senken.</div>'
+    : pctOfAccount > 50
+      ? '<div class="warn-box"><b>Sehr konzentrierte Position</b> (' + pctOfAccount.toFixed(0) + '% des Kontos) -- bei mehreren gleichzeitig offenen Positionen (wie bei der DAX-Breakout-Strategie typisch) kann sich das Gesamtrisiko schnell summieren.</div>'
+      : '';
+}
+['account','riskPct','stopPct','price'].forEach(id => document.getElementById(id).addEventListener('input', update));
+update();
+</script>
+</body>
+</html>
