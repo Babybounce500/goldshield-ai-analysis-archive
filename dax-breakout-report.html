@@ -85,6 +85,9 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#midpoint-trend">⚖️ Midpoint-Trendfolge</a>
     <a href="#donchian-midline-stop">🎯 Kanal-Mittellinie als Stop</a>
     <a href="#turtle-trading">🐢 Echtes Turtle-Trading-System</a>
+    <a href="#volume-filter">📊 Volumen-Filter</a>
+    <a href="#trailing-winners">🚀 Gewinner laufen lassen</a>
+    <a href="#timestop-extension">🗓️ Längere Haltedauer (2-3 Wochen)</a>
     <a href="#drawdowns">📉 Drawdowns & Stop-Loss</a>
     <a href="#stop35">🔬 3-5%-Stop im Detail</a>
     <a href="#moneymgmt">💰 Money Management</a>
@@ -567,6 +570,113 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   anderen Richtung her, denselben Befund wie der oben bereits verworfene
   <a href="#daily-check">Tages-System-Test</a>: der wöchentliche Rhythmus mit Freitags-Kanal bleibt auf
   dieser DAX-Stichprobe die bessere Wahl.
+  </div>
+
+  <h2 id="volume-filter">📊 Volumen-Filter: trennt überdurchschnittliches Volumen echte von Fehlausbrüchen?</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Direkt motiviert durch den Freitag-Extrempunkt-Fund oben (~50% Fehlausbruchsquote): klassische
+  Trendfolge-Theorie sagt, echte Ausbrüche kommen mit erhöhtem Volumen, Fehlausbrüche oft nicht. Gleicher
+  Einstieg/Ausstieg wie die Baseline, zusätzlich gefiltert auf Montag-Volumen relativ zum 20-Tage-Ø-Volumen
+  davor (lookahead-frei).
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr><td>Kein Volumen-Filter (Baseline)</td><td class="num pos">+28.45%</td><td class="num">0.228</td><td class="num">51.0%</td><td class="num">5802</td><td class="num pos">+29.53%</td><td class="num neg">-15.80%</td></tr>
+    <tr><td>Volumen ≥ 1,0x Ø(20 Tage)</td><td class="num pos">+22.74%</td><td class="num">0.238</td><td class="num">51.1%</td><td class="num">2043</td><td class="num pos">+24.37%</td><td class="num neg">-9.06%</td></tr>
+    <tr><td>Volumen ≥ 1,5x Ø(20 Tage)</td><td class="num pos">+8.45%</td><td class="num">0.163</td><td class="num">50.6%</td><td class="num">662</td><td class="num pos">+9.96%</td><td class="num neg">-11.33%</td></tr>
+  </tbody></table></div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>Baseline Sharpe</th><th>≥1,0x Sharpe</th><th>≥1,5x Sharpe</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num">0.33</td><td class="num pos">0.45</td><td class="num pos">0.35</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num">0.08</td><td class="num neg">-0.09</td><td class="num neg">-0.21</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Uneindeutig -- und genau deshalb ein Lehrbuch-Fall für den Zweiperioden-Check.</b> Über die
+  Gesamtperiode sieht der 1,0x-Filter attraktiv aus: leicht höherer Sharpe (0.238
+  vs. 0.228) bei fast halbiertem Max-Drawdown
+  (-15.8% → -9.1%),
+  mit nur noch 2043 statt 5802 Trades. Der
+  Blick auf die Zeithälften zerstört das Bild aber: in der älteren Hälfte ist der Filter klar besser
+  (Sharpe 0.45 vs. 0.33),
+  in der neueren Hälfte dreht er dagegen <b>ins Negative</b>
+  (-0.09) während die Baseline positiv bleibt. Der engere 1,5x-Filter
+  zeigt dasselbe Muster, nur ausgeprägter. <b>Verdikt: verworfen</b> -- dieselbe Art von
+  Überfitting-Warnsignal wie beim Freitag-Extrempunkt-Test: ein Filter, der in einer Hälfte stark
+  aussieht und in der anderen ins Minus kippt, ist kein verlässlicher Fund, trotz des verlockenden
+  Gesamtbilds.
+  </div>
+
+  <h2 id="trailing-winners">🚀 Gewinner länger laufen lassen (Trailing-Stop statt immer Freitag-Exit)</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Bisher wurde nur die Verlierer-Seite optimiert (-4%-Stop, früher raus). Spiegelfrage: hilft es, echte
+  Gewinner länger laufen zu lassen, statt sie am Freitag zwangsweise zu schließen? Regel: gleicher
+  Einstieg wie die Baseline, gleicher -4%-Stop zum Schutz -- aber sobald ein Trade +4% im Gewinn liegt,
+  schaltet er auf einen <b>Trailing-Stop</b> um (4% unter dem seit Einstieg erreichten Hoch bzw. über dem
+  Tief bei Short) und darf über die ursprüngliche Woche hinaus mehrwöchig weiterlaufen, bis der
+  Trailing-Stop greift. Trades, die die +4%-Schwelle bis Freitag nie erreichen, werden -- wie bisher --
+  am Freitag geschlossen. Beide Varianten auf Tagesauflösung (√252-Sharpe) neu gerechnet, damit sie
+  direkt vergleichbar sind.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Mehrwöchig</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr><td>Fixer Freitag-Exit (Baseline)</td><td class="num pos">+20.13%</td><td class="num">0.184</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">0%</td><td class="num pos">+20.74%</td><td class="num neg">-17.20%</td></tr>
+    <tr class="best-row"><td>Trailing-Stop für Gewinner (neu)</td><td class="num pos">+39.99%</td><td class="num">0.275</td><td class="num">49.0%</td><td class="num">4923</td><td class="num">15.1%</td><td class="num pos">+41.16%</td><td class="num neg">-14.98%</td></tr>
+  </tbody></table></div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>Fixer Freitag-Exit</th><th>Trailing-Stop</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num">0.27</td><td class="num pos">0.39</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num">0.04</td><td class="num pos">0.09</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin:14px 0;">
+  <b>Sanity-Check, SAP.XETRA:</b> Short-Einstieg am 24.02.2020 (COVID-Crash) bei 121,24€ -- am 27.02.
+  aktiviert der Trailing-Stop bei 115,54€, die Position läuft dann bis zum 20.03.2020 weiter (statt am
+  28.02. zwangsweise geschlossen zu werden) und wird erst bei 91,26€ ausgestoppt: <b>+24,73%</b> statt
+  der paar Prozent, die eine Woche allein eingebracht hätte.
+  </div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Hypothese bestätigt -- und robust in beiden Zeithälften, nicht nur im Gesamtbild.</b> Sharpe steigt
+  von 0.184 auf 0.275,
+  Portfolio-Gesamtrendite fast verdoppelt sich (+20.7% →
+  +41.2%), und der Max-Drawdown wird dabei sogar
+  <b>kleiner</b>, nicht größer. Älter UND neuer bleibt die Trailing-Variante vorne
+  (0.27→0.39
+  bzw. 0.04→0.09) --
+  kein Sign-Flip wie bei den meisten anderen Varianten in diesem Abschnitt. Nur
+  15.1% der Trades laufen überhaupt über eine
+  Woche hinaus, aber genau diese wenigen, bereits bestätigten Trends liefern einen überproportionalen
+  Anteil des Zugewinns -- die klassische Trendfolge-Logik "Verlierer klein halten, Gewinner groß werden
+  lassen" funktioniert hier tatsächlich, obwohl die starre Wochen-Disziplin an anderer Stelle in diesem
+  Projekt (Mittwoch-Exit, verschiedene Tages-Systeme) bislang immer gewonnen hat.
+  </div>
+
+  <h2 id="timestop-extension">🗓️ Was, wenn man einfach mechanisch länger hält? (2 und 3 Wochen fix)</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Gegenprobe zum Trailing-Stop oben: was, wenn man statt trendstärke-abhängig einfach <b>jeden</b> Trade
+  mechanisch 2 oder 3 Wochen statt 1 Woche hält (gleicher -4%-Stop, täglich geprüft, über die ganze
+  Haltedauer)? Keine Re-Einstiege, solange eine mehrwöchige Position noch offen ist. Gleiches
+  2020-2026-Dataset, gleiche Tagesauflösung.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Haltedauer</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Gestoppt</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+    <tr class="best-row"><td>1 Woche (Baseline)</td><td class="num pos">+20.13%</td><td class="num">0.184</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">15.9%</td><td class="num pos">+20.74%</td><td class="num neg">-17.20%</td></tr>
+    <tr><td>2 Wochen</td><td class="num pos">+30.54%</td><td class="num">0.192</td><td class="num">48.0%</td><td class="num">4143</td><td class="num">32.0%</td><td class="num pos">+30.70%</td><td class="num neg">-16.94%</td></tr>
+    <tr><td>3 Wochen</td><td class="num pos">+6.48%</td><td class="num">0.084</td><td class="num">43.6%</td><td class="num">3372</td><td class="num">42.9%</td><td class="num neg">+3.78%</td><td class="num neg">-22.41%</td></tr>
+  </tbody></table></div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>1 Woche</th><th>2 Wochen</th><th>3 Wochen</th></tr></thead><tbody>
+    <tr><td>Ältere Hälfte</td><td class="num pos">0.27</td><td class="num">0.25</td><td class="num">0.20</td></tr>
+    <tr><td>Neuere Hälfte</td><td class="num pos">0.04</td><td class="num pos">0.06</td><td class="num neg">-0.08</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>2 Wochen: Wash, kein klarer Gewinn. 3 Wochen: verworfen.</b> 2 Wochen liegt im Gesamtbild sogar
+  leicht vorne (Sharpe 0.192 vs. 0.184), aber
+  uneinheitlich über die Zeithälften (älter leicht schlechter, neuer leicht besser als 1 Woche) -- kein
+  klarer Fund in die eine oder andere Richtung. 3 Wochen ist dagegen eindeutig schlechter: Win-Rate fällt
+  auf 43.6%, Stop-Rate steigt auf 42.9%
+  (fast jeder zweite Trade endet im Stop statt regulär), Portfolio-Ergebnis bricht auf
+  +3.8% ein, und die neuere Hälfte kippt ins Negative.
+  <b>Die entscheidende Erkenntnis im Vergleich zum Trailing-Stop oben:</b> mechanisch jeden Trade länger
+  zu halten hilft nicht -- es verlängert nur die Zeit, in der auch schwache/falsche Trades gegen den
+  -4%-Stop laufen können. Der Trailing-Stop-Fund funktioniert gerade NICHT, weil er länger hält, sondern
+  weil er <b>selektiv</b> nur die Trades länger hält, die sich bereits als echt erwiesen haben (+4% im
+  Gewinn). Haltedauer ist also kein Hebel für sich -- Selektivität ist es.
   </div>
 
   <h2 id="drawdowns">📉 Drawdowns & Stop-Loss (bisher nur Zeit-Stop)</h2>

@@ -54,8 +54,8 @@ tr:hover{background:var(--panel);}
   </div>
 
   <div class="stat-grid">
-    <div class="bstat"><b class="pos">7</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">13</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
+    <div class="bstat"><b class="neg">14</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>9</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -158,6 +158,24 @@ tr:hover{background:var(--panel);}
     <td class="verdict neg">❌</td>
     <td class="finding">Beide Original-Varianten (System 1: 20/10-Tage, System 2: 55/20-Tage) liefern ein negatives Portfolio-Ergebnis (-15,2% bzw. -11,9%) mit Win-Raten klar unter 50% (34,2% bzw. 29,0%) -- robust negativ bis neutral in beiden Zeithälften, kein Überfitting-Sonderfall wie beim Freitag-Extrempunkt-Test, sondern durchgängig schwach. Die kürzeren Tages-Kanäle produzieren zu viele Fehlausbrüche.</td>
     <td class="source"><a href="dax-breakout-report.html#turtle-trading">Echtes Turtle-Trading-System</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Überdurchschnittliches Montag-Volumen trennt echte von Fehlausbrüchen</td>
+    <td class="verdict mixed">➖</td>
+    <td class="finding">Im Gesamtbild attraktiv (Sharpe 0,23→0,24, Max-Drawdown fast halbiert), aber in der älteren Zeithälfte deutlich besser und in der neueren klar negativ -- derselbe Sign-Flip wie beim Freitag-Extrempunkt-Fund. Verworfen trotz des verlockenden Gesamtbilds.</td>
+    <td class="source"><a href="dax-breakout-report.html#volume-filter">Volumen-Filter</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Gewinner über die 1-Wochen-Grenze hinaus laufen lassen (Trailing-Stop ab +4% im Gewinn) verbessert das Ergebnis</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Sharpe steigt von 0,18 auf 0,28, Portfolio-Rendite verdoppelt sich fast (+20,7%→+41,2%) bei KLEINEREM statt größerem Max-Drawdown -- und robust in BEIDEN Zeithälften besser, kein Sign-Flip. Nur 15% der Trades laufen über eine Woche hinaus, liefern aber einen überproportionalen Anteil des Zugewinns.</td>
+    <td class="source"><a href="dax-breakout-report.html#trailing-winners">Gewinner laufen lassen</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Jeden Trade mechanisch 2-3 Wochen statt 1 Woche halten verbessert das Ergebnis</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">2 Wochen ist ein Wash (uneinheitlich über die Zeithälften), 3 Wochen klar schlechter (Win-Rate 43,6%, Stop-Rate 42,9%, neuere Hälfte negativ). Zeigt im Kontrast zum Trailing-Stop-Fund: nicht die Haltedauer an sich hilft, sondern dass der Trailing-Stop NUR die bereits bestätigten Trends länger laufen lässt -- Selektivität statt pauschal längerer Haltedauer.</td>
+    <td class="source"><a href="dax-breakout-report.html#timestop-extension">Längere Haltedauer (2-3 Wochen)</a></td>
   </tr>
   </tbody></table>
   </div>
