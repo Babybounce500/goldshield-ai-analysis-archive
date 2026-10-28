@@ -55,7 +55,7 @@ tr:hover{background:var(--panel);}
 
   <div class="stat-grid">
     <div class="bstat"><b class="pos">8</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">22</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b class="neg">23</b><span>VERWORFENE HYPOTHESEN</span></div>
     <div class="bstat"><b>12</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
@@ -128,6 +128,12 @@ tr:hover{background:var(--panel);}
     <td class="verdict pos">✅</td>
     <td class="finding">Ab N=10 verschwindet das Klumpenrisiko (0 Einzelaktien-Wochen) komplett, Strategie bleibt fast jede Woche aktiv, ohne auf Kapazität von ~230 gleichzeitigen Positionen angewiesen zu sein.</td>
     <td class="source"><a href="dax-breakout-report.html#retail">Retail-Depot 100K€</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Aktien mit prozentual engerem Kanal haben ein besseres Chance-Risiko als Aktien mit breiterem Kanal</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Das Gegenteil ist der Fall, robust in beiden Zeithälften: der breiteste Kanal-Quartil liefert die beste Ø-Trade-Rendite, der engste die schlechteste -- Faktor ~3x. Pro Symbol ist der Zusammenhang noch stärker (Korrelation Ø-Kanalbreite↔Ø-Rendite von 0,63 über alle 37 Symbole). Enge Kanäle = ruhige Seitwärtsaktien, deren Ausbrüche oft nur Rauschen sind; breite Kanäle = bereits volatile Aktien, deren weitere Ausbrüche aussagekräftiger sind.</td>
+    <td class="source"><a href="dax-breakout-report.html#channel-width">Enger vs. breiter Kanal</a></td>
   </tr>
     <tr>
     <td class="hyp">Derselbe 3er-Lookback wie beim Original, aber auf Tagesbasis kontinuierlich geprüft (3-Tages-Rolling-Channel, Signal jeden Tag aktualisiert) schlägt den wöchentlichen Rhythmus</td>

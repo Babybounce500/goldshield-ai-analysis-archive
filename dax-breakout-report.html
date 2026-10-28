@@ -82,6 +82,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#deepdive">🔎 Deep-Dive</a>
     <a href="#entrytiming">⏱️ Einstiegs-Timing</a>
     <a href="#rolling-3day">📐 3-Tages-Rolling-Channel</a>
+    <a href="#channel-width">📏 Enger vs. breiter Kanal</a>
     <a href="#friday-extreme">📍 Freitag-Extrempunkt-Einstieg</a>
     <a href="#midpoint-trend">⚖️ Midpoint-Trendfolge</a>
     <a href="#donchian-midline-stop">🎯 Kanal-Mittellinie als Stop</a>
@@ -1919,6 +1920,46 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   und reagiert, desto mehr verwässert sich die Edge -- der wöchentliche 3-Fridays-Rhythmus ist kein
   beliebig skalierbares Prinzip, das auch bei 3 Tagen funktioniert, sondern an genau diesen Zeithorizont
   gebunden.
+  </div>
+
+  <h2 id="channel-width">📏 Enger vs. breiter Kanal: welche Trades sind besser?</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Haben Aktien mit einem prozentual <b>engeren</b> Kanal (kleine Spanne zwischen den letzten 3
+  Freitags-Schlusskursen relativ zum Kurs) ein besseres Rendite/Risiko-Verhältnis als Aktien mit einem
+  prozentual <b>breiteren</b> Kanal? Alle 5802 tatsächlich ausgelösten
+  Trades der validierten Baseline (Montag-Einstieg, Freitag-Exit, -4%-Stop) gepoolt über alle 37 Symbole,
+  nach Kanalbreite ((LONG-SHORT)/Montag-Close in %) in Quartile sortiert. "Verhältnis" = Ø-Trade-Rendite
+  geteilt durch die Standardabweichung der Trade-Renditen innerhalb des Quartils -- ein Maß pro Trade,
+  <b>nicht</b> die annualisierte √52-Sharpe der anderen Abschnitte, da hier einzelne Trades statt einer
+  durchgehenden Zeitreihe verglichen werden.
+  </div>
+  <div class="table-scroll">
+  <div class="table-scroll"><table><thead><tr><th>Quartil</th><th>Ø Kanalbreite</th><th>Spanne</th><th>n</th><th>Ø Trade-Rendite</th><th>Win-Rate</th><th>Verhältnis (nicht annualisiert)</th></tr></thead><tbody>
+    <tr><td>Q1</td><td class="num">1.47%</td><td class="num">0.07-2.43%</td><td class="num">1450</td><td class="num pos">+0.188%</td><td class="num">49.1%</td><td class="num">0.062</td></tr><tr><td>Q2</td><td class="num">3.32%</td><td class="num">2.43-4.29%</td><td class="num">1450</td><td class="num pos">+0.458%</td><td class="num">52.5%</td><td class="num">0.142</td></tr><tr><td>Q3</td><td class="num">5.55%</td><td class="num">4.29-7.18%</td><td class="num">1450</td><td class="num pos">+0.513%</td><td class="num">52.0%</td><td class="num">0.140</td></tr><tr><td>Q4</td><td class="num">12.80%</td><td class="num">7.18-65.65%</td><td class="num">1452</td><td class="num pos">+0.563%</td><td class="num">46.7%</td><td class="num">0.118</td></tr>
+  </tbody></table></div>
+  </div>
+  <h3 style="font-size:12px;margin:20px 0 8px;">Robustheit über beide Zeithälften (Ø Trade-Rendite pro Quartil)</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Quartil</th><th>Ältere Hälfte</th><th>Neuere Hälfte</th></tr></thead><tbody>
+    <tr><td>Q1</td><td class="num pos">+0.300%</td><td class="num pos">+0.173%</td></tr><tr><td>Q2</td><td class="num pos">+0.552%</td><td class="num pos">+0.294%</td></tr><tr><td>Q3</td><td class="num pos">+0.604%</td><td class="num pos">+0.384%</td></tr><tr><td>Q4</td><td class="num pos">+0.742%</td><td class="num pos">+0.397%</td></tr>
+  </tbody></table></div>
+  <div class="methodology" style="margin-top:14px;">
+  <b>Das Gegenteil der naheliegenden Annahme -- und robust in beiden Zeithälften.</b> Nicht der engste,
+  sondern der <b>breiteste</b> Kanal (Q4, Ø 12.8%)
+  liefert die beste Ø-Trade-Rendite (+0.563%), der engste Kanal
+  (Q1, Ø 1.5%) die schlechteste
+  (+0.188%) -- ein Faktor
+  3.0x. Dasselbe
+  monoton steigende Muster (Q1&lt;Q2&lt;Q3&lt;Q4) zeigt sich <b>unabhängig voneinander in beiden
+  Zeithälften</b> -- kein Zufallstreffer. Pro Symbol betrachtet ist der Zusammenhang noch deutlicher:
+  Korrelation Ø-Kanalbreite↔Ø-Trade-Rendite von <b>0.63</b> über alle
+  37 Symbole (deutlich stärker als die praktisch null Korrelation auf Einzeltrade-Ebene,
+  0.021 -- der Zusammenhang zeigt sich also mehr zwischen "ruhigen" und
+  "volatilen" Aktien als zwischen einzelnen ruhigen und unruhigen Wochen derselben Aktie). Plausible
+  Erklärung: ein enger Kanal bedeutet meist eine Aktie in ruhiger Seitwärtsbewegung -- ein Ausbruch
+  daraus ist oft nur Rauschen. Ein bereits breiter Kanal zeigt eine Aktie, die sich in den letzten 3
+  Wochen schon stark bewegt hat -- ein weiterer Ausbruch darüber hinaus ist ein stärkeres, aussagekräftigeres
+  Signal. <b>Praktische Idee für einen Folgetest:</b> ein Mindest-Kanalbreite-Filter (z.B. nur Trades ab
+  Q2/Q3 nehmen) könnte die Strategie zusätzlich verbessern -- noch nicht getestet.
   </div>
 
   <h2 id="verdict">💭 Einschätzung: ist die Strategie nutzbar?</h2>
