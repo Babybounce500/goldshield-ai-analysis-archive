@@ -65,6 +65,7 @@ tr.caution td{color:var(--muted);}
     <a href="#empfehlung">💡 Empfehlung</a>
     <a href="#bot-spec">🤖 Bot-Spezifikation</a>
     <a href="#pseudocode">⚙️ Pseudocode</a>
+    <a href="#korrelation">🔗 Korrelation</a>
     <a href="#risiken">⚠️ Risiken</a>
   </div>
 
@@ -121,7 +122,9 @@ tr.caution td{color:var(--muted);}
   unabhängige Zeithälften bestätigt (nicht nur dieser eine Snapshot), und der Max-Drawdown (-3,0%) ist der
   niedrigste aller Top-10-Plätze. Für ein reales Konto mit Kapazitätsgrenzen: siehe die
   <a href="dax-breakout-report.html#retail" style="color:#15803d;">Retail-Depot-Analyse</a> für Körbe von
-  10-20 Aktien als praktikablen Mittelweg zwischen Diversifikation und Handhabbarkeit.
+  10-20 Aktien als praktikablen Mittelweg zwischen Diversifikation und Handhabbarkeit. Für einen Bot mit
+  zwei unabhängigen Standbeinen statt nur einem: siehe die <a href="#korrelation" style="color:#15803d;">Korrelations-Analyse</a>
+  unten -- US-Regionalbanken-Mix ergänzt den DAX-37-Kern am saubersten.
   </div>
 
   <h2 id="bot-spec">🤖 Bot-Spezifikation: diese Logik automatisiert umsetzen</h2>
@@ -164,6 +167,61 @@ JEDEN FREITAG (Markt-Schluss):
   für jede noch offene Position:
     schließe Position (Market-on-Close)
   # Konto ist übers Wochenende immer vollständig flach</div>
+
+  <h2 id="korrelation">🔗 Korrelation: welcher Korb ergänzt die DAX-37-Kernstrategie?</h2>
+  <div class="methodology">
+  Ein Bot, der nur den empfohlenen DAX-37-Kernkorb handelt, trägt dessen gesamtes Risiko allein. Deshalb:
+  wöchentliche Rendite jedes der anderen 29 Körbe gegen den DAX-37-Kernkorb korreliert -- jeweils über
+  dieselbe echte, frisch abgerufene Live-Datenbasis vom 27.10.2026 (28-50 gemeinsame Handelswochen je
+  Paar, abhängig von der Datenverfügbarkeit des jeweiligen Korbs). Ziel: einen zweiten Korb finden, der sich
+  <b>unabhängig</b> vom Kern bewegt, statt nur dasselbe Risiko zu verdoppeln.
+  </div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Korb</th><th>Korrelation vs. DAX-37</th><th>Gemeinsame Wochen</th><th>Einordnung</th></tr></thead><tbody>
+    <tr class="best-row"><td>US-Regionalbanken-Mix</td><td class="num">-0.064</td><td class="num">36</td><td>stark diversifizierend -- ohne Pennystock-/Kleinkorb-Vorbehalt</td></tr>
+    <tr><td>Uran/Nuklear-Mix</td><td class="num">+0.024</td><td class="num">39</td><td>stark diversifizierend</td></tr>
+    <tr><td>Pleitegeier-Mix</td><td class="num">-0.025</td><td class="num">43</td><td>stark diversifizierend</td></tr>
+    <tr><td>Hochvolatil-Mix</td><td class="num">+0.044</td><td class="num">44</td><td>stark diversifizierend</td></tr>
+    <tr><td>Rohstoff/Minen-Mix</td><td class="num">-0.056</td><td class="num">42</td><td>stark diversifizierend</td></tr>
+    <tr><td>Kreuzfahrt-Mix</td><td class="num">+0.065</td><td class="num">33</td><td>stark diversifizierend</td></tr>
+    <tr><td>Gaming-Mix</td><td class="num">+0.097</td><td class="num">42</td><td>stark diversifizierend</td></tr>
+    <tr><td>Crypto-Mix</td><td class="num">-0.100</td><td class="num">46</td><td>stark diversifizierend</td></tr>
+    <tr><td>China-ADR-Mix</td><td class="num">+0.130</td><td class="num">40</td><td>diversifizierend</td></tr>
+    <tr><td>Solar-Mix</td><td class="num">+0.142</td><td class="num">44</td><td>diversifizierend</td></tr>
+    <tr><td>Biotech-Mix</td><td class="num">-0.146</td><td class="num">41</td><td>diversifizierend</td></tr>
+    <tr><td>Fintech-Mix</td><td class="num">+0.152</td><td class="num">38</td><td>diversifizierend</td></tr>
+    <tr><td>Cannabis-Mix</td><td class="num">+0.160</td><td class="num">38</td><td>diversifizierend</td></tr>
+    <tr><td>Immobilien-Mix</td><td class="num">+0.196</td><td class="num">46</td><td>diversifizierend</td></tr>
+    <tr><td>E-Auto-Mix</td><td class="num">+0.199</td><td class="num">35</td><td>diversifizierend</td></tr>
+    <tr><td>Crypto-Miner-Mix</td><td class="num">+0.204</td><td class="num">41</td><td>diversifizierend</td></tr>
+    <tr><td>Altcoin-Mix</td><td class="num">+0.216</td><td class="num">48</td><td>diversifizierend</td></tr>
+    <tr><td>AI-Mix</td><td class="num">+0.244</td><td class="num">38</td><td>diversifizierend</td></tr>
+    <tr><td>Tech-Mix</td><td class="num">+0.263</td><td class="num">49</td><td>diversifizierend</td></tr>
+    <tr><td>Quantencomputing-Mix</td><td class="num">+0.270</td><td class="num">33</td><td>diversifizierend</td></tr>
+    <tr><td>Nebenwerte-Mix (MDAX/SDAX)</td><td class="num">+0.273</td><td class="num">49</td><td>diversifizierend</td></tr>
+    <tr><td>Space/Defense-Mix</td><td class="num">+0.285</td><td class="num">39</td><td>diversifizierend</td></tr>
+    <tr><td>Finanzwerte-Mix</td><td class="num">+0.311</td><td class="num">49</td><td>mäßig korreliert</td></tr>
+    <tr><td>DAX + US-Mix</td><td class="num">+0.333</td><td class="num">50</td><td>mäßig korreliert</td></tr>
+    <tr><td>Airlines-Mix</td><td class="num">+0.378</td><td class="num">37</td><td>mäßig korreliert</td></tr>
+    <tr><td>Streaming-Mix</td><td class="num">+0.381</td><td class="num">28</td><td>mäßig korreliert</td></tr>
+    <tr><td>5 DAX-Aktien</td><td class="num">+0.572</td><td class="num">46</td><td>stark korreliert (Überlappung)</td></tr>
+    <tr><td>20er-Mix (DAX+S&amp;P500)</td><td class="num">+0.589</td><td class="num">50</td><td>stark korreliert (Überlappung)</td></tr>
+    <tr><td>10 DAX-Aktien</td><td class="num">+0.752</td><td class="num">50</td><td>stark korreliert (Überlappung)</td></tr>
+  </tbody></table>
+  </div>
+  <div class="callout" style="border-left-color:#15803d;">
+  <b>Sanity-Check bestanden, bevor irgendeine Empfehlung zählt:</b> die drei DAX-Teilmengen-Körbe (10 DAX,
+  20er-Mix, 5 DAX) zeigen erwartungsgemäß die höchste Korrelation (0,57-0,75) -- sie teilen Symbole mit dem
+  DAX-37-Kern, eine niedrige Korrelation wäre hier ein Zeichen für einen Rechenfehler gewesen, keine
+  Diversifikation. Genau umgekehrt: die meisten Themen-Körbe liegen nahe Null (|Korrelation| &lt; 0,1).
+  <b>US-Regionalbanken-Mix sticht heraus</b> -- mit -0,064 praktisch unkorreliert zum DAX-37-Kern, dabei ohne
+  Pennystock- oder Kleinkorb-Vorbehalt aus dem Ranking oben und mit solidem Sharpe 1,33 eigenständig. Für ein
+  zweites Standbein neben dem DAX-37-Bot ist das der am saubersten begründbare Kandidat -- nicht der
+  niedrigste |Korrelations|-Wert allein (Uran/Nuklear, Pleitegeier), die beide eigene Vorbehalte tragen.
+  <b>Einschränkung:</b> 28-50 gemeinsame Wochen pro Paar sind ein kurzes Fenster für eine Korrelationsschätzung
+  (dieselbe Einschränkung wie bei der DAX/Crypto-Korrelation im <a href="model-portfolios.html#korrelation" style="color:#15803d;">Musterportfolios</a>-Report)
+  -- eine Richtungsangabe, kein über Jahre bestätigter Wert.
+  </div>
 
   <h2 id="risiken">⚠️ Risiken für den Live-Betrieb (nicht im Backtest enthalten)</h2>
   <div class="table-scroll">
