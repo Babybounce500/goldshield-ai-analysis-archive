@@ -9,63 +9,77 @@
 <meta name="theme-color" content="#0b1620">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#7c3aed;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root{--bg:#0a0714;--surface:#140f24;--panel:#19132b;--border:#2b2242;--accent:#a78bfa;--accent-rgb:167,139,250;--green:#34d399;--red:#f87171;--muted:#8d81ab;--text:#e2daf2;--bright:#f8f6fd;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),radial-gradient(700px 500px at 100% 0%, rgba(34,211,238,.07), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+::-webkit-scrollbar{width:9px;height:9px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:999px;}
+::-webkit-scrollbar-thumb:hover{background:var(--accent);}
 .wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
-h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
 .subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
-.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid #b45309;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout{background:linear-gradient(135deg, rgba(180,83,9,.14), rgba(180,83,9,.04));border:1px solid rgba(217,119,6,.35);border-left:3px solid #d97706;border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;backdrop-filter:blur(6px);}
 .callout b{color:var(--bright);}
-h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;}
-.step-num{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-size:10px;font-weight:700;margin-right:6px;}
-.panel{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:18px;}
-textarea{width:100%;font-family:var(--mono);font-size:11px;padding:10px 12px;border:1.5px solid var(--border);border-radius:6px;background:var(--panel);color:var(--text);resize:vertical;min-height:60px;}
-textarea:focus{outline:none;border-color:var(--accent);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#17102c;font-size:10px;font-weight:700;margin-right:6px;box-shadow:0 0 10px rgba(var(--accent-rgb),.5);}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 20px 40px -24px rgba(0,0,0,.6);animation:riseIn .5s cubic-bezier(.16,1,.3,1) both;}
+@keyframes riseIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+textarea{width:100%;font-family:var(--mono);font-size:11px;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);resize:vertical;min-height:60px;transition:border-color .15s,box-shadow .15s;}
+textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.15);}
 .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
-.opt-btn{font-family:var(--mono);font-size:11px;padding:8px 16px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface);color:var(--text);cursor:pointer;transition:all .12s;}
-.opt-btn:hover{border-color:var(--accent);}
-.opt-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600;}
-.opt-btn:disabled{opacity:.5;cursor:not-allowed;}
-.control-label{font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:.3px;}
+.opt-btn{font-family:var(--mono);font-size:11px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--border);background:var(--panel);color:var(--text);cursor:pointer;transition:all .18s cubic-bezier(.16,1,.3,1);}
+.opt-btn:hover{border-color:var(--accent);color:var(--bright);transform:translateY(-1px);box-shadow:0 4px 14px -6px rgba(var(--accent-rgb),.4);}
+.opt-btn.active{background:var(--accent);border-color:var(--accent);color:#17102c;font-weight:700;box-shadow:0 0 16px rgba(var(--accent-rgb),.35);}
+.opt-btn:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none;}
+.control-label{font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;}
 .control-group{margin-bottom:16px;}
-input[type=number]{font-family:var(--mono);font-size:12px;padding:8px 12px;border:1.5px solid var(--border);border-radius:6px;background:var(--panel);color:var(--text);width:160px;}
-input[type=number]:focus{outline:none;border-color:var(--accent);}
-.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:8px;border:none;background:var(--accent);color:#fff;cursor:pointer;font-weight:700;letter-spacing:.3px;}
-.primary-btn:hover{background:#6525d6;}
-.primary-btn:disabled{background:var(--muted);cursor:not-allowed;}
-#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+input[type=number]{font-family:var(--mono);font-size:12px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);width:160px;transition:border-color .15s,box-shadow .15s;}
+input[type=number]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.15);}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #c4b5fd);color:#17102c;cursor:pointer;font-weight:700;letter-spacing:.3px;transition:transform .15s,box-shadow .15s;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px -8px rgba(var(--accent-rgb),.75);}
+.primary-btn:active{transform:translateY(0);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;transform:none;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;transition:color .2s;}
 #status.err{color:var(--red);}
-.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-right:5px;animation:pulse 1.4s infinite;}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-right:5px;box-shadow:0 0 8px var(--red);animation:pulse 1.4s infinite;}
 @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 .stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
-.bstat{background:var(--panel);border-radius:6px;padding:10px;text-align:center;}
+.bstat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;transition:transform .15s,border-color .15s;}
+.bstat:hover{transform:translateY(-2px);border-color:rgba(var(--accent-rgb),.4);}
 .bstat b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
-.bstat b.pos{color:var(--green);} .bstat b.neg{color:var(--red);}
-.bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.3px;}
-.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:16px;}
-.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
+.bstat b.pos{color:var(--green);text-shadow:0 0 12px rgba(52,211,153,.35);}
+.bstat b.neg{color:var(--red);text-shadow:0 0 12px rgba(248,113,113,.35);}
+.bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.4px;}
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:16px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
 table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
-th{text-align:left;color:var(--muted);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
-th[data-sort]{cursor:pointer;user-select:none;position:sticky;top:0;background:var(--surface);}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+th[data-sort]{cursor:pointer;user-select:none;position:sticky;top:0;background:var(--surface);transition:color .15s;}
 th[data-sort]:hover{color:var(--accent);}
 th[data-sort].sort-active{color:var(--accent);}
 th[data-sort] .arrow{display:inline-block;margin-left:3px;opacity:.6;}
-td{padding:6px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr{transition:background .12s;}
+tbody tr:hover{background:rgba(var(--accent-rgb),.06);}
 td.num{text-align:right;font-variant-numeric:tabular-nums;}
 td.pos{color:var(--green);} td.neg{color:var(--red);}
-.badge{font-size:8.5px;padding:2px 7px;border-radius:999px;font-weight:600;}
-.badge.long{background:rgba(21,128,61,.12);color:var(--green);}
-.badge.short{background:rgba(185,28,28,.12);color:var(--red);}
-.badge.flat{background:rgba(95,114,119,.12);color:var(--muted);}
-.badge.stopped{background:rgba(180,83,9,.15);color:#b45309;}
-.warn-box{background:#fde8e8;border:1px solid #f0b4b4;border-left:4px solid var(--red);border-radius:6px;padding:10px 14px;font-size:10px;color:#7a1f1f;margin-bottom:14px;line-height:1.6;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.badge.flat{background:rgba(141,129,171,.16);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(141,129,171,.22);}
+.badge.stopped{background:rgba(217,119,6,.18);color:#fbbf24;box-shadow:inset 0 0 0 1px rgba(251,191,36,.3);}
+.warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10px;color:#fecaca;margin-bottom:14px;line-height:1.6;}
 .methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
-.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;transition:color .15s;}
 .backlink:hover{color:var(--accent);}
 .footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
 .hidden{display:none;}
-@media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;} .stat-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;} input[type=number]{width:100%;}}
 </style>
 </head>
 <body>
@@ -78,7 +92,7 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
   <b>Echte Live-Daten, keine Simulation</b> -- gleicher EOD-Proxy wie der Rest des Archivs, kein Cache.
   Strategie: Montag-Einstieg, wenn der RSI(14) am letzten abgeschlossenen Freitag unter 30 lag (LONG,
   Wette auf Erholung) oder über 70 (SHORT, Wette auf Rücksetzer) -- Wilder-geglättet, lookahead-frei.
-  Freitag-Exit, optional -4%-Preis-Stop. <b>Validiert im <a href="dax-breakout-report.html#rsi" style="color:#b45309;">DAX-Breakout-Report</a>:</b>
+  Freitag-Exit, optional -4%-Preis-Stop. <b>Validiert im <a href="dax-breakout-report.html#rsi" style="color:#fbbf24;">DAX-Breakout-Report</a>:</b>
   Sharpe 0,32, robust positiv in beiden Zeithälften, auffällig niedriger Max-Drawdown (-3,76%) -- aber
   schwächer als die Donchian-Kanal-Hauptstrategie (Sharpe 0,56) und <b>nur auf dem DAX-37 getestet</b>,
   nicht auf anderen Körben oder Märkten. RSI-Extreme sind seltener als Kanal-Ausbrüche -- je nach Korb
@@ -170,7 +184,7 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
     </div>
 
     <h2>🔮 3- und 5-Jahres-Projektion (Bootstrap-Simulation)</h2>
-    <div class="callout" style="border-left-color:#7c3aed;">
+    <div class="callout" style="border-left-color:var(--accent);">
     <b>Das ist eine Projektion, kein Backtest.</b> Methode: 2.000 simulierte Pfade pro Zeithorizont, jeder
     Pfad zieht 156 bzw. 260 Mal <b>zufällig mit Zurücklegen</b> aus den gerade beobachteten echten
     Wochenrenditen dieses Korbs (nicht aus einer angenommenen Normalverteilung) und compoundiert sie. Da
@@ -379,13 +393,13 @@ function fanChartSvg(band, color, weeksPerYear) {
   let yearMarks = '';
   for (let yr = 1; yr * weeksPerYear < n; yr++) {
     const xi = x(yr * weeksPerYear);
-    yearMarks += '<line x1="' + xi.toFixed(1) + '" y1="' + PAD + '" x2="' + xi.toFixed(1) + '" y2="' + (H-PAD) + '" stroke="#d6e2ea" stroke-width="1" stroke-dasharray="2,3"/>' +
-      '<text x="' + xi.toFixed(1) + '" y="' + (H-PAD+14) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="#898781" text-anchor="middle">Jahr ' + yr + '</text>';
+    yearMarks += '<line x1="' + xi.toFixed(1) + '" y1="' + PAD + '" x2="' + xi.toFixed(1) + '" y2="' + (H-PAD) + '" stroke="rgba(255,255,255,.08)" stroke-width="1" stroke-dasharray="2,3"/>' +
+      '<text x="' + xi.toFixed(1) + '" y="' + (H-PAD+14) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="#8d81ab" text-anchor="middle">Jahr ' + yr + '</text>';
   }
   const lastP10 = band[n-1].p10, lastP50 = band[n-1].p50, lastP90 = band[n-1].p90;
   return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" preserveAspectRatio="xMidYMid meet">' +
     yearMarks +
-    '<line x1="' + PAD + '" y1="' + baselineY.toFixed(1) + '" x2="' + (W-PAD) + '" y2="' + baselineY.toFixed(1) + '" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>' +
+    '<line x1="' + PAD + '" y1="' + baselineY.toFixed(1) + '" x2="' + (W-PAD) + '" y2="' + baselineY.toFixed(1) + '" stroke="rgba(255,255,255,.14)" stroke-width="1" stroke-dasharray="4,4"/>' +
     '<path d="' + bandPath + '" fill="' + color + '" fill-opacity="0.14" stroke="none"/>' +
     '<path d="' + medianPath + '" fill="none" stroke="' + color + '" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>' +
     '<text x="' + (W-PAD) + '" y="' + (y(lastP90)-6).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="9.5" fill="' + color + '" text-anchor="end">P90: ' + fmtPct((lastP90-1)*100,0) + '</text>' +
@@ -449,8 +463,8 @@ function equityCurveSvg(curve, color) {
   const baselineY = y(1);
   const finalVal = curve[curve.length - 1];
   return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" preserveAspectRatio="xMidYMid meet">' +
-    '<line x1="' + PAD + '" y1="' + baselineY.toFixed(1) + '" x2="' + (W-PAD) + '" y2="' + baselineY.toFixed(1) + '" stroke="#c3c2b7" stroke-width="1" stroke-dasharray="4,4"/>' +
-    '<text x="' + (W-PAD) + '" y="' + (baselineY-5).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="10" fill="#898781" text-anchor="end">Start (0%)</text>' +
+    '<line x1="' + PAD + '" y1="' + baselineY.toFixed(1) + '" x2="' + (W-PAD) + '" y2="' + baselineY.toFixed(1) + '" stroke="rgba(255,255,255,.14)" stroke-width="1" stroke-dasharray="4,4"/>' +
+    '<text x="' + (W-PAD) + '" y="' + (baselineY-5).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="10" fill="#8d81ab" text-anchor="end">Start (0%)</text>' +
     '<path d="' + areaPath + '" fill="' + color + '" fill-opacity="0.12" stroke="none"/>' +
     '<path d="' + linePath + '" fill="none" stroke="' + color + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
     '<circle cx="' + pts[n-1][0].toFixed(1) + '" cy="' + pts[n-1][1].toFixed(1) + '" r="4" fill="' + color + '" stroke="#fff" stroke-width="2"/>' +
@@ -767,9 +781,9 @@ computeBtn.addEventListener('click', async () => {
     const series = seriesBySymbol[s];
     return series && series.length && series[series.length - 1].close < 5;
   });
-  let warningsHtml = '<div class="warn-box"><b>Diese RSI-Strategie wurde nur auf dem DAX-37 validiert</b> (siehe <a href="dax-breakout-report.html#rsi" style="color:#7a1f1f;">DAX-Breakout-Report</a>) -- nicht auf anderen Körben, Branchen oder Märkten gesondert getestet. Zahlen unten sind real berechnet, aber ohne dieselbe Absicherung wie der validierte DAX-37-Korb zu lesen, sobald andere Symbole gewählt werden.</div>';
+  let warningsHtml = '<div class="warn-box"><b>Diese RSI-Strategie wurde nur auf dem DAX-37 validiert</b> (siehe <a href="dax-breakout-report.html#rsi" style="color:#fca5a5;">DAX-Breakout-Report</a>) -- nicht auf anderen Körben, Branchen oder Märkten gesondert getestet. Zahlen unten sind real berechnet, aber ohne dieselbe Absicherung wie der validierte DAX-37-Korb zu lesen, sobald andere Symbole gewählt werden.</div>';
   if (hasCrypto) {
-    warningsHtml += '<div class="warn-box"><b>Crypto im Korb:</b> weder die Kanal-Strategie noch diese RSI-Variante wurden für Crypto als robust bestätigt -- anders als die separat validierte <a href="backtesting-report.html#class-sweetspot" style="color:#7a1f1f;">Confirmed-Trend-Strategie für Crypto</a>. Zahlen unten sind real berechnet, aber experimentell zu lesen.</div>';
+    warningsHtml += '<div class="warn-box"><b>Crypto im Korb:</b> weder die Kanal-Strategie noch diese RSI-Variante wurden für Crypto als robust bestätigt -- anders als die separat validierte <a href="backtesting-report.html#class-sweetspot" style="color:#fca5a5;">Confirmed-Trend-Strategie für Crypto</a>. Zahlen unten sind real berechnet, aber experimentell zu lesen.</div>';
   }
   if (pennyStocks.length) {
     warningsHtml += '<div class="warn-box"><b>Pennystocks/Distressed-Werte im Korb (Kurs &lt; 5€/$):</b> ' + pennyStocks.map(esc).join(', ') + '. Bei so niedrigen Kursen bedeuten schon kleine Cent-Bewegungen große Prozentsprünge und oft extreme RSI-Ausschläge, die wenig aussagekräftig sind.</div>';
