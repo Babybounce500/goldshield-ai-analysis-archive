@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Midpoint-Konfluenz-Analyse</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1620">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--card:#ffffff;--border:#d6e2ea;--accent:#be185d;--green:#15803d;--red:#b91c1c;--gold:#b45309;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:1000px;margin:0 auto;padding:30px 22px 70px;}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+h1{font-family:var(--head);font-size:18px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:#fdf2f8;border:1px solid #f3c6dd;border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--accent);}
+h2{font-family:var(--head);font-size:13px;letter-spacing:1px;color:var(--gold);margin:30px 0 12px;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:7px;}
+.toc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
+.toc a{font-size:10px;color:var(--text);background:var(--panel);padding:6px 12px;border-radius:999px;text-decoration:none;border:1px solid var(--border);}
+.toc a:hover{border-color:var(--accent);color:var(--accent);}
+.stat-row{display:flex;gap:24px;flex-wrap:wrap;margin:14px 0 20px;}
+.stat b{font-family:var(--head);font-size:19px;color:var(--bright);display:block;}
+.stat span{font-size:7.8px;color:var(--muted);letter-spacing:1px;}
+.intro{font-family:var(--mono);font-size:11.5px;color:var(--muted);line-height:1.8;max-width:900px;margin-bottom:16px;border-left:2px solid var(--accent);padding-left:14px;}
+.intro b{color:var(--text)} .intro a{color:var(--accent)}
+.finding{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.7;margin:16px 0;}
+.finding b{color:var(--bright)}
+.caveat{font-size:10.5px;color:var(--muted);line-height:1.8;background:var(--panel);border-left:2px solid var(--gold);padding:10px 14px;margin:16px 0;}
+canvas{background:var(--card);border:1px solid var(--border);border-radius:6px;width:100%;height:auto;}
+.table-scroll{overflow-x:auto;margin-bottom:16px;}
+table{width:100%;min-width:620px;border-collapse:collapse;font-size:10px;margin-top:10px;}
+th{font-family:var(--head);font-size:7.5px;letter-spacing:.5px;color:var(--muted);text-align:left;padding:7px 5px;border-bottom:1px solid var(--border);white-space:nowrap;}
+th.num,td.num{text-align:right;font-variant-numeric:tabular-nums;}
+td{padding:6px 5px;border-bottom:1px solid rgba(190,24,93,.12);white-space:nowrap;}
+.loading,.error{font-family:var(--mono);font-size:11px;color:var(--muted);padding:30px 0;text-align:center;}
+.error{color:var(--red);}
+.pos{color:var(--green);} .neg{color:var(--red);} .thin{color:var(--muted);font-style:italic;}
+.best{background:rgba(21,128,61,.08);}
+.source-note{font-family:var(--mono);font-size:9.5px;color:var(--muted);margin-top:30px;border-top:1px solid var(--border);padding-top:14px;line-height:1.7;}
+.source-note a{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <h1>🎯 Midpoint-Konfluenz-Analyse: Contrarian vs. Momentum</h1>
+  <div class="subtitle">Multi-Timeframe-Mittelpunkt-Signal (1M/3M/6M/1Y) auf S&amp;P500 + DAX40 — Bucket-Backtest und echte Trade-Simulation</div>
+
+  <div class="callout">
+  <b>Woher das hier kommt:</b> diese Analyse stammt aus einem separaten Schwester-Research-Projekt
+  (GENITUS-Strategien-Terminal) und wurde als statische Momentaufnahme hierher übernommen — anders als die
+  Live-Tools auf dieser Seite (Kanal, RSI, Heatmap) lädt sie keine Echtzeit-Kurse, sondern einen fertigen,
+  lookahead-freien Backtest (2021-10 bis 2026-09). Aufgenommen, weil der Kern-Befund — <b>volle
+  Bearish-Konfluenz schlägt volle Bullish-Konfluenz</b> — dieselbe Mean-Reversion-Logik bestätigt, die auch bei
+  der <a href="rsi-mean-reversion.html">RSI-Mean-Reversion</a> in diesem Archiv funktioniert, nur auf einem
+  komplett anderen Signal und Universum gemessen.
+  </div>
+
+  <div class="stat-row">
+    <div class="stat"><b id="stat-obs">—</b><span>BEOBACHTUNGEN (SYMBOL×WOCHE)</span></div>
+    <div class="stat"><b id="stat-symbols">—</b><span>TITEL MIT HISTORIE</span></div>
+    <div class="stat"><b id="stat-baseline">—</b><span>UNBEDINGTE Ø-RENDITE 13W (BASELINE)</span></div>
+    <div class="stat"><b id="stat-best">—</b><span>BESTES SCORE-BUCKET (13W)</span></div>
+  </div>
+
+  <div class="toc">
+    <a href="#konfluenz">📊 Konfluenz-Backtest</a>
+    <a href="#trades">🎯 Echte Trade-Simulation</a>
+    <a href="#vorbehalte">⚠️ Vorbehalte</a>
+  </div>
+
+  <h2 id="konfluenz">📊 Konfluenz-Backtest: was ist "Midpoint"?</h2>
+  <div class="intro">Für jeden Titel und jede Woche wird pro Zeitrahmen (1 Monat / 3 Monate / 6 Monate / 1 Jahr)
+  geprüft: steht der Kurs über oder unter dem <b>Mittelpunkt (Midpoint)</b> seiner Hoch-Tief-Spanne in diesem
+  Fenster? Jedes Zeitfenster liefert +1 (bullish, über dem Mittelpunkt), -1 (bearish) oder 0 (neutral). Die
+  Summe der 4 Signale ist der <b>Konfluenz-Score</b>, Bereich -4 (alle 4 Zeitrahmen bearish) bis +4 (alle 4
+  bullish). Getestet wird die Vorwärtsrendite (Total Return, dividendenbereinigt) über die nächsten 4 bzw. 13
+  Wochen ab Signalzeitpunkt, echt lookahead-frei: das Signal nutzt nur Daten bis zu diesem Zeitpunkt.</div>
+  <div id="finding" class="finding">Lade…</div>
+  <canvas id="chart" width="900" height="380"></canvas>
+  <div id="content" class="loading">Lade Backtest-Ergebnisse…</div>
+
+  <h2 id="trades">🎯 Echte Trade-Simulation: Contrarian vs. Momentum</h2>
+  <div class="intro">Der Bucket-Backtest oben mittelt die Vorwärtsrendite über JEDE einzelne Woche mit einem
+  bestimmten Score — das überzählt lang anhaltende Phasen (eine 20-Wochen-Flaute liefert 20 überlappende, kaum
+  unabhängige Beobachtungen). Hier stattdessen: echte, diskrete <b>Trades</b> — ein Einstieg nur beim ERSTEN
+  Erreichen von Score -4 (Contrarian) bzw. +4 (Momentum) nach einer anderen Phase, dann Simulation verschiedener
+  Ausstiegsregeln bis zum tatsächlichen Exit. Alle Trades long-only, P&amp;L auf dividendenbereinigtem Kurs
+  (Total Return).</div>
+  <div id="strategyFinding" class="finding">Lade…</div>
+  <h2 style="font-size:11.5px;margin-top:20px;">Contrarian — Einstieg bei voller Bearish-Konfluenz (Score -4)</h2>
+  <div id="contrarianContent" class="loading">Lade…</div>
+  <h2 style="font-size:11.5px;">Momentum — Einstieg bei voller Bullish-Konfluenz (Score +4)</h2>
+  <div id="momentumContent" class="loading">Lade…</div>
+
+  <h2 id="vorbehalte">⚠️ Vorbehalte</h2>
+  <div class="caveat" id="caveat">Lade…</div>
+  <div class="caveat" id="caveat2"></div>
+
+  <div class="source-note">Exit-Regeln (Trade-Simulation): feste Haltedauer (4/13/26/52 Wochen) · Take-Profit/Stop-Loss
+  (z.B. "TP +10% / SL -7%" = Ausstieg bei +10% Gewinn ODER -7% Verlust, je nachdem was zuerst eintritt, max. 52
+  Wochen Haltedauer) · Trailing-Stop (Ausstieg wenn der Kurs X% vom höchsten Stand seit Einstieg fällt) ·
+  Score-Umkehr (halten bis der Score zum gegenteiligen Extrem kippt, max. 52 Wochen). Sharpe-ähnlich = Ø Rendite
+  / Standardabweichung der Trade-Renditen (höher = besseres Risiko-Rendite-Verhältnis innerhalb dieser
+  Simulation, kein Vergleich zu einem echten Sharpe Ratio mit risikofreiem Zins). Quelle: gecachte wöchentliche
+  Kurshistorie, 1.417-1.424 S&amp;P500+DAX40-Titel, 2021-10 bis 2026-09, aus dem GENITUS-Schwesterprojekt
+  statisch übernommen.</div>
+
+  <div class="footer-note">Diese Seite wird nicht aus Live-Kursen neu berechnet — sie zeigt eine fixierte
+  Backtest-Momentaufnahme vom 2026-10-16. Für Live-Signale auf Basis aktueller Kurse siehe
+  <a href="live-portfolio.html" style="color:var(--accent);">Live-Portfolio (Kanal)</a> oder
+  <a href="rsi-mean-reversion.html" style="color:var(--accent);">RSI-Mean-Reversion</a> in diesem Archiv.</div>
+</div>
+<script>
+function fmtPct(v) { return (v>=0?'+':'') + v.toFixed(2) + '%'; }
+
+function renderStrategyTable(res) {
+  const rules = Object.entries(res.exitRules).filter(([,s]) => s && s.n !== undefined);
+  const bestKey = rules.slice().sort((a,b) => b[1].sharpeLike - a[1].sharpeLike)[0][0];
+  return `<div class="table-scroll"><table>
+    <thead><tr><th>Exit-Regel</th><th class="num">N</th><th class="num">Ø Rendite</th><th class="num">Median</th>
+    <th class="num">Trefferquote</th><th class="num">Std.abw.</th><th class="num">Sharpe-ähnlich</th>
+    <th class="num">Ø Haltedauer</th><th class="num">Schlechtester Trade</th></tr></thead>
+    <tbody>${rules.map(([key, s]) => `<tr class="${key===bestKey?'best':''}">
+      <td>${s.label}${key===bestKey?' ★':''}</td><td class="num">${s.n.toLocaleString('de-DE')}</td>
+      <td class="num ${s.avgRet>=0?'pos':'neg'}">${fmtPct(s.avgRet)}</td>
+      <td class="num ${s.medianRet>=0?'pos':'neg'}">${fmtPct(s.medianRet)}</td>
+      <td class="num">${s.winRate}%</td><td class="num">${s.stdDev}</td>
+      <td class="num">${s.sharpeLike}</td><td class="num">${s.avgHoldWeeks}W</td>
+      <td class="num neg">${s.worstTrade}%</td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+async function loadBacktest() {
+  const content = document.getElementById('content');
+  try {
+    const res = await fetch('midpoint-backtest-result.json', { signal: AbortSignal.timeout(20000) });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const d = await res.json();
+    document.getElementById('stat-obs').textContent = d.totalObs.toLocaleString('de-DE');
+    document.getElementById('stat-symbols').textContent = d.symbolsUsed.toLocaleString('de-DE');
+    document.getElementById('stat-baseline').textContent = '+' + d.baselineAvg['13'].toFixed(2) + '%';
+
+    const extremeBear = d.results.find(r => r.score === -4);
+    const extremeBull = d.results.find(r => r.score === 4);
+    const thinScores = d.results.filter(r => r.pctOfTotal < 1).map(r => r.score);
+    document.getElementById('stat-best').textContent = fmtPct(extremeBear.avgFwd13) + ' (Score -4)';
+
+    document.getElementById('finding').innerHTML = `<b>Befund:</b> Entgegen der naiven Erwartung (Bullish-Konfluenz
+      = Fortsetzung nach oben) zeigt <b>volle Bearish-Konfluenz</b> (Score -4, alle 4 Zeitrahmen unter ihrem
+      Mittelpunkt, ${extremeBear.count.toLocaleString('de-DE')} Beobachtungen, ${extremeBear.pctOfTotal}% aller
+      Fälle) die <b>höchste</b> Vorwärtsrendite: ${fmtPct(extremeBear.avgFwd13)} über 13 Wochen
+      (${extremeBear.edgeVsBaseline13>=0?'+':''}${extremeBear.edgeVsBaseline13}pp ggü. der unbedingten Baseline),
+      Trefferquote ${extremeBear.winRate13}%. <b>Volle Bullish-Konfluenz</b> (Score +4, ${extremeBull.pctOfTotal}%
+      aller Fälle) liegt dagegen leicht <b>unter</b> der Baseline: ${fmtPct(extremeBull.avgFwd13)}
+      (${extremeBull.edgeVsBaseline13}pp). Das deutet auf einen <b>Mean-Reversion-Effekt</b> (überverkauft →
+      Erholung), nicht auf Trendfortsetzung. Scores ${thinScores.join(', ')} haben unter 1% der Beobachtungen
+      (nur möglich bei exakt neutralem Signal in mind. einem Zeitfenster) — statistisch zu dünn, nicht
+      überinterpretieren.`;
+
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width, H = canvas.height, pad = 50;
+    ctx.clearRect(0,0,W,H);
+    const sorted = d.results.slice().sort((a,b)=>a.score-b.score);
+    const vals = sorted.map(r=>r.avgFwd13);
+    const minV = Math.min(0,...vals), maxV = Math.max(...vals);
+    const bw = (W-2*pad)/sorted.length;
+    const py = v => H-pad - (v-minV)/(maxV-minV) * (H-2*pad);
+    ctx.strokeStyle = 'rgba(190,24,93,.3)'; ctx.beginPath(); ctx.moveTo(pad,py(0)); ctx.lineTo(W-pad,py(0)); ctx.stroke();
+    sorted.forEach((r,i) => {
+      const x = pad + i*bw + bw*0.15, w = bw*0.7;
+      const y0 = py(0), y1 = py(r.avgFwd13);
+      ctx.fillStyle = r.score<0 ? 'rgba(21,128,61,0.75)' : r.score>0 ? 'rgba(185,28,28,0.55)' : 'rgba(95,114,119,0.6)';
+      ctx.fillRect(x, Math.min(y0,y1), w, Math.abs(y1-y0));
+      ctx.fillStyle = '#1c2e34'; ctx.font = '10px JetBrains Mono'; ctx.textAlign = 'center';
+      ctx.fillText('Score ' + r.score, x+w/2, H-pad+16);
+    });
+    ctx.fillStyle = '#5f7277'; ctx.font='9px JetBrains Mono'; ctx.textAlign='left';
+    ctx.fillText('Ø Vorwärtsrendite 13 Wochen nach Konfluenz-Score (grün=bearish-Konfluenz, rot=bullish-Konfluenz)', pad, 20);
+
+    content.innerHTML = `<div class="table-scroll"><table>
+      <thead><tr><th>Score</th><th class="num">N</th><th class="num">% aller Fälle</th>
+      <th class="num">Ø Rendite 4W</th><th class="num">Trefferquote 4W</th><th class="num">Edge 4W</th>
+      <th class="num">Ø Rendite 13W</th><th class="num">Trefferquote 13W</th><th class="num">Edge 13W</th></tr></thead>
+      <tbody>${sorted.map(r => {
+        const thin = r.pctOfTotal < 1;
+        return `<tr class="${thin?'thin':''}">
+        <td>${r.score>0?'+':''}${r.score}</td><td class="num">${r.count.toLocaleString('de-DE')}</td>
+        <td class="num">${r.pctOfTotal}%${thin?' (dünn)':''}</td>
+        <td class="num ${r.avgFwd4>=0?'pos':'neg'}">${r.avgFwd4>=0?'+':''}${r.avgFwd4}%</td>
+        <td class="num">${r.winRate4}%</td>
+        <td class="num ${r.edgeVsBaseline4>=0?'pos':'neg'}">${r.edgeVsBaseline4>=0?'+':''}${r.edgeVsBaseline4}pp</td>
+        <td class="num ${r.avgFwd13>=0?'pos':'neg'}">${r.avgFwd13>=0?'+':''}${r.avgFwd13}%</td>
+        <td class="num">${r.winRate13}%</td>
+        <td class="num ${r.edgeVsBaseline13>=0?'pos':'neg'}">${r.edgeVsBaseline13>=0?'+':''}${r.edgeVsBaseline13}pp</td>
+      </tr>`;
+      }).join('')}</tbody>
+    </table></div>`;
+
+    document.getElementById('caveat').innerHTML = `<b>Konfluenz-Backtest — Einschränkungen:</b><br>
+      • Zeitraum 2021-2026 war überwiegend ein Bullenmarkt (Baseline-Trefferquote bereits ${d.baselineWin['13'].toFixed(1)}%
+      über 13 Wochen ohne jedes Signal) — der gefundene Mean-Reversion-Effekt könnte in einem Bärenmarkt anders ausfallen.<br>
+      • Nur Large-Caps (S&amp;P500 + DAX40) — keine Aussage über Small-Caps, Emerging Markets oder andere Börsen.<br>
+      • ${d.totalObs.toLocaleString('de-DE')} Beobachtungen sind NICHT unabhängig: überlappende Zeitfenster pro Titel und
+      gemeinsame Marktbewegungen über alle Titel bedeuten effektiv deutlich weniger unabhängige "Wetten" als die rohe
+      Zahl suggeriert — als Richtungsindikator lesen, nicht als präzise Wahrscheinlichkeit.<br>
+      • Signal basiert auf rohem Schlusskurs, Vorwärtsrendite auf dividendenbereinigtem Kurs (Total Return).`;
+  } catch (e) {
+    content.innerHTML = '<div class="error">Fehler beim Laden: ' + e.message + '</div>';
+  }
+}
+
+async function loadStrategy() {
+  try {
+    const res = await fetch('midpoint-strategy-backtest.json', { signal: AbortSignal.timeout(20000) });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const d = await res.json();
+
+    document.getElementById('contrarianContent').innerHTML = renderStrategyTable(d.contrarian);
+    document.getElementById('momentumContent').innerHTML = renderStrategyTable(d.momentum);
+
+    const cBest = Object.entries(d.contrarian.exitRules).filter(([,s])=>s&&s.n!==undefined).sort((a,b)=>b[1].sharpeLike-a[1].sharpeLike)[0];
+    const mBest = Object.entries(d.momentum.exitRules).filter(([,s])=>s&&s.n!==undefined).sort((a,b)=>b[1].sharpeLike-a[1].sharpeLike)[0];
+    const cTrail = d.contrarian.exitRules.trail10;
+
+    document.getElementById('strategyFinding').innerHTML = `<b>Wie die Score effektiv traden, laut dieser Simulation:</b><br>
+      <b>Contrarian</b> (${d.contrarian.totalEntries.toLocaleString('de-DE')} echte Einstiege): beste Sharpe-ähnliche
+      Kennzahl bei "<b>${cBest[1].label}</b>" (Ø ${fmtPct(cBest[1].avgRet)}, Trefferquote ${cBest[1].winRate}%,
+      Ø Haltedauer ${cBest[1].avgHoldWeeks} Wochen). <b>Enge Trailing-Stops schaden hier</b>: bei 10% Trailing-Stop
+      fällt der Median auf ${fmtPct(cTrail.medianRet)} trotz positivem Durchschnitt (${fmtPct(cTrail.avgRet)}) —
+      die meisten Trades werden klein ausgestoppt, einige wenige große Erholungen ziehen nur den Mittelwert hoch
+      (Trefferquote nur ${cTrail.winRate}%). Für Contrarian scheint "halten bis Score kippt oder 52 Wochen" besser
+      zu funktionieren als enges Risikomanagement.<br><br>
+      <b>Momentum</b> (${d.momentum.totalEntries.toLocaleString('de-DE')} echte Einstiege): beste Kennzahl bei
+      "<b>${mBest[1].label}</b>" (Ø ${fmtPct(mBest[1].avgRet)}, Trefferquote ${mBest[1].winRate}%). Hier ist
+      "bis Score-Umkehr halten" dagegen <b>schlecht</b> (Median ${fmtPct(d.momentum.exitRules.score_flip.medianRet)},
+      Trefferquote nur ${d.momentum.exitRules.score_flip.winRate}%) — man gibt beim Warten auf die volle
+      Trendumkehr tendenziell schon wieder Gewinne ab. Eine feste Haltedauer funktioniert hier besser als beim
+      Contrarian-Setup.`;
+
+    document.getElementById('caveat2').innerHTML = `<b>Trade-Simulation — Einschränkungen:</b><br>
+      • Gleicher 2021-2026-Bullenmarkt-Kontext wie beim Konfluenz-Backtest oben — die "beste" Exit-Regel hier ist
+      nicht zwangsläufig die beste in einem anderen Marktregime.<br>
+      • "Schlechtester Trade" zeigt Einzelfälle mit -60% bis -85% — das sind wahrscheinlich Unternehmen mit echten
+      fundamentalen Problemen (nicht nur zyklische Schwäche), die ein reines Kurssignal nicht von einer temporären
+      Delle unterscheiden kann. Vor jedem Trade: eigene Fundamentalprüfung, kein Blindsignal.<br>
+      • Transaktionskosten, Slippage, Steuern und Spreads sind NICHT eingerechnet — reale Netto-Renditen liegen
+      darunter, besonders bei kürzeren Haltedauern mit mehr Trades.<br>
+      • "Sharpe-ähnlich" ist Ø/Std.abw. der Trade-Renditen, keine annualisierte, risikobereinigte Kennzahl im
+      klassischen Sinn — nur zum Vergleich der Exit-Regeln INNERHALB dieser Simulation geeignet.`;
+  } catch (e) {
+    document.getElementById('contrarianContent').innerHTML = '<div class="error">Fehler beim Laden: ' + e.message + '</div>';
+  }
+}
+
+loadBacktest();
+loadStrategy();
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>

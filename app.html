@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — App</title>
+<meta name="description" content="Installierbare App-Sammlung: Kanal-Breakout, RSI-Mean-Reversion, Signal-Heatmap, Risiko- &amp; Strategie-Rechner, Midpoint-Analyse.">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-512.png">
+<meta name="theme-color" content="#0b1620">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="GoldShield">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b1620;--surface:#132536;--panel:#17293a;--border:#24405a;--accent:#b45309;--green:#22c55e;--red:#f87171;--muted:#8ba3b8;--text:#dce8f0;--bright:#f4f7fb;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;min-height:100vh;}
+.wrap{max-width:900px;margin:0 auto;padding:26px 18px 60px;}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:18px;}
+.backlink:hover{color:var(--accent);}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:6px;}
+.brand img{width:46px;height:46px;border-radius:11px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);letter-spacing:.5px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+#installCard{background:var(--panel);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:14px 16px;font-size:11px;line-height:1.7;margin-bottom:22px;display:none;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+#installCard b{color:var(--bright);}
+#installBtn{font-family:var(--head);font-size:10.5px;letter-spacing:.5px;color:#0b1620;background:var(--accent);border:none;padding:10px 18px;border-radius:6px;cursor:pointer;white-space:nowrap;}
+#installBtn:hover{filter:brightness(1.1);}
+#iosTip{background:var(--panel);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:14px 16px;font-size:11px;line-height:1.7;margin-bottom:22px;display:none;}
+#iosTip b{color:var(--bright);}
+#installedTag{display:none;background:rgba(34,197,94,.14);color:var(--green);border:1px solid rgba(34,197,94,.3);border-radius:8px;padding:10px 14px;font-size:10.5px;margin-bottom:22px;}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;}
+.tile{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 16px 14px;text-decoration:none;color:var(--text);position:relative;border-top:4px solid var(--tile-color);transition:transform .15s,box-shadow .15s;}
+.tile:hover{transform:translateY(-2px);box-shadow:0 10px 26px -10px rgba(0,0,0,.5);}
+.tile-badge{position:absolute;top:12px;right:14px;font-size:7.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--tile-color);background:color-mix(in srgb, var(--tile-color) 16%, transparent);padding:3px 7px;border-radius:999px;font-weight:600;}
+.tile-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-right:64px;}
+.tile-icon{font-size:19px;}
+.tile-head h3{font-family:var(--head);font-size:12.5px;color:var(--bright);}
+.tile-desc{font-size:10px;color:var(--muted);line-height:1.7;}
+.tile-open{margin-top:10px;font-size:9.5px;font-weight:600;color:var(--tile-color);display:flex;align-items:center;gap:4px;}
+.tile-open span{transition:transform .15s;}
+.tile:hover .tile-open span{transform:translateX(3px);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:28px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+@media (max-width:620px){.grid{grid-template-columns:minmax(0,1fr);}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <div class="brand"><img src="icon-192.png" alt=""><div><h1>GoldShield AI</h1><div class="subtitle" style="margin:2px 0 0;">Live-Tools als installierbare App</div></div></div>
+
+  <div id="installCard">
+    <span><b>Als App installieren</b> — offline erreichbar, eigenes Fenster, Icon auf dem Home-Bildschirm.</span>
+    <button id="installBtn">📲 Installieren</button>
+  </div>
+  <div id="iosTip">
+    <b>iPhone/iPad (Safari):</b> Teilen-Symbol <b>⬆️</b> antippen → <b>"Zum Home-Bildschirm"</b> wählen, um diese App-Sammlung zu installieren.
+  </div>
+  <div id="installedTag">✓ Als App installiert — läuft im eigenständigen Fenster.</div>
+
+  <div class="grid">
+    <a class="tile" href="live-portfolio.html" style="--tile-color:#0891b2;">
+      <div class="tile-badge">Live-Tool</div>
+      <div class="tile-head"><span class="tile-icon">📡</span><h3>Live-Portfolio (Kanal)</h3></div>
+      <p class="tile-desc">3-Freitags-Kanal-Breakout, 30 Körbe oder eigene Ticker, echte Live-Kurse, Trade-Liste &amp; Bootstrap-Projektion.</p>
+      <div class="tile-open">Öffnen <span>→</span></div>
+    </a>
+    <a class="tile" href="rsi-mean-reversion.html" style="--tile-color:#7c3aed;">
+      <div class="tile-badge">Live-Tool</div>
+      <div class="tile-head"><span class="tile-icon">↩️</span><h3>RSI-Mean-Reversion</h3></div>
+      <p class="tile-desc">RSI(14)-Gegentrend-Strategie, eigenständig validiert, ruhigster Drawdown im ganzen Archiv.</p>
+      <div class="tile-open">Öffnen <span>→</span></div>
+    </a>
+    <a class="tile" href="signal-heatmap.html" style="--tile-color:#15803d;">
+      <div class="tile-badge">Live-Tool</div>
+      <div class="tile-head"><span class="tile-icon">🔥</span><h3>Signal-Heatmap</h3></div>
+      <p class="tile-desc">Alle 30 Körbe auf einen Blick: aktuelle Breakout-Signale, Live-P&amp;L und Distanz zum nächsten Ausbruch.</p>
+      <div class="tile-open">Öffnen <span>→</span></div>
+    </a>
+    <a class="tile" href="risiko-rechner.html" style="--tile-color:#7c3aed;">
+      <div class="tile-badge">Rechner</div>
+      <div class="tile-head"><span class="tile-icon">🧮</span><h3>Risiko-Rechner</h3></div>
+      <p class="tile-desc">Positionsgröße, Stop-Abstand und maximales Risiko pro Trade direkt in Euro durchrechnen.</p>
+      <div class="tile-open">Öffnen <span>→</span></div>
+    </a>
+    <a class="tile" href="strategie-rechner.html" style="--tile-color:#b45309;">
+      <div class="tile-badge">Rechner</div>
+      <div class="tile-head"><span class="tile-icon">📐</span><h3>Strategie-Rechner</h3></div>
+      <p class="tile-desc">Erwartete Portfolio-Entwicklung aus Sharpe, Trefferquote und Korbgröße hochrechnen.</p>
+      <div class="tile-open">Öffnen <span>→</span></div>
+    </a>
+    <a class="tile" href="midpoint-analyse.html" style="--tile-color:#be185d;">
+      <div class="tile-badge">Backtest</div>
+      <div class="tile-head"><span class="tile-icon">🎯</span><h3>Midpoint-Analyse</h3></div>
+      <p class="tile-desc">Contrarian vs. Momentum nach Multi-Timeframe-Mittelpunkt-Konfluenz, statische Backtest-Momentaufnahme.</p>
+      <div class="tile-open">Öffnen <span>→</span></div>
+    </a>
+  </div>
+
+  <div class="footer-note">Diese App-Auswahl bündelt die Live-Tools des Archivs. Für Reports, Forschungsprotokoll und
+  Doku siehe das <a href="workshell.html">vollständige Workshell</a> oder das <a href="index.html">Archiv</a>.</div>
+</div>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
+}
+
+const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+if (isStandalone) {
+  document.getElementById('installedTag').style.display = 'block';
+} else {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) && !window.MSStream;
+  let deferredPrompt = null;
+  window.addEventListener('beforeinstallprompt', e => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installCard').style.display = 'flex';
+  });
+  document.getElementById('installBtn').addEventListener('click', async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    document.getElementById('installCard').style.display = 'none';
+  });
+  window.addEventListener('appinstalled', () => {
+    document.getElementById('installCard').style.display = 'none';
+  });
+  if (isIOS) document.getElementById('iosTip').style.display = 'block';
+}
+</script>
+</body>
+</html>

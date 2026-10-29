@@ -1,0 +1,124 @@
+{
+ "windows": [
+  4,
+  13,
+  26,
+  52
+ ],
+ "horizons": [
+  4,
+  13
+ ],
+ "totalObs": 276643,
+ "symbolsUsed": 1417,
+ "baselineAvg": {
+  "4": 1.5253705484927982,
+  "13": 4.651892895465933
+ },
+ "baselineWin": {
+  "4": 56.232400602943144,
+  "13": 60.04128063966918
+ },
+ "results": [
+  {
+   "score": -4,
+   "count": 51397,
+   "pctOfTotal": 18.58,
+   "avgFwd4": 2.291,
+   "winRate4": 58.87,
+   "edgeVsBaseline4": 0.765,
+   "avgFwd13": 6.006,
+   "winRate13": 62.31,
+   "edgeVsBaseline13": 1.355
+  },
+  {
+   "score": -3,
+   "count": 138,
+   "pctOfTotal": 0.05,
+   "avgFwd4": 1.38,
+   "winRate4": 43.48,
+   "edgeVsBaseline4": -0.145,
+   "avgFwd13": 10.338,
+   "winRate13": 55.07,
+   "edgeVsBaseline13": 5.686
+  },
+  {
+   "score": -2,
+   "count": 39456,
+   "pctOfTotal": 14.26,
+   "avgFwd4": 1.854,
+   "winRate4": 57.04,
+   "edgeVsBaseline4": 0.328,
+   "avgFwd13": 5.212,
+   "winRate13": 61.28,
+   "edgeVsBaseline13": 0.56
+  },
+  {
+   "score": -1,
+   "count": 119,
+   "pctOfTotal": 0.04,
+   "avgFwd4": 0.978,
+   "winRate4": 47.9,
+   "edgeVsBaseline4": -0.547,
+   "avgFwd13": 2.659,
+   "winRate13": 52.1,
+   "edgeVsBaseline13": -1.993
+  },
+  {
+   "score": 0,
+   "count": 38792,
+   "pctOfTotal": 14.02,
+   "avgFwd4": 1.486,
+   "winRate4": 56.26,
+   "edgeVsBaseline4": -0.039,
+   "avgFwd13": 4.507,
+   "winRate13": 59.9,
+   "edgeVsBaseline13": -0.145
+  },
+  {
+   "score": 1,
+   "count": 159,
+   "pctOfTotal": 0.06,
+   "avgFwd4": 1.493,
+   "winRate4": 49.06,
+   "edgeVsBaseline4": -0.033,
+   "avgFwd13": 0.144,
+   "winRate13": 50.31,
+   "edgeVsBaseline13": -4.508
+  },
+  {
+   "score": 2,
+   "count": 50160,
+   "pctOfTotal": 18.13,
+   "avgFwd4": 1.254,
+   "winRate4": 55.32,
+   "edgeVsBaseline4": -0.271,
+   "avgFwd13": 3.961,
+   "winRate13": 58.4,
+   "edgeVsBaseline13": -0.691
+  },
+  {
+   "score": 3,
+   "count": 226,
+   "pctOfTotal": 0.08,
+   "avgFwd4": 0.99,
+   "winRate4": 53.1,
+   "edgeVsBaseline4": -0.535,
+   "avgFwd13": 4.314,
+   "winRate13": 59.29,
+   "edgeVsBaseline13": -0.337
+  },
+  {
+   "score": 4,
+   "count": 96196,
+   "pctOfTotal": 34.77,
+   "avgFwd4": 1.141,
+   "winRate4": 55.01,
+   "edgeVsBaseline4": -0.384,
+   "avgFwd13": 4.12,
+   "winRate13": 59.27,
+   "edgeVsBaseline13": -0.532
+  }
+ ],
+ "generatedAt": "2026-10-16T12:59:36.285Z"
+}
