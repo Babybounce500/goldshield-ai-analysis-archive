@@ -34,6 +34,10 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
 .tile-open span{transition:transform .15s;}
 .tile:hover .tile-open span{transform:translateX(3px);}
 .footer-note{font-size:9.5px;color:var(--muted);margin-top:36px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:var(--bright);margin:32px 0 14px;text-transform:uppercase;}
+.featured-section{background:linear-gradient(135deg, rgba(11,22,32,.04), rgba(11,22,32,0));border:1px solid var(--border);border-radius:16px;padding:20px 20px 4px;margin-bottom:8px;}
+.featured-section h2.section-head{margin-top:0;display:flex;align-items:center;gap:8px;}
+.new-pill{font-family:var(--head);font-size:8px;letter-spacing:.5px;background:#0b1620;color:#fff;padding:3px 9px;border-radius:999px;}
 @media (max-width:760px){.grid{grid-template-columns:minmax(0,1fr);} .tile-desc{min-height:0;}}
 </style>
 </head>
@@ -41,20 +45,23 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
 <div class="wrap">
   <a href="index.html" class="backlink">← Zurück zum Archiv</a>
   <h1>🛠️ Workshell</h1>
-  <div class="subtitle">Kuratierte Übersicht: alle Protokolle, Rechner und Backtests dieses Projekts an einem Ort -- mit Live-Vorschau statt bloßer Linkliste · erstellt 29. Oktober 2026</div>
+  <div class="subtitle">Kuratierte Übersicht: alle Protokolle, Rechner und Backtests dieses Projekts an einem Ort -- mit Live-Vorschau statt bloßer Linkliste · erstellt 30. Oktober 2026</div>
 
   <div class="callout">
   Jede Kachel unten ist ein <b>echtes Live-Fenster</b> in die jeweilige Seite -- kein Screenshot, sondern
   ein skaliertes Iframe, das sich mit jedem Report-Rebuild automatisch aktualisiert. Klick auf die Kachel
-  (oder "Öffnen") führt zur vollen Seite in neuem Tab. Der <b>Live-Portfolio-Baukasten</b> ganz oben geht
-  noch weiter: der ruft bei jedem Klick echte, frische Kursdaten ab -- kein vorgerechnetes Ergebnis.
+  (oder "Öffnen") führt zur vollen Seite in neuem Tab. Die drei Tools ganz oben wurden gerade frisch
+  überarbeitet: Dark-Mode-Redesign mit Light-Mode-Toggle, und die langen Beispielkorb-Listen sind jetzt
+  kompakte Dropdowns statt 20-30 Buttons.
   </div>
 
+  <div class="featured-section">
+  <h2 class="section-head">✨ Frisch überarbeitet <span class="new-pill">NEU</span></h2>
   <div class="grid">
-    <a class="tile" href="live-portfolio.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#0891b2;">
-    <div class="tile-badge">Live-Tool</div>
+    <a class="tile" href="live-portfolio.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#22d3ee;">
+    <div class="tile-badge">Live-Tool · Dark Mode</div>
     <div class="tile-head"><span class="tile-icon">📡</span><h3>Live-Portfolio-Baukasten</h3></div>
-    <p class="tile-desc">30 vorbereitete Themen-Körbe (DAX, Crypto, Pleitegeier, Biotech, Uran, Quantencomputing u.v.m.) oder eigene Ticker eingeben -- echte Live-Kurse, sortierbare Trade-Liste mit echter Positionsgröße &amp; P&amp;L in €, Long/Short- und Pro-Symbol-Aufschlüsselung, plus eine 3-/5-Jahres-Bootstrap-Projektion mit Unsicherheitsband.</p>
+    <p class="tile-desc">30 vorbereitete Themen-Körbe (DAX, Crypto, Pleitegeier, Biotech, Uran, Quantencomputing u.v.m.) oder eigene Ticker eingeben -- echte Live-Kurse, sortierbare Trade-Liste mit echter Positionsgröße &amp; P&amp;L in €, Long/Short- und Pro-Symbol-Aufschlüsselung, plus eine 3-/5-Jahres-Bootstrap-Projektion mit Unsicherheitsband. Jetzt im futuristischen Dark-Mode-Redesign (Light-Mode per Klick wählbar) mit kompaktem Dropdown statt 31 Einzel-Buttons.</p>
     <div class="tile-stats"><div class="tile-stat"><b>30</b><span>FERTIGE KÖRBE</span></div><div class="tile-stat"><b>0s</b><span>CACHE-VERZÖGERUNG</span></div></div>
     <div class="tile-preview">
       <iframe src="live-portfolio.html" loading="lazy" scrolling="no" tabindex="-1"
@@ -63,6 +70,35 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
     </div>
     <div class="tile-open">Öffnen <span>→</span></div>
   </a>
+    <a class="tile" href="rsi-mean-reversion.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#a78bfa;">
+    <div class="tile-badge">Live-Tool · Dark Mode</div>
+    <div class="tile-head"><span class="tile-icon">🔄</span><h3>RSI-Mean-Reversion-Baukasten</h3></div>
+    <p class="tile-desc">Komplett vom Donchian-Kanal unabhängige Gegentrend-Strategie: Montag-Einstieg bei RSI(14) &lt;30/&gt;70 vom letzten Freitag. Validiert auf dem DAX-37 (Sharpe 0,32, robust in beiden Zeithälften, auffällig niedriger Max-Drawdown) -- live auf jedem Korb anwendbar. Jetzt im Dark-Mode-Redesign mit Light-Mode-Toggle und kompaktem Körbe-Dropdown.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>0,32</b><span>SHARPE (DAX-37, VALIDIERT)</span></div><div class="tile-stat"><b>-3,8%</b><span>MAX-DRAWDOWN (VALIDIERT)</span></div></div>
+    <div class="tile-preview">
+      <iframe src="rsi-mean-reversion.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="signal-heatmap.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#34d399;">
+    <div class="tile-badge">Live-Tool · Dark Mode</div>
+    <div class="tile-head"><span class="tile-icon">🔥</span><h3>Signal-Heatmap</h3></div>
+    <p class="tile-desc">Live-Ampel-Raster statt Tabelle: welche Aktien eines Korbs stehen diese Woche auf LONG, SHORT oder flach -- auf einen Blick, mit denselben echten Live-Daten wie der Live-Portfolio-Baukasten. Jetzt im Dark-Mode-Redesign mit Light-Mode-Toggle; beide Körbe-Gruppen (Basis + Themen) jetzt ein einziges kompaktes Dropdown statt 29 Buttons.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>30</b><span>FERTIGE KÖRBE</span></div><div class="tile-stat"><b>0s</b><span>CACHE-VERZÖGERUNG</span></div></div>
+    <div class="tile-preview">
+      <iframe src="signal-heatmap.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:980px;height:700px;transform:scale(0.527);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+  </div>
+  </div>
+
+  <h2 class="section-head">Alle weiteren Tools &amp; Reports</h2>
+  <div class="grid">
     <a class="tile" href="app.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#b45309;">
     <div class="tile-badge">App</div>
     <div class="tile-head"><span class="tile-icon">📲</span><h3>App installieren</h3></div>
@@ -87,18 +123,6 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
     </div>
     <div class="tile-open">Öffnen <span>→</span></div>
   </a>
-    <a class="tile" href="signal-heatmap.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#15803d;">
-    <div class="tile-badge">Live-Tool</div>
-    <div class="tile-head"><span class="tile-icon">🔥</span><h3>Signal-Heatmap</h3></div>
-    <p class="tile-desc">Live-Ampel-Raster statt Tabelle: welche Aktien eines Korbs stehen diese Woche auf LONG, SHORT oder flach -- auf einen Blick, mit denselben echten Live-Daten wie der Live-Portfolio-Baukasten.</p>
-    <div class="tile-stats"><div class="tile-stat"><b>4</b><span>FERTIGE KÖRBE</span></div><div class="tile-stat"><b>0s</b><span>CACHE-VERZÖGERUNG</span></div></div>
-    <div class="tile-preview">
-      <iframe src="signal-heatmap.html" loading="lazy" scrolling="no" tabindex="-1"
-        style="width:980px;height:700px;transform:scale(0.527);transform-origin:top left;border:0;pointer-events:none;"></iframe>
-      <div class="tile-fade"></div>
-    </div>
-    <div class="tile-open">Öffnen <span>→</span></div>
-  </a>
     <a class="tile" href="risiko-rechner.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#7c3aed;">
     <div class="tile-badge">Rechner</div>
     <div class="tile-head"><span class="tile-icon">🎚️</span><h3>Risiko-Rechner</h3></div>
@@ -107,18 +131,6 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
     <div class="tile-preview">
       <iframe src="risiko-rechner.html" loading="lazy" scrolling="no" tabindex="-1"
         style="width:720px;height:700px;transform:scale(0.717);transform-origin:top left;border:0;pointer-events:none;"></iframe>
-      <div class="tile-fade"></div>
-    </div>
-    <div class="tile-open">Öffnen <span>→</span></div>
-  </a>
-    <a class="tile" href="rsi-mean-reversion.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#db2777;">
-    <div class="tile-badge">Live-Tool</div>
-    <div class="tile-head"><span class="tile-icon">🔄</span><h3>RSI-Mean-Reversion-Baukasten</h3></div>
-    <p class="tile-desc">Komplett vom Donchian-Kanal unabhängige Gegentrend-Strategie: Montag-Einstieg bei RSI(14) &lt;30/&gt;70 vom letzten Freitag. Validiert auf dem DAX-37 (Sharpe 0,32, robust in beiden Zeithälften, auffällig niedriger Max-Drawdown) -- live auf jedem Korb anwendbar, inklusive Trade-Liste, Aufschlüsselung und Bootstrap-Projektion.</p>
-    <div class="tile-stats"><div class="tile-stat"><b>0,32</b><span>SHARPE (DAX-37, VALIDIERT)</span></div><div class="tile-stat"><b>-3,8%</b><span>MAX-DRAWDOWN (VALIDIERT)</span></div></div>
-    <div class="tile-preview">
-      <iframe src="rsi-mean-reversion.html" loading="lazy" scrolling="no" tabindex="-1"
-        style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
     <div class="tile-open">Öffnen <span>→</span></div>
