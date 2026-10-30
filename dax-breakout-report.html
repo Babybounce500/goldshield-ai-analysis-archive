@@ -48,7 +48,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
 <div class="wrap">
   <a class="back" href="index.html">← Zurück zum Archiv</a>
   <h1 style="margin-top:10px;">📦 Weekly Breakout — Backtest (DAX + weitere Märkte)</h1>
-  <div class="subtitle">Wöchentlicher Donchian-Channel-Breakout, erst über 37 DAX-Aktien, dann über Crypto/Forex/Funds/533 globale Aktien gegengetestet · erstellt 28. Oktober 2026</div>
+  <div class="subtitle">Wöchentlicher Donchian-Channel-Breakout, erst über 37 DAX-Aktien, dann über Crypto/Forex/Funds/533 globale Aktien gegengetestet · erstellt 30. Oktober 2026</div>
 
   <div class="callout">
   <b>Herkunft:</b> die Strategie stammt aus <code>OPEN-ORDNERBOOK.html</code> (GoldShield-Quellcode-Fundus) --
@@ -85,6 +85,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     <a href="#channel-width">📏 Enger vs. breiter Kanal</a>
     <a href="#rsi">🔄 RSI-Mean-Reversion</a>
     <a href="#channel-rsi-combo">🧩 Kanal + RSI kombiniert</a>
+    <a href="#vwap-limit">💧 VWAP-Limit-Order statt Markt-Einstieg</a>
     <a href="#friday-extreme">📍 Freitag-Extrempunkt-Einstieg</a>
     <a href="#midpoint-trend">⚖️ Midpoint-Trendfolge</a>
     <a href="#donchian-midline-stop">🎯 Kanal-Mittellinie als Stop</a>
@@ -2091,6 +2092,86 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   getesteter Effekt. <b>Fazit:</b> RSI als Bestätigungsfilter auf Trade-Ebene funktioniert nicht, weil die
   beiden Signale sich fast gegenseitig ausschließen -- die Diversifikation lohnt sich nur auf
   Portfolio-Ebene (siehe A), nicht auf Einzeltrade-Ebene.
+  </div>
+
+  <h2 id="vwap-limit">💧 VWAP-Limit-Order statt Markt-Einstieg am Montag-Close</h2>
+  <div class="methodology" style="margin-bottom:16px;">
+  Bisher wurde das Montag-Signal immer zum <b>Markt</b>-Preis (Montag-Schlusskurs) eingegangen. Alternative:
+  statt zu kaufen/shorten "wo der Kurs gerade steht", eine <b>Limit-Order</b> zu einem volumengewichteten
+  Referenzpreis platzieren -- einem <b>VWAP-Proxy</b> (volumengewichteter Typical Price <code>(H+L+C)/3</code>
+  über die 5 Handelstage der Woche, die das Signal erzeugt hat; echte untertägige VWAP-Daten liegen nicht vor,
+  dies ist die bestmögliche Tages-Näherung). Füllt diese Order während der Signal-Woche (Preisbereich
+  Tief/Hoch eines Tages schließt den Proxy-Preis ein), wird zu diesem -- meist günstigeren -- Preis
+  eingestiegen statt zum Montag-Close. Zwei Varianten getestet: <b>nur Montag gültig</b> (Order verfällt am
+  Montagabend) und <b>die ganze Woche gültig</b> (Order bleibt bis Freitag stehen).
+  </div>
+  <div class="stat-grid">
+    <div class="bstat"><b>7695</b><span>SIGNALE GESAMT (BASELINE)</span></div>
+    <div class="bstat"><b>31.7%</b><span>FILL-RATE NUR MONTAG</span></div>
+    <div class="bstat"><b>60.6%</b><span>FILL-RATE GANZE WOCHE</span></div>
+    <div class="bstat"><b class="pos">+0.51%</b><span>Ø PREISVERBESSERUNG (MONTAG-FILLS)</span></div>
+  </div>
+
+  <h3 style="font-size:12px;margin-bottom:8px;">Gematchter Vergleich: identischer Trade-Satz, nur der Einstiegspreis unterscheidet sich</h3>
+  <div class="methodology" style="margin-bottom:12px;">
+  Entscheidend für die Belastbarkeit dieses Funds: die Montag-Variante hält in <b>beiden</b> Beinen exakt
+  denselben Zeitraum (Montag-Fill → Freitag-Exit) -- der Vergleich isoliert damit <b>ausschließlich</b> den
+  Effekt des Einstiegspreises, keine Haltedauer-Verzerrung. Die Woche-lang-Variante dagegen hat eine
+  <b>variable, meist kürzere</b> Haltedauer (Ø 3.35 statt 4
+  Tage) und wird separat eingeordnet.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Bein</th><th>n</th><th>Ø Rendite</th><th>Win-Rate</th><th>Sharpe</th><th>Max DD</th></tr></thead><tbody>
+    <tr class="best-row"><td>Nur Montag (Hold kontrolliert)</td><td>VWAP-Limit-Entry</td><td class="num">2442</td><td class="num pos">+0.668%</td><td class="num">54.3%</td><td class="num pos">1.29</td><td class="num neg">-10.4%</td></tr>
+    <tr><td>Nur Montag (Hold kontrolliert)</td><td>Markt-Entry (gleiche Trades)</td><td class="num">2442</td><td class="num pos">+0.190%</td><td class="num">48.3%</td><td class="num">0.39</td><td class="num neg">-15.5%</td></tr>
+    <tr><td>Ganze Woche (Hold variabel)</td><td>VWAP-Limit-Entry</td><td class="num">4664</td><td class="num pos">+0.511%</td><td class="num">50.4%</td><td class="num">1.08</td><td class="num neg">-5.1%</td></tr>
+    <tr><td>Ganze Woche (Hold variabel)</td><td>Markt-Entry (gleiche Trades)</td><td class="num">4664</td><td class="num neg">-0.558%</td><td class="num">37.8%</td><td class="num neg">-1.23</td><td class="num neg">-81.4%</td></tr>
+  </tbody></table></div>
+
+  <h3 style="font-size:12px;margin:18px 0 8px;">Robustheit der Montag-Variante (ältere/neuere Hälfte)</h3>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Zeitraum</th><th>n</th><th>Ø Rendite</th><th>Sharpe</th><th>Win-Rate</th></tr></thead><tbody>
+    <tr><td>Älter</td><td class="num">1221</td><td class="num pos">+0.589%</td><td class="num pos">1.11</td><td class="num">52.3%</td></tr>
+    <tr><td>Neuer</td><td class="num">1221</td><td class="num pos">+0.746%</td><td class="num pos">1.48</td><td class="num">56.4%</td></tr>
+  </tbody></table></div>
+
+  <div class="callout" style="margin-top:16px;">
+  <b>Echter Fund, kein Artefakt -- aber nur in der Montag-Variante.</b> Bei identischer Haltedauer (Mo-Fill →
+  Fr-Exit in beiden Beinen) verdreifacht sich der Sharpe durch den besseren Einstiegspreis allein
+  (0.39 → 1.29),
+  die Win-Rate steigt von 48.3% auf
+  54.3%, und der Max-Drawdown fällt von
+  -15.5% auf -10.4%.
+  Beide Zeithälften unabhängig klar positiv (Sharpe 1.11 älter,
+  1.48 neuer). Mechanismus: an Ausbruchstagen pullbackt der Kurs
+  oft kurz in Richtung des alten (Vorwochen-)Durchschnitts, bevor er in Ausbruchsrichtung weiterläuft -- ein
+  Limit am VWAP-Proxy fischt diesen Pullback, statt den Ausbruch zum Marktpreis zu jagen. Preis dafür: nur
+  <b>31.7%</b> der Signale füllen überhaupt am selben Tag -- der Rest verfällt
+  ungenutzt, es wird also seltener, aber zu besseren Preisen gehandelt.
+  <br><br>
+  <b>Woche-lang-Variante verworfen:</b> der gematchte Markt-Entry-Vergleich auf genau diesem Trade-Satz zeigt
+  Sharpe -1.23 und Max-DD
+  -81.4% -- deutlich schlechter als die Montag-Variante und
+  als die Gesamt-Baseline. Das ist kein Zufall: Signale, die erst später in der Woche ins Limit laufen, sind
+  eine systematisch andere (schwächere) Gruppe als Montag-Fills, und die kürzere, variable Haltedauer
+  (Ø 3.35 statt 4 Tage) verzerrt den Sharpe zusätzlich. Für
+  eine echte Strategie zählt nur die Montag-Variante.
+  </div>
+
+  <h3 style="font-size:12px;margin:20px 0 8px;">Konkrete Umsetzung</h3>
+  <div class="methodology">
+  <b>1.</b> Freitagabend: pro Symbol Kanal (3-Freitags-Hoch/Tief) und VWAP-Proxy (volumengewichteter
+  Typical Price der letzten 5 Handelstage) berechnen -- beides vor Montagsöffnung bekannt.<br>
+  <b>2.</b> Montag: sobald der Kurs den Kanal durchbricht, sofort eine Limit-Order zum VWAP-Proxy in
+  Ausbruchsrichtung platzieren, gültig nur für diesen Tag (Day-Order).<br>
+  <b>3.</b> Füllt die Order noch am Montag <i>und</i> bestätigt der Montag-Schlusskurs die Richtung
+  (> Kanal-Hoch für Long, &lt; Kanal-Tief für Short): Position bis Freitag-Close halten, -4%-Preis-Stop
+  bezogen auf den tatsächlichen Fill-Preis.<br>
+  <b>4.</b> Füllt sie nicht am selben Tag: Order verfallen lassen, kein Trade diese Woche für dieses Symbol
+  (Normalfall, ca. 68.3% der Signale) -- <b>nicht</b> alternativ zum
+  Markt-Preis nachkaufen, das würde genau den Effekt zunichtemachen, der die Edge ausmacht.<br>
+  <b>5.</b> Kapazität: über 37 DAX-Symbole und den gesamten Testzeitraum (2020-2026,
+  ~348 Wochen) verteilen sich 2442 Montag-Fills -- im Schnitt rund
+  7 neue Positionen pro Woche über das ganze Universum, deutlich weniger Order-Aufwand als eine tägliche
+  Markt-Variante, aber genug Streuung für ein diversifiziertes Depot.
   </div>
 
   <h2 id="verdict">💭 Einschätzung: ist die Strategie nutzbar?</h2>
