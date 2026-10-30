@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GoldShield AI — Master-Strategie-Terminal</title>
+<title>GoldShield AI — Master Strategy Terminal</title>
 <link rel="icon" href="data:,">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" id="themeColorMeta" content="#070c14">
@@ -103,130 +103,130 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
 <body>
 <div class="wrap">
   <div class="top-row">
-    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Back to Archive</a>
     <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
   </div>
-  <h1>🎛️ Master-Strategie-Terminal</h1>
-  <div class="subtitle">Eine Ticker-Liste, drei validierte Strategien zur Auswahl -- live gegen echte Kursdaten gerechnet, kein vorgerechnetes Ergebnis.</div>
+  <h1>🎛️ Master Strategy Terminal</h1>
+  <div class="subtitle">One ticker list, three validated strategies to choose from -- computed live against real price data, no precomputed result.</div>
 
   <div class="callout">
-  <b>Echte Live-Daten, keine Simulation:</b> jeder Klick auf "Berechnen" ruft frische Kursdaten direkt vom
-  selben Daten-Proxy ab, der auch den Rest des Archivs speist -- keine Caches, kein vorgerechnetes Ergebnis.
-  Alle drei Strategien unten sind identisch zu den separat validierten Reports im
-  <a href="dax-breakout-report.html" target="_blank" rel="noopener noreferrer">DAX-Breakout-Report</a>.
-  Dieses Terminal ersetzt nicht die Einzel-Tools (<a href="live-portfolio.html" target="_blank" rel="noopener noreferrer">Live-Portfolio</a>,
-  <a href="rsi-mean-reversion.html" target="_blank" rel="noopener noreferrer">RSI-Mean-Reversion</a>) -- es bündelt sie
-  mit einer gemeinsamen Ticker-Quelle (z.B. der <a href="https://babybounce500.github.io/genitus-ticker-terminal/" target="_blank" rel="noopener noreferrer">Ticker-Terminal</a>-Watchlist)
-  und fügt die noch nicht als Live-Tool existierende <b>VWAP-Limit-Entry</b>-Variante hinzu.
+  <b>Real live data, no simulation:</b> every click on "Compute" fetches fresh price data directly from the
+  same data proxy that feeds the rest of the archive -- no caches, no precomputed result. All three
+  strategies below are identical to the separately validated reports in the
+  <a href="dax-breakout-report.html" target="_blank" rel="noopener noreferrer">DAX Breakout Report</a>.
+  This terminal doesn't replace the individual tools (<a href="live-portfolio.html" target="_blank" rel="noopener noreferrer">Live Portfolio</a>,
+  <a href="rsi-mean-reversion.html" target="_blank" rel="noopener noreferrer">RSI Mean-Reversion</a>) -- it bundles them
+  with a shared ticker source (e.g. the <a href="https://babybounce500.github.io/genitus-ticker-terminal/" target="_blank" rel="noopener noreferrer">Ticker Terminal</a> watchlist)
+  and adds the <b>VWAP-Limit-Entry</b> variant, which previously only existed in the report.
   </div>
 
-  <h2><span class="step-num">1</span>Ticker-Quelle</h2>
+  <h2><span class="step-num">1</span>Ticker Source</h2>
   <div class="panel">
-    <div class="control-label">TICKER, KOMMAGETRENNT (MAX. 40) -- FORMAT: AAPL.US, SAP.XETRA, BMW.XETRA</div>
+    <div class="control-label">TICKERS, COMMA-SEPARATED (MAX 40) -- FORMAT: AAPL.US, SAP.XETRA, BMW.XETRA</div>
     <textarea id="symbols-input">ADS.XETRA, AIR.XETRA, ALV.XETRA, BAS.XETRA, BAYN.XETRA, BEI.XETRA, BMW.XETRA, BNR.XETRA, CBK.XETRA, CON.XETRA</textarea>
     <div id="ticker-source-note" class="ticker-source-note"></div>
     <div class="btn-row">
-      <button class="secondary-btn" id="load-watchlist-btn" type="button">📥 Aus Ticker-Terminal-Watchlist laden</button>
+      <button class="secondary-btn" id="load-watchlist-btn" type="button">📥 Load from Ticker-Terminal Watchlist</button>
     </div>
     <select class="basket-select" id="basket-select">
-      <option value="" selected disabled>— oder Beispiel-Korb wählen —</option>
-      <optgroup label="Basis-Körbe">
-        <option value="load-dax5">5 DAX-Aktien</option>
-        <option value="load-dax10">10 DAX-Aktien</option>
-        <option value="load-dax37">Alle 37 DAX-Aktien</option>
-        <option value="load-mixed">DAX + US-Mix</option>
-        <option value="load-mix20">20er-Mix (DAX+S&amp;P500)</option>
-        <option value="load-financials">Finanzwerte-Mix</option>
-        <option value="load-tech">Tech-Mix</option>
-        <option value="load-realestate">Immobilien-Mix</option>
-        <option value="load-nebenwerte">Nebenwerte-Mix (MDAX/SDAX)</option>
-        <option value="load-highvol">Hochvolatil-Mix</option>
+      <option value="" selected disabled>— or choose an example basket —</option>
+      <optgroup label="Basic baskets">
+        <option value="load-dax5">5 DAX stocks</option>
+        <option value="load-dax10">10 DAX stocks</option>
+        <option value="load-dax37">All 37 DAX stocks</option>
+        <option value="load-mixed">DAX + US mix</option>
+        <option value="load-mix20">20-stock mix (DAX+S&amp;P500)</option>
+        <option value="load-financials">Financials mix</option>
+        <option value="load-tech">Tech mix</option>
+        <option value="load-realestate">Real estate mix</option>
+        <option value="load-nebenwerte">Small-cap mix (MDAX/SDAX)</option>
+        <option value="load-highvol">High-volatility mix</option>
       </optgroup>
     </select>
   </div>
 
-  <h2><span class="step-num">2</span>Strategie wählen</h2>
+  <h2><span class="step-num">2</span>Choose Strategy</h2>
   <div class="panel">
     <select class="strategy-select" id="strategy-select">
       <option value="channel">📦 Weekly Channel-Breakout</option>
       <option value="rsi">🔄 RSI(14)-Mean-Reversion</option>
-      <option value="vwapLimit">💧 VWAP-Limit-Entry (Montag)</option>
+      <option value="vwapLimit">💧 VWAP-Limit-Entry (Monday)</option>
     </select>
     <div class="strategy-desc" id="strategy-desc"></div>
   </div>
 
-  <h2><span class="step-num">3</span>Einstellungen</h2>
+  <h2><span class="step-num">3</span>Settings</h2>
   <div class="panel">
     <div class="control-group">
-      <div class="control-label">STARTKAPITAL (€)</div>
+      <div class="control-label">STARTING CAPITAL (€)</div>
       <input type="number" id="capital-input" value="100000" min="1000" step="1000">
     </div>
     <div class="control-group">
-      <div class="control-label">POSITIONSGRÖSSE</div>
+      <div class="control-label">POSITION SIZE</div>
       <div class="btn-row">
-        <button class="opt-btn active" data-sizing="full">Volles Kapital auf Signale</button>
-        <button class="opt-btn" data-sizing="fixedSlot">Fixer Slot (1/N)</button>
+        <button class="opt-btn active" data-sizing="full">Full capital on signals</button>
+        <button class="opt-btn" data-sizing="fixedSlot">Fixed slot (1/N)</button>
       </div>
     </div>
     <div class="control-group" style="margin-bottom:0;">
       <div class="control-label">STOP-LOSS</div>
       <div class="btn-row">
-        <button class="opt-btn" data-stop="none">Ohne (nur Zeit-Stop)</button>
-        <button class="opt-btn active" data-stop="stop4">Mit -4%-Preis-Stop</button>
+        <button class="opt-btn" data-stop="none">None (time-stop only)</button>
+        <button class="opt-btn active" data-stop="stop4">With -4% price stop</button>
       </div>
     </div>
   </div>
 
-  <h2><span class="step-num">4</span>Live berechnen</h2>
+  <h2><span class="step-num">4</span>Compute Live</h2>
   <div class="panel">
-    <button class="primary-btn" id="compute-btn">📡 Live-Daten laden &amp; Strategie berechnen</button>
+    <button class="primary-btn" id="compute-btn">📡 Load Live Data &amp; Compute Strategy</button>
     <div id="status"></div>
   </div>
 
   <div id="results" class="hidden">
-    <h2>📊 Historisches Ergebnis (mit soeben geladenen Live-Daten gerechnet)</h2>
+    <h2>📊 Historical Result (computed with the live data just loaded)</h2>
     <div class="stat-grid" id="stats"></div>
     <div class="chart-wrap" id="chart"></div>
     <div class="methodology" id="meta"></div>
 
-    <h2><span class="live-dot"></span>Aktuelle Woche: was würde ich JETZT halten?</h2>
+    <h2><span class="live-dot"></span>Current Week: what would I hold RIGHT NOW?</h2>
     <div id="current-week-note" class="methodology"></div>
     <div id="warnings"></div>
     <div class="table-scroll">
     <table><thead><tr id="current-week-head"></tr></thead><tbody id="current-week-body"></tbody></table>
     </div>
 
-    <h2>🔍 Aufschlüsselung: Long/Short &amp; pro Symbol</h2>
+    <h2>🔍 Breakdown: Long/Short &amp; per Symbol</h2>
     <div class="table-scroll">
-    <table><thead><tr><th>Richtung</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite</th><th>Summe P&amp;L</th></tr></thead><tbody id="direction-breakdown-body"></tbody></table>
+    <table><thead><tr><th>Direction</th><th>Trades</th><th>Win Rate</th><th>Avg. Return</th><th>Total P&amp;L</th></tr></thead><tbody id="direction-breakdown-body"></tbody></table>
     </div>
     <div class="table-scroll" style="max-height:320px;overflow-y:auto;">
-    <table><thead><tr><th>Symbol</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite</th><th>Summe P&amp;L</th><th>Anteil am Gesamtergebnis</th></tr></thead><tbody id="symbol-breakdown-body"></tbody></table>
+    <table><thead><tr><th>Symbol</th><th>Trades</th><th>Win Rate</th><th>Avg. Return</th><th>Total P&amp;L</th><th>Share of Total Result</th></tr></thead><tbody id="symbol-breakdown-body"></tbody></table>
     </div>
 
-    <h2>📋 Alle Trades (Validierung)</h2>
+    <h2>📋 All Trades (Validation)</h2>
     <div class="methodology" id="trades-note"></div>
-    <button class="opt-btn" id="export-csv-btn" style="margin-bottom:12px;">📥 Trades als CSV exportieren</button>
+    <button class="opt-btn" id="export-csv-btn" style="margin-bottom:12px;">📥 Export Trades as CSV</button>
     <div class="table-scroll" style="max-height:480px;overflow-y:auto;overflow-x:auto;">
     <table><thead><tr id="trades-head"></tr></thead><tbody id="trades-body"></tbody></table>
     </div>
 
-    <h2>🔮 3- und 5-Jahres-Projektion (Bootstrap-Simulation)</h2>
+    <h2>🔮 3- and 5-Year Projection (Bootstrap Simulation)</h2>
     <div class="callout" style="border-left-color:var(--accent);">
-    <b>Das ist eine Projektion, kein Backtest.</b> Methode: 2.000 simulierte Pfade pro Zeithorizont, jeder
-    Pfad zieht 156 bzw. 260 Mal <b>zufällig mit Zurücklegen</b> aus den gerade beobachteten echten
-    Wochenrenditen dieser Strategie auf diesem Korb (nicht aus einer angenommenen Normalverteilung) und
-    compoundiert sie. <b>Wichtige Einschränkungen:</b> basiert auf nur ~1 Jahr echter Beobachtung, geht von
-    einer unveränderten Renditeverteilung über 3-5 Jahre aus, rechnet keine Handelskosten oder Steuern ein.
+    <b>This is a projection, not a backtest.</b> Method: 2,000 simulated paths per time horizon, each path
+    draws 156 or 260 times <b>randomly with replacement</b> from the weekly returns of this strategy just
+    observed on this basket (not from an assumed normal distribution) and compounds them.
+    <b>Important limitations:</b> based on only ~1 year of real observation, assumes an unchanged return
+    distribution over 3-5 years, does not include trading costs or taxes.
     </div>
     <div id="projection-content"></div>
   </div>
 
   <div class="footer-note">
-  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Datenquelle:
-  derselbe EOD-Proxy wie der Rest des Archivs, in Echtzeit vom Browser aus abgerufen (kein eigener Server).
-  Ticker-Liste kann aus der <a href="https://babybounce500.github.io/genitus-ticker-terminal/" target="_blank" rel="noopener noreferrer">Ticker-Terminal</a>-Watchlist
-  übernommen werden (gleiche Origin, geteilter localStorage-Key <code>genitus:tickers</code>) -- kein Export/Import nötig.
+  AI-generated, computational analysis -- not investment advice, no execution guarantee. Data source:
+  the same EOD proxy as the rest of the archive, fetched live from the browser (no server of its own).
+  The ticker list can be taken from the <a href="https://babybounce500.github.io/genitus-ticker-terminal/" target="_blank" rel="noopener noreferrer">Ticker Terminal</a>
+  watchlist (same origin, shared localStorage key) -- no export/import needed.
   © 2026 GENITUS INC. — GoldShield AI.
   </div>
 </div>
@@ -349,8 +349,8 @@ function bootstrapProjection(weeklyReturns, horizonWeeks, numSims) {
 }
 
 // ========== rendering helpers ==========
-function fmtEur(v) { return '€' + Math.round(v).toLocaleString('de-DE'); }
-function fmtEurSigned(v) { return (v >= 0 ? '+' : '-') + '€' + Math.round(Math.abs(v)).toLocaleString('de-DE'); }
+function fmtEur(v) { return '€' + Math.round(v).toLocaleString('en-US'); }
+function fmtEurSigned(v) { return (v >= 0 ? '+' : '-') + '€' + Math.round(Math.abs(v)).toLocaleString('en-US'); }
 function fmtPct(v, dp) { dp = dp == null ? 1 : dp; return (v >= 0 ? '+' : '') + v.toFixed(dp) + '%'; }
 function fmtNum(v, dp) { dp = dp == null ? 2 : dp; return v == null ? '—' : v.toFixed(dp); }
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
@@ -396,7 +396,7 @@ function fanChartSvg(band, color, weeksPerYear) {
   for (let yr = 1; yr * weeksPerYear < n; yr++) {
     const xi = x(yr * weeksPerYear);
     yearMarks += '<line x1="' + xi.toFixed(1) + '" y1="' + PAD + '" x2="' + xi.toFixed(1) + '" y2="' + (H-PAD) + '" stroke="var(--border)" stroke-width="1" stroke-dasharray="2,3"/>' +
-      '<text x="' + xi.toFixed(1) + '" y="' + (H-PAD+14) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="middle">Jahr ' + yr + '</text>';
+      '<text x="' + xi.toFixed(1) + '" y="' + (H-PAD+14) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="middle">Year ' + yr + '</text>';
   }
   const lastP10 = band[n-1].p10, lastP50 = band[n-1].p50, lastP90 = band[n-1].p90;
   return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" preserveAspectRatio="xMidYMid meet">' +
@@ -457,11 +457,11 @@ function gatherChannelTrades(symbol, series) {
 
 function channelCurrentWeekSignal(symbol, ctx, todayMondayISO) {
   const { weeks, series } = ctx;
-  if (weeks.length < 3) return { sym: symbol, error: 'zu wenig Historie für Kanal' };
+  if (weeks.length < 3) return { sym: symbol, error: 'not enough history for channel' };
   const lastThree = weeks.slice(-3).map(w => w.fridayClose);
   const LONG = Math.max.apply(null, lastThree), SHORT = Math.min.apply(null, lastThree);
   const mondayBar = series.find(p => p.date === todayMondayISO);
-  if (!mondayBar) return { sym: symbol, cols: [fmtNum(LONG), fmtNum(SHORT)], error: 'kein Montag-Kurs verfügbar (Feiertag oder Markt noch offen)' };
+  if (!mondayBar) return { sym: symbol, cols: [fmtNum(LONG), fmtNum(SHORT)], error: 'no Monday price available (holiday or market still open)' };
   let direction = null;
   if (mondayBar.close > LONG) direction = 'LONG';
   else if (mondayBar.close < SHORT) direction = 'SHORT';
@@ -521,13 +521,13 @@ function gatherRsiTrades(symbol, series) {
 
 function rsiCurrentWeekSignal(symbol, ctx, todayMondayISO) {
   const { series, rsi, idxByDate, weeks } = ctx;
-  if (!weeks.length) return { sym: symbol, error: 'zu wenig Historie für RSI' };
+  if (!weeks.length) return { sym: symbol, error: 'not enough history for RSI' };
   const lastFriday = weeks[weeks.length - 1].friday;
   const fridayIdx = idxByDate.get(lastFriday);
   const rsiVal = fridayIdx != null ? rsi[fridayIdx] : null;
   const mondayBar = series.find(p => p.date === todayMondayISO);
-  if (rsiVal == null) return { sym: symbol, error: 'RSI nicht berechenbar (zu wenig Historie)' };
-  if (!mondayBar) return { sym: symbol, cols: [fmtNum(rsiVal, 1)], error: 'kein Montag-Kurs verfügbar (Feiertag oder Markt noch offen)' };
+  if (rsiVal == null) return { sym: symbol, error: 'RSI not computable (not enough history)' };
+  if (!mondayBar) return { sym: symbol, cols: [fmtNum(rsiVal, 1)], error: 'no Monday price available (holiday or market still open)' };
   let direction = null;
   if (rsiVal < RSI_OVERSOLD) direction = 'LONG';
   else if (rsiVal > RSI_OVERBOUGHT) direction = 'SHORT';
@@ -584,11 +584,11 @@ function gatherVwapTrades(symbol, series) {
 
 function vwapCurrentWeekSignal(symbol, ctx, todayMondayISO) {
   const { lastChannel, lastVwap, lastDirection, lastMondayBar } = ctx;
-  if (!lastChannel || lastVwap == null) return { sym: symbol, error: 'zu wenig Historie/Volumen für VWAP-Proxy' };
-  if (!lastMondayBar || lastMondayBar.date !== todayMondayISO) return { sym: symbol, error: 'kein Montag-Kurs für die aktuelle Woche verfügbar' };
+  if (!lastChannel || lastVwap == null) return { sym: symbol, error: 'not enough history/volume for VWAP proxy' };
+  if (!lastMondayBar || lastMondayBar.date !== todayMondayISO) return { sym: symbol, error: 'no Monday price available for the current week' };
   if (!lastDirection) return { sym: symbol, direction: null, cols: [fmtNum(lastChannel.channelHigh), fmtNum(lastChannel.channelLow), fmtNum(lastVwap)] };
   const filledThisWeek = lastVwap >= lastMondayBar.low && lastVwap <= lastMondayBar.high;
-  return { sym: symbol, direction: lastDirection, vwapFilled: filledThisWeek, mondayClose: lastMondayBar.close, monday: lastMondayBar.date,
+  return { sym: symbol, direction: lastDirection, vwapFilled: filledThisWeek, vwapPrice: lastVwap, mondayClose: lastMondayBar.close, monday: lastMondayBar.date,
     cols: [fmtNum(lastChannel.channelHigh), fmtNum(lastChannel.channelLow), fmtNum(lastVwap)] };
 }
 
@@ -596,24 +596,24 @@ function vwapCurrentWeekSignal(symbol, ctx, todayMondayISO) {
 const STRATEGIES = {
   channel: {
     label: 'Weekly Channel-Breakout', color: '#22d3ee', needsCurrentWeekFetch: true,
-    description: 'Kanal = Max/Min der letzten 3 abgeschlossenen Freitags-Schlusskurse. Montag-Close über Kanal-Hoch = LONG, unter Kanal-Tief = SHORT, sonst flach. Einstieg Montag-Close, Ausstieg Freitag-Close. Validiert auf 37 DAX-Aktien und breiter im <a href="dax-breakout-report.html" target="_blank" rel="noopener noreferrer">DAX-Breakout-Report</a>.',
+    description: 'Channel = max/min of the last 3 completed Friday closes. Monday close above channel high = LONG, below channel low = SHORT, otherwise flat. Entry at Monday close, exit at Friday close. Validated on 37 DAX stocks and more broadly in the <a href="dax-breakout-report.html" target="_blank" rel="noopener noreferrer">DAX Breakout Report</a>.',
     gatherTrades: gatherChannelTrades, currentWeekSignal: channelCurrentWeekSignal,
-    currentWeekCols: ['Symbol', 'Kanal (Long >)', 'Kanal (Short <)', 'Montag-Close', 'Signal', 'Live-Kurs jetzt', 'Unrealisiert'],
+    currentWeekCols: ['Symbol', 'Channel (Long >)', 'Channel (Short <)', 'Monday close', 'Signal', 'Live price now', 'Unrealized %', 'Unrealized $'],
     extraTradeCol: null,
   },
   rsi: {
     label: 'RSI(14)-Mean-Reversion', color: '#a78bfa', needsCurrentWeekFetch: true,
-    description: 'RSI(14) am letzten abgeschlossenen Freitag unter 30 = LONG (überverkauft), über 70 = SHORT (überkauft), Wilder-Glättung. Einstieg Montag-Close, Ausstieg Freitag-Close, derselbe Stop wie die Kanal-Variante. Nur auf DAX-37 validiert, siehe <a href="dax-breakout-report.html#rsi" target="_blank" rel="noopener noreferrer">DAX-Breakout-Report</a>.',
+    description: 'RSI(14) on the last completed Friday below 30 = LONG (oversold), above 70 = SHORT (overbought), Wilder smoothing. Entry at Monday close, exit at Friday close, same stop as the channel variant. Only validated on DAX-37, see the <a href="dax-breakout-report.html#rsi" target="_blank" rel="noopener noreferrer">DAX Breakout Report</a>.',
     gatherTrades: gatherRsiTrades, currentWeekSignal: rsiCurrentWeekSignal,
-    currentWeekCols: ['Symbol', 'RSI (Freitag)', 'Montag-Close', 'Signal', 'Live-Kurs jetzt', 'Unrealisiert'],
-    extraTradeCol: 'RSI (Einstieg)',
+    currentWeekCols: ['Symbol', 'RSI (Friday)', 'Monday close', 'Signal', 'Live price now', 'Unrealized %', 'Unrealized $'],
+    extraTradeCol: 'RSI (entry)',
   },
   vwapLimit: {
-    label: 'VWAP-Limit-Entry (Montag)', color: '#34d399', needsCurrentWeekFetch: false,
-    description: 'Wie Channel-Breakout, aber Einstieg per Limit-Order zum volumengewichteten Typical-Price ((H+L+C)/3) der Vorwoche statt zum Montags-Markt-Close -- füllt nur ca. 32% der Signale (Rest verfällt ungenutzt), dafür zu einem im Mittel besseren Preis. Im gematchten Vergleich (identischer Trade-Satz, identischer Hold) verdreifacht sich der Sharpe allein durch den Einstiegspreis. Details: <a href="dax-breakout-report.html#vwap-limit" target="_blank" rel="noopener noreferrer">DAX-Breakout-Report</a>.',
+    label: 'VWAP-Limit-Entry (Monday)', color: '#34d399', needsCurrentWeekFetch: false,
+    description: 'Like Channel-Breakout, but entry is a limit order at the prior week\'s volume-weighted typical price ((H+L+C)/3) instead of Monday\'s market close -- fills only about 32% of signals (the rest expire unused), at a generally better price. In the matched comparison (identical trade set, identical hold), Sharpe roughly triples from the entry price alone. Details: <a href="dax-breakout-report.html#vwap-limit" target="_blank" rel="noopener noreferrer">DAX Breakout Report</a>.',
     gatherTrades: gatherVwapTrades, currentWeekSignal: vwapCurrentWeekSignal,
-    currentWeekCols: ['Symbol', 'Kanal-Hoch', 'Kanal-Tief', 'VWAP-Limit-Preis', 'Signal', 'Fill-Status (Montag)'],
-    extraTradeCol: 'Preisverbesserung vs. Markt',
+    currentWeekCols: ['Symbol', 'Channel high', 'Channel low', 'VWAP limit price', 'Signal', 'Fill status (Monday)', 'Live price now', 'Unrealized %', 'Unrealized $'],
+    extraTradeCol: 'Price improvement vs. market',
   },
 };
 
@@ -625,7 +625,7 @@ async function fetchHistoricalFull(symbol) {
   const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromStr);
   if (!res.ok) throw new Error('HTTP ' + res.status);
   const raw = await res.json();
-  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  if (!Array.isArray(raw) || !raw.length) throw new Error('no data');
   return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
     .map(h => ({
       date: h.date,
@@ -670,12 +670,12 @@ basketSelect.addEventListener('change', () => {
 function tryLoadSharedWatchlist(announce) {
   try {
     const raw = localStorage.getItem(SHARED_TICKERS_KEY);
-    if (!raw) { if (announce) { const n = document.getElementById('ticker-source-note'); n.textContent = 'Keine Watchlist im Ticker-Terminal gefunden -- dort erst Symbole mit ♥ markieren.'; n.classList.add('show'); } return false; }
+    if (!raw) { if (announce) { const n = document.getElementById('ticker-source-note'); n.textContent = 'No watchlist found in the Ticker Terminal -- mark some symbols with ♥ there first.'; n.classList.add('show'); } return false; }
     const list = JSON.parse(raw);
-    if (!Array.isArray(list) || !list.length) { if (announce) { const n = document.getElementById('ticker-source-note'); n.textContent = 'Ticker-Terminal-Watchlist ist leer.'; n.classList.add('show'); } return false; }
+    if (!Array.isArray(list) || !list.length) { if (announce) { const n = document.getElementById('ticker-source-note'); n.textContent = 'Ticker Terminal watchlist is empty.'; n.classList.add('show'); } return false; }
     document.getElementById('symbols-input').value = list.join(', ');
     const n = document.getElementById('ticker-source-note');
-    n.textContent = '✓ ' + list.length + ' Symbole aus der Ticker-Terminal-Watchlist übernommen.';
+    n.textContent = '✓ ' + list.length + ' symbols loaded from the Ticker Terminal watchlist.';
     n.classList.add('show');
     return true;
   } catch (e) { return false; }
@@ -733,9 +733,9 @@ const SORT_ACCESSORS = {
 function renderTradesHead(strat) {
   const head = document.getElementById('trades-head');
   let cols = [
-    ['idx','#'], ['symbol','Symbol'], ['monday','Montag (Einstieg)'], ['direction','Richtung'],
-    ['positionSize','Positionsgröße'], ['grossReturn','Rendite (brutto)'], ['wasStopped','Gestoppt bei -4%?'],
-    ['finalReturn','Rendite (final)'], ['pnlAbs','P&amp;L (absolut)'],
+    ['idx','#'], ['symbol','Symbol'], ['monday','Monday (entry)'], ['direction','Direction'],
+    ['positionSize','Position size'], ['grossReturn','Return (gross)'], ['wasStopped','Stopped at -4%?'],
+    ['finalReturn','Return (final)'], ['pnlAbs','P&amp;L (absolute)'],
   ];
   let html = cols.map(([key,label]) => '<th data-sort="' + key + '">' + label + '</th>').join('');
   if (strat.extraTradeCol) html += '<th>' + esc(strat.extraTradeCol) + '</th>';
@@ -768,7 +768,7 @@ function renderBreakdowns(trades) {
   dirBody.innerHTML = ['LONG', 'SHORT'].map(dir => {
     const g = dirGroups.get(dir) || [];
     const s = statsFor(g);
-    if (!s.n) return '<tr><td><span class="badge ' + (dir === 'LONG' ? 'long' : 'short') + '">' + dir + '</span></td><td colspan="4" style="color:var(--muted);">keine Trades</td></tr>';
+    if (!s.n) return '<tr><td><span class="badge ' + (dir === 'LONG' ? 'long' : 'short') + '">' + dir + '</span></td><td colspan="4" style="color:var(--muted);">no trades</td></tr>';
     return '<tr>' +
       '<td><span class="badge ' + (dir === 'LONG' ? 'long' : 'short') + '">' + dir + '</span></td>' +
       '<td class="num">' + s.n + '</td>' +
@@ -823,7 +823,7 @@ function renderTradesTable() {
     '<td><span class="badge ' + (t.direction === 'LONG' ? 'long' : 'short') + '">' + t.direction + '</span></td>' +
     '<td class="num">' + fmtEur(t.positionSize) + '</td>' +
     '<td class="num ' + (t.grossReturn >= 0 ? 'pos' : 'neg') + '">' + fmtPct(t.grossReturn * 100, 2) + '</td>' +
-    '<td>' + (t.wasStopped ? '<span class="neg">ja</span>' : 'nein') + '</td>' +
+    '<td>' + (t.wasStopped ? '<span class="neg">yes</span>' : 'no') + '</td>' +
     '<td class="num ' + (t.finalReturn >= 0 ? 'pos' : 'neg') + '">' + fmtPct(t.finalReturn * 100, 2) + '</td>' +
     '<td class="num ' + (t.pnlAbs >= 0 ? 'pos' : 'neg') + '">' + fmtEurSigned(t.pnlAbs) + '</td>' +
     (strat.extraTradeCol ? '<td class="num">' + esc(t.extra == null ? '—' : t.extra) + '</td>' : '') +
@@ -832,17 +832,17 @@ function renderTradesTable() {
   const totalPnlAbs = currentTradeDetails.reduce((a, t) => a + t.pnlAbs, 0);
   const stoppedCount = currentTradeDetails.filter(t => t.wasStopped).length;
   document.getElementById('trades-note').innerHTML = n
-    ? n + ' Einzel-Trades gesamt -- jede Zahl in der Tabelle oben entsteht direkt aus dieser Liste, Spaltenköpfe anklicken zum Sortieren. Durchschnittliche finale Rendite pro Trade: <b>' + fmtPct(avgFinal * 100, 3) + '</b> (× √52 annualisiert = der Sharpe oben), Summe aller Einzel-P&amp;L: <b>' + fmtEurSigned(totalPnlAbs) + '</b>' + (stoppedCount ? ', davon <b>' + stoppedCount + '</b> durch den Stop begrenzt' : '') + '.'
-    : 'Keine Trades im gewählten Zeitraum -- zu kurze Historie oder kein Symbol hat in diesem Fenster ausgelöst.';
+    ? n + ' individual trades total -- every number in the table above comes straight from this list, click column headers to sort. Average final return per trade: <b>' + fmtPct(avgFinal * 100, 3) + '</b> (× √52 annualized = the Sharpe above), sum of all individual P&amp;L: <b>' + fmtEurSigned(totalPnlAbs) + '</b>' + (stoppedCount ? ', of which <b>' + stoppedCount + '</b> were capped by the stop' : '') + '.'
+    : 'No trades in the selected period -- history too short, or no symbol triggered in this window.';
 }
 
 document.getElementById('export-csv-btn').addEventListener('click', () => {
   if (!currentTradeDetails.length) return;
   const strat = STRATEGIES[currentStrategyKey];
-  const header = ['Symbol', 'Montag', 'Richtung', 'Positionsgroesse', 'Rendite_brutto_pct', 'Gestoppt', 'Rendite_final_pct', 'PnL_absolut'];
+  const header = ['Symbol', 'Monday', 'Direction', 'PositionSize', 'ReturnGross_pct', 'Stopped', 'ReturnFinal_pct', 'PnL_absolute'];
   if (strat.extraTradeCol) header.push(strat.extraTradeCol.replace(/[^a-zA-Z0-9]+/g, '_'));
   const rows = currentTradeDetails.map(t => {
-    const row = [t.symbol, t.monday, t.direction, t.positionSize.toFixed(2), (t.grossReturn*100).toFixed(3), t.wasStopped ? 'ja' : 'nein', (t.finalReturn*100).toFixed(3), t.pnlAbs.toFixed(2)];
+    const row = [t.symbol, t.monday, t.direction, t.positionSize.toFixed(2), (t.grossReturn*100).toFixed(3), t.wasStopped ? 'yes' : 'no', (t.finalReturn*100).toFixed(3), t.pnlAbs.toFixed(2)];
     if (strat.extraTradeCol) row.push(t.extra == null ? '' : t.extra);
     return row;
   });
@@ -856,31 +856,31 @@ document.getElementById('export-csv-btn').addEventListener('click', () => {
 
 const WEEKS_PER_YEAR = 52;
 function projectionBlock(label, horizonYears, band, startCapital) {
-  if (!band) return '<h3 style="font-size:12px;margin:18px 0 8px;">' + label + '</h3><p style="font-size:10.5px;color:var(--muted);">Zu wenig Handelswochen (&lt;10) für eine verlässliche Projektion.</p>';
+  if (!band) return '<h3 style="font-size:12px;margin:18px 0 8px;">' + label + '</h3><p style="font-size:10.5px;color:var(--muted);">Not enough trading weeks (&lt;10) for a reliable projection.</p>';
   const p10Cap = startCapital * band.finalP10, p50Cap = startCapital * band.finalP50, p90Cap = startCapital * band.finalP90;
   const annualizedMedian = (Math.pow(band.finalP50, 1 / horizonYears) - 1) * 100;
   const sanityWarning = annualizedMedian > 40
-    ? '<div class="warn-box"><b>Unrealistisch hohe Hochrechnung:</b> die Median-Linie unterstellt ~' + fmtNum(annualizedMedian,0) + '% Rendite PRO JAHR, dauerhaft über ' + horizonYears + ' Jahre -- das übertrifft jede bekannte reale Strategie dieser Größenordnung deutlich. Warnsignal, dass die kurze Beobachtungsperiode nicht repräsentativ ist.</div>'
+    ? '<div class="warn-box"><b>Unrealistically high projection:</b> the median line implies ~' + fmtNum(annualizedMedian,0) + '% return PER YEAR, sustained over ' + horizonYears + ' years -- that clearly exceeds any known real strategy of this size. This is a warning sign that the short observation period is not representative, not a sign of an exceptionally good strategy.</div>'
     : '';
   return '<h3 style="font-size:12px;margin:18px 0 8px;">' + label + '</h3>' + sanityWarning +
     '<div class="stat-grid">' +
-      '<div class="bstat"><b>' + fmtEur(p50Cap) + '</b><span>MEDIAN-ENDKAPITAL</span></div>' +
-      '<div class="bstat"><b class="neg">' + fmtEur(p10Cap) + '</b><span>P10 (PESSIMISTISCH)</span></div>' +
-      '<div class="bstat"><b class="pos">' + fmtEur(p90Cap) + '</b><span>P90 (OPTIMISTISCH)</span></div>' +
-      '<div class="bstat"><b class="neg">' + fmtPct(band.worstMaxDD, 1) + '</b><span>SCHLECHTESTER MAX-DRAWDOWN (P5)</span></div>' +
+      '<div class="bstat"><b>' + fmtEur(p50Cap) + '</b><span>MEDIAN FINAL CAPITAL</span></div>' +
+      '<div class="bstat"><b class="neg">' + fmtEur(p10Cap) + '</b><span>P10 (PESSIMISTIC)</span></div>' +
+      '<div class="bstat"><b class="pos">' + fmtEur(p90Cap) + '</b><span>P90 (OPTIMISTIC)</span></div>' +
+      '<div class="bstat"><b class="neg">' + fmtPct(band.worstMaxDD, 1) + '</b><span>WORST MAX DRAWDOWN (P5)</span></div>' +
     '</div>' +
     '<div class="chart-wrap">' + fanChartSvg(band.quantileBand, 'var(--accent)', WEEKS_PER_YEAR) + '</div>' +
-    '<div class="methodology" style="margin-bottom:0;">Median Max-Drawdown über den Zeitraum: ' + fmtPct(band.medianMaxDD, 1) + '. Anteil der 2.000 simulierten Pfade, die nach ' + horizonYears + ' Jahren unter dem Startkapital liegen: <b>' + fmtNum(band.lossProb, 1) + '%</b>.</div>';
+    '<div class="methodology" style="margin-bottom:0;">Median max drawdown over the period: ' + fmtPct(band.medianMaxDD, 1) + '. Share of the 2,000 simulated paths that are below starting capital after ' + horizonYears + ' years: <b>' + fmtNum(band.lossProb, 1) + '%</b>.</div>';
 }
 function renderProjection(weeklyReturns, startCapital) {
   const content = document.getElementById('projection-content');
   if (!weeklyReturns || weeklyReturns.length < 10) {
-    content.innerHTML = '<p style="font-size:10.5px;color:var(--muted);">Zu wenig Handelswochen (&lt;10) für eine Projektion -- größeren Korb oder andere Strategie wählen.</p>';
+    content.innerHTML = '<p style="font-size:10.5px;color:var(--muted);">Not enough trading weeks (&lt;10) for a projection -- choose a larger basket or a different strategy.</p>';
     return;
   }
   const band3y = bootstrapProjection(weeklyReturns, 3 * WEEKS_PER_YEAR, 2000);
   const band5y = bootstrapProjection(weeklyReturns, 5 * WEEKS_PER_YEAR, 2000);
-  content.innerHTML = projectionBlock('3-Jahres-Projektion (156 Wochen)', 3, band3y, startCapital) + projectionBlock('5-Jahres-Projektion (260 Wochen)', 5, band5y, startCapital);
+  content.innerHTML = projectionBlock('3-year projection (156 weeks)', 3, band3y, startCapital) + projectionBlock('5-year projection (260 weeks)', 5, band5y, startCapital);
 }
 
 function renderCurrentWeekHead(strat) {
@@ -889,8 +889,8 @@ function renderCurrentWeekHead(strat) {
 
 computeBtn.addEventListener('click', async () => {
   const symbols = parseSymbols();
-  if (!symbols.length) { statusEl.textContent = 'Bitte mindestens ein Symbol eingeben.'; statusEl.className = 'err'; return; }
-  if (symbols.length > MAX_SYMBOLS) { statusEl.textContent = 'Maximal ' + MAX_SYMBOLS + ' Symbole auf einmal.'; statusEl.className = 'err'; return; }
+  if (!symbols.length) { statusEl.textContent = 'Please enter at least one symbol.'; statusEl.className = 'err'; return; }
+  if (symbols.length > MAX_SYMBOLS) { statusEl.textContent = 'Maximum ' + MAX_SYMBOLS + ' symbols at once.'; statusEl.className = 'err'; return; }
   const capitalRaw = Number(document.getElementById('capital-input').value);
   const capital = Number.isFinite(capitalRaw) && capitalRaw >= 1000 ? capitalRaw : 100000;
   const stopPct = state.stop === 'stop4' ? 0.04 : null;
@@ -900,7 +900,7 @@ computeBtn.addEventListener('click', async () => {
   computeBtn.disabled = true;
   document.getElementById('results').classList.add('hidden');
   statusEl.className = '';
-  statusEl.textContent = 'Lade Live-Kurse für ' + symbols.length + ' Symbole...';
+  statusEl.textContent = 'Loading live prices for ' + symbols.length + ' symbols...';
 
   const seriesBySymbol = {};
   const failed = [];
@@ -911,8 +911,8 @@ computeBtn.addEventListener('click', async () => {
       const series = await fetchHistoricalFull(sym);
       const artifact = detectSplitArtifact(series);
       if (artifact) {
-        const reason = sym.endsWith('.CC') ? 'ungewöhnlich großer Tagessprung -- Datenfehler oder extreme Volatilität, sicherheitshalber ausgeschlossen' : 'vermutlich unadjustierter Split, ausgeschlossen';
-        splitWarnings.push(sym + ' (Kurssprung ' + artifact.ratio.toFixed(2) + 'x am ' + artifact.date + ' -- ' + reason + ')');
+        const reason = sym.endsWith('.CC') ? 'unusually large single-day jump -- data error or extreme volatility, excluded to be safe' : 'likely an unadjusted split, excluded';
+        splitWarnings.push(sym + ' (price jump ' + artifact.ratio.toFixed(2) + 'x on ' + artifact.date + ' -- ' + reason + ')');
         return;
       }
       seriesBySymbol[sym] = series;
@@ -922,12 +922,12 @@ computeBtn.addEventListener('click', async () => {
   const usableSymbols = Object.keys(seriesBySymbol);
   if (!usableSymbols.length) {
     statusEl.className = 'err';
-    statusEl.textContent = 'Keine verwertbaren Daten erhalten. Prüfe die Symbol-Schreibweise (z.B. AAPL.US, SAP.XETRA).';
+    statusEl.textContent = 'No usable data received. Check the symbol spelling (e.g. AAPL.US, SAP.XETRA).';
     computeBtn.disabled = false;
     return;
   }
 
-  statusEl.textContent = 'Berechne ' + strat.label + ' auf ' + usableSymbols.length + ' Symbolen...';
+  statusEl.textContent = 'Computing ' + strat.label + ' on ' + usableSymbols.length + ' symbols...';
 
   let allTrades = [];
   const perSymbolCtx = {};
@@ -948,32 +948,38 @@ computeBtn.addEventListener('click', async () => {
     try { realtimeBySymbol[sym] = await fetchRealtime(sym); } catch (e) {}
   }));
 
+  // position size used for the LIVE (current-week, still-open) positions below -- mirrors the exact same
+  // sizing rule the backtest uses (simulateAccount), just applied to "how many positions are open THIS
+  // week" instead of a historical week, so the $ P&L shown matches what the backtest would have recorded.
+  const openCount = currentWeekRows.filter(r => r.direction).length;
+  const livePerPosition = openCount > 0 ? (state.sizing === 'fixedSlot' ? capital / usableSymbols.length : capital / openCount) : 0;
+
   // ---- render stats/chart/meta ----
   document.getElementById('stats').innerHTML =
-    '<div class="bstat"><b class="' + (result.totalReturnPct>=0?'pos':'neg') + '">' + fmtPct(result.totalReturnPct) + '</b><span>GESAMTRENDITE</span></div>' +
-    '<div class="bstat"><b>' + fmtEur(result.finalCapital) + '</b><span>ENDKAPITAL</span></div>' +
+    '<div class="bstat"><b class="' + (result.totalReturnPct>=0?'pos':'neg') + '">' + fmtPct(result.totalReturnPct) + '</b><span>TOTAL RETURN</span></div>' +
+    '<div class="bstat"><b>' + fmtEur(result.finalCapital) + '</b><span>FINAL CAPITAL</span></div>' +
     '<div class="bstat"><b>' + fmtNum(result.sharpe) + '</b><span>SHARPE</span></div>' +
     '<div class="bstat"><b class="neg">' + fmtPct(result.maxDrawdownPct) + '</b><span>MAX DRAWDOWN</span></div>';
-  document.getElementById('chart').innerHTML = result.equityCurve.length > 1 ? equityCurveSvg(result.equityCurve, strat.color) : '<p style="font-size:10.5px;color:var(--muted);">Zu wenig vollständige Handelswochen für eine Kurve.</p>';
-  document.getElementById('meta').innerHTML = usableSymbols.length + ' von ' + symbols.length + ' Symbolen verwertbar · ' + result.n + ' Handelswochen im Backtest (' + strat.label + ') · Win-Rate ' + fmtNum(result.winRate,0) + '% · Abruf gerade eben live vom Proxy, Zeitraum ~' + FETCH_DAYS_BACK + ' Tage zurück.' +
-    (failed.length ? '<br><b style="color:var(--red);">Nicht abrufbar:</b> ' + failed.map(esc).join(', ') : '');
+  document.getElementById('chart').innerHTML = result.equityCurve.length > 1 ? equityCurveSvg(result.equityCurve, strat.color) : '<p style="font-size:10.5px;color:var(--muted);">Not enough complete trading weeks for a curve.</p>';
+  document.getElementById('meta').innerHTML = usableSymbols.length + ' of ' + symbols.length + ' symbols usable · ' + result.n + ' trading weeks in the backtest (' + strat.label + ') · win rate ' + fmtNum(result.winRate,0) + '% · fetched live from the proxy just now, period ~' + FETCH_DAYS_BACK + ' days back.' +
+    (failed.length ? '<br><b style="color:var(--red);">Not fetchable:</b> ' + failed.map(esc).join(', ') : '');
 
-  document.getElementById('current-week-note').textContent = 'Aktuelle Kalenderwoche (Montag ' + todayMondayISO + '). Signal nach der gewählten Strategie, Stand der letzten verfügbaren Daten.' +
-    (stopPct != null ? ' -4%-Preis-Stop aktiv -- Positionen, die diese Woche bereits -4% oder mehr gegen sich hatten, werden als GESTOPPT markiert.' : ' Kein Stop aktiv -- zeigt den vollen, ungebremsten Stand seit Einstieg.');
+  document.getElementById('current-week-note').innerHTML = 'Current calendar week (Monday ' + todayMondayISO + '). Signal per the selected strategy, as of the latest available data. $ amounts use <b>' + fmtEur(livePerPosition) + '</b> per open position (' + openCount + ' open, ' + (state.sizing === 'fixedSlot' ? 'fixed slot 1/' + usableSymbols.length : 'full capital split across this week\'s signals') + ') -- the same sizing rule as the backtest above, so these numbers are directly comparable to the trade table.' +
+    (stopPct != null ? ' -4% price stop active -- positions that have already been -4% or worse against them this week are marked STOPPED.' : ' No stop active -- shows the full, unclipped standing since entry.');
 
   const warningsEl = document.getElementById('warnings');
   const hasCrypto = usableSymbols.some(s => s.endsWith('.CC'));
   const pennyStocks = usableSymbols.filter(s => { const series = seriesBySymbol[s]; return series && series.length && series[series.length - 1].close < 5; });
   let warningsHtml = '';
   if (state.strategy === 'rsi') {
-    warningsHtml += '<div class="warn-box"><b>Diese RSI-Strategie wurde nur auf dem DAX-37 validiert</b> -- nicht auf anderen Körben gesondert getestet.</div>';
+    warningsHtml += '<div class="warn-box"><b>This RSI strategy was only validated on DAX-37</b> -- not separately tested on other baskets.</div>';
   }
   if (state.strategy === 'vwapLimit') {
-    warningsHtml += '<div class="warn-box"><b>VWAP-Limit braucht echte Volumendaten.</b> Symbole ohne verlässliche Volumenhistorie (manche Crypto/Forex-Paare) liefern hier systematisch weniger oder keine Trades. Die "Fill-Status"-Spalte unten ist nur retrospektiv exakt (Tagesschluss bekannt) -- während die Woche noch läuft, ist der Live-Fill-Status eine Annäherung, da nur der Live-Kurs, nicht das untertägige Hoch/Tief verfügbar ist.</div>';
+    warningsHtml += '<div class="warn-box"><b>VWAP-Limit needs real volume data.</b> Symbols without reliable volume history (some crypto/forex pairs) systematically produce fewer or no trades here. The "Fill status" column below is only exact retrospectively (once the day\'s close is known) -- while the week is still live, the fill status is an approximation, since only the live price, not the intraday high/low, is available.</div>';
   }
-  if (hasCrypto) warningsHtml += '<div class="warn-box"><b>Crypto im Korb:</b> die Montag-Freitag-Logik wurde für Crypto in den etablierten Backtests NICHT als robust bestätigt (Sharpe kippt zwischen Zeithälften).</div>';
-  if (pennyStocks.length) warningsHtml += '<div class="warn-box"><b>Pennystocks/Distressed-Werte im Korb (Kurs &lt; 5€/$):</b> ' + pennyStocks.map(esc).join(', ') + '.</div>';
-  if (splitWarnings.length) warningsHtml += '<div class="warn-box"><b>Symbole mit unplausiblem Kurssprung ausgeschlossen:</b> ' + splitWarnings.map(esc).join('; ') + '</div>';
+  if (hasCrypto) warningsHtml += '<div class="warn-box"><b>Crypto in the basket:</b> the Monday-Friday logic was NOT confirmed as robust for crypto in the established backtests (Sharpe flips sign between time halves).</div>';
+  if (pennyStocks.length) warningsHtml += '<div class="warn-box"><b>Penny/distressed stocks in the basket (price &lt; $5/€5):</b> ' + pennyStocks.map(esc).join(', ') + '.</div>';
+  if (splitWarnings.length) warningsHtml += '<div class="warn-box"><b>Symbols excluded for an implausible price jump:</b> ' + splitWarnings.map(esc).join('; ') + '</div>';
   warningsEl.innerHTML = warningsHtml;
 
   renderCurrentWeekHead(strat);
@@ -987,14 +993,25 @@ computeBtn.addEventListener('click', async () => {
     }
     if (state.strategy === 'vwapLimit') {
       const badgeClass = r.direction === 'LONG' ? 'long' : r.direction === 'SHORT' ? 'short' : 'flat';
-      const badgeLabel = r.direction || 'KEINE POSITION';
-      let fillCell = '—';
-      if (r.direction) fillCell = r.vwapFilled ? '<span class="badge watch">Limit im Tagesbereich getroffen</span>' : '<span style="color:var(--muted);">noch nicht getroffen (Stand letzter Tagesschluss)</span>';
-      return '<tr><td>' + esc(r.sym) + '</td>' + r.cols.map(c => '<td class="num">' + c + '</td>').join('') + '<td><span class="badge ' + badgeClass + '">' + badgeLabel + '</span></td><td>' + fillCell + '</td></tr>';
+      const badgeLabel = r.direction || 'NO POSITION';
+      let fillCell = '—', liveCell = '—', pnlPctCell = '—', pnlAbsCell = '—';
+      if (r.direction) {
+        fillCell = r.vwapFilled ? '<span class="badge watch">Limit touched within day\'s range</span>' : '<span style="color:var(--muted);">not yet touched (as of last close)</span>';
+        if (r.vwapFilled) {
+          const rt = realtimeBySymbol[r.sym];
+          if (rt && Number.isFinite(rt.close)) {
+            liveCell = '€' + rt.close.toFixed(2);
+            const pnlPct = vwapMultiplier(r.direction, r.vwapPrice, rt.close) - 1;
+            pnlPctCell = '<span class="' + (pnlPct >= 0 ? 'pos' : 'neg') + '">' + fmtPct(pnlPct * 100, 2) + '</span>';
+            pnlAbsCell = '<span class="' + (pnlPct >= 0 ? 'pos' : 'neg') + '">' + fmtEurSigned(livePerPosition * pnlPct) + '</span>';
+          }
+        } else { pnlPctCell = '<span style="color:var(--muted);">pending fill</span>'; pnlAbsCell = '—'; }
+      }
+      return '<tr><td>' + esc(r.sym) + '</td>' + r.cols.map(c => '<td class="num">' + c + '</td>').join('') + '<td><span class="badge ' + badgeClass + '">' + badgeLabel + '</span></td><td>' + fillCell + '</td><td class="num">' + liveCell + '</td><td class="num">' + pnlPctCell + '</td><td class="num">' + pnlAbsCell + '</td></tr>';
     }
     let badgeClass = r.direction === 'LONG' ? 'long' : r.direction === 'SHORT' ? 'short' : 'flat';
-    let badgeLabel = r.direction || 'KEINE POSITION';
-    let liveCell = '—', pnlCell = '—';
+    let badgeLabel = r.direction || 'NO POSITION';
+    let liveCell = '—', pnlPctCell = '—', pnlAbsCell = '—';
     const rt = realtimeBySymbol[r.sym];
     if (r.direction) {
       const series = perSymbolCtx[r.sym].series;
@@ -1009,15 +1026,17 @@ computeBtn.addEventListener('click', async () => {
       if (rt && Number.isFinite(rt.close)) liveCell = '€' + rt.close.toFixed(2);
       if (currentPnl != null) {
         const stoppedOut = stopPct != null && worst <= -stopPct;
+        const effectivePnl = stoppedOut ? -stopPct : currentPnl;
         if (stoppedOut) {
-          badgeClass = 'stopped'; badgeLabel = r.direction + ' ⚠ GESTOPPT';
-          pnlCell = '<span class="neg">' + fmtPct(-stopPct * 100, 2) + ' (Stop)</span><br><span style="font-size:8.5px;color:var(--muted);">schlechtester Stand: ' + fmtPct(worst * 100, 2) + ' · live: ' + fmtPct(currentPnl * 100, 2) + '</span>';
+          badgeClass = 'stopped'; badgeLabel = r.direction + ' ⚠ STOPPED';
+          pnlPctCell = '<span class="neg">' + fmtPct(-stopPct * 100, 2) + ' (stop)</span><br><span style="font-size:8.5px;color:var(--muted);">worst: ' + fmtPct(worst * 100, 2) + ' · live: ' + fmtPct(currentPnl * 100, 2) + '</span>';
         } else {
-          pnlCell = '<span class="' + (currentPnl >= 0 ? 'pos' : 'neg') + '">' + fmtPct(currentPnl * 100, 2) + '</span>';
+          pnlPctCell = '<span class="' + (currentPnl >= 0 ? 'pos' : 'neg') + '">' + fmtPct(currentPnl * 100, 2) + '</span>';
         }
+        pnlAbsCell = '<span class="' + (effectivePnl >= 0 ? 'pos' : 'neg') + '">' + fmtEurSigned(livePerPosition * effectivePnl) + '</span>';
       }
     }
-    return '<tr><td>' + esc(r.sym) + '</td>' + r.cols.map(c => '<td class="num">' + c + '</td>').join('') + '<td><span class="badge ' + badgeClass + '">' + badgeLabel + '</span></td><td class="num">' + liveCell + '</td><td class="num">' + pnlCell + '</td></tr>';
+    return '<tr><td>' + esc(r.sym) + '</td>' + r.cols.map(c => '<td class="num">' + c + '</td>').join('') + '<td><span class="badge ' + badgeClass + '">' + badgeLabel + '</span></td><td class="num">' + liveCell + '</td><td class="num">' + pnlPctCell + '</td><td class="num">' + pnlAbsCell + '</td></tr>';
   }).join('');
 
   renderBreakdowns(result.tradeDetails);
@@ -1029,7 +1048,7 @@ computeBtn.addEventListener('click', async () => {
 
   document.getElementById('results').classList.remove('hidden');
   statusEl.className = '';
-  statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.';
+  statusEl.textContent = 'Done -- computed at ' + new Date().toLocaleTimeString('en-US') + '.';
   computeBtn.disabled = false;
 });
 if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
