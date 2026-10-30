@@ -6,10 +6,11 @@
 <title>GoldShield AI — Signal-Heatmap</title>
 <link rel="icon" href="data:,">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0b1620">
+<meta name="theme-color" id="themeColorMeta" content="#051210">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#051210;--surface:#0b1d19;--panel:#0f261f;--border:#1c3a31;--accent:#34d399;--accent-rgb:52,211,153;--green:#059669;--red:#dc2626;--amber:#d97706;--muted:#6f9586;--text:#d7ece3;--bright:#f1fbf6;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root{--bg:#051210;--surface:#0b1d19;--panel:#0f261f;--border:#1c3a31;--accent:#34d399;--accent-rgb:52,211,153;--green:#059669;--red:#dc2626;--amber:#d97706;--muted:#6f9586;--text:#d7ece3;--bright:#f1fbf6;--warn-text:#fecaca;--amber-link:#fbbf24;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#15803d;--accent-rgb:21,128,61;--green:#15803d;--red:#b91c1c;--amber:#92400e;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--warn-text:#7a1f1f;--amber-link:#b45309;}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;}
 body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.14), transparent 60%),radial-gradient(700px 500px at 100% 0%, rgba(14,165,233,.08), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
@@ -38,7 +39,14 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
 #status{font-size:10.5px;color:var(--muted);margin-top:10px;}
 #status.err{color:var(--red);}
 #active-label{font-size:10.5px;color:var(--text);margin-top:4px;font-weight:600;}
-.warn-box{background:linear-gradient(135deg, rgba(220,38,38,.12), rgba(220,38,38,.03));border:1px solid rgba(220,38,38,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10.5px;line-height:1.7;margin-top:14px;color:#fecaca;}
+.warn-box{background:linear-gradient(135deg, rgba(220,38,38,.12), rgba(220,38,38,.03));border:1px solid rgba(220,38,38,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10.5px;line-height:1.7;margin-top:14px;color:var(--warn-text);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;transition:border-color .15s,color .15s;}
+.theme-toggle-btn:hover{border-color:var(--accent);color:var(--bright);}
+.basket-select{width:100%;font-family:var(--mono);font-size:11.5px;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);cursor:pointer;transition:border-color .15s,box-shadow .15s;}
+.basket-select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.15);}
+.basket-select optgroup{background:var(--surface);color:var(--muted);font-weight:700;}
+.basket-select option{background:var(--surface);color:var(--text);}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
 .heatgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:7px;margin-top:16px;}
 .cell{border-radius:8px;padding:9px 7px;text-align:center;color:#fff;font-size:9px;transition:transform .15s,box-shadow .15s;}
 .cell:hover{transform:translateY(-2px) scale(1.02);}
@@ -62,54 +70,58 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
 </head>
 <body>
 <div class="wrap">
-  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
   <h1>🔥 Signal-Heatmap</h1>
   <div class="subtitle">Live-Ampel-Raster: welche Aktien eines Korbs stehen diese Woche auf LONG, SHORT oder flach -- auf einen Blick, mit echten Live-Daten, Breakout-Stärke und Live-P&amp;L</div>
 
   <div class="callout">
-  Dieselbe Logik und dieselben Live-Daten wie der <a href="live-portfolio.html" style="color:#fbbf24;">Live-Portfolio-Baukasten</a>
+  Dieselbe Logik und dieselben Live-Daten wie der <a href="live-portfolio.html" style="color:var(--amber-link);">Live-Portfolio-Baukasten</a>
   (Kanal aus den 3 letzten Freitags-Schlusskursen, Montag-Close entscheidet) -- hier als visuelles Raster für den
   schnellen Überblick über einen ganzen Korb. Jetzt mit allen 30 Körben, eigenen Ticker-Listen, Breakout-Stärke
   pro Signal und Live-Unrealisiert für offene Signale.
   </div>
 
   <div class="panel">
-    <div class="control-label">BASIS-KÖRBE</div>
-    <div class="btn-row">
-      <button class="opt-btn active" id="load-dax37">Alle 37 DAX-Aktien</button>
-      <button class="opt-btn" id="load-dax10">10 DAX-Aktien</button>
-      <button class="opt-btn" id="load-dax5">5 DAX-Aktien</button>
-      <button class="opt-btn" id="load-mixed">DAX + US-Mix</button>
-      <button class="opt-btn" id="load-mix20">20er-Mix (DAX+S&amp;P500)</button>
-      <button class="opt-btn" id="load-financials">Finanzwerte-Mix</button>
-      <button class="opt-btn" id="load-tech">Tech-Mix</button>
-      <button class="opt-btn" id="load-realestate">Immobilien-Mix</button>
-      <button class="opt-btn" id="load-nebenwerte">Nebenwerte-Mix (MDAX/SDAX)</button>
-      <button class="opt-btn" id="load-crypto">Crypto-Mix ⚠️</button>
-    </div>
-    <div class="control-label" style="margin-top:16px;">THEMEN-KÖRBE</div>
-    <div class="btn-row">
-      <button class="opt-btn" id="load-altcoins">Altcoin-Mix ⚠️</button>
-      <button class="opt-btn" id="load-highvol">Hochvolatil-Mix</button>
-      <button class="opt-btn" id="load-pleitegeier">Pleitegeier-Mix ⚠️</button>
-      <button class="opt-btn" id="load-cryptominer">Crypto-Miner-Mix</button>
-      <button class="opt-btn" id="load-biotech">Biotech-Mix</button>
-      <button class="opt-btn" id="load-evmix">E-Auto-Mix</button>
-      <button class="opt-btn" id="load-chinaadr">China-ADR-Mix</button>
-      <button class="opt-btn" id="load-solar">Solar-Mix</button>
-      <button class="opt-btn" id="load-cannabis">Cannabis-Mix</button>
-      <button class="opt-btn" id="load-airlines">Airlines-Mix</button>
-      <button class="opt-btn" id="load-cruise">Kreuzfahrt-Mix</button>
-      <button class="opt-btn" id="load-regionalbanks">US-Regionalbanken-Mix</button>
-      <button class="opt-btn" id="load-gaming">Gaming-Mix</button>
-      <button class="opt-btn" id="load-aimix">AI-Mix</button>
-      <button class="opt-btn" id="load-quantum">Quantencomputing-Mix</button>
-      <button class="opt-btn" id="load-uranium">Uran/Nuklear-Mix</button>
-      <button class="opt-btn" id="load-spacedefense">Space/Defense-Mix</button>
-      <button class="opt-btn" id="load-streaming">Streaming-Mix</button>
-      <button class="opt-btn" id="load-fintech">Fintech-Mix</button>
-      <button class="opt-btn" id="load-rareearth">Rohstoff/Minen-Mix</button>
-    </div>
+    <div class="control-label">KORB WÄHLEN</div>
+    <select class="basket-select" id="basket-select">
+      <optgroup label="Basis-Körbe">
+        <option value="load-dax37" selected>Alle 37 DAX-Aktien</option>
+        <option value="load-dax10">10 DAX-Aktien</option>
+        <option value="load-dax5">5 DAX-Aktien</option>
+        <option value="load-mixed">DAX + US-Mix</option>
+        <option value="load-mix20">20er-Mix (DAX+S&amp;P500)</option>
+        <option value="load-financials">Finanzwerte-Mix</option>
+        <option value="load-tech">Tech-Mix</option>
+        <option value="load-realestate">Immobilien-Mix</option>
+        <option value="load-nebenwerte">Nebenwerte-Mix (MDAX/SDAX)</option>
+        <option value="load-crypto">Crypto-Mix ⚠️</option>
+      </optgroup>
+      <optgroup label="Themen-Körbe">
+        <option value="load-altcoins">Altcoin-Mix ⚠️</option>
+        <option value="load-highvol">Hochvolatil-Mix</option>
+        <option value="load-pleitegeier">Pleitegeier-Mix ⚠️</option>
+        <option value="load-cryptominer">Crypto-Miner-Mix</option>
+        <option value="load-biotech">Biotech-Mix</option>
+        <option value="load-evmix">E-Auto-Mix</option>
+        <option value="load-chinaadr">China-ADR-Mix</option>
+        <option value="load-solar">Solar-Mix</option>
+        <option value="load-cannabis">Cannabis-Mix</option>
+        <option value="load-airlines">Airlines-Mix</option>
+        <option value="load-cruise">Kreuzfahrt-Mix</option>
+        <option value="load-regionalbanks">US-Regionalbanken-Mix</option>
+        <option value="load-gaming">Gaming-Mix</option>
+        <option value="load-aimix">AI-Mix</option>
+        <option value="load-quantum">Quantencomputing-Mix</option>
+        <option value="load-uranium">Uran/Nuklear-Mix</option>
+        <option value="load-spacedefense">Space/Defense-Mix</option>
+        <option value="load-streaming">Streaming-Mix</option>
+        <option value="load-fintech">Fintech-Mix</option>
+        <option value="load-rareearth">Rohstoff/Minen-Mix</option>
+      </optgroup>
+    </select>
     <div class="control-label" style="margin-top:16px;">EIGENE TICKER (komma-getrennt, z.B. NVDA.US, SIE.XETRA, BTC-USD.CC)</div>
     <div class="custom-row">
       <input type="text" id="custom-input" placeholder="z.B. NVDA.US, SIE.XETRA, BTC-USD.CC">
@@ -181,20 +193,34 @@ let activeSymbols = baskets['load-dax37'].split(',').map(s => s.trim());
 const activeLabelEl = document.getElementById('active-label');
 activeLabelEl.textContent = 'Aktueller Korb: Alle 37 DAX-Aktien';
 
-Object.keys(baskets).forEach(id => document.getElementById(id).addEventListener('click', () => {
+const basketSelect = document.getElementById('basket-select');
+basketSelect.addEventListener('change', () => {
+  const id = basketSelect.value;
+  if (!baskets[id]) return;
   activeSymbols = baskets[id].split(',').map(s => s.trim());
-  Object.keys(baskets).forEach(i => document.getElementById(i).classList.toggle('active', i === id));
-  document.getElementById('load-custom').classList.remove('active');
-  activeLabelEl.textContent = 'Aktueller Korb: ' + document.getElementById(id).textContent.trim();
-}));
+  activeLabelEl.textContent = 'Aktueller Korb: ' + basketSelect.options[basketSelect.selectedIndex].textContent.trim();
+});
 
 document.getElementById('load-custom').addEventListener('click', () => {
   const raw = document.getElementById('custom-input').value.trim();
   if (!raw) return;
   activeSymbols = raw.split(',').map(s => s.trim().toUpperCase()).filter(Boolean);
-  Object.keys(baskets).forEach(i => document.getElementById(i).classList.remove('active'));
-  document.getElementById('load-custom').classList.add('active');
   activeLabelEl.textContent = 'Aktueller Korb: Eigene Ticker (' + activeSymbols.length + ' Symbole)';
+});
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f4f7fb' : '#051210');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
 });
 
 function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
