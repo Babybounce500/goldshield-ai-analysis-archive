@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Drawdown-Recovery-Analyse</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#1c0507">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1c0507;--surface:#2d0b0e;--panel:#380e12;--border:#59181d;--accent:#e11d48;--accent-rgb:225,29,72;--green:#34d399;--red:#f87171;--muted:#bb8a8f;--text:#f6dede;--bright:#fff3f3;--warn-text:#fecaca;--amber-link:#fb7185;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#fdf2f3;--surface:#ffffff;--panel:#fbe4e6;--border:#f3ccd0;--accent:#9f1239;--accent-rgb:159,18,57;--green:#15803d;--red:#b91c1c;--muted:#8a5c61;--text:#2e1114;--bright:#1c0507;--warn-text:#7a1f1f;--amber-link:#9f1239;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(159,18,57,.16), rgba(159,18,57,.04));border:1px solid rgba(225,29,72,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #fb7185);color:#1c0507;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
+.bstat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
+.bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.4px;}
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:16px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr:hover{background:rgba(var(--accent-rgb),.06);}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.ongoing{background:rgba(251,191,36,.14);color:#fbbf24;box-shadow:inset 0 0 0 1px rgba(251,191,36,.3);}
+.badge.recovered{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+.warn-box{background:linear-gradient(135deg, rgba(251,191,36,.12), rgba(251,191,36,.03));border:1px solid rgba(251,191,36,.35);border-left:3px solid #fbbf24;border-radius:10px;padding:10px 14px;font-size:10px;color:#fde68a;margin-bottom:14px;line-height:1.6;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;} .stat-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>📉 Drawdown-Recovery-Analyse</h1>
+  <div class="subtitle">Wie fühlt es sich wirklich an, den Crypto-Trend-Score zu halten? Jede einzelne Verlustphase, wie tief, wie lange, wie lange bis zur Erholung.</div>
+
+  <div class="callout">
+  <b>Nicht nur der eine Max-Drawdown-Wert.</b> Der <a href="crypto-trend-combined.html" style="color:var(--accent);">Crypto-Trend-Score</a>
+  zeigt oben nur eine einzige Max-Drawdown-Zahl (-31,1%) -- dieses Tool zerlegt denselben live berechneten
+  Equity-Verlauf (1/N-Slot-Portfolio, identische Backtest-Logik) in alle einzelnen Drawdown-Episoden: wie
+  tief ging es runter, wie viele Tage hat die Erholung gedauert, und steckt die Strategie gerade in einer?
+  Das sind die Zahlen, die bestimmen, ob man eine Strategie in Echtzeit tatsächlich durchhält.
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">📡 Live-Daten laden &amp; Drawdowns analysieren</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>📊 Übersicht</h2>
+    <div class="stat-grid" id="overview-stats"></div>
+    <div id="current-warning"></div>
+
+    <h2>📉 Underwater-Kurve</h2>
+    <div class="chart-wrap" id="underwater-chart"></div>
+
+    <h2>📋 Alle Drawdown-Episoden (≥ 5%, tiefste zuerst)</h2>
+    <div class="table-scroll">
+    <table><thead><tr><th>Hoch am</th><th>Tiefpunkt am</th><th>Tiefe</th><th>Erholt am</th><th>Tage bis Erholung</th><th>Status</th></tr></thead><tbody id="episodes-body"></tbody></table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Equity-Punkte
+  liegen auf Trade-Exits, nicht auf Kalendertagen (identisch zur Darstellung im Haupttool) -- "Tage bis
+  Erholung" ist trotzdem in echten Kalendertagen gerechnet. Datenquelle: derselbe EOD-Proxy wie der Rest des
+  Archivs, live abgerufen. © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const FETCH_FROM = '2018-01-01';
+const STOP_PCT = 0.15;
+const MIN_EPISODE_DEPTH_PCT = 5;
+const SYMBOLS = ['BTC-USD.CC','ETH-USD.CC','SOL-USD.CC','XRP-USD.CC','BNB-USD.CC','ADA-USD.CC','DOGE-USD.CC','DOT-USD.CC','AVAX-USD.CC','LINK-USD.CC'];
+
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function buildVerdict(price, s3, s20, s50, s100) {
+  let score = 0;
+  if (s3 !== null) score += price > s3 ? 1 : -1;
+  if (s20 !== null) score += price > s20 ? 1 : -1;
+  if (s50 !== null) score += price > s50 ? 1 : -1;
+  if (s100 !== null) score += price > s100 ? 1 : -1;
+  if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
+  if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
+  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+}
+function computeSeriesVerdicts(series) {
+  const closes = series.map(r => r.close);
+  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
+}
+function backtestCombined(sym, series, stopPct) {
+  const verdicts = computeSeriesVerdicts(series);
+  const trades = [];
+  let i = 0;
+  while (i < verdicts.length && !verdicts[i].s100ready) i++;
+  while (i < verdicts.length - 1) {
+    const dir = verdicts[i].cls === 'bullish' ? 'LONG' : 'SHORT';
+    const entryIdx = i + 1;
+    if (entryIdx >= verdicts.length) break;
+    const entryPrice = verdicts[entryIdx].close;
+    let exitIdx = -1, stopped = false;
+    for (let k = entryIdx + 1; k < verdicts.length; k++) {
+      const r = dir === 'LONG' ? (verdicts[k].close - entryPrice) / entryPrice : (entryPrice - verdicts[k].close) / entryPrice;
+      if (stopPct != null && r <= -stopPct) { exitIdx = k; stopped = true; break; }
+      const stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
+      if (verdicts[k].s100ready && !stillSameDir) { exitIdx = k; break; }
+    }
+    if (exitIdx === -1) { i = verdicts.length; continue; }
+    const finalReturn = stopped ? -stopPct : (dir === 'LONG' ? (verdicts[exitIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[exitIdx].close) / entryPrice);
+    trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped });
+    i = stopped ? exitIdx + 1 : exitIdx;
+  }
+  return trades;
+}
+
+async function fetchHistorical(symbol) {
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + FETCH_FROM);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function fmtPct(v, dp) { dp = dp == null ? 1 : dp; return (v >= 0 ? '+' : '') + v.toFixed(dp) + '%'; }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+function daysBetween(d1, d2) { return Math.round((new Date(d2+'T00:00:00Z') - new Date(d1+'T00:00:00Z')) / 86400000); }
+
+function underwaterSvg(curve) {
+  const W = 820, H = 220, PAD_L = 42, PAD_R = 14, PAD_T = 14, PAD_B = 22;
+  const n = curve.length;
+  const minDD = Math.min.apply(null, curve.map(p => p.ddPct).concat([0]));
+  const x = i => PAD_L + (i / Math.max(1, n - 1)) * (W - PAD_L - PAD_R);
+  const y = v => PAD_T + (v / minDD) * (H - PAD_T - PAD_B); // minDD is negative; v<=0
+  const linePath = curve.map((p, i) => (i === 0 ? 'M' : 'L') + x(i).toFixed(1) + ' ' + y(p.ddPct).toFixed(1)).join(' ');
+  const areaPath = linePath + ' L' + x(n-1).toFixed(1) + ' ' + y(0).toFixed(1) + ' L' + x(0).toFixed(1) + ' ' + y(0).toFixed(1) + ' Z';
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" preserveAspectRatio="xMidYMid meet">' +
+    '<line x1="' + PAD_L + '" y1="' + y(0).toFixed(1) + '" x2="' + (W-PAD_R) + '" y2="' + y(0).toFixed(1) + '" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4,4"/>' +
+    '<text x="' + (PAD_L-6) + '" y="' + (y(0)+3).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="end">0%</text>' +
+    '<text x="' + (PAD_L-6) + '" y="' + (y(minDD)+3).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="end">' + minDD.toFixed(0) + '%</text>' +
+    '<path d="' + areaPath + '" fill="var(--accent)" fill-opacity="0.18" stroke="none"/>' +
+    '<path d="' + linePath + '" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '</svg>';
+}
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#fdf2f3' : '#1c0507');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+scanBtn.addEventListener('click', async () => {
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + SYMBOLS.length + ' Coins und rechne Backtest...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    const seriesBySymbol = {};
+    const failed = [];
+    await Promise.all(SYMBOLS.map(async sym => {
+      try { seriesBySymbol[sym] = await fetchHistorical(sym); }
+      catch (e) { failed.push(sym + ' (' + e.message + ')'); }
+    }));
+    const usableSymbols = Object.keys(seriesBySymbol);
+    if (!usableSymbols.length) throw new Error('Keine verwertbaren Daten erhalten.');
+
+    const allExits = [];
+    for (const sym of usableSymbols) allExits.push(...backtestCombined(sym, seriesBySymbol[sym], STOP_PCT));
+    allExits.sort((a, b) => a.exitDate.localeCompare(b.exitDate));
+
+    // same fixed-slot (1/N) equity convention as crypto-trend-combined.html
+    let equity = 1, peak = 1, peakDate = allExits.length ? allExits[0].entryDate : null;
+    const curve = [{ date: peakDate, equity: 1, ddPct: 0 }];
+    const episodes = [];
+    let inDrawdown = false, troughEquity = 1, troughDate = null;
+
+    for (const e of allExits) {
+      const positionSize = equity / usableSymbols.length;
+      equity += positionSize * e.finalReturn;
+      const ddPct = (equity - peak) / peak * 100;
+      curve.push({ date: e.exitDate, equity, ddPct });
+
+      if (equity >= peak) {
+        if (inDrawdown) {
+          // recovered
+          episodes.push({ peakDate, troughDate, troughDepthPct: (troughEquity - peak) / peak * 100, recoveredDate: e.exitDate, recoveryDays: daysBetween(peakDate, e.exitDate), ongoing: false });
+          inDrawdown = false;
+        }
+        peak = equity; peakDate = e.exitDate;
+      } else {
+        if (!inDrawdown || equity < troughEquity) { troughEquity = equity; troughDate = e.exitDate; }
+        inDrawdown = true;
+      }
+    }
+    if (inDrawdown) {
+      episodes.push({ peakDate, troughDate, troughDepthPct: (troughEquity - peak) / peak * 100, recoveredDate: null, recoveryDays: null, ongoing: true });
+    }
+
+    const significant = episodes.filter(ep => Math.abs(ep.troughDepthPct) >= MIN_EPISODE_DEPTH_PCT).sort((a,b) => a.troughDepthPct - b.troughDepthPct);
+    const completed = significant.filter(ep => !ep.ongoing);
+    const avgDepth = significant.length ? significant.reduce((a,ep)=>a+ep.troughDepthPct,0) / significant.length : 0;
+    const avgRecoveryDays = completed.length ? completed.reduce((a,ep)=>a+ep.recoveryDays,0) / completed.length : null;
+    const maxDD = Math.min.apply(null, curve.map(p => p.ddPct).concat([0]));
+    const currentEpisode = episodes.find(ep => ep.ongoing);
+
+    document.getElementById('overview-stats').innerHTML =
+      '<div class="bstat"><b class="neg" style="color:var(--red);">' + maxDD.toFixed(1) + '%</b><span>MAX DRAWDOWN</span></div>' +
+      '<div class="bstat"><b>' + significant.length + '</b><span>EPISODEN ≥ ' + MIN_EPISODE_DEPTH_PCT + '%</span></div>' +
+      '<div class="bstat"><b>' + avgDepth.toFixed(1) + '%</b><span>Ø TIEFE (ALLE EPISODEN ≥ ' + MIN_EPISODE_DEPTH_PCT + '%)</span></div>' +
+      '<div class="bstat"><b>' + (avgRecoveryDays!=null ? avgRecoveryDays.toFixed(0)+' Tg' : '—') + '</b><span>Ø ERHOLUNGSDAUER (ABGESCHLOSSENE)</span></div>';
+
+    document.getElementById('current-warning').innerHTML = currentEpisode
+      ? '<div class="warn-box"><b>Aktuell in einer laufenden Drawdown-Episode:</b> ' + currentEpisode.troughDepthPct.toFixed(1) + '% unter dem letzten Hoch vom ' + esc(currentEpisode.peakDate) + ', seit ' + daysBetween(currentEpisode.peakDate, curve[curve.length-1].date) + ' Tagen ohne neues Hoch.</div>'
+      : '';
+
+    document.getElementById('underwater-chart').innerHTML = curve.length > 1 ? underwaterSvg(curve) : '<p style="font-size:10.5px;color:var(--muted);">Zu wenig Trades für eine Kurve.</p>';
+
+    document.getElementById('episodes-body').innerHTML = significant.length
+      ? significant.map(ep => '<tr><td>' + esc(ep.peakDate) + '</td><td>' + esc(ep.troughDate) + '</td><td class="num" style="color:var(--red);font-weight:700;">' + ep.troughDepthPct.toFixed(1) + '%</td><td>' + (ep.recoveredDate ? esc(ep.recoveredDate) : '—') + '</td><td class="num">' + (ep.recoveryDays!=null ? ep.recoveryDays+' Tg' : '—') + '</td><td>' + (ep.ongoing ? '<span class="badge ongoing">⏳ LÄUFT NOCH</span>' : '<span class="badge recovered">✓ ERHOLT</span>') + '</td></tr>').join('')
+      : '<tr><td colspan="6" style="color:var(--muted);">Keine Episoden ≥ ' + MIN_EPISODE_DEPTH_PCT + '% gefunden.</td></tr>';
+
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.' +
+      (failed.length ? ' Nicht abrufbar: ' + failed.join(', ') : '');
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
