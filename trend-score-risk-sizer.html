@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Trend-Score Risk-Sizer</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#0a1507">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a1507;--surface:#13240f;--panel:#182e13;--border:#294620;--accent:#a3e635;--accent-rgb:163,230,53;--green:#34d399;--red:#f87171;--muted:#92a885;--text:#e2f0da;--bright:#f6fff0;--warn-text:#fecaca;--amber-link:#bef264;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f6faf0;--surface:#ffffff;--panel:#eaf5df;--border:#d3e8bd;--accent:#4d7c0f;--accent-rgb:77,124,15;--green:#15803d;--red:#b91c1c;--muted:#5d6e52;--text:#1e2b16;--bright:#0a1507;--warn-text:#7a1f1f;--amber-link:#4d7c0f;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(77,124,15,.16), rgba(77,124,15,.04));border:1px solid rgba(163,230,53,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #bef264);color:#0a1507;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:480px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr:hover{background:rgba(var(--accent-rgb),.06);}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+.control-label{font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;}
+.control-group{margin-bottom:16px;}
+input[type=number]{font-family:var(--mono);font-size:12px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);width:160px;}
+.checkbox-row{display:flex;gap:18px;flex-wrap:wrap;}
+.checkbox-row label{display:flex;align-items:center;gap:6px;font-size:11px;cursor:pointer;}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0;}
+.bstat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
+.bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.4px;}
+.warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10px;color:var(--warn-text);margin-bottom:14px;line-height:1.6;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;} .stat-grid{grid-template-columns:repeat(1,1fr);}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;} input[type=number]{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>⚖️ Trend-Score Risk-Sizer</h1>
+  <div class="subtitle">Dein Kapital erst gleich auf die gewählten Märkte, dann innerhalb jedes Marktes gleich auf die gerade offenen Signale verteilen.</div>
+
+  <div class="callout">
+  <b>Market-first, nicht Symbol-first.</b> Ein naiver 1/63-Split würde DAX automatisch übergewichten (37 von
+  63 Symbolen), nur weil dort mehr Symbole beobachtet werden -- nicht weil DAX ein stärkeres Signal liefert.
+  Dieses Tool teilt das Kapital zuerst gleich auf die ausgewählten Märkte auf, erst danach gleich auf die
+  dort gerade offenen Signale. Nutzt dieselbe SMA(3/20/50/100)-Methodik wie
+  <a href="crypto-trend-combined.html" style="color:var(--accent);">Crypto</a>,
+  <a href="dax-trend-score.html" style="color:var(--accent);">DAX</a> und
+  <a href="forex-trend-score.html" style="color:var(--accent);">Forex</a>.
+  </div>
+
+  <h2><span>Einstellungen</span></h2>
+  <div class="panel">
+    <div class="control-group">
+      <div class="control-label">STARTKAPITAL (€)</div>
+      <input type="number" id="capital-input" value="100000" min="1000" step="1000">
+    </div>
+    <div class="control-group" style="margin-bottom:0;">
+      <div class="control-label">MÄRKTE EINBEZIEHEN</div>
+      <div class="checkbox-row">
+        <label><input type="checkbox" id="chk-crypto" checked> Crypto (10)</label>
+        <label><input type="checkbox" id="chk-dax" checked> DAX (37)</label>
+        <label><input type="checkbox" id="chk-forex" checked> Forex (16)</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">🔍 Live scannen &amp; Positionsgrößen berechnen</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>📊 Übersicht</h2>
+    <div class="stat-grid" id="overview-stats"></div>
+    <div id="concentration-warning"></div>
+
+    <h2>💰 Vorgeschlagene Positionsgrößen</h2>
+    <div class="table-scroll">
+    <table><thead><tr><th>Markt</th><th>Symbol</th><th>Position</th><th>Live-Kurs</th><th>Positionsgröße</th><th>% vom Kapital</th></tr></thead><tbody id="sizing-body"></tbody></table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Reine
+  Kapitalallokations-Rechnung, kein Risikomanagement im Sinne von Volatilitäts- oder Korrelationsgewichtung.
+  Datenquelle: derselbe EOD-Proxy wie der Rest des Archivs, live abgerufen. Verwandte Tools:
+  <a href="trend-score-multi-asset-screener.html">Multi-Asset-Screener</a> ·
+  <a href="crypto-trend-correlation-live.html">Crypto-Korrelation</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const SCAN_DAYS_BACK = 240;
+
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function buildVerdict(price, s3, s20, s50, s100) {
+  let score = 0;
+  if (s3 !== null) score += price > s3 ? 1 : -1;
+  if (s20 !== null) score += price > s20 ? 1 : -1;
+  if (s50 !== null) score += price > s50 ? 1 : -1;
+  if (s100 !== null) score += price > s100 ? 1 : -1;
+  if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
+  if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
+  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+}
+function computeSeriesVerdicts(series) {
+  const closes = series.map(r => r.close);
+  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
+}
+
+async function fetchHistorical(symbol, fromDate) {
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromDate);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+async function fetchRealtime(symbol) {
+  const res = await fetch(PROXY + '/eod/realtime/' + encodeURIComponent(symbol));
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+function fmtEur(v) { return '€' + Math.round(v).toLocaleString('de-DE'); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+
+const GROUPS = {
+  Crypto: { suffix: '-USD.CC', dp: 4, chk: 'chk-crypto', symbols: ['BTC-USD.CC','ETH-USD.CC','SOL-USD.CC','XRP-USD.CC','BNB-USD.CC','ADA-USD.CC','DOGE-USD.CC','DOT-USD.CC','AVAX-USD.CC','LINK-USD.CC'] },
+  DAX: { suffix: '.XETRA', dp: 2, chk: 'chk-dax', symbols: ['ADS.XETRA','AIR.XETRA','ALV.XETRA','BAS.XETRA','BAYN.XETRA','BEI.XETRA','BMW.XETRA','BNR.XETRA','CBK.XETRA','CON.XETRA','1COV.XETRA','DTG.XETRA','DBK.XETRA','DB1.XETRA','DTE.XETRA','DHL.XETRA','EOAN.XETRA','FRE.XETRA','HNR1.XETRA','HEI.XETRA','HEN3.XETRA','IFX.XETRA','MBG.XETRA','MRK.XETRA','MTX.XETRA','MUV2.XETRA','RHM.XETRA','RWE.XETRA','SAP.XETRA','SRT3.XETRA','SIE.XETRA','ENR.XETRA','SHL.XETRA','SY1.XETRA','VOW3.XETRA','VNA.XETRA','ZAL.XETRA'] },
+  Forex: { suffix: '.FOREX', dp: 4, chk: 'chk-forex', symbols: ['EURUSD.FOREX','GBPUSD.FOREX','USDJPY.FOREX','USDCHF.FOREX','USDCAD.FOREX','AUDUSD.FOREX','NZDUSD.FOREX','EURGBP.FOREX','EURJPY.FOREX','GBPJPY.FOREX','EURCHF.FOREX','AUDJPY.FOREX','EURAUD.FOREX','USDSEK.FOREX','USDNOK.FOREX','USDMXN.FOREX'] }
+};
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f6faf0' : '#0a1507');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+async function scanGroup(group) {
+  const fromDate = new Date(Date.now() - SCAN_DAYS_BACK * 86400000).toISOString().slice(0, 10);
+  const rows = [];
+  await Promise.all(group.symbols.map(async sym => {
+    try {
+      const series = await fetchHistorical(sym, fromDate);
+      const verdicts = computeSeriesVerdicts(series);
+      const last = verdicts[verdicts.length - 1];
+      if (!last.s100ready) return;
+      let liveClose = last.close;
+      try { const rt = await fetchRealtime(sym); if (rt && Number.isFinite(rt.close)) liveClose = rt.close; } catch (e) {}
+      rows.push({ sym: sym.replace(group.suffix,''), direction: last.cls === 'bullish' ? 'LONG' : 'SHORT', close: liveClose, dp: group.dp });
+    } catch (e) { /* skip unreachable symbol */ }
+  }));
+  return rows;
+}
+
+scanBtn.addEventListener('click', async () => {
+  const capitalRaw = Number(document.getElementById('capital-input').value);
+  const capital = Number.isFinite(capitalRaw) && capitalRaw >= 1000 ? capitalRaw : 100000;
+  const activeMarkets = Object.entries(GROUPS).filter(([name, g]) => document.getElementById(g.chk).checked);
+  if (!activeMarkets.length) {
+    statusEl.className = 'err'; statusEl.textContent = 'Bitte mindestens einen Markt auswählen.'; return;
+  }
+
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Scanne ' + activeMarkets.reduce((a,[,g])=>a+g.symbols.length,0) + ' Symbole live...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    const perMarket = {};
+    await Promise.all(activeMarkets.map(async ([name, group]) => { perMarket[name] = await scanGroup(group); }));
+
+    const capitalPerMarket = capital / activeMarkets.length;
+    let totalAllocated = 0;
+    const sizingRows = [];
+    const marketTotals = {};
+    for (const [name] of activeMarkets) {
+      const rows = perMarket[name];
+      const positionSize = rows.length ? capitalPerMarket / rows.length : 0;
+      marketTotals[name] = rows.length * positionSize;
+      totalAllocated += marketTotals[name];
+      for (const r of rows) {
+        sizingRows.push({ market: name, sym: r.sym, direction: r.direction, close: r.close, dp: r.dp, positionSize });
+      }
+    }
+
+    document.getElementById('overview-stats').innerHTML = Object.entries(marketTotals).map(([name, total]) =>
+      '<div class="bstat"><b>' + fmtEur(total) + '</b><span>' + esc(name).toUpperCase() + ' (' + (capital>0?(total/capital*100).toFixed(0):0) + '% DES KAPITALS, ' + perMarket[name].length + ' OFFENE SIGNALE)</span></div>'
+    ).join('');
+
+    const dominant = Object.entries(marketTotals).sort((a,b)=>b[1]-a[1])[0];
+    document.getElementById('concentration-warning').innerHTML =
+      (activeMarkets.length > 1 && dominant && capital > 0 && (dominant[1]/capital) > 0.5 && perMarket[dominant[0]].length === 0)
+      ? '<div class="warn-box"><b>Hinweis:</b> Ein Markt hat aktuell keine offenen Signale -- das Kapital, das ihm zugeteilt wäre, bleibt in der Rechnung ungenutzt statt automatisch umverteilt zu werden.</div>'
+      : '';
+
+    sizingRows.sort((a,b) => a.market.localeCompare(b.market) || a.sym.localeCompare(b.sym));
+    document.getElementById('sizing-body').innerHTML = sizingRows.length
+      ? sizingRows.map(r => '<tr><td>' + esc(r.market) + '</td><td>' + esc(r.sym) + '</td><td><span class="badge ' + (r.direction==='LONG'?'long':'short') + '">' + r.direction + '</span></td><td class="num">' + r.close.toFixed(r.dp) + '</td><td class="num">' + fmtEur(r.positionSize) + '</td><td class="num">' + (capital>0?(r.positionSize/capital*100).toFixed(1):0) + '%</td></tr>').join('')
+      : '<tr><td colspan="6" style="color:var(--muted);">Keine offenen Signale in den gewählten Märkten.</td></tr>';
+
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + ', ' + fmtEur(totalAllocated) + ' von ' + fmtEur(capital) + ' allokiert.';
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler beim Scan: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
