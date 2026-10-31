@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Monte-Carlo-Risk-of-Ruin-Analyse</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#1a0e05">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a0e05;--surface:#2b1a0b;--panel:#34200d;--border:#523010;--accent:#f97316;--accent-rgb:249,115,22;--green:#34d399;--red:#f87171;--muted:#c2a179;--text:#f5e9d9;--bright:#fff8f0;--warn-text:#fecaca;--amber-link:#fdba74;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#fdf6ee;--surface:#ffffff;--panel:#faecd9;--border:#edd5b2;--accent:#c2410c;--accent-rgb:194,65,12;--green:#15803d;--red:#b91c1c;--muted:#8a6c47;--text:#2e1d0c;--bright:#1a0e05;--warn-text:#7a1f1f;--amber-link:#c2410c;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(194,65,12,.16), rgba(194,65,12,.04));border:1px solid rgba(249,115,22,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.control-label{font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;}
+.control-group{margin-bottom:16px;}
+input[type=number]{font-family:var(--mono);font-size:12px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);width:160px;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.opt-btn{font-family:var(--mono);font-size:11px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--border);background:var(--panel);color:var(--text);cursor:pointer;}
+.opt-btn.active{background:var(--accent);border-color:var(--accent);color:#1a0e05;font-weight:700;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #fdba74);color:#1a0e05;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
+.bstat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
+.bstat b.pos{color:var(--green);} .bstat b.neg{color:var(--red);}
+.bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.4px;}
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:16px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:480px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+.warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10px;color:var(--warn-text);margin-bottom:14px;line-height:1.6;}
+.external-box{background:var(--panel);border:1.5px dashed var(--border);border-radius:10px;padding:14px 16px;font-size:10.5px;line-height:1.8;color:var(--muted);margin-bottom:16px;}
+.external-box b{color:var(--bright);}
+.external-box .src-tag{display:inline-block;font-size:7.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--accent);background:rgba(var(--accent-rgb),.12);padding:2px 8px;border-radius:999px;margin-bottom:8px;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;} .stat-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;} input[type=number]{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>🎰 Monte-Carlo-Risk-of-Ruin-Analyse</h1>
+  <div class="subtitle">Hält diese Strategie den Spieler im Spiel? Echte historische Trades neu gemischt (Bootstrap), tausendfach, um die Wahrscheinlichkeit eines Mega-Drawdowns oder Totalverlusts zu schätzen -- statt nur den einen tatsächlich eingetretenen Kursverlauf zu zeigen.</div>
+
+  <div class="callout">
+  <b>Warum Bootstrap statt nur ein Backtest?</b> Der eine real eingetretene Kursverlauf ist nur EINE mögliche
+  Reihenfolge der Ereignisse. Dieses Tool zieht aus den echten, bereits live berechneten Trades derselben
+  Strategie <b>mit Zurücklegen</b> tausende alternative Reihenfolgen (Bootstrap-Resampling) und misst, wie
+  oft dabei ein schwerer Drawdown oder Beinahe-Totalverlust passiert wäre -- eine realistischere Einschätzung
+  des tatsächlichen Risikos als ein einzelner Chart.
+  </div>
+
+  <div class="warn-box">
+  <b>Eine mathematische Grenze vorab:</b> Bei fixer 1/N-Positionsgröße und hartem Prozent-Stop (z.B. -15%)
+  ist ein echter <b>Totalverlust (Eigenkapital = 0) strukturell unmöglich</b> -- pro Trade wird immer nur ein
+  Bruchteil des jeweils <i>aktuellen</i> Kapitals riskiert, das schrumpft geometrisch, erreicht aber nie
+  exakt null. Das heißt NICHT, dass schwere Drawdowns (-50%, -80%, -95%) unmöglich sind -- genau das misst
+  dieses Tool unten tatsächlich, nicht nur behauptet.
+  </div>
+
+  <h2><span class="step-num">1</span>System wählen</h2>
+  <div class="panel">
+    <div class="control-label">WELCHE STRATEGIE SOLL GEBOOTSTRAPPT WERDEN?</div>
+    <div class="btn-row">
+      <button class="opt-btn active" data-system="combined">Crypto Long+Short</button>
+      <button class="opt-btn" data-system="long">Crypto Long-Only</button>
+      <button class="opt-btn" data-system="short">Crypto Short-Only</button>
+      <button class="opt-btn" data-system="dax">DAX-Trend-Score</button>
+      <button class="opt-btn" data-system="forex">Forex-Trend-Score</button>
+    </div>
+    <div class="methodology" style="margin:10px 0 0;">DAX- und Forex-Trend-Score sind im <a href="research-log.html">Forschungsprotokoll</a> als verworfene (negative) Edges dokumentiert -- bewusst mit in der Auswahl, um zu zeigen, ob selbst eine Strategie ohne Edge durch den Stop strukturell vor Totalverlust geschützt bleibt.</div>
+  </div>
+
+  <h2><span class="step-num">2</span>Einstellungen</h2>
+  <div class="panel">
+    <div class="control-group">
+      <div class="control-label">STARTKAPITAL (€)</div>
+      <input type="number" id="capital-input" value="100000" min="1000" step="1000">
+    </div>
+    <div class="control-group" style="margin-bottom:0;">
+      <div class="control-label">ANZAHL SIMULATIONEN (BOOTSTRAP-PFADE)</div>
+      <div class="btn-row">
+        <button class="opt-btn" data-sims="500">500</button>
+        <button class="opt-btn active" data-sims="2000">2.000</button>
+        <button class="opt-btn" data-sims="5000">5.000</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">📡 Live-Daten laden, Trades sammeln &amp; Bootstrap laufen lassen</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>📊 Ergebnis über alle simulierten Pfade</h2>
+    <div class="stat-grid" id="mc-stats"></div>
+    <div id="mc-warning"></div>
+
+    <h2>📉 Perzentil-Band der simulierten Equity-Pfade</h2>
+    <div class="methodology">5./25./50./75./95. Perzentil über alle Bootstrap-Pfade, nach Trade-Nummer (nicht Kalenderzeit). Zum Vergleich: die tatsächliche historische Buy&amp;Hold-Kurve derselben Symbole als gepunktete Linie.</div>
+    <div class="chart-wrap" id="fan-chart"></div>
+
+    <h2>📋 Drawdown-Verteilung</h2>
+    <div class="table-scroll">
+    <table><thead><tr><th>Schwelle</th><th>Anteil Pfade, die sie je erreichen</th></tr></thead><tbody id="dd-table"></tbody></table>
+    </div>
+
+    <h2>⚖️ Vergleich: Buy&amp;Hold und echte Retail-Trader-Statistiken</h2>
+    <div class="methodology" id="buyhold-note"></div>
+    <div class="external-box">
+      <div class="src-tag">Externe Studien -- nicht live berechnet</div>
+      Zur Einordnung, nicht als Teil der obigen Berechnung: Barber &amp; Odean ("Trading Is Hazardous to Your
+      Wealth", Journal of Finance 2000) fanden, dass die aktivsten Trader unter den untersuchten
+      US-Privatanlegern eine um mehrere Prozentpunkte pro Jahr niedrigere Nettorendite erzielten als
+      passives Halten -- primär durch Handelskosten und schlechtes Timing. Die DALBAR QAIB-Studien zeigen
+      über Jahrzehnte einen ähnlichen "Behavior Gap" von durchschnittlich mehreren Prozentpunkten pro Jahr
+      zwischen Fonds-Rendite und tatsächlich von Anlegern realisierter Rendite (prozyklisches Kaufen/Verkaufen).
+      Europäische CFD-/Forex-Broker müssen laut ESMA-Vorgaben offenlegen, wie viele ihrer Privatkunden-Konten
+      Geld verlieren -- die Werte liegen branchenweit typischerweise zwischen 70% und 89%. Diese Zahlen sind
+      ungefähre, oft zitierte Größenordnungen aus unabhängigen Quellen -- keine Garantie, dass ein mechanisches
+      System hier automatisch besser abschneidet, wenn es nicht diszipliniert befolgt wird.
+    </div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Bootstrap
+  zieht aus der jeweils aktuellen Live-Trade-Historie, Ergebnis ändert sich daher leicht mit jedem neuen
+  Trade seit dem letzten Lauf. Datenquelle: derselbe EOD-Proxy wie der Rest des Archivs, live abgerufen.
+  Verwandte Tools: <a href="drawdown-recovery-analysis.html">Drawdown-Recovery-Analyse</a> ·
+  <a href="research-log.html">Forschungsprotokoll</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const CRYPTO_SYMBOLS = ['BTC-USD.CC','ETH-USD.CC','SOL-USD.CC','XRP-USD.CC','BNB-USD.CC','ADA-USD.CC','DOGE-USD.CC','DOT-USD.CC','AVAX-USD.CC','LINK-USD.CC'];
+const DAX_SYMBOLS = ['ADS.XETRA','AIR.XETRA','ALV.XETRA','BAS.XETRA','BAYN.XETRA','BEI.XETRA','BMW.XETRA','BNR.XETRA','CBK.XETRA','CON.XETRA','1COV.XETRA','DTG.XETRA','DBK.XETRA','DB1.XETRA','DTE.XETRA','DHL.XETRA','EOAN.XETRA','FRE.XETRA','HNR1.XETRA','HEI.XETRA','HEN3.XETRA','IFX.XETRA','MBG.XETRA','MRK.XETRA','MTX.XETRA','MUV2.XETRA','RHM.XETRA','RWE.XETRA','SAP.XETRA','SRT3.XETRA','SIE.XETRA','ENR.XETRA','SHL.XETRA','SY1.XETRA','VOW3.XETRA','VNA.XETRA','ZAL.XETRA'];
+const FOREX_SYMBOLS = ['EURUSD.FOREX','GBPUSD.FOREX','USDJPY.FOREX','USDCHF.FOREX','USDCAD.FOREX','AUDUSD.FOREX','NZDUSD.FOREX','EURGBP.FOREX','EURJPY.FOREX','GBPJPY.FOREX','EURCHF.FOREX','AUDJPY.FOREX','EURAUD.FOREX','USDSEK.FOREX','USDNOK.FOREX','USDMXN.FOREX'];
+
+const SYSTEMS = {
+  combined: { symbols: CRYPTO_SYMBOLS, fetchFrom: '2018-01-01', stopPct: 0.15, bearishMode: null, mode: 'combined', label: 'Crypto Long+Short' },
+  long:     { symbols: CRYPTO_SYMBOLS, fetchFrom: '2018-01-01', stopPct: 0.15, bearishMode: 'flat', mode: 'long', label: 'Crypto Long-Only' },
+  short:    { symbols: CRYPTO_SYMBOLS, fetchFrom: '2018-01-01', stopPct: 0.15, bearishMode: null, mode: 'short', label: 'Crypto Short-Only' },
+  dax:      { symbols: DAX_SYMBOLS, fetchFrom: '2015-01-01', stopPct: 0.15, bearishMode: null, mode: 'combined', label: 'DAX-Trend-Score' },
+  forex:    { symbols: FOREX_SYMBOLS, fetchFrom: '2015-01-01', stopPct: 0.15, bearishMode: null, mode: 'combined', label: 'Forex-Trend-Score' },
+};
+const state = { system: 'combined', sims: 2000 };
+
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function buildVerdict(price, s3, s20, s50, s100) {
+  let score = 0;
+  if (s3 !== null) score += price > s3 ? 1 : -1;
+  if (s20 !== null) score += price > s20 ? 1 : -1;
+  if (s50 !== null) score += price > s50 ? 1 : -1;
+  if (s100 !== null) score += price > s100 ? 1 : -1;
+  if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
+  if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
+  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+}
+function computeSeriesVerdicts(series) {
+  const closes = series.map(r => r.close);
+  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
+}
+
+// unified backtest: mode 'combined' trades both sides always; mode 'long' trades long on bullish, and on
+// bearish either goes flat (bearishMode 'flat') or short (bearishMode null/other); mode 'short' trades only
+// the short side on bearish, flat on bullish. Exact port of the three crypto-trend-*.html engines.
+function backtestSystem(sym, series, stopPct, mode, bearishMode) {
+  const verdicts = computeSeriesVerdicts(series);
+  const trades = [];
+  let i = 0;
+  while (i < verdicts.length && !verdicts[i].s100ready) i++;
+  while (i < verdicts.length - 1) {
+    let dir = null;
+    if (mode === 'combined') {
+      dir = verdicts[i].cls === 'bullish' ? 'LONG' : 'SHORT';
+    } else if (mode === 'long') {
+      if (verdicts[i].cls === 'bullish') dir = 'LONG';
+      else if (bearishMode === 'short') dir = 'SHORT';
+    } else if (mode === 'short') {
+      if (verdicts[i].cls === 'bearish') dir = 'SHORT';
+    }
+    if (!dir) { i++; continue; }
+    const entryIdx = i + 1;
+    if (entryIdx >= verdicts.length) break;
+    const entryPrice = verdicts[entryIdx].close;
+    let exitIdx = -1, stopped = false;
+    for (let k = entryIdx + 1; k < verdicts.length; k++) {
+      const r = dir === 'LONG' ? (verdicts[k].close - entryPrice) / entryPrice : (entryPrice - verdicts[k].close) / entryPrice;
+      if (stopPct != null && r <= -stopPct) { exitIdx = k; stopped = true; break; }
+      let stillSameDir;
+      if (mode === 'combined') stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
+      else if (mode === 'long') stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
+      else stillSameDir = verdicts[k].cls === 'bearish';
+      if (verdicts[k].s100ready && !stillSameDir) { exitIdx = k; break; }
+    }
+    if (exitIdx === -1) { i = verdicts.length; continue; }
+    const finalReturn = stopped ? -stopPct : (dir === 'LONG' ? (verdicts[exitIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[exitIdx].close) / entryPrice);
+    trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped });
+    i = stopped ? exitIdx + 1 : exitIdx;
+  }
+  return trades;
+}
+
+async function fetchHistorical(symbol, fromDate) {
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromDate);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function fmtEur(v) { return '€' + Math.round(v).toLocaleString('de-DE'); }
+function fmtPct(v, dp) { dp = dp == null ? 1 : dp; return (v >= 0 ? '+' : '') + v.toFixed(dp) + '%'; }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+
+function mulberry32(seed) {
+  return function() {
+    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function runBootstrap(tradeReturns, nSymbols, capital, nSims) {
+  const nTrades = tradeReturns.length;
+  const rand = mulberry32(20261031);
+  const finalEquities = [], maxDrawdowns = [];
+  const pathSamples = []; // store a subset of full paths for the fan chart
+  const SAMPLE_PATHS = Math.min(nSims, 300);
+  for (let s = 0; s < nSims; s++) {
+    let equity = capital, peak = capital, maxDD = 0;
+    const storePath = s < SAMPLE_PATHS;
+    const path = storePath ? [1] : null;
+    for (let t = 0; t < nTrades; t++) {
+      const r = tradeReturns[Math.floor(rand() * nTrades)]; // bootstrap: sample WITH replacement
+      const positionSize = equity / nSymbols;
+      equity += positionSize * r;
+      if (equity > peak) peak = equity;
+      const dd = (equity - peak) / peak;
+      if (dd < maxDD) maxDD = dd;
+      if (storePath) path.push(equity / capital);
+    }
+    finalEquities.push(equity);
+    maxDrawdowns.push(maxDD * 100);
+    if (storePath) pathSamples.push(path);
+  }
+  return { finalEquities, maxDrawdowns, pathSamples, nTrades };
+}
+
+function percentile(sortedArr, p) {
+  const idx = (p / 100) * (sortedArr.length - 1);
+  const lo = Math.floor(idx), hi = Math.ceil(idx);
+  if (lo === hi) return sortedArr[lo];
+  return sortedArr[lo] + (sortedArr[hi] - sortedArr[lo]) * (idx - lo);
+}
+
+function fanChartSvg(pathSamples, buyHoldCurve) {
+  const W = 820, H = 260, PAD_L = 46, PAD_R = 14, PAD_T = 14, PAD_B = 22;
+  const nSteps = Math.max.apply(null, pathSamples.map(p => p.length));
+  const bands = [];
+  for (let step = 0; step < nSteps; step++) {
+    const vals = pathSamples.filter(p => step < p.length).map(p => Math.log10(Math.max(p[step], 1e-6))).sort((a,b) => a-b);
+    if (!vals.length) continue;
+    bands.push({ step, p5: percentile(vals,5), p25: percentile(vals,25), p50: percentile(vals,50), p75: percentile(vals,75), p95: percentile(vals,95) });
+  }
+  const allVals = bands.flatMap(b => [b.p5, b.p95]).concat(buyHoldCurve ? buyHoldCurve.map(v => Math.log10(Math.max(v,1e-6))) : []);
+  const min = Math.min.apply(null, allVals.concat([0])), max = Math.max.apply(null, allVals.concat([0]));
+  const span = (max - min) || 1;
+  const n = bands.length;
+  const x = i => PAD_L + (i / Math.max(1, n - 1)) * (W - PAD_L - PAD_R);
+  const y = v => PAD_T + (1 - (v - min) / span) * (H - PAD_T - PAD_B);
+  const path90 = bands.map((b,i) => (i===0?'M':'L') + x(i).toFixed(1) + ' ' + y(b.p95).toFixed(1)).join(' ') + ' ' +
+    bands.slice().reverse().map((b,i) => 'L' + x(n-1-i).toFixed(1) + ' ' + y(b.p5).toFixed(1)).join(' ') + ' Z';
+  const path50band = bands.map((b,i) => (i===0?'M':'L') + x(i).toFixed(1) + ' ' + y(b.p75).toFixed(1)).join(' ') + ' ' +
+    bands.slice().reverse().map((b,i) => 'L' + x(n-1-i).toFixed(1) + ' ' + y(b.p25).toFixed(1)).join(' ') + ' Z';
+  const medianLine = bands.map((b,i) => (i===0?'M':'L') + x(i).toFixed(1) + ' ' + y(b.p50).toFixed(1)).join(' ');
+  const zeroY = y(0);
+  let bhPath = '';
+  if (buyHoldCurve && buyHoldCurve.length > 1) {
+    const bhN = buyHoldCurve.length;
+    bhPath = buyHoldCurve.map((v,i) => (i===0?'M':'L') + (PAD_L + (i/(bhN-1))*(W-PAD_L-PAD_R)).toFixed(1) + ' ' + y(Math.log10(Math.max(v,1e-6))).toFixed(1)).join(' ');
+  }
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" preserveAspectRatio="xMidYMid meet">' +
+    '<line x1="' + PAD_L + '" y1="' + zeroY.toFixed(1) + '" x2="' + (W-PAD_R) + '" y2="' + zeroY.toFixed(1) + '" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4,4"/>' +
+    '<text x="' + (PAD_L-6) + '" y="' + (zeroY+3).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="end">Start</text>' +
+    '<path d="' + path90 + '" fill="var(--accent)" fill-opacity="0.10" stroke="none"/>' +
+    '<path d="' + path50band + '" fill="var(--accent)" fill-opacity="0.22" stroke="none"/>' +
+    '<path d="' + medianLine + '" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    (bhPath ? '<path d="' + bhPath + '" fill="none" stroke="var(--muted)" stroke-width="1.4" stroke-dasharray="3,3" stroke-linejoin="round"/>' : '') +
+    '<text x="' + (W-PAD_R) + '" y="' + PAD_T + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="end">Median + 25-75% + 5-95% Band (Bootstrap) · gestrichelt = Buy&amp;Hold real</text>' +
+    '</svg>';
+}
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#fdf6ee' : '#1a0e05');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+document.querySelectorAll('[data-system]').forEach(btn => btn.addEventListener('click', () => {
+  state.system = btn.dataset.system;
+  document.querySelectorAll('[data-system]').forEach(b => b.classList.toggle('active', b === btn));
+}));
+document.querySelectorAll('[data-sims]').forEach(btn => btn.addEventListener('click', () => {
+  state.sims = Number(btn.dataset.sims);
+  document.querySelectorAll('[data-sims]').forEach(b => b.classList.toggle('active', b === btn));
+}));
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+scanBtn.addEventListener('click', async () => {
+  const capitalRaw = Number(document.getElementById('capital-input').value);
+  const capital = Number.isFinite(capitalRaw) && capitalRaw >= 1000 ? capitalRaw : 100000;
+  const sys = SYSTEMS[state.system];
+
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + sys.symbols.length + ' Symbole (' + sys.label + ')...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    const seriesBySymbol = {};
+    const failed = [];
+    await Promise.all(sys.symbols.map(async sym => {
+      try { seriesBySymbol[sym] = await fetchHistorical(sym, sys.fetchFrom); }
+      catch (e) { failed.push(sym + ' (' + e.message + ')'); }
+    }));
+    const usableSymbols = Object.keys(seriesBySymbol);
+    if (!usableSymbols.length) throw new Error('Keine verwertbaren Daten erhalten.');
+
+    statusEl.textContent = 'Rechne Backtest auf ' + usableSymbols.length + ' Symbolen...';
+    const allTrades = [];
+    for (const sym of usableSymbols) allTrades.push(...backtestSystem(sym, seriesBySymbol[sym], sys.stopPct, sys.mode, sys.bearishMode));
+    allTrades.sort((a,b) => a.exitDate.localeCompare(b.exitDate));
+    if (allTrades.length < 20) throw new Error('Zu wenige Trades (' + allTrades.length + ') für eine aussagekräftige Bootstrap-Simulation.');
+
+    // real historical buy&hold curve (equal-weight, same symbols, same period) for comparison
+    const allDates = [...new Set(usableSymbols.flatMap(s => seriesBySymbol[s].map(r => r.date)))].sort();
+    const startCloses = {};
+    for (const sym of usableSymbols) startCloses[sym] = seriesBySymbol[sym][0].close;
+    const buyHoldCurve = allDates.map(date => {
+      let sum = 0, n = 0;
+      for (const sym of usableSymbols) {
+        const bar = seriesBySymbol[sym].find(r => r.date === date) || seriesBySymbol[sym].slice().reverse().find(r => r.date <= date);
+        if (bar) { sum += bar.close / startCloses[sym]; n++; }
+      }
+      return n ? sum / n : null;
+    }).filter(v => v != null);
+    let bhPeak = 1, bhMaxDD = 0;
+    for (const v of buyHoldCurve) { if (v > bhPeak) bhPeak = v; const dd = (v - bhPeak) / bhPeak; if (dd < bhMaxDD) bhMaxDD = dd; }
+
+    statusEl.textContent = 'Starte ' + state.sims.toLocaleString('de-DE') + ' Bootstrap-Simulationen über ' + allTrades.length + ' echte Trades...';
+    await new Promise(r => setTimeout(r, 10));
+
+    const tradeReturns = allTrades.map(t => t.finalReturn);
+    const { finalEquities, maxDrawdowns, pathSamples } = runBootstrap(tradeReturns, usableSymbols.length, capital, state.sims);
+
+    const sortedFinal = finalEquities.slice().sort((a,b) => a-b);
+    const sortedDD = maxDrawdowns.slice().sort((a,b) => a-b); // most negative first
+    const medianFinalPct = (percentile(sortedFinal, 50) - capital) / capital * 100;
+    const p5FinalPct = (percentile(sortedFinal, 5) - capital) / capital * 100;
+    const p95FinalPct = (percentile(sortedFinal, 95) - capital) / capital * 100;
+    const worstDD = sortedDD[0];
+    const pctBelow = (threshold) => (maxDrawdowns.filter(dd => dd <= threshold).length / maxDrawdowns.length * 100);
+    const pct50 = pctBelow(-50), pct80 = pctBelow(-80), pct95 = pctBelow(-95);
+    const pctLoser = (finalEquities.filter(e => e < capital).length / finalEquities.length * 100);
+
+    document.getElementById('mc-stats').innerHTML =
+      '<div class="bstat"><b class="' + (medianFinalPct>=0?'pos':'neg') + '">' + fmtPct(medianFinalPct,0) + '</b><span>MEDIAN-RENDITE ÜBER ' + state.sims.toLocaleString('de-DE') + ' PFADE</span></div>' +
+      '<div class="bstat"><b class="neg">' + fmtPct(p5FinalPct,0) + '</b><span>5. PERZENTIL (SCHLECHTE PFADE)</span></div>' +
+      '<div class="bstat"><b class="pos">' + fmtPct(p95FinalPct,0) + '</b><span>95. PERZENTIL (GUTE PFADE)</span></div>' +
+      '<div class="bstat"><b class="neg">' + worstDD.toFixed(1) + '%</b><span>SCHLECHTESTER SIMULIERTER MAX-DRAWDOWN</span></div>' +
+      '<div class="bstat"><b>' + pct50.toFixed(1) + '%</b><span>PFADE MIT DRAWDOWN ≥ 50%</span></div>' +
+      '<div class="bstat"><b>' + pct80.toFixed(1) + '%</b><span>PFADE MIT DRAWDOWN ≥ 80%</span></div>' +
+      '<div class="bstat"><b>' + pct95.toFixed(1) + '%</b><span>PFADE MIT DRAWDOWN ≥ 95% (BEINAHE-TOTALVERLUST)</span></div>' +
+      '<div class="bstat"><b>' + pctLoser.toFixed(1) + '%</b><span>PFADE, DIE UNTER STARTKAPITAL ENDEN</span></div>';
+
+    document.getElementById('mc-warning').innerHTML = pct80 > 10
+      ? '<div class="warn-box"><b>' + pct80.toFixed(1) + '% der simulierten Pfade erreichen irgendwann einen Drawdown von -80% oder schlechter.</b> Das ist kein Randrisiko mehr -- bei dieser Strategie/diesem Symbol-Set sollte ernsthaft mit sehr schweren Verlustphasen gerechnet werden, auch wenn echter Totalverlust strukturell ausgeschlossen bleibt.</div>'
+      : (pct50 > 10 ? '<div class="warn-box"><b>' + pct50.toFixed(1) + '% der Pfade erreichen -50% Drawdown oder schlechter.</b> Spürbares Tail-Risiko, auch wenn die mediane Rendite positiv aussieht.</div>' : '');
+
+    document.getElementById('fan-chart').innerHTML = fanChartSvg(pathSamples, buyHoldCurve);
+
+    const ddThresholds = [-10,-20,-30,-40,-50,-60,-70,-80,-90,-95];
+    document.getElementById('dd-table').innerHTML = ddThresholds.map(th =>
+      '<tr><td>' + th + '%</td><td class="num">' + pctBelow(th).toFixed(1) + '%</td></tr>'
+    ).join('');
+
+    document.getElementById('buyhold-note').textContent = 'Reale Buy&Hold-Kurve (Equal-Weight, dieselben ' + usableSymbols.length + ' Symbole, derselbe Zeitraum seit ' + sys.fetchFrom + '): Max-Drawdown ' + (bhMaxDD*100).toFixed(1) + '%. Das ist EIN tatsächlich eingetretener Pfad, nicht simuliert -- zum direkten Vergleich mit der Bootstrap-Verteilung der Strategie oben.';
+
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- ' + state.sims.toLocaleString('de-DE') + ' Simulationen über ' + allTrades.length + ' echte Trades, berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.' +
+      (failed.length ? ' Nicht abrufbar: ' + failed.join(', ') : '');
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
