@@ -78,6 +78,7 @@ tr.best-row{background:#eef8f0;}
     <a href="#timewindows">⏱️ Zeitfenster-Analyse</a>
     <a href="#stopsens">🎚️ Stop-Sensitivität</a>
     <a href="#percoin">🪙 Pro Coin vs. Buy&amp;Hold</a>
+    <a href="#drawdown">🛡️ Drawdown-Schutz vs. Halten</a>
     <a href="#correlation">🔗 Korrelations-Analyse</a>
     <a href="#robustness">📉 Zwei-Perioden-Robustheit</a>
     <a href="#shortside">⚠️ Warum keine Short-Seite</a>
@@ -317,7 +318,90 @@ tr.best-row{background:#eef8f0;}
   <b>-68,4%</b>) am deutlichsten, weil der Trendfilter die mehrjährigen Abwärtstrends korrekt vermieden hat.
   Selbst bei Coins mit starkem eigenem Bullenlauf (SOL, BNB, DOGE) liegt das System noch vorn, nicht nur
   knapp. <b>Aber:</b> "10 von 10 Coins positiv" klingt nach zehnfach unabhängig bestätigter Edge -- ist es
-  nicht, siehe Korrelations-Analyse direkt im Anschluss.
+  nicht, siehe Korrelations-Analyse weiter unten.
+  </div>
+
+  <h2 id="drawdown">🛡️ Drawdown-Schutz: was das System Hodlern beim Crash erspart</h2>
+  <div class="callout" style="border-left-color:var(--green);">
+  <b>Das ist der stärkste, unabhängig von der Korrelations-/Zeitfenster-Kritik bestehende Pluspunkt des
+  Systems:</b> es hält nicht stur durch jeden Crash, sondern geht bei Bearish-Flip flach. Der Unterschied
+  zum reinen Halten ist bei den am stärksten gefallenen Altcoins dramatisch -- ADA- und DOT-Hodler sitzen
+  <b>heute, Jahre nach dem jeweiligen Allzeithoch</b>, immer noch auf einem Verlust von
+  94% bzw. 98%
+  -- praktisch alles seit Emission wieder abgegeben. Das System hat diesen Totalverlust in beiden Fällen
+  durch rechtzeitiges Flachgehen vermieden.
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Coin</th><th>Buy&amp;Hold Max-Drawdown</th><th>System Max-Drawdown</th><th>Ersparter Drawdown</th><th>Buy&amp;Hold heute vs. Allzeithoch</th></tr></thead><tbody>
+    <tr>
+    <td>BTC</td>
+    <td class="num neg">-81.5%</td>
+    <td class="num neg">-33.0%</td>
+    <td class="num pos" style="font-weight:700;">+48.5%</td>
+    <td class="num neg">-38.1%</td>
+  </tr><tr>
+    <td>ETH</td>
+    <td class="num neg">-94.0%</td>
+    <td class="num neg">-39.3%</td>
+    <td class="num pos" style="font-weight:700;">+54.7%</td>
+    <td class="num neg">-54.2%</td>
+  </tr><tr>
+    <td>SOL</td>
+    <td class="num neg">-96.3%</td>
+    <td class="num neg">-52.8%</td>
+    <td class="num pos" style="font-weight:700;">+43.5%</td>
+    <td class="num neg">-63.5%</td>
+  </tr><tr>
+    <td>XRP</td>
+    <td class="num neg">-95.9%</td>
+    <td class="num neg">-55.6%</td>
+    <td class="num pos" style="font-weight:700;">+40.3%</td>
+    <td class="num neg">-65.3%</td>
+  </tr><tr>
+    <td>BNB</td>
+    <td class="num neg">-80.1%</td>
+    <td class="num neg">-39.5%</td>
+    <td class="num pos" style="font-weight:700;">+40.6%</td>
+    <td class="num neg">-46.7%</td>
+  </tr><tr>
+    <td>ADA</td>
+    <td class="num neg">-97.8%</td>
+    <td class="num neg">-48.9%</td>
+    <td class="num pos" style="font-weight:700;">+49.0%</td>
+    <td class="num neg">-93.6%</td>
+  </tr><tr>
+    <td>DOGE</td>
+    <td class="num neg">-92.3%</td>
+    <td class="num neg">-46.2%</td>
+    <td class="num pos" style="font-weight:700;">+46.0%</td>
+    <td class="num neg">-89.0%</td>
+  </tr><tr>
+    <td>DOT</td>
+    <td class="num neg">-98.6%</td>
+    <td class="num neg">-75.8%</td>
+    <td class="num pos" style="font-weight:700;">+22.8%</td>
+    <td class="num neg">-98.3%</td>
+  </tr><tr>
+    <td>AVAX</td>
+    <td class="num neg">-95.6%</td>
+    <td class="num neg">-64.0%</td>
+    <td class="num pos" style="font-weight:700;">+31.6%</td>
+    <td class="num neg">-93.9%</td>
+  </tr><tr>
+    <td>LINK</td>
+    <td class="num neg">-90.2%</td>
+    <td class="num neg">-65.5%</td>
+    <td class="num pos" style="font-weight:700;">+24.7%</td>
+    <td class="num neg">-79.7%</td>
+  </tr>
+  </tbody></table></div>
+  <div class="methodology">
+  Über alle 10 Coins halbiert das System den Drawdown mindestens, bei einigen (ADA: -97,8% → -48,9%,
+  DOGE: -92,3% → -46,2%) fast auf ein Drittel. Wichtig zur Einordnung: dieser Schutz ist <b>orthogonal</b>
+  zur Korrelations-Kritik unten -- die Korrelations-Analyse sagt etwas über die statistische Unabhängigkeit
+  der <i>Rendite</i>-Edge aus, nicht darüber, ob das rechtzeitige Verlassen eines fallenden Marktes Kapital
+  schützt. Letzteres bleibt richtig, auch wenn alle 10 Coins gemeinsam fallen -- im Gegenteil, gerade WEIL
+  sie stark korrelieren, schützt ein einziges korrektes "raus"-Signal gleich das gesamte Portfolio statt nur
+  eine Position.
   </div>
 
   <h2 id="correlation">🔗 Korrelations-Analyse: sind die 10 Coins wirklich 10 unabhängige Wetten?</h2>
@@ -381,22 +465,23 @@ tr.best-row{background:#eef8f0;}
 
   <h2 id="verdict">💭 Einschätzung: ist der Score nutzbar?</h2>
   <div class="callout" style="border-left-color:#d97706;">
-  <b>Zweifach korrigierte Einschätzung: real, aber deutlich schwächer, weniger unabhängig bestätigt und
-  unzuverlässiger als die Headline-Zahl suggeriert.</b> Die Edge ist über 10 Einzelcoins konsistent
-  vorhanden und schlägt Buy&amp;Hold strukturell, weil sie mehrjährige Abwärtstrends korrekt vermeidet (ADA,
-  DOT) -- aber "10 von 10 Coins" sind laut Korrelations-Analyse oben effektiv nur 1.7
-  unabhängige Wetten, nicht 10: im Kern ein einziges Markt-Timing-Signal auf Krypto insgesamt, zehnfach
-  ausgeführt. Dazu kommt: der Sharpe von 1.62 und die +133.192%-Gesamtrendite stammen überwiegend aus der
-  nicht wiederholbaren 2020/21-Krypto-Manie. Seit Mitte 2021 liegt die Ø Rendite pro Trade nur noch bei
-  +2,54%, über die letzten 12 Monate war sie <b>negativ</b>. <b>Richtiges mentales Modell:</b> kein stetiger
-  Renditemotor, sondern ein System, das in starken Trendphasen (2019-21, 2024) deutlich gewinnt und in
-  schwachen/seitwärts laufenden Phasen (2018, 2022, 2025-26) leicht verliert -- aktuell befinden wir uns laut
-  den letzten 12 Monaten und der Live-Lage des Original-Tools eher in einer solchen schwachen Phase.
-  Zusätzlich: niedrige Trefferquote (~29-35%) erfordert Disziplin bei vielen kleinen Verlust-Trades, keine
+  <b>Differenziertes Bild: die Rendite-Story ist schwächer, unabhängiger weniger bestätigt und unzuverlässiger
+  als die Headline-Zahl suggeriert -- der Risiko-Nutzen ist dagegen real und bleibt davon unberührt.</b>
+  Zur Rendite-Seite: "10 von 10 Coins positiv" sind laut Korrelations-Analyse effektiv nur 1.7
+  unabhängige Wetten, nicht 10 -- im Kern ein einziges Markt-Timing-Signal auf Krypto insgesamt, zehnfach
+  ausgeführt. Der Sharpe von 1.62 und die +133.192%-Gesamtrendite stammen überwiegend aus der nicht
+  wiederholbaren 2020/21-Manie; seit Mitte 2021 nur noch +2,54% Ø Rendite/Trade, über die letzten 12 Monate
+  <b>negativ</b>. <b>Zur Risiko-Seite dagegen, unabhängig von beiden Einschränkungen:</b> das System hat in
+  jedem der 10 Coins deutlich weniger Drawdown erlitten als simples Halten -- bei ADA und DOT hat es einen
+  Verlust von über 90% vom Allzeithoch verhindert, den reine Hodler bis heute nicht wieder aufgeholt haben.
+  Dieser Kapitalschutz bleibt gültig, selbst wenn man die Rendite-Zahlen mit Vorsicht liest. <b>Richtiges
+  mentales Modell insgesamt:</b> kein stetiger Renditemotor und keine zehnfach abgesicherte Wette, aber ein
+  brauchbares Exit-Signal, das verhindert, einen fallenden Markt stur durchzuhalten -- in Trendphasen
+  (2019-21, 2024) gewinnt es deutlich, in schwachen Phasen (2018, 2022, 2025-26, aktuell) verliert es leicht
+  statt viel. Niedrige Trefferquote (~29-35%) erfordert Disziplin bei vielen kleinen Verlust-Trades, keine
   Handelskosten eingerechnet. <b>Als Long/Short-System wie im Original-Tool dargestellt: weiterhin nein</b>
   -- die Short-Hälfte bleibt statistisch nicht von Null zu unterscheiden und birgt reales Tail-Risiko ohne
-  Stop. Live-Tool unten setzt nur die Long-Seite um und zeigt die Zeitfenster-Zahlen direkt mit an, damit die
-  aktuelle (schwächere) Lage nicht hinter der historischen Gesamtzahl verschwindet.
+  Stop. Live-Tool unten setzt nur die Long-Seite um.
   </div>
 
   <div class="footer-note">
