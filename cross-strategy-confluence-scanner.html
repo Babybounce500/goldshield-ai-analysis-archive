@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Cross-Strategy-Konfluenz-Scanner</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#071320">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#071320;--surface:#0d2235;--panel:#112c43;--border:#1d4463;--accent:#38bdf8;--accent-rgb:56,189,248;--green:#34d399;--red:#f87171;--muted:#86a9c2;--text:#dcedf7;--bright:#f3fbff;--warn-text:#fecaca;--amber-link:#7dd3fc;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f0f8fd;--surface:#ffffff;--panel:#e1f1fa;--border:#c3e0f0;--accent:#0369a1;--accent-rgb:3,105,161;--green:#15803d;--red:#b91c1c;--muted:#4f7489;--text:#122534;--bright:#071320;--warn-text:#7a1f1f;--amber-link:#0369a1;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:980px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(3,105,161,.16), rgba(3,105,161,.04));border:1px solid rgba(56,189,248,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #7dd3fc);color:#071320;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:620px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr:hover{background:rgba(var(--accent-rgb),.06);}
+tbody tr.strong{background:rgba(52,211,153,.05);}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.badge.none{background:rgba(134,169,194,.14);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(134,169,194,.2);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>🧭 Cross-Strategy-Konfluenz-Scanner</h1>
+  <div class="subtitle">Drei unabhängig validierte Strategien, ein Universum (DAX-37) -- wo stimmen Trend-Score, RSI-Mean-Reversion und Donchian-Breakout gerade überein?</div>
+
+  <div class="callout">
+  <b>Drei verschiedene Signalarten, nicht dieselbe Idee dreimal.</b>
+  <a href="dax-trend-score.html" style="color:var(--accent);">Trend-Score</a> ist täglich und folgt dem Trend;
+  <a href="rsi-mean-reversion.html" style="color:var(--accent);">RSI-Mean-Reversion</a> und die
+  Donchian-Kanal-Strategie (aus <a href="live-portfolio.html" style="color:var(--accent);">Live-Portfolio</a>)
+  sind beide wöchentlich (Montag-Einstieg aus dem letzten abgeschlossenen Freitag) -- RSI wettet gegen
+  Extreme, der Kanal auf Ausbrüche. <b>Achtung Zeitebenen:</b> Trend-Score zeigt den Stand von heute, RSI und
+  Breakout zeigen den Stand der letzten abgeschlossenen Handelswoche. Konfluenz heißt hier: mindestens 2 von
+  3 zeigen dieselbe Richtung.
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">🔍 DAX-37 scannen (3 Strategien, live)</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>📋 Konfluenz-Tabelle</h2>
+    <div class="methodology" id="results-note"></div>
+    <div class="table-scroll">
+    <table><thead><tr><th>Aktie</th><th>Trend-Score (heute)</th><th>RSI-Mean-Reversion (letzte Woche)</th><th>Donchian-Breakout (letzte Woche)</th><th>Konfluenz</th></tr></thead><tbody id="confluence-body"></tbody></table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie, kein eigener
+  Backtest dieser Drei-Strategien-Konfluenz-Idee (nur die drei Einzelstrategien sind separat validiert).
+  Datenquelle: derselbe EOD-Proxy wie der Rest des Archivs, live abgerufen. Einzelstrategien:
+  <a href="dax-trend-score.html">Trend-Score</a> ·
+  <a href="rsi-mean-reversion.html">RSI-Mean-Reversion</a> ·
+  <a href="live-portfolio.html">Donchian-Breakout</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const FETCH_DAYS_BACK = 400;
+const RSI_PERIOD = 14;
+const RSI_OVERSOLD = 30;
+const RSI_OVERBOUGHT = 70;
+
+const SYMBOLS = ['ADS.XETRA','AIR.XETRA','ALV.XETRA','BAS.XETRA','BAYN.XETRA','BEI.XETRA','BMW.XETRA','BNR.XETRA','CBK.XETRA','CON.XETRA','1COV.XETRA','DTG.XETRA','DBK.XETRA','DB1.XETRA','DTE.XETRA','DHL.XETRA','EOAN.XETRA','FRE.XETRA','HNR1.XETRA','HEI.XETRA','HEN3.XETRA','IFX.XETRA','MBG.XETRA','MRK.XETRA','MTX.XETRA','MUV2.XETRA','RHM.XETRA','RWE.XETRA','SAP.XETRA','SRT3.XETRA','SIE.XETRA','ENR.XETRA','SHL.XETRA','SY1.XETRA','VOW3.XETRA','VNA.XETRA','ZAL.XETRA'];
+
+// ---------- trend-score engine (exact port) ----------
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function buildVerdict(price, s3, s20, s50, s100) {
+  let score = 0;
+  if (s3 !== null) score += price > s3 ? 1 : -1;
+  if (s20 !== null) score += price > s20 ? 1 : -1;
+  if (s50 !== null) score += price > s50 ? 1 : -1;
+  if (s100 !== null) score += price > s100 ? 1 : -1;
+  if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
+  if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
+  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+}
+function computeSeriesVerdicts(series) {
+  const closes = series.map(r => r.close);
+  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
+}
+
+// ---------- RSI(14) Wilder, exact port from rsi-mean-reversion.html ----------
+function computeRSI(series, period) {
+  const rsi = new Array(series.length).fill(null);
+  if (series.length < period + 1) return rsi;
+  let gainSum = 0, lossSum = 0;
+  for (let i = 1; i <= period; i++) {
+    const change = series[i].close - series[i-1].close;
+    if (change > 0) gainSum += change; else lossSum += -change;
+  }
+  let avgGain = gainSum / period, avgLoss = lossSum / period;
+  rsi[period] = avgLoss === 0 ? 100 : 100 - 100 / (1 + avgGain / avgLoss);
+  for (let i = period + 1; i < series.length; i++) {
+    const change = series[i].close - series[i-1].close;
+    const gain = change > 0 ? change : 0, loss = change < 0 ? -change : 0;
+    avgGain = (avgGain * (period - 1) + gain) / period;
+    avgLoss = (avgLoss * (period - 1) + loss) / period;
+    rsi[i] = avgLoss === 0 ? 100 : 100 - 100 / (1 + avgGain / avgLoss);
+  }
+  return rsi;
+}
+
+// ---------- weekly Monday/Friday series, exact port from live-portfolio.html ----------
+function buildWeeklySeries(series) {
+  const weeks = new Map();
+  for (const p of series) {
+    const d = new Date(p.date + 'T00:00:00Z');
+    const dow = d.getUTCDay();
+    if (dow !== 1 && dow !== 5) continue;
+    const thursday = new Date(d);
+    thursday.setUTCDate(d.getUTCDate() + (4 - (dow === 0 ? 7 : dow)));
+    const isoYear = thursday.getUTCFullYear();
+    const jan1 = new Date(Date.UTC(isoYear, 0, 1));
+    const isoWeek = Math.ceil((((thursday - jan1) / 86400000) + 1) / 7);
+    const key = isoYear + '-W' + isoWeek;
+    if (!weeks.has(key)) weeks.set(key, {});
+    if (dow === 1) { weeks.get(key).monday = p.date; weeks.get(key).mondayClose = p.close; }
+    if (dow === 5) { weeks.get(key).friday = p.date; weeks.get(key).fridayClose = p.close; }
+  }
+  return [...weeks.entries()].filter(([, w]) => w.mondayClose != null && w.fridayClose != null)
+    .map(([key, w]) => ({ weekKey: key, ...w })).sort((a, b) => a.monday.localeCompare(b.monday));
+}
+
+async function fetchHistorical(symbol) {
+  const fromDate = new Date(Date.now() - FETCH_DAYS_BACK * 86400000).toISOString().slice(0, 10);
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromDate);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+function stripSuffix(sym) { return sym.replace('.XETRA', ''); }
+function badge(dir) { return dir ? '<span class="badge ' + (dir==='LONG'?'long':'short') + '">' + dir + '</span>' : '<span class="badge none">—</span>'; }
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f0f8fd' : '#071320');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+scanBtn.addEventListener('click', async () => {
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + SYMBOLS.length + ' DAX-Aktien und rechne 3 Strategien...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    const failed = [];
+    const rows = [];
+    await Promise.all(SYMBOLS.map(async sym => {
+      try {
+        const series = await fetchHistorical(sym);
+        if (series.length < RSI_PERIOD + 10) { failed.push(sym + ' (zu wenig Historie)'); return; }
+
+        const verdicts = computeSeriesVerdicts(series);
+        const lastVerdict = verdicts[verdicts.length - 1];
+        const trendDir = lastVerdict.s100ready ? (lastVerdict.cls === 'bullish' ? 'LONG' : 'SHORT') : null;
+
+        const rsi = computeRSI(series, RSI_PERIOD);
+        const weeks = buildWeeklySeries(series);
+        const byDate = new Map(series.map((p, idx) => [p.date, idx]));
+        let rsiDir = null;
+        if (weeks.length >= 1) {
+          const lastFridayIdx = byDate.get(weeks[weeks.length - 1].friday);
+          const r = lastFridayIdx != null ? rsi[lastFridayIdx] : null;
+          if (r != null) { if (r < RSI_OVERSOLD) rsiDir = 'LONG'; else if (r > RSI_OVERBOUGHT) rsiDir = 'SHORT'; }
+        }
+
+        let breakoutDir = null;
+        if (weeks.length >= 4) {
+          const last = weeks[weeks.length - 1];
+          const priorFridays = [weeks[weeks.length-4].fridayClose, weeks[weeks.length-3].fridayClose, weeks[weeks.length-2].fridayClose];
+          const LONG = Math.max.apply(null, priorFridays), SHORT = Math.min.apply(null, priorFridays);
+          if (last.mondayClose > LONG) breakoutDir = 'LONG';
+          else if (last.mondayClose < SHORT) breakoutDir = 'SHORT';
+        }
+
+        if (!trendDir) { failed.push(sym + ' (zu wenig Historie für SMA100)'); return; }
+        rows.push({ sym, trendDir, rsiDir, breakoutDir });
+      } catch (e) { failed.push(sym + ' (' + e.message + ')'); }
+    }));
+
+    for (const r of rows) {
+      const signals = [r.trendDir, r.rsiDir, r.breakoutDir].filter(Boolean);
+      const longCount = signals.filter(s => s === 'LONG').length;
+      const shortCount = signals.filter(s => s === 'SHORT').length;
+      r.confluenceDir = longCount > shortCount ? 'LONG' : shortCount > longCount ? 'SHORT' : null;
+      r.confluenceStrength = Math.max(longCount, shortCount);
+    }
+    rows.sort((a,b) => b.confluenceStrength - a.confluenceStrength);
+    const strongCount = rows.filter(r => r.confluenceStrength >= 2).length;
+
+    document.getElementById('results-note').innerHTML = rows.length + ' von ' + SYMBOLS.length + ' Aktien ausgewertet · ' + strongCount + ' mit mindestens 2 von 3 übereinstimmenden Strategien.' +
+      (failed.length ? '<br><b style="color:var(--red);">Übersprungen:</b> ' + failed.map(esc).join(', ') : '');
+
+    document.getElementById('confluence-body').innerHTML = rows.map(r => {
+      const strong = r.confluenceStrength >= 2;
+      const confBadge = r.confluenceDir ? badge(r.confluenceDir) + ' (' + r.confluenceStrength + '/3)' : '<span class="badge none">gemischt</span>';
+      return '<tr class="' + (strong ? 'strong' : '') + '">' +
+        '<td>' + esc(stripSuffix(r.sym)) + '</td>' +
+        '<td>' + badge(r.trendDir) + '</td>' +
+        '<td>' + badge(r.rsiDir) + '</td>' +
+        '<td>' + badge(r.breakoutDir) + '</td>' +
+        '<td>' + confBadge + '</td>' +
+      '</tr>';
+    }).join('');
+
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.';
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
