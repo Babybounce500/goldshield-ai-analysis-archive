@@ -97,6 +97,17 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
   Position), nicht geshortet. Details und Zahlen im <a href="crypto-trend-score-report.html" style="color:var(--accent);">Report</a>.
   </div>
 
+  <div class="warn-box">
+  <b>Die Gesamtrendite, die unten nach dem Backtest erscheint, ist überwiegend ein Artefakt der
+  2020/21-Krypto-Manie, keine stabile Erwartung.</b> Fester 1/10-Slot heißt: jede Position wird aus dem
+  bereits gewachsenen Kontostand bemessen, ein paar Ausnahme-Trades aus 2020/21 (DOGE +725% in einem Trade,
+  ADA +613%) haben die Basis explodieren lassen. Seit Mitte 2021 liegt die Ø Rendite nur noch bei +2,54%
+  pro Trade, über die letzten 12 Monate war sie <b>negativ</b> (-0,47%/Trade, -7,5% Gesamt). Das System
+  gewinnt in starken Trendphasen (2019-21, 2024) deutlich und verliert leicht in schwachen/seitwärts
+  laufenden Phasen (2018, 2022, 2025-26) -- aktuell eher Letzteres. Volle Zeitfenster-Tabelle im
+  <a href="crypto-trend-score-report.html" style="color:var(--warn-text);text-decoration:underline;">Report</a>.
+  </div>
+
   <h2><span class="step-num">1</span>Coins</h2>
   <div class="panel">
     <div class="control-label">CRYPTO-SYMBOLE, KOMMAGETRENNT (FORMAT: BTC-USD.CC) -- DIE VOREINGESTELLTEN 10 SIND DIE VALIDIERTEN</div>
@@ -400,12 +411,25 @@ computeBtn.addEventListener('click', async () => {
   const openCount = currentRows.filter(r => r.cls === 'bullish').length;
   const livePerPosition = openCount > 0 ? equity / openCount : 0;
 
+  // the headline total return compounds a fixed 1/N slot off the CURRENT (already-grown) account, so a few
+  // outsized early/mid-history trades inflate everything after them. A separate, non-compounded "last 12
+  // months" window (finalReturn/N summed directly, not re-based off the inflated equity) shows what the
+  // system has actually been doing lately -- this can and does look very different from the headline number.
+  const oneYearAgo = new Date(); oneYearAgo.setUTCFullYear(oneYearAgo.getUTCFullYear() - 1);
+  const oneYearAgoISO = oneYearAgo.toISOString().slice(0, 10);
+  const recentExits = allExits.filter(e => e.exitDate >= oneYearAgoISO);
+  const recentAvgRet = recentExits.length ? recentExits.reduce((a,e)=>a+e.finalReturn,0) / recentExits.length : null;
+  let recentEq = 1; for (const e of recentExits) recentEq *= (1 + e.finalReturn / usableSymbols.length);
+  const recentTotalReturnPct = (recentEq - 1) * 100;
+
   // ---- render ----
   document.getElementById('stats').innerHTML =
     '<div class="bstat"><b class="' + (totalReturnPct>=0?'pos':'neg') + '">' + fmtPct(totalReturnPct,0) + '</b><span>GESAMTRENDITE (LOG-SKALIERT)</span></div>' +
     '<div class="bstat"><b>' + fmtEur(equity) + '</b><span>ENDKAPITAL</span></div>' +
     '<div class="bstat"><b class="' + (sharpe>=0?'pos':'neg') + '">' + fmtNum(sharpe,3) + '</b><span>SHARPE</span></div>' +
-    '<div class="bstat"><b class="neg">' + fmtPct(maxDrawdownPct,1) + '</b><span>MAX DRAWDOWN</span></div>';
+    '<div class="bstat"><b class="neg">' + fmtPct(maxDrawdownPct,1) + '</b><span>MAX DRAWDOWN</span></div>' +
+    '<div class="bstat" style="border-color:' + (recentTotalReturnPct>=0?'rgba(52,211,153,.4)':'rgba(248,113,113,.4)') + ';"><b class="' + (recentTotalReturnPct>=0?'pos':'neg') + '">' + fmtPct(recentTotalReturnPct,1) + '</b><span>LETZTE 12 MONATE (NICHT AUFGEBLÄHT)</span></div>' +
+    '<div class="bstat"><b>' + (recentAvgRet!=null ? fmtPct(recentAvgRet*100) : '—') + '</b><span>Ø RENDITE/TRADE, LETZTE 12 MONATE (' + recentExits.length + ' TRADES)</span></div>';
   document.getElementById('chart').innerHTML = curve.length > 1 ? equityCurveSvg(curve, '#a78bfa') : '<p style="font-size:10.5px;color:var(--muted);">Zu wenig Trades für eine Kurve.</p>';
   document.getElementById('meta').innerHTML = usableSymbols.length + ' von ' + symbols.length + ' Coins verwertbar · ' + tradeDetails.length + ' Trades · Win-Rate ' + fmtNum(winRate,0) + '% · Stop -' + (stopPct*100) + '% · Daten seit ' + FETCH_FROM + ', live abgerufen.' +
     (failed.length ? '<br><b style="color:var(--red);">Nicht abrufbar:</b> ' + failed.map(esc).join(', ') : '');

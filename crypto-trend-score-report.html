@@ -75,6 +75,7 @@ tr.best-row{background:#eef8f0;}
 
   <div class="toc">
     <a href="#result">📊 Gesamtergebnis</a>
+    <a href="#timewindows">⏱️ Zeitfenster-Analyse</a>
     <a href="#stopsens">🎚️ Stop-Sensitivität</a>
     <a href="#percoin">🪙 Pro Coin vs. Buy&amp;Hold</a>
     <a href="#robustness">📉 Zwei-Perioden-Robustheit</a>
@@ -101,14 +102,114 @@ tr.best-row{background:#eef8f0;}
     <circle cx="776.0" cy="46.4" r="4" fill="#7c3aed" stroke="#fff" stroke-width="2"/>
     <text x="770.0" y="36.4" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="#7c3aed" text-anchor="end">+133192%</text>
   </svg></div>
-  <div class="methodology">
-  <b>Zur Einordnung der riesigen Gesamtrendite:</b> der Testzeitraum (2018-2026) umfasst einige der größten
-  Krypto-Bullenmärkte der Geschichte -- reines Buy&amp;Hold allein hätte bei SOL schon +12.193%, bei BNB
-  +8.191% gebracht. Die absolute Zahl oben ist also stark vom gewählten Zeitraum getrieben und keine
-  realistische Erwartung für die Zukunft. Aussagekräftiger ist der <b>relative</b> Vergleich zu Buy&amp;Hold
-  weiter unten -- und dass die Edge über <b>alle 10 Coins einzeln</b> positiv ist, nicht nur im Durchschnitt
-  von 1-2 Ausreißern getragen (anders als die früher in diesem Projekt gefundene Funds-Koinzidenz).
+  <div class="warn-box">
+  <b>Die Gesamtrendite oben ist fast vollständig ein Artefakt der 2020/21-Krypto-Manie, nicht eine stabile,
+  wiederholbare Edge -- siehe Zeitfenster-Analyse direkt im Anschluss, bevor du diese Zahl ernst nimmst.</b>
+  Grund: fester 1/10-Slot bedeutet, jede Position wird aus dem AKTUELLEN (bereits gewachsenen) Kontostand
+  bemessen -- ein paar Ausnahme-Trades 2020/21 (DOGE +725% in einem Trade, ADA +613%, DOT +560%, AVAX +550%,
+  BNB +428%) haben die Basis explodieren lassen, und alles danach wird von dieser aufgeblähten Basis aus
+  skaliert. Wer heute neu einsteigt, hat diese bereits realisierten Trades nicht mehr vor sich.
   </div>
+
+  <h2 id="timewindows">⏱️ Zeitfenster-Analyse: was bleibt ohne die 2021-Manie übrig?</h2>
+  <div class="table-scroll"><table><thead><tr><th>Zeitraum</th><th>Trades</th><th>Gesamtrendite (1/10-Slot)</th><th>Ø Rendite/Trade</th><th>Win-Rate</th><th>Max DD</th></tr></thead><tbody>
+    <tr>
+    <td>Komplette Historie (seit 2018)</td>
+    <td class="num">1380</td>
+    <td class="num pos">+133192.0%</td>
+    <td class="num pos">+6.00%</td>
+    <td class="num">34.7%</td>
+    <td class="num neg">-33.4%</td>
+  </tr><tr>
+    <td>Nach der 2020/21-Manie (ab Juni 2021)</td>
+    <td class="num">966</td>
+    <td class="num pos">+780.8%</td>
+    <td class="num pos">+2.54%</td>
+    <td class="num">32.0%</td>
+    <td class="num neg">-33.4%</td>
+  </tr><tr>
+    <td>Letzte ~4 Jahre (ab 2023)</td>
+    <td class="num">727</td>
+    <td class="num pos">+479.5%</td>
+    <td class="num pos">+2.70%</td>
+    <td class="num">31.2%</td>
+    <td class="num neg">-23.2%</td>
+  </tr><tr>
+    <td>Letzte 2 Jahre</td>
+    <td class="num">355</td>
+    <td class="num pos">+131.3%</td>
+    <td class="num pos">+2.65%</td>
+    <td class="num">31.0%</td>
+    <td class="num neg">-23.2%</td>
+  </tr><tr style="background:#fff1ee;">
+    <td>Letzte 12 Monate</td>
+    <td class="num">158</td>
+    <td class="num neg">-7.5%</td>
+    <td class="num neg">-0.47%</td>
+    <td class="num">29.1%</td>
+    <td class="num neg">-20.0%</td>
+  </tr>
+  </tbody></table></div>
+  <div class="methodology">
+  <b>Deutlicher Verfall, aber kein reiner Abwärtstrend -- eher zyklisch:</b> ohne die 2021-Manie (ab Juni
+  2021) fällt die Ø Rendite pro Trade von +6,00% auf +2,54%, Win-Rate von 34,7% auf 32,0%. Über die letzten
+  12 Monate liegt die Ø Rendite pro Trade sogar bei <b>-0.47%</b> (negativ)
+  bei einer Gesamtrendite von -7.5% im Fenster. Die Jahres-Tabelle
+  unten zeigt, warum: das System verdient gut in starken Trendjahren (2019, 2020, 2021, 2024), verliert
+  leicht in schwachen/volatilen Jahren (2018, 2022, 2025, 2026) -- es ist eine echte, aber stark
+  zyklische/regimeabhängige Edge, keine gleichmäßige Geldmaschine. Passt auch zur live beobachteten
+  <a href="https://crypto-tankstelle.replit.app/public-index.html" target="_blank" rel="noopener noreferrer">10/10-Short-Lage</a>
+  des Original-Tools zum Zeitpunkt dieses Reports -- aktuell kein starker Aufwärtstrend vorhanden, den das
+  System reiten könnte.
+  </div>
+  <div class="table-scroll"><table class="period-table"><thead><tr><th>Jahr</th><th>Trades</th><th>Ø Rendite/Trade</th><th>Win-Rate</th></tr></thead><tbody>
+    <tr style="background:#fff1ee;">
+    <td>2018</td>
+    <td class="num">68</td>
+    <td class="num neg">-0.86%</td>
+    <td class="num">29.4%</td>
+  </tr><tr>
+    <td>2019</td>
+    <td class="num">127</td>
+    <td class="num pos">+5.91%</td>
+    <td class="num">40.2%</td>
+  </tr><tr>
+    <td>2020</td>
+    <td class="num">146</td>
+    <td class="num pos">+6.72%</td>
+    <td class="num">41.1%</td>
+  </tr><tr>
+    <td>2021</td>
+    <td class="num">168</td>
+    <td class="num pos">+29.81%</td>
+    <td class="num">49.4%</td>
+  </tr><tr style="background:#fff1ee;">
+    <td>2022</td>
+    <td class="num">144</td>
+    <td class="num neg">-2.47%</td>
+    <td class="num">26.4%</td>
+  </tr><tr>
+    <td>2023</td>
+    <td class="num">191</td>
+    <td class="num pos">+3.20%</td>
+    <td class="num">37.7%</td>
+  </tr><tr>
+    <td>2024</td>
+    <td class="num">213</td>
+    <td class="num pos">+6.64%</td>
+    <td class="num">26.8%</td>
+  </tr><tr>
+    <td>2025</td>
+    <td class="num">166</td>
+    <td class="num pos">+0.01%</td>
+    <td class="num">31.3%</td>
+  </tr><tr style="background:#fff1ee;">
+    <td>2026</td>
+    <td class="num">157</td>
+    <td class="num neg">-0.42%</td>
+    <td class="num">29.3%</td>
+  </tr>
+  </tbody></table></div>
 
   <h2 id="stopsens">🎚️ Stop-Sensitivität</h2>
   <div class="table-scroll"><table><thead><tr><th>Stop</th><th>Trades</th><th>Ø Rendite</th><th>Win-Rate</th><th>Sharpe</th><th>Max DD</th><th>Gestoppt</th></tr></thead><tbody>
@@ -247,16 +348,21 @@ tr.best-row{background:#eef8f0;}
   </div>
 
   <h2 id="verdict">💭 Einschätzung: ist der Score nutzbar?</h2>
-  <div class="callout" style="border-left-color:var(--green);">
-  <b>Als Long-only-Trendfolgesystem mit Stop-Loss: ja, eine der stärksten validierten Edges in diesem
-  gesamten Projekt</b> (Sharpe 1.62, robust über drei Stop-Breiten, positiv in allen 10 Einzelcoins, nicht
-  von 1-2 Ausreißern getragen). Schlägt Buy&amp;Hold bei allen 10 von 10 Coins, am deutlichsten durch
-  korrektes Vermeiden mehrjähriger Abwärtstrends (ADA, DOT). <b>Einschränkungen:</b> die Gesamtrendite ist stark vom
-  Krypto-Bullenmarkt-Zeitraum getrieben, die Edge schwächt sich in der neueren Zeithälfte spürbar ab
-  (+9,3% → +2,7% Ø Rendite/Trade), niedrige Trefferquote (34,7%) erfordert Disziplin bei vielen kleinen
-  Verlust-Trades, und es sind keine Handelskosten eingerechnet. <b>Als Long/Short-System wie im
-  Original-Tool dargestellt: nein</b> -- die Short-Hälfte ist statistisch nicht von Null zu unterscheiden
-  und birgt reales Tail-Risiko ohne Stop. Live-Tool unten setzt entsprechend nur die geprüfte Long-Seite um.
+  <div class="callout" style="border-left-color:#d97706;">
+  <b>Korrigierte Einschätzung nach der Zeitfenster-Analyse: real, aber deutlich schwächer und unzuverlässiger
+  als die Headline-Zahl suggeriert.</b> Die Edge ist über 10 Einzelcoins konsistent vorhanden (nicht von 1-2
+  Ausreißern getragen) und schlägt Buy&amp;Hold strukturell, weil sie mehrjährige Abwärtstrends korrekt
+  vermeidet (ADA, DOT). Aber: der Sharpe von 1.62 und die +133.192%-Gesamtrendite stammen überwiegend aus der
+  nicht wiederholbaren 2020/21-Krypto-Manie. Seit Mitte 2021 liegt die Ø Rendite pro Trade nur noch bei
+  +2,54%, über die letzten 12 Monate war sie <b>negativ</b>. <b>Richtiges mentales Modell:</b> kein stetiger
+  Renditemotor, sondern ein System, das in starken Trendphasen (2019-21, 2024) deutlich gewinnt und in
+  schwachen/seitwärts laufenden Phasen (2018, 2022, 2025-26) leicht verliert -- aktuell befinden wir uns laut
+  den letzten 12 Monaten und der Live-Lage des Original-Tools eher in einer solchen schwachen Phase.
+  Zusätzlich: niedrige Trefferquote (~29-35%) erfordert Disziplin bei vielen kleinen Verlust-Trades, keine
+  Handelskosten eingerechnet. <b>Als Long/Short-System wie im Original-Tool dargestellt: weiterhin nein</b>
+  -- die Short-Hälfte bleibt statistisch nicht von Null zu unterscheiden und birgt reales Tail-Risiko ohne
+  Stop. Live-Tool unten setzt nur die Long-Seite um und zeigt die Zeitfenster-Zahlen direkt mit an, damit die
+  aktuelle (schwächere) Lage nicht hinter der historischen Gesamtzahl verschwindet.
   </div>
 
   <div class="footer-note">
