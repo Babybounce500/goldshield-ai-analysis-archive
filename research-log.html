@@ -43,7 +43,7 @@ tr:hover{background:var(--panel);}
 <div class="wrap">
   <a href="index.html" class="backlink">← Zurück zum Archiv</a>
   <h1>🔬 Forschungsprotokoll: Was wurde getestet -- und verworfen</h1>
-  <div class="subtitle">Jede Hypothese, jeder Datenfehler, jeder verworfene Ansatz aus diesem Projekt an einem Ort -- nicht nur die Funde, die am Ende überlebt haben · erstellt 28. Oktober 2026</div>
+  <div class="subtitle">Jede Hypothese, jeder Datenfehler, jeder verworfene Ansatz aus diesem Projekt an einem Ort -- nicht nur die Funde, die am Ende überlebt haben · erstellt 31. Oktober 2026</div>
 
   <div class="callout">
   <b>Warum diese Seite existiert:</b> ein Archiv, das nur die erfolgreichen Funde zeigt, ist nicht von
@@ -54,9 +54,9 @@ tr:hover{background:var(--panel);}
   </div>
 
   <div class="stat-grid">
-    <div class="bstat"><b class="pos">9</b><span>BESTÄTIGTE FUNDE</span></div>
-    <div class="bstat"><b class="neg">24</b><span>VERWORFENE HYPOTHESEN</span></div>
-    <div class="bstat"><b>12</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
+    <div class="bstat"><b class="pos">12</b><span>BESTÄTIGTE FUNDE</span></div>
+    <div class="bstat"><b class="neg">27</b><span>VERWORFENE HYPOTHESEN</span></div>
+    <div class="bstat"><b>15</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
   <h2>📦 DAX-Weekly-Breakout: Strategie-Varianten</h2>
@@ -306,6 +306,49 @@ tr:hover{background:var(--panel);}
   </tbody></table>
   </div>
 
+  <h2>📈 Trend-Score-Suite-Erweiterung (Crypto + DAX + Forex + Robustheits-Tools)</h2>
+  <div class="section-note">Ein Nachmittag, 17 neue Live-Tools -- hier die ehrliche Bilanz, inklusive der Teile, die auf Nutzer-Feedback hin wieder zurückgestuft wurden.</div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Hypothese</th><th>Verdikt</th><th>Befund</th><th>Quelle</th></tr></thead><tbody>
+    <tr>
+    <td class="hyp">Ein echter Live-Portfolio-Tracker (realer Einstieg heute zu Live-Preisen, getrennt von der seit-2018-Backtest-Kurve) lässt sich sinnvoll in die drei Crypto-Tools einbauen</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Funktioniert auf Combined/Long/Short, persistiert per localStorage, flaggt -15%-Stop-Treffer. Ein echter Bug unterwegs gefunden und vor dem Ausliefern gefixt (siehe Datenfehler unten).</td>
+    <td class="source"><a href="crypto-trend-combined.html">Crypto-Trend-Score (Long+Short)</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Dieselbe SMA(3/20/50/100)-Methodik lässt sich 1:1 auf die 37 DAX-Mitglieder übertragen und funktioniert dort ähnlich gut wie bei Crypto</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Live-Backtest seit 2015: Sharpe -0,61, Gesamtrendite -35%. Kein Methodik-Fehler, einfach kein Edge auf diesem Markt -- ehrlich mit "neu, unvalidiert" ausgeliefert statt beschönigt.</td>
+    <td class="source"><a href="dax-trend-score.html">DAX-Trend-Score</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Dieselbe Methodik funktioniert auch auf liquiden Forex-Majors/-Crosses</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Live-Backtest seit 2015: Sharpe -0,53, Gesamtrendite -14%. Dieselbe ehrliche "neu, unvalidiert"-Kennzeichnung statt stillschweigend als zweite Erfolgsgeschichte neben Crypto zu präsentieren.</td>
+    <td class="source"><a href="forex-trend-score.html">Forex-Trend-Score</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Ein Korrelations-Monitor für die 10 Crypto-Coins liefert mehr als nur eine hübsche Matrix</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Deckte live auf, dass 23 der aktuell offenen, gleichgerichteten Positionspaare mit &gt;0,7 korreliert sind -- die "10 unabhängigen Coins"-Diversifikation der validierten Strategie ist in diesem Moment größtenteils Illusion. Direkt handlungsrelevant für die bereits funktionierende Strategie, nicht nur ein neues Analyse-Spielzeug.</td>
+    <td class="source"><a href="crypto-trend-correlation-live.html">Crypto-Korrelations-Monitor</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">7 zusätzliche Robustheits-/Analyse-Tools (Pairs-Trading-Scanner, Kelly-Sizer, Cross-Strategy-Konfluenz, Markt-Breadth, Drawdown-Recovery, Regime-Detector, Multi-Timeframe-Konfluenz) liefern denselben praktischen Mehrwert wie die Kern-Trading-Tools</td>
+    <td class="verdict neg">❌</td>
+    <td class="finding">Nutzer-Urteil nach kurzem Durchklicken: "sehe nicht den großen Nutzen". Zu Recht -- fünf der sieben sind technisch korrekt, aber reine Analyse ohne klare Handlungs-Konsequenz. Nur zwei lieferten echte, entscheidungsrelevante Funde (siehe unten); alle sieben wurden aus der featured Sektion der Workshell entfernt und in die normale Werkzeug-Liste zurückgestuft.</td>
+    <td class="source"><a href="workshell.html">Workshell</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Innerhalb dieser 7 Tools: Drawdown-Recovery-Analyse und Regime-Detector sind die Ausnahmen mit echtem Erkenntniswert</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">Drawdown-Recovery: die tiefste Episode der validierten Crypto-Strategie (-31,3%) brauchte 446 Tage bis zur Erholung -- ändert, wie viel Kapital man real dafür reservieren würde. Regime-Detector: Win-Rate bleibt über alle BTC-Marktregimes fast gleich (31-34%), aber der Ø-Rendite-Beitrag pro Trade ist im Bull-Regime (+4,46%) rund doppelt so hoch wie im Bär- oder Seitwärtsmarkt (+2,22%/+2,44%) -- der Edge ist konzentriert, nicht gleichmäßig verteilt.</td>
+    <td class="source"><a href="drawdown-recovery-analysis.html">Drawdown-Recovery</a> · <a href="regime-detector.html">Regime-Detector</a></td>
+  </tr>
+  </tbody></table>
+  </div>
+
   <h2>🐛 Gefundene &amp; korrigierte Datenfehler</h2>
   <div class="section-note">Jeder dieser Fehler wurde vor Veröffentlichung des jeweiligen Reports gefangen -- hier transparent dokumentiert statt still gefixt.</div>
   <div class="table-scroll">
@@ -381,6 +424,24 @@ tr:hover{background:var(--panel);}
     <td class="verdict pos">🐛</td>
     <td class="finding">Turtle-Trading-, Trailing-Stop- und Mehrwochen-Tests kompoundierten (Vortagesclose-Close)/Vortagesclose pro Tag -- das telescopiert bei LONG exakt zur echten Rendite, bei SHORT aber NICHT (eigene Gegenrechnung bestätigte z.B. 5,14% statt echter 4,96% bei einem 4-Tage-Short). Verzerrung wächst mit der Haltedauer -- betraf damit gerade die mehrwöchigen Trades am stärksten. Fix: fixer Equity-Multiplikator ab Einstiegspreis statt Vortages-Kette. Alle drei Reports mit korrigierten Zahlen neu veröffentlicht (Kernaussagen blieben in allen drei Fällen gleich, nur die genauen Werte änderten sich, bei System 1 der Turtle-Tests z.B. der Max-Drawdown von -40,4% auf -25,3%).</td>
     <td class="source"><a href="dax-breakout-report.html#turtle-trading">Echtes Turtle-Trading-System</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Der neue Paper-Portfolio-Tracker zeigte "undefined" statt eines echten Einstiegsdatums</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Die gespeicherte Position hatte nie ein <code>entryDate</code>-Feld -- die Render-Funktion erwartete es, bekam aber <code>undefined</code>. Per Playwright-Lauf vor dem Ausliefern gefangen, nicht erst live entdeckt. Fix: Startdatum wird beim Positions-Eintrag mitgespeichert.</td>
+    <td class="source"><a href="crypto-trend-combined.html">Crypto-Trend-Score (Long+Short)</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Die "Kapital bleibt ungenutzt"-Warnung im Risk-Sizer konnte nie auslösen, genau im Fall, für den sie gebaut wurde</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Sie prüfte, ob der Markt mit der HÖCHSTEN Kapitalzuteilung null offene Signale hat -- aber ein Markt ohne Signale bekommt immer €0 zugeteilt und kann rechnerisch nie der höchste sein. Tote Logik. Fix: prüft jetzt direkt jeden aktiven Markt statt nur den "dominanten".</td>
+    <td class="source"><a href="trend-score-risk-sizer.html">Trend-Score Risk-Sizer</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Die Multi-Timeframe-Konfluenz nutzte bei einem Live-Scan mitten in der Woche eine noch unvollständige Woche als "Wochenschluss"</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Anders als die bereits etablierte Monday/Friday-Wochenlogik (RSI-Mean-Reversion, Live-Portfolio) filterte die neue wöchentliche Resampling-Funktion nicht auf abgeschlossene Wochen -- ein Mittwoch-Kurs konnte als stabiler Wochenschluss durchgehen und den wöchentlichen SMA-Wert verfälschen. Fix: letzte Woche wird verworfen, wenn ihr letzter bekannter Tag kein Sonntag ist.</td>
+    <td class="source"><a href="crypto-multi-timeframe-confluence.html">Multi-Timeframe-Konfluenz</a></td>
   </tr>
   </tbody></table>
   </div>
