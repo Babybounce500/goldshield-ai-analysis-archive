@@ -152,6 +152,14 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;}
       ungefähre, oft zitierte Größenordnungen aus unabhängigen Quellen -- keine Garantie, dass ein mechanisches
       System hier automatisch besser abschneidet, wenn es nicht diszipliniert befolgt wird.
     </div>
+
+    <h2>💾 Export</h2>
+    <div class="methodology">HTML-Report inklusive Chart als eingebettetem Bild (funktioniert offline, kein Live-Nachladen nötig) -- plus zwei CSVs: alle echten Trades, die dem Bootstrap zugrunde liegen, und eine Zeile pro simulierter Bootstrap-Pfad (Endkapital, Rendite, Max-Drawdown).</div>
+    <div class="btn-row">
+      <button class="opt-btn" id="export-html-btn" type="button">📄 Als HTML exportieren (inkl. Chart-Bild)</button>
+      <button class="opt-btn" id="export-trades-csv-btn" type="button">📥 Trades als CSV</button>
+      <button class="opt-btn" id="export-paths-csv-btn" type="button">📥 Simulierte Pfade als CSV</button>
+    </div>
   </div>
 
   <div class="footer-note">
@@ -180,6 +188,7 @@ const SYSTEMS = {
   rsi:         { symbols: DAX_SYMBOLS, fetchFrom: '2015-01-01', stopPct: 0.04, bearishMode: null, mode: 'weekly-rsi', label: 'RSI-Mean-Reversion' },
 };
 const state = { system: 'combined', sims: 2000 };
+let lastRun = null; // populated after each scan, read by the export buttons
 
 function sma(values, period) {
   const out = new Array(values.length).fill(null);
@@ -548,6 +557,13 @@ scanBtn.addEventListener('click', async () => {
 
     document.getElementById('buyhold-note').textContent = 'Reale Buy&Hold-Kurve (Equal-Weight, dieselben ' + usableSymbols.length + ' Symbole, derselbe Zeitraum seit ' + sys.fetchFrom + '): Max-Drawdown ' + (bhMaxDD*100).toFixed(1) + '%. Das ist EIN tatsächlich eingetretener Pfad, nicht simuliert -- zum direkten Vergleich mit der Bootstrap-Verteilung der Strategie oben.';
 
+    lastRun = {
+      sys, capital, nSims: state.sims, nSymbols: usableSymbols.length, computedAt: new Date(),
+      allTrades, finalEquities, maxDrawdowns,
+      medianFinalPct, p5FinalPct, p95FinalPct, worstDD, pct50, pct80, pct95, pctLoser,
+      bhMaxDD: bhMaxDD * 100, ddThresholds, pctBelow,
+    };
+
     document.getElementById('results').classList.remove('hidden');
     statusEl.textContent = 'Fertig -- ' + state.sims.toLocaleString('de-DE') + ' Simulationen über ' + allTrades.length + ' echte Trades, berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.' +
       (failed.length ? ' Nicht abrufbar: ' + failed.join(', ') : '');
@@ -557,6 +573,112 @@ scanBtn.addEventListener('click', async () => {
   }
   scanBtn.disabled = false;
 });
+
+// ========== export: HTML report with embedded chart PNG, + CSV for trades and simulated paths ==========
+function resolveSvgCssVars(svgString) {
+  const style = getComputedStyle(document.documentElement);
+  const vars = ['--accent','--muted','--border','--bg','--surface','--green','--red','--bright','--text'];
+  let out = svgString;
+  for (const v of vars) {
+    const val = style.getPropertyValue(v).trim();
+    if (val) out = out.split('var(' + v + ')').join(val);
+  }
+  return out;
+}
+function svgElementToPngDataUrl(svgEl, scale) {
+  return new Promise((resolve, reject) => {
+    const serialized = resolveSvgCssVars(new XMLSerializer().serializeToString(svgEl));
+    const svgBlob = new Blob([serialized], { type: 'image/svg+xml;charset=utf-8' });
+    const url = URL.createObjectURL(svgBlob);
+    const img = new Image();
+    img.onload = () => {
+      const vb = svgEl.viewBox && svgEl.viewBox.baseVal;
+      const w = (vb && vb.width) || svgEl.clientWidth || 820;
+      const h = (vb && vb.height) || svgEl.clientHeight || 260;
+      const canvas = document.createElement('canvas');
+      canvas.width = w * scale; canvas.height = h * scale;
+      const ctx = canvas.getContext('2d');
+      ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--surface').trim() || '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      URL.revokeObjectURL(url);
+      resolve(canvas.toDataURL('image/png'));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Chart konnte nicht als Bild gerendert werden.')); };
+    img.src = url;
+  });
+}
+function downloadBlob(filename, content, mimeType) {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+function toCsv(header, rows) {
+  return [header, ...rows].map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(';')).join('\r\n');
+}
+function slugify(s) { return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''); }
+
+document.getElementById('export-html-btn').addEventListener('click', async () => {
+  if (!lastRun) return;
+  const btn = document.getElementById('export-html-btn');
+  btn.disabled = true; btn.textContent = 'Exportiere...';
+  try {
+    const svgEl = document.querySelector('#fan-chart svg');
+    const pngDataUrl = svgEl ? await svgElementToPngDataUrl(svgEl, 2) : null;
+    const r = lastRun;
+    const ddRows = r.ddThresholds.map(th => '<tr><td>' + th + '%</td><td style="text-align:right;">' + r.pctBelow(th).toFixed(1) + '%</td></tr>').join('');
+    const html = '<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Monte-Carlo-Report -- ' + esc(r.sys.label) + '</title>' +
+      '<style>body{font-family:"JetBrains Mono",Consolas,monospace;background:#1a0e05;color:#f5e9d9;padding:30px 22px;max-width:860px;margin:0 auto;line-height:1.6;}' +
+      'h1{color:#fff8f0;font-size:19px;margin-bottom:4px;}h2{color:#fff8f0;font-size:14px;margin:26px 0 10px;}' +
+      '.meta{color:#c2a179;font-size:11px;margin-bottom:20px;}' +
+      '.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}' +
+      '.bstat{background:#34200d;border:1px solid #523010;border-radius:10px;padding:12px 10px;text-align:center;}' +
+      '.bstat b{font-size:15px;display:block;color:#fff8f0;}.bstat span{font-size:7.5px;color:#c2a179;letter-spacing:.4px;}' +
+      'img{max-width:100%;border-radius:10px;border:1px solid #523010;margin:10px 0;}' +
+      'table{width:100%;border-collapse:collapse;font-size:11px;margin-top:8px;}' +
+      'th,td{padding:6px 8px;border-bottom:1px solid #523010;text-align:left;}' +
+      '.footer{font-size:9.5px;color:#c2a179;margin-top:34px;border-top:1px solid #523010;padding-top:14px;line-height:1.7;}' +
+      '@media (max-width:600px){.stat-grid{grid-template-columns:repeat(2,1fr);}}</style></head><body>' +
+      '<h1>🎰 Monte-Carlo-Risk-of-Ruin-Report: ' + esc(r.sys.label) + '</h1>' +
+      '<div class="meta">Exportiert am ' + r.computedAt.toLocaleString('de-DE') + ' · ' + r.nSims.toLocaleString('de-DE') + ' Bootstrap-Simulationen über ' + r.allTrades.length.toLocaleString('de-DE') + ' echte Trades (' + r.nSymbols + ' Symbole) · Startkapital ' + fmtEur(r.capital) + '</div>' +
+      '<div class="stat-grid">' +
+        '<div class="bstat"><b>' + fmtPct(r.medianFinalPct,0) + '</b><span>MEDIAN-RENDITE</span></div>' +
+        '<div class="bstat"><b>' + fmtPct(r.p5FinalPct,0) + '</b><span>5. PERZENTIL</span></div>' +
+        '<div class="bstat"><b>' + fmtPct(r.p95FinalPct,0) + '</b><span>95. PERZENTIL</span></div>' +
+        '<div class="bstat"><b>' + r.worstDD.toFixed(1) + '%</b><span>SCHLECHTESTER MAX-DRAWDOWN</span></div>' +
+        '<div class="bstat"><b>' + r.pct50.toFixed(1) + '%</b><span>PFADE MIT DD ≥ 50%</span></div>' +
+        '<div class="bstat"><b>' + r.pct80.toFixed(1) + '%</b><span>PFADE MIT DD ≥ 80%</span></div>' +
+        '<div class="bstat"><b>' + r.pct95.toFixed(1) + '%</b><span>PFADE MIT DD ≥ 95%</span></div>' +
+        '<div class="bstat"><b>' + r.pctLoser.toFixed(1) + '%</b><span>PFADE UNTER STARTKAPITAL</span></div>' +
+      '</div>' +
+      (pngDataUrl ? '<h2>Perzentil-Band der simulierten Equity-Pfade</h2><img src="' + pngDataUrl + '" alt="Monte Carlo Fan Chart">' : '') +
+      '<h2>Drawdown-Verteilung</h2><table><thead><tr><th>Schwelle</th><th style="text-align:right;">Anteil Pfade</th></tr></thead><tbody>' + ddRows + '</tbody></table>' +
+      '<h2>Buy&amp;Hold-Vergleich</h2><p style="font-size:11px;color:#c2a179;">Reale Buy&amp;Hold-Kurve (Equal-Weight, ' + r.nSymbols + ' Symbole, seit ' + esc(r.sys.fetchFrom) + '): Max-Drawdown ' + r.bhMaxDD.toFixed(1) + '%.</p>' +
+      '<div class="footer">AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Standalone-Export aus GoldShield AI Monte-Carlo-Risk-of-Ruin-Analyse. © 2026 GENITUS INC. — GoldShield AI.</div>' +
+      '</body></html>';
+    downloadBlob('goldshield-monte-carlo-' + slugify(r.sys.label) + '-' + r.computedAt.toISOString().slice(0,10) + '.html', html, 'text/html;charset=utf-8;');
+  } catch (e) {
+    alert('Export fehlgeschlagen: ' + e.message);
+  }
+  btn.disabled = false; btn.textContent = '📄 Als HTML exportieren (inkl. Chart-Bild)';
+});
+
+document.getElementById('export-trades-csv-btn').addEventListener('click', () => {
+  if (!lastRun) return;
+  const header = ['Symbol','Richtung','Einstieg','Ausstieg','Rendite_pct','MAE_pct'];
+  const rows = lastRun.allTrades.map(t => [t.sym, t.direction, t.entryDate, t.exitDate, (t.finalReturn*100).toFixed(3), t.mae != null ? (t.mae*100).toFixed(3) : '']);
+  downloadBlob('goldshield-monte-carlo-trades-' + slugify(lastRun.sys.label) + '-' + new Date().toISOString().slice(0,10) + '.csv', '﻿' + toCsv(header, rows), 'text/csv;charset=utf-8;');
+});
+
+document.getElementById('export-paths-csv-btn').addEventListener('click', () => {
+  if (!lastRun) return;
+  const header = ['Simulation','Endkapital','Rendite_pct','MaxDrawdown_pct'];
+  const rows = lastRun.finalEquities.map((eq, i) => [i+1, eq.toFixed(2), ((eq-lastRun.capital)/lastRun.capital*100).toFixed(3), lastRun.maxDrawdowns[i].toFixed(3)]);
+  downloadBlob('goldshield-monte-carlo-paths-' + slugify(lastRun.sys.label) + '-' + new Date().toISOString().slice(0,10) + '.csv', '﻿' + toCsv(header, rows), 'text/csv;charset=utf-8;');
+});
+
 if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
 </script>
 </body>
