@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Trend-Score Multi-Asset-Screener</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#0c0a16">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0a16;--surface:#171326;--panel:#1c1830;--border:#2e2650;--accent:#c4b5fd;--accent-rgb:196,181,253;--green:#34d399;--red:#f87171;--muted:#9188b5;--text:#e3dcf7;--bright:#f8f6ff;--warn-text:#fecaca;--amber-link:#c4b5fd;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f6f4fd;--surface:#ffffff;--panel:#ede8fb;--border:#ddd3f7;--accent:#6d28d9;--accent-rgb:109,40,217;--green:#15803d;--red:#b91c1c;--muted:#5f5577;--text:#271f3d;--bright:#120c22;--warn-text:#7a1f1f;--amber-link:#6d28d9;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:980px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(109,40,217,.16), rgba(109,40,217,.04));border:1px solid rgba(196,181,253,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #ddd6fe);color:#0c0a16;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:480px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr:hover{background:rgba(var(--accent-rgb),.06);}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.group-summary{display:flex;gap:16px;flex-wrap:wrap;font-size:10px;color:var(--muted);margin-bottom:10px;}
+.group-summary b{color:var(--bright);}
+.hidden{display:none;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>🛰️ Trend-Score Multi-Asset-Screener</h1>
+  <div class="subtitle">Ein Scan, drei Märkte: live aktuelle Trend-Score-Signale für Crypto, DAX und Forex -- ohne Backtest, nur "was würde ich jetzt halten".</div>
+
+  <div class="callout">
+  <b>Reiner Live-Schnappschuss.</b> Verwendet exakt dieselbe SMA(3/20/50/100)-Score-Methodik wie
+  <a href="crypto-trend-combined.html" style="color:var(--accent);">Crypto</a>,
+  <a href="dax-trend-score.html" style="color:var(--accent);">DAX</a> und
+  <a href="forex-trend-score.html" style="color:var(--accent);">Forex</a>, lädt aber nur die letzten ~240
+  Tage (genug für SMA100) statt der vollen Historie -- schneller, aber ohne Backtest-Statistiken. Für
+  Rendite/Sharpe/Drawdown die jeweilige Einzelvariante nutzen.
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">🔍 Jetzt scannen (63 Symbole: 10 Crypto + 37 DAX + 16 Forex)</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>🪙 Crypto</h2>
+    <div class="group-summary" id="crypto-summary"></div>
+    <div class="table-scroll"><table><thead><tr><th>Symbol</th><th>Score</th><th>Position</th><th>Live-Kurs</th></tr></thead><tbody id="crypto-body"></tbody></table></div>
+
+    <h2>📈 DAX</h2>
+    <div class="group-summary" id="dax-summary"></div>
+    <div class="table-scroll"><table><thead><tr><th>Symbol</th><th>Score</th><th>Position</th><th>Live-Kurs</th></tr></thead><tbody id="dax-body"></tbody></table></div>
+
+    <h2>💱 Forex</h2>
+    <div class="group-summary" id="forex-summary"></div>
+    <div class="table-scroll"><table><thead><tr><th>Symbol</th><th>Score</th><th>Position</th><th>Live-Kurs</th></tr></thead><tbody id="forex-body"></tbody></table></div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Datenquelle:
+  derselbe EOD-Proxy wie der Rest des Archivs, live abgerufen. Für vollständige Backtests mit Rendite/Sharpe/
+  Drawdown je Markt: <a href="crypto-trend-combined.html">Crypto</a> ·
+  <a href="dax-trend-score.html">DAX</a> · <a href="forex-trend-score.html">Forex</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const SCAN_DAYS_BACK = 240;
+
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function buildVerdict(price, s3, s20, s50, s100) {
+  let score = 0;
+  if (s3 !== null) score += price > s3 ? 1 : -1;
+  if (s20 !== null) score += price > s20 ? 1 : -1;
+  if (s50 !== null) score += price > s50 ? 1 : -1;
+  if (s100 !== null) score += price > s100 ? 1 : -1;
+  if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
+  if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
+  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+}
+function computeSeriesVerdicts(series) {
+  const closes = series.map(r => r.close);
+  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
+}
+
+async function fetchHistorical(symbol, fromDate) {
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromDate);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+async function fetchRealtime(symbol) {
+  const res = await fetch(PROXY + '/eod/realtime/' + encodeURIComponent(symbol));
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+
+const GROUPS = {
+  crypto: { suffix: '-USD.CC', dp: 4, symbols: ['BTC-USD.CC','ETH-USD.CC','SOL-USD.CC','XRP-USD.CC','BNB-USD.CC','ADA-USD.CC','DOGE-USD.CC','DOT-USD.CC','AVAX-USD.CC','LINK-USD.CC'] },
+  dax: { suffix: '.XETRA', dp: 2, symbols: ['ADS.XETRA','AIR.XETRA','ALV.XETRA','BAS.XETRA','BAYN.XETRA','BEI.XETRA','BMW.XETRA','BNR.XETRA','CBK.XETRA','CON.XETRA','1COV.XETRA','DTG.XETRA','DBK.XETRA','DB1.XETRA','DTE.XETRA','DHL.XETRA','EOAN.XETRA','FRE.XETRA','HNR1.XETRA','HEI.XETRA','HEN3.XETRA','IFX.XETRA','MBG.XETRA','MRK.XETRA','MTX.XETRA','MUV2.XETRA','RHM.XETRA','RWE.XETRA','SAP.XETRA','SRT3.XETRA','SIE.XETRA','ENR.XETRA','SHL.XETRA','SY1.XETRA','VOW3.XETRA','VNA.XETRA','ZAL.XETRA'] },
+  forex: { suffix: '.FOREX', dp: 4, symbols: ['EURUSD.FOREX','GBPUSD.FOREX','USDJPY.FOREX','USDCHF.FOREX','USDCAD.FOREX','AUDUSD.FOREX','NZDUSD.FOREX','EURGBP.FOREX','EURJPY.FOREX','GBPJPY.FOREX','EURCHF.FOREX','AUDJPY.FOREX','EURAUD.FOREX','USDSEK.FOREX','USDNOK.FOREX','USDMXN.FOREX'] }
+};
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f6f4fd' : '#0c0a16');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+async function scanGroup(key, group) {
+  const fromDate = new Date(Date.now() - SCAN_DAYS_BACK * 86400000).toISOString().slice(0, 10);
+  const rows = [];
+  await Promise.all(group.symbols.map(async sym => {
+    try {
+      const series = await fetchHistorical(sym, fromDate);
+      const verdicts = computeSeriesVerdicts(series);
+      const last = verdicts[verdicts.length - 1];
+      if (!last.s100ready) { rows.push({ sym, error: 'zu wenig Historie' }); return; }
+      let liveClose = last.close;
+      try { const rt = await fetchRealtime(sym); if (rt && Number.isFinite(rt.close)) liveClose = rt.close; } catch (e) {}
+      rows.push({ sym, score: last.score, cls: last.cls, close: liveClose });
+    } catch (e) {
+      rows.push({ sym, error: e.message });
+    }
+  }));
+  rows.sort((a, b) => Math.abs(b.score || 0) - Math.abs(a.score || 0));
+  const body = document.getElementById(key + '-body');
+  body.innerHTML = rows.map(r => {
+    if (r.error) return '<tr><td>' + esc(r.sym.replace(group.suffix,'')) + '</td><td colspan="3" style="color:var(--muted);">' + esc(r.error) + '</td></tr>';
+    const dir = r.cls === 'bullish' ? 'LONG' : 'SHORT';
+    const badgeClass = dir === 'LONG' ? 'long' : 'short';
+    return '<tr><td>' + esc(r.sym.replace(group.suffix,'')) + '</td><td class="num">' + r.score + '</td><td><span class="badge ' + badgeClass + '">' + dir + '</span></td><td class="num">' + r.close.toFixed(group.dp) + '</td></tr>';
+  }).join('');
+  const ok = rows.filter(r => !r.error);
+  const longCount = ok.filter(r => r.cls === 'bullish').length;
+  const shortCount = ok.filter(r => r.cls === 'bearish').length;
+  document.getElementById(key + '-summary').innerHTML =
+    '<span><b>' + ok.length + '</b> / ' + group.symbols.length + ' auswertbar</span>' +
+    '<span style="color:var(--green);"><b>' + longCount + '</b> LONG</span>' +
+    '<span style="color:var(--red);"><b>' + shortCount + '</b> SHORT</span>';
+}
+
+scanBtn.addEventListener('click', async () => {
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Scanne 63 Symbole über 3 Märkte (live, kann 10-20s dauern)...';
+  document.getElementById('results').classList.add('hidden');
+  try {
+    await Promise.all(Object.entries(GROUPS).map(([key, group]) => scanGroup(key, group)));
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- gescannt um ' + new Date().toLocaleTimeString('de-DE') + '.';
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler beim Scan: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
