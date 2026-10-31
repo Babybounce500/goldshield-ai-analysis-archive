@@ -62,6 +62,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;}
 td.pos{color:var(--green);} td.neg{color:var(--red);}
 .badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
 .badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
 .badge.flat{background:rgba(145,136,181,.14);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(145,136,181,.2);}
 .badge.stopped{background:rgba(217,119,6,.18);color:#fbbf24;box-shadow:inset 0 0 0 1px rgba(251,191,36,.3);}
 .warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10px;color:var(--warn-text);margin-bottom:14px;line-height:1.6;}
@@ -121,12 +122,19 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
       <div class="control-label">STARTKAPITAL (€)</div>
       <input type="number" id="capital-input" value="100000" min="1000" step="1000">
     </div>
-    <div class="control-group" style="margin-bottom:0;">
+    <div class="control-group">
       <div class="control-label">STOP-LOSS (VALIDIERT: -10% / -15% / -20% zeigen fast identisches Sharpe -- -15% als Mittelweg gewählt)</div>
       <div class="btn-row">
         <button class="opt-btn" data-stop="0.10">-10%</button>
         <button class="opt-btn active" data-stop="0.15">-15% (empfohlen)</button>
         <button class="opt-btn" data-stop="0.20">-20%</button>
+      </div>
+    </div>
+    <div class="control-group" style="margin-bottom:0;">
+      <div class="control-label">BEI BEARISH-SIGNAL (Report-Vergleich: über lange Fenster macht Shorten kaum/negativ, über die letzten 12 Monate deutlich besser -- aber nur 122 Short-Trades jung, siehe <a href="crypto-trend-score-report.html#shortvsflat" style="color:var(--accent);">Report</a>)</div>
+      <div class="btn-row">
+        <button class="opt-btn active" data-bearish="flat">Flach (empfohlen)</button>
+        <button class="opt-btn" data-bearish="short">Short (experimentell)</button>
       </div>
     </div>
   </div>
@@ -177,7 +185,7 @@ const PROXY = 'https://theserver-open-ai.replit.app';
 const MAX_SYMBOLS = 20;
 const FETCH_FROM = '2018-01-01';
 
-const state = { stopPct: 0.15 };
+const state = { stopPct: 0.15, bearishMode: 'flat' };
 
 // ========== exact port of crypto-tankstelle-public.html's own sma()/buildVerdict() ==========
 function sma(values, period) {
@@ -206,26 +214,31 @@ function computeSeriesVerdicts(series) {
   return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
 }
 
-// LONG-only: enter next-day close on a bullish flip, exit on stop or bearish flip. Bearish = flat, not short.
-function backtestLongOnly(sym, series, stopPct) {
+// bearishMode 'flat' (validated): go flat on bearish flip, no position. 'short' (experimental, thin recent
+// sample -- see report): actually short on bearish flip, same stop/exit rules mirrored for the short side.
+function backtestLongOnly(sym, series, stopPct, bearishMode) {
   const verdicts = computeSeriesVerdicts(series);
   const trades = [];
   let i = 0;
   while (i < verdicts.length && !verdicts[i].s100ready) i++;
   while (i < verdicts.length - 1) {
-    if (verdicts[i].cls !== 'bullish') { i++; continue; }
+    const wantLong = verdicts[i].cls === 'bullish';
+    const wantShort = bearishMode === 'short' && verdicts[i].cls === 'bearish';
+    if (!wantLong && !wantShort) { i++; continue; }
+    const dir = wantLong ? 'LONG' : 'SHORT';
     const entryIdx = i + 1;
     if (entryIdx >= verdicts.length) break;
     const entryPrice = verdicts[entryIdx].close;
     let exitIdx = -1, stopped = false;
     for (let k = entryIdx + 1; k < verdicts.length; k++) {
-      const r = (verdicts[k].close - entryPrice) / entryPrice;
+      const r = dir === 'LONG' ? (verdicts[k].close - entryPrice) / entryPrice : (entryPrice - verdicts[k].close) / entryPrice;
       if (stopPct != null && r <= -stopPct) { exitIdx = k; stopped = true; break; }
-      if (verdicts[k].s100ready && verdicts[k].cls === 'bearish') { exitIdx = k; break; }
+      const stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
+      if (verdicts[k].s100ready && !stillSameDir) { exitIdx = k; break; }
     }
     if (exitIdx === -1) { i = verdicts.length; continue; }
-    const finalReturn = stopped ? -stopPct : (verdicts[exitIdx].close - entryPrice) / entryPrice;
-    trades.push({ sym, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped, holdDays: exitIdx - entryIdx });
+    const finalReturn = stopped ? -stopPct : (dir === 'LONG' ? (verdicts[exitIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[exitIdx].close) / entryPrice);
+    trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped, holdDays: exitIdx - entryIdx });
     i = exitIdx + 1;
   }
   return { trades, verdicts };
@@ -310,6 +323,10 @@ document.querySelectorAll('[data-stop]').forEach(btn => btn.addEventListener('cl
   state.stopPct = Number(btn.dataset.stop);
   document.querySelectorAll('[data-stop]').forEach(b => b.classList.toggle('active', b === btn));
 }));
+document.querySelectorAll('[data-bearish]').forEach(btn => btn.addEventListener('click', () => {
+  state.bearishMode = btn.dataset.bearish;
+  document.querySelectorAll('[data-bearish]').forEach(b => b.classList.toggle('active', b === btn));
+}));
 
 const statusEl = document.getElementById('status');
 const computeBtn = document.getElementById('compute-btn');
@@ -334,6 +351,7 @@ computeBtn.addEventListener('click', async () => {
   const capitalRaw = Number(document.getElementById('capital-input').value);
   const capital = Number.isFinite(capitalRaw) && capitalRaw >= 1000 ? capitalRaw : 100000;
   const stopPct = state.stopPct;
+  const bearishMode = state.bearishMode;
 
   computeBtn.disabled = true;
   document.getElementById('results').classList.add('hidden');
@@ -356,7 +374,7 @@ computeBtn.addEventListener('click', async () => {
   const perSymbol = {};
   const allExits = [];
   for (const sym of usableSymbols) {
-    const { trades, verdicts } = backtestLongOnly(sym, seriesBySymbol[sym], stopPct);
+    const { trades, verdicts } = backtestLongOnly(sym, seriesBySymbol[sym], stopPct, bearishMode);
     perSymbol[sym] = { trades, verdicts };
     for (const t of trades) allExits.push(t);
   }
@@ -399,8 +417,10 @@ computeBtn.addEventListener('click', async () => {
     // most recent trade has no bar after its entry showing a flip/stop yet, it is still open)
     const trades = perSymbol[sym].trades;
     const lastTrade = trades[trades.length - 1];
-    const stillOpen = lastTrade && lastTrade.exitDate === last.date && last.cls === 'bullish';
-    return { sym, score: last.score, cls: last.cls, close: last.close, stillOpen, entryPrice: stillOpen ? lastTrade.entryPrice : null, entryDate: stillOpen ? lastTrade.entryDate : null };
+    const wantOpen = last.cls === 'bullish' || (bearishMode === 'short' && last.cls === 'bearish');
+    const stillOpen = lastTrade && lastTrade.exitDate === last.date && wantOpen;
+    const direction = stillOpen ? lastTrade.direction : (last.cls === 'bullish' ? 'LONG' : (bearishMode === 'short' ? 'SHORT' : null));
+    return { sym, score: last.score, cls: last.cls, close: last.close, stillOpen, direction, entryPrice: stillOpen ? lastTrade.entryPrice : null, entryDate: stillOpen ? lastTrade.entryDate : null };
   });
 
   const openSymbols = currentRows.filter(r => r.stillOpen).map(r => r.sym);
@@ -408,7 +428,7 @@ computeBtn.addEventListener('click', async () => {
   await Promise.all(openSymbols.map(async sym => {
     try { realtimeBySymbol[sym] = await fetchRealtime(sym); } catch (e) {}
   }));
-  const openCount = currentRows.filter(r => r.cls === 'bullish').length;
+  const openCount = currentRows.filter(r => r.direction).length;
   const livePerPosition = openCount > 0 ? equity / openCount : 0;
 
   // the headline total return compounds a fixed 1/N slot off the CURRENT (already-grown) account, so a few
@@ -422,6 +442,18 @@ computeBtn.addEventListener('click', async () => {
   let recentEq = 1; for (const e of recentExits) recentEq *= (1 + e.finalReturn / usableSymbols.length);
   const recentTotalReturnPct = (recentEq - 1) * 100;
 
+  // market benchmark: simple equal-weight buy&hold of the same coins over the same recent window, so a
+  // negative system return can be read in context (a market that fell further is a relative win, not a loss)
+  let benchRetSum = 0, benchUsable = 0;
+  for (const sym of usableSymbols) {
+    const series = seriesBySymbol[sym];
+    const startBar = series.find(r => r.date >= oneYearAgoISO);
+    if (!startBar) continue;
+    benchRetSum += (series[series.length-1].close - startBar.close) / startBar.close;
+    benchUsable++;
+  }
+  const benchmarkLast1yPct = benchUsable ? (benchRetSum / benchUsable) * 100 : null;
+
   // ---- render ----
   document.getElementById('stats').innerHTML =
     '<div class="bstat"><b class="' + (totalReturnPct>=0?'pos':'neg') + '">' + fmtPct(totalReturnPct,0) + '</b><span>GESAMTRENDITE (LOG-SKALIERT)</span></div>' +
@@ -429,30 +461,38 @@ computeBtn.addEventListener('click', async () => {
     '<div class="bstat"><b class="' + (sharpe>=0?'pos':'neg') + '">' + fmtNum(sharpe,3) + '</b><span>SHARPE</span></div>' +
     '<div class="bstat"><b class="neg">' + fmtPct(maxDrawdownPct,1) + '</b><span>MAX DRAWDOWN</span></div>' +
     '<div class="bstat" style="border-color:' + (recentTotalReturnPct>=0?'rgba(52,211,153,.4)':'rgba(248,113,113,.4)') + ';"><b class="' + (recentTotalReturnPct>=0?'pos':'neg') + '">' + fmtPct(recentTotalReturnPct,1) + '</b><span>LETZTE 12 MONATE (NICHT AUFGEBLÄHT)</span></div>' +
-    '<div class="bstat"><b>' + (recentAvgRet!=null ? fmtPct(recentAvgRet*100) : '—') + '</b><span>Ø RENDITE/TRADE, LETZTE 12 MONATE (' + recentExits.length + ' TRADES)</span></div>';
+    '<div class="bstat"><b>' + (recentAvgRet!=null ? fmtPct(recentAvgRet*100) : '—') + '</b><span>Ø RENDITE/TRADE, LETZTE 12 MONATE (' + recentExits.length + ' TRADES)</span></div>' +
+    '<div class="bstat"><b class="' + (benchmarkLast1yPct!=null && benchmarkLast1yPct>=0?'pos':'neg') + '">' + (benchmarkLast1yPct!=null?fmtPct(benchmarkLast1yPct,1):'—') + '</b><span>MARKT (EQUAL-WEIGHT B&H), LETZTE 12 MONATE</span></div>';
   document.getElementById('chart').innerHTML = curve.length > 1 ? equityCurveSvg(curve, '#a78bfa') : '<p style="font-size:10.5px;color:var(--muted);">Zu wenig Trades für eine Kurve.</p>';
   document.getElementById('meta').innerHTML = usableSymbols.length + ' von ' + symbols.length + ' Coins verwertbar · ' + tradeDetails.length + ' Trades · Win-Rate ' + fmtNum(winRate,0) + '% · Stop -' + (stopPct*100) + '% · Daten seit ' + FETCH_FROM + ', live abgerufen.' +
     (failed.length ? '<br><b style="color:var(--red);">Nicht abrufbar:</b> ' + failed.map(esc).join(', ') : '');
 
   const nonValidated = usableSymbols.filter(s => !VALIDATED.has(s));
   const warningsEl = document.getElementById('warnings');
-  warningsEl.innerHTML = nonValidated.length
-    ? '<div class="warn-box"><b>Nicht separat validiert:</b> ' + nonValidated.map(esc).join(', ') + ' -- der Report hat nur die 10 Standard-Coins rückgetestet. Zahlen für diese Symbole sind real berechnet, aber ohne dieselbe Absicherung zu lesen.</div>'
-    : '';
+  let warningsHtml = '';
+  if (bearishMode === 'short') {
+    warningsHtml += '<div class="warn-box"><b>Experimenteller Modus aktiv.</b> Über die letzten ~4 und 2 Jahre bringt Shorten kaum etwas bis leicht weniger Gesamtrendite bei höherem Drawdown. Erst im letzten 12-Monats-Fenster (nur ~120 Short-Trades über alle 10 Coins) zeigte Shorten deutlichen Mehrwert -- eine dünne, junge Stichprobe, kein belastbarer Dauerzustand. Details: <a href="crypto-trend-score-report.html#shortvsflat" style="color:var(--warn-text);text-decoration:underline;">Report</a>.</div>';
+  }
+  if (nonValidated.length) {
+    warningsHtml += '<div class="warn-box"><b>Nicht separat validiert:</b> ' + nonValidated.map(esc).join(', ') + ' -- der Report hat nur die 10 Standard-Coins rückgetestet. Zahlen für diese Symbole sind real berechnet, aber ohne dieselbe Absicherung zu lesen.</div>';
+  }
+  warningsEl.innerHTML = warningsHtml;
 
-  document.getElementById('current-note').innerHTML = 'Score aus den letzten verfügbaren Tagesdaten. <b>Bullish = aktive Long-Position</b> (Einstieg war am nächsten Handelstag nach dem Flip). <b>Bearish = flach, keine Position</b> -- wird laut Validierung bewusst nicht geshortet. $ -Beträge nutzen ' + fmtEur(livePerPosition) + ' pro offener Position (' + openCount + ' offen, 1/N-Slot wie im Report).';
+  document.getElementById('current-note').innerHTML = 'Score aus den letzten verfügbaren Tagesdaten. <b>Bullish = aktive Long-Position</b> (Einstieg war am nächsten Handelstag nach dem Flip). ' +
+    (bearishMode === 'short' ? '<b>Bearish = aktive Short-Position</b> (experimenteller Modus -- siehe Warnung oben).' : '<b>Bearish = flach, keine Position</b> -- wird im empfohlenen Modus bewusst nicht geshortet.') +
+    ' $ -Beträge nutzen ' + fmtEur(livePerPosition) + ' pro offener Position (' + openCount + ' offen, 1/N-Slot wie im Report).';
 
   const tbody = document.getElementById('current-body');
   tbody.innerHTML = currentRows.map(r => {
     if (r.error) return '<tr><td>' + esc(r.sym.replace('-USD.CC','')) + '</td><td colspan="6" style="color:var(--muted);">' + esc(r.error) + '</td></tr>';
-    const badgeClass = r.cls === 'bullish' ? 'long' : 'flat';
-    const badgeLabel = r.cls === 'bullish' ? 'LONG' : 'FLACH';
+    const badgeClass = r.direction === 'LONG' ? 'long' : r.direction === 'SHORT' ? 'short' : 'flat';
+    const badgeLabel = r.direction || 'FLACH';
     let liveCell = '€' + r.close.toFixed(4), pnlPctCell = '—', pnlAbsCell = '—';
     if (r.stillOpen) {
       const rt = realtimeBySymbol[r.sym];
       const livePrice = rt && Number.isFinite(rt.close) ? rt.close : r.close;
       liveCell = '€' + livePrice.toFixed(4);
-      const pnlPct = (livePrice - r.entryPrice) / r.entryPrice;
+      const pnlPct = r.direction === 'LONG' ? (livePrice - r.entryPrice) / r.entryPrice : (r.entryPrice - livePrice) / r.entryPrice;
       pnlPctCell = '<span class="' + (pnlPct>=0?'pos':'neg') + '">' + fmtPct(pnlPct*100) + '</span>';
       pnlAbsCell = '<span class="' + (pnlPct>=0?'pos':'neg') + '">' + fmtEurSigned(livePerPosition * pnlPct) + '</span>';
     }
