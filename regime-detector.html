@@ -83,6 +83,7 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
     <div class="stat-grid" id="current-regime-stats"></div>
 
     <h2>📋 Performance nach Regime (bei Einstieg)</h2>
+    <div class="methodology" id="regime-note"></div>
     <div class="table-scroll">
     <table><thead><tr><th>Regime</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite</th><th>Summe P&amp;L-Beitrag</th></tr></thead><tbody id="regime-body"></tbody></table>
     </div>
@@ -243,6 +244,11 @@ scanBtn.addEventListener('click', async () => {
       '<div class="bstat"><b><span class="badge ' + regimeBadgeClass(currentRegime) + '">' + esc(currentRegime) + '</span></b><span>AKTUELLES REGIME (BTC, 200-TAGE)</span></div>' +
       '<div class="bstat"><b>€' + currentPrice.toLocaleString('de-DE',{maximumFractionDigits:0}) + '</b><span>BTC LIVE-KURS</span></div>' +
       '<div class="bstat"><b>' + allTrades.length + '</b><span>TRADES INSGESAMT IM BACKTEST</span></div>';
+
+    const bucketedCount = buckets.Bull.length + buckets.Bear.length + buckets['Seitwärts'].length;
+    const excludedCount = allTrades.length - bucketedCount;
+    document.getElementById('regime-note').textContent = bucketedCount + ' von ' + allTrades.length + ' Trades einem Regime zugeordnet.' +
+      (excludedCount > 0 ? ' ' + excludedCount + ' früheste Trades ausgeschlossen -- ihr Einstiegsdatum liegt vor dem Zeitpunkt, ab dem BTCs eigener 200-Tage-Durchschnitt selbst erst bereit war.' : '');
 
     const n = usableSymbols.length;
     document.getElementById('regime-body').innerHTML = ['Bull','Bear','Seitwärts'].map(regime => {

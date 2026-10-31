@@ -135,7 +135,16 @@ function resampleWeekly(series) {
     const key = isoWeekKey(r.date);
     byWeek.set(key, r); // last entry per calendar week wins (series is chronological) -> week's last close
   }
-  return [...byWeek.values()].sort((a,b) => a.date.localeCompare(b.date));
+  const weeks = [...byWeek.values()].sort((a,b) => a.date.localeCompare(b.date));
+  // crypto trades every day, so the most recent ISO week (Mon-Sun) is still in progress unless its last
+  // known day is a Sunday -- drop it, otherwise a mid-week snapshot gets treated as a stable weekly close
+  // and silently distorts the weekly SMA(3/20/50/100) read. Same completed-weeks-only discipline the
+  // project already uses for the Monday/Friday weekly series in rsi-mean-reversion.html/live-portfolio.html.
+  if (weeks.length) {
+    const lastDow = new Date(weeks[weeks.length - 1].date + 'T00:00:00Z').getUTCDay();
+    if (lastDow !== 0) weeks.pop();
+  }
+  return weeks;
 }
 
 async function fetchHistorical(symbol) {
