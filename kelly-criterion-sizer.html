@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Kelly-Criterion-Sizer</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#1a0a10">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1a0a10;--surface:#2a1219;--panel:#33161e;--border:#4d2430;--accent:#fb7185;--accent-rgb:251,113,133;--green:#34d399;--red:#f87171;--muted:#b88c93;--text:#f5e1e4;--bright:#fff5f6;--warn-text:#fecaca;--amber-link:#fda4af;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#fdf3f4;--surface:#ffffff;--panel:#fbe7e9;--border:#f0d0d4;--accent:#be123c;--accent-rgb:190,18,60;--green:#15803d;--red:#b91c1c;--muted:#8a6469;--text:#2e171b;--bright:#1a0a10;--warn-text:#7a1f1f;--amber-link:#be123c;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(190,18,60,.16), rgba(190,18,60,.04));border:1px solid rgba(251,113,133,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #fda4af);color:#1a0a10;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr:hover{background:rgba(var(--accent-rgb),.06);}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+.control-label{font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;}
+.control-group{margin-bottom:16px;}
+input[type=number]{font-family:var(--mono);font-size:12px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);width:160px;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.opt-btn{font-family:var(--mono);font-size:11px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--border);background:var(--panel);color:var(--text);cursor:pointer;}
+.opt-btn.active{background:var(--accent);border-color:var(--accent);color:#1a0a10;font-weight:700;}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
+.bstat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
+.bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.4px;}
+.warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10px;color:var(--warn-text);margin-bottom:14px;line-height:1.6;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;} .stat-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;} input[type=number]{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>🎲 Kelly-Criterion-Sizer</h1>
+  <div class="subtitle">Positionsgröße aus der tatsächlichen Win-Rate und dem Gewinn/Verlust-Verhältnis des validierten Crypto-Trend-Score ableiten, statt naivem 1/N.</div>
+
+  <div class="callout">
+  <b>Kelly f* = W - (1-W)/R</b> (W = Win-Rate, R = Ø-Gewinn/Ø-Verlust), berechnet aus dem kompletten
+  gepoolten Trade-Verlauf des <a href="crypto-trend-combined.html" style="color:var(--accent);">Crypto-Trend-Score</a>
+  (nicht pro Coin einzeln -- bei einzelnen Coins ist die Trade-Anzahl zu klein für eine stabile Schätzung).
+  Volles Kelly ist in der Praxis extrem volatil; <b>Quarter-Kelly (25%) ist der verbreitete Standard-Kompromiss</b>
+  und hier vorausgewählt. Zusätzlich auf maximal 25% Kapital pro Position gedeckelt, auch wenn die Formel
+  mehr vorschlagen würde. <b>Wichtige Einschränkung:</b> Kelly ist ursprünglich für eine einzelne, wiederholte
+  Wette hergeleitet -- nicht für mehrere gleichzeitig offene (und wie der <a href="crypto-trend-correlation-live.html" style="color:var(--accent);">Korrelations-Monitor</a>
+  zeigt, oft korrelierte) Positionen. Dieses Tool wendet denselben f* unabhängig auf jede offene Position an;
+  bei vielen gleichzeitig offenen Signalen kann die Summe über 100% des Kapitals gehen -- das Tool warnt dann,
+  rechnet aber nicht automatisch korrekt für den Mehrfach-Bet-Fall herunter.
+  </div>
+
+  <div class="panel">
+    <div class="control-group">
+      <div class="control-label">STARTKAPITAL (€)</div>
+      <input type="number" id="capital-input" value="100000" min="1000" step="1000">
+    </div>
+    <div class="control-group" style="margin-bottom:0;">
+      <div class="control-label">KELLY-ANTEIL</div>
+      <div class="btn-row">
+        <button class="opt-btn" data-frac="1">100% (volles Kelly)</button>
+        <button class="opt-btn" data-frac="0.5">50% (Half-Kelly)</button>
+        <button class="opt-btn active" data-frac="0.25">25% (Quarter-Kelly, empfohlen)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">🔍 Live berechnen (Backtest + aktuelle Signale)</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>📊 Kelly-Kennzahlen (gepoolt über alle 10 Coins)</h2>
+    <div class="stat-grid" id="kelly-stats"></div>
+    <div id="kelly-warning"></div>
+
+    <h2>💰 Positionsgröße: Kelly vs. naives 1/N</h2>
+    <div class="table-scroll">
+    <table><thead><tr><th>Coin</th><th>Position</th><th>Live-Kurs</th><th>Kelly-Größe</th><th>% Kapital</th><th>1/N-Größe (Vergleich)</th></tr></thead><tbody id="sizing-body"></tbody></table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Kelly setzt
+  stationäre Win-Rate/Payoff-Verhältnisse voraus, die sich in der Praxis verschieben können (siehe
+  <a href="crypto-trend-correlation-live.html">Korrelations-Monitor</a> für ein Beispiel, warum "unabhängige"
+  Trades das oft nicht sind). Datenquelle: derselbe EOD-Proxy wie der Rest des Archivs, live abgerufen.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const FETCH_FROM = '2018-01-01';
+const STOP_PCT = 0.15;
+const MAX_POSITION_PCT = 0.25;
+const SYMBOLS = ['BTC-USD.CC','ETH-USD.CC','SOL-USD.CC','XRP-USD.CC','BNB-USD.CC','ADA-USD.CC','DOGE-USD.CC','DOT-USD.CC','AVAX-USD.CC','LINK-USD.CC'];
+
+const state = { kellyFraction: 0.25 };
+
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function buildVerdict(price, s3, s20, s50, s100) {
+  let score = 0;
+  if (s3 !== null) score += price > s3 ? 1 : -1;
+  if (s20 !== null) score += price > s20 ? 1 : -1;
+  if (s50 !== null) score += price > s50 ? 1 : -1;
+  if (s100 !== null) score += price > s100 ? 1 : -1;
+  if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
+  if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
+  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+}
+function computeSeriesVerdicts(series) {
+  const closes = series.map(r => r.close);
+  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
+}
+// exact port of crypto-trend-combined.html's backtestCombined, including the open-position fix
+function backtestCombined(sym, series, stopPct) {
+  const verdicts = computeSeriesVerdicts(series);
+  const trades = [];
+  let openPosition = null;
+  let i = 0;
+  while (i < verdicts.length && !verdicts[i].s100ready) i++;
+  while (i < verdicts.length - 1) {
+    const dir = verdicts[i].cls === 'bullish' ? 'LONG' : 'SHORT';
+    const entryIdx = i + 1;
+    if (entryIdx >= verdicts.length) break;
+    const entryPrice = verdicts[entryIdx].close;
+    let exitIdx = -1, stopped = false;
+    for (let k = entryIdx + 1; k < verdicts.length; k++) {
+      const r = dir === 'LONG' ? (verdicts[k].close - entryPrice) / entryPrice : (entryPrice - verdicts[k].close) / entryPrice;
+      if (stopPct != null && r <= -stopPct) { exitIdx = k; stopped = true; break; }
+      const stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
+      if (verdicts[k].s100ready && !stillSameDir) { exitIdx = k; break; }
+    }
+    if (exitIdx === -1) {
+      openPosition = { direction: dir, entryDate: verdicts[entryIdx].date, entryPrice };
+      i = verdicts.length;
+      continue;
+    }
+    const finalReturn = stopped ? -stopPct : (dir === 'LONG' ? (verdicts[exitIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[exitIdx].close) / entryPrice);
+    trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped, holdDays: exitIdx - entryIdx });
+    i = stopped ? exitIdx + 1 : exitIdx;
+  }
+  return { trades, verdicts, openPosition };
+}
+
+async function fetchHistorical(symbol) {
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + FETCH_FROM);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+async function fetchRealtime(symbol) {
+  const res = await fetch(PROXY + '/eod/realtime/' + encodeURIComponent(symbol));
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+function fmtEur(v) { return '€' + Math.round(v).toLocaleString('de-DE'); }
+function fmtPct(v, dp) { dp = dp == null ? 2 : dp; return (v >= 0 ? '+' : '') + v.toFixed(dp) + '%'; }
+function fmtNum(v, dp) { dp = dp == null ? 2 : dp; return v == null ? '—' : v.toFixed(dp); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+function stripSuffix(sym) { return sym.replace('-USD.CC', ''); }
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#fdf3f4' : '#1a0a10');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+document.querySelectorAll('[data-frac]').forEach(btn => btn.addEventListener('click', () => {
+  state.kellyFraction = Number(btn.dataset.frac);
+  document.querySelectorAll('[data-frac]').forEach(b => b.classList.toggle('active', b === btn));
+}));
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+scanBtn.addEventListener('click', async () => {
+  const capitalRaw = Number(document.getElementById('capital-input').value);
+  const capital = Number.isFinite(capitalRaw) && capitalRaw >= 1000 ? capitalRaw : 100000;
+
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + SYMBOLS.length + ' Coins und rechne Backtest...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    const seriesBySymbol = {};
+    const failed = [];
+    await Promise.all(SYMBOLS.map(async sym => {
+      try { seriesBySymbol[sym] = await fetchHistorical(sym); }
+      catch (e) { failed.push(sym + ' (' + e.message + ')'); }
+    }));
+    const usableSymbols = Object.keys(seriesBySymbol);
+    if (!usableSymbols.length) throw new Error('Keine verwertbaren Daten erhalten.');
+
+    const allTrades = [];
+    const currentRows = [];
+    for (const sym of usableSymbols) {
+      const { trades, verdicts, openPosition } = backtestCombined(sym, seriesBySymbol[sym], STOP_PCT);
+      allTrades.push(...trades);
+      const last = verdicts[verdicts.length - 1];
+      if (last.s100ready) {
+        const stillOpen = !!openPosition;
+        const direction = stillOpen ? openPosition.direction : (last.cls === 'bullish' ? 'LONG' : 'SHORT');
+        currentRows.push({ sym, direction, close: last.close });
+      }
+    }
+
+    const wins = allTrades.filter(t => t.finalReturn > 0);
+    const losses = allTrades.filter(t => t.finalReturn <= 0);
+    const winRate = allTrades.length ? wins.length / allTrades.length : 0;
+    const avgWin = wins.length ? wins.reduce((a,t)=>a+t.finalReturn,0) / wins.length : 0;
+    const avgLossAbs = losses.length ? Math.abs(losses.reduce((a,t)=>a+t.finalReturn,0) / losses.length) : 0;
+    const R = avgLossAbs > 0 ? avgWin / avgLossAbs : null;
+    const fullKelly = (R != null && R > 0) ? winRate - (1 - winRate) / R : null;
+    const appliedKelly = fullKelly != null ? Math.max(0, Math.min(MAX_POSITION_PCT, fullKelly * state.kellyFraction)) : 0;
+
+    document.getElementById('kelly-stats').innerHTML =
+      '<div class="bstat"><b>' + fmtNum(winRate*100,0) + '%</b><span>WIN-RATE (' + allTrades.length + ' TRADES)</span></div>' +
+      '<div class="bstat"><b>' + (R!=null?fmtNum(R,2):'—') + '</b><span>Ø-GEWINN / Ø-VERLUST (R)</span></div>' +
+      '<div class="bstat"><b>' + (fullKelly!=null?fmtPct(fullKelly*100,1):'—') + '</b><span>VOLLES KELLY f*</span></div>' +
+      '<div class="bstat"><b class="pos" style="color:var(--green);">' + fmtPct(appliedKelly*100,1) + '</b><span>ANGEWANDT (' + (state.kellyFraction*100).toFixed(0) + '% KELLY, GEDECKELT ' + (MAX_POSITION_PCT*100).toFixed(0) + '%)</span></div>';
+
+    document.getElementById('kelly-warning').innerHTML = (fullKelly != null && fullKelly <= 0)
+      ? '<div class="warn-box"><b>Volles Kelly ist ≤ 0.</b> Das rechnerische Optimum wäre, gar nicht zu handeln (Win-Rate/Payoff-Verhältnis rechtfertigen laut dieser Formel keine positive Positionsgröße). Angewandte Größe unten ist auf 0 gedeckelt.</div>'
+      : '';
+
+    const openRows = currentRows.filter(r => r.direction);
+    const realtimeBySymbol = {};
+    await Promise.all(openRows.map(async r => { try { realtimeBySymbol[r.sym] = await fetchRealtime(r.sym); } catch (e) {} }));
+
+    const naiveSize = openRows.length ? capital / openRows.length : 0;
+    const kellySize = capital * appliedKelly;
+    const totalKellyAllocated = kellySize * openRows.length;
+    document.getElementById('sizing-body').innerHTML = openRows.length
+      ? openRows.map(r => {
+          const rt = realtimeBySymbol[r.sym];
+          const livePrice = rt && Number.isFinite(rt.close) ? rt.close : r.close;
+          return '<tr><td>' + esc(stripSuffix(r.sym)) + '</td><td><span class="badge ' + (r.direction==='LONG'?'long':'short') + '">' + r.direction + '</span></td><td class="num">€' + livePrice.toFixed(4) + '</td><td class="num">' + fmtEur(kellySize) + '</td><td class="num">' + (appliedKelly*100).toFixed(1) + '%</td><td class="num" style="color:var(--muted);">' + fmtEur(naiveSize) + '</td></tr>';
+        }).join('')
+      : '<tr><td colspan="6" style="color:var(--muted);">Keine offenen Signale gerade.</td></tr>';
+
+    if (openRows.length > 1 && totalKellyAllocated > capital) {
+      document.getElementById('kelly-warning').innerHTML += '<div class="warn-box"><b>Summe aller Kelly-Positionsgrößen (' + fmtEur(totalKellyAllocated) + ') übersteigt das Startkapital (' + fmtEur(capital) + ').</b> Das ist eine direkte Folge der Einzelwetten-Annahme oben (' + openRows.length + ' gleichzeitig offene Positionen × ' + (appliedKelly*100).toFixed(1) + '%) -- in der Praxis müsstest du alle Positionsgrößen proportional herunterskalieren, z.B. mit Faktor ' + (capital/totalKellyAllocated).toFixed(2) + ', um unter 100% zu bleiben.</div>';
+    }
+
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.' +
+      (failed.length ? ' Nicht abrufbar: ' + failed.join(', ') : '');
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
