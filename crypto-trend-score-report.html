@@ -78,6 +78,7 @@ tr.best-row{background:#eef8f0;}
     <a href="#timewindows">⏱️ Zeitfenster-Analyse</a>
     <a href="#stopsens">🎚️ Stop-Sensitivität</a>
     <a href="#percoin">🪙 Pro Coin vs. Buy&amp;Hold</a>
+    <a href="#correlation">🔗 Korrelations-Analyse</a>
     <a href="#robustness">📉 Zwei-Perioden-Robustheit</a>
     <a href="#shortside">⚠️ Warum keine Short-Seite</a>
     <a href="#verdict">💭 Einschätzung</a>
@@ -315,7 +316,38 @@ tr.best-row{background:#eef8f0;}
   allen 10 von 10 Coins</b> -- bei ADA (System +13.831% vs. B&amp;H <b>-73,9%</b>) und DOT (+431% vs.
   <b>-68,4%</b>) am deutlichsten, weil der Trendfilter die mehrjährigen Abwärtstrends korrekt vermieden hat.
   Selbst bei Coins mit starkem eigenem Bullenlauf (SOL, BNB, DOGE) liegt das System noch vorn, nicht nur
-  knapp.
+  knapp. <b>Aber:</b> "10 von 10 Coins positiv" klingt nach zehnfach unabhängig bestätigter Edge -- ist es
+  nicht, siehe Korrelations-Analyse direkt im Anschluss.
+  </div>
+
+  <h2 id="correlation">🔗 Korrelations-Analyse: sind die 10 Coins wirklich 10 unabhängige Wetten?</h2>
+  <div class="warn-box">
+  <b>Nein. Effektiv sind es nur 1.7 unabhängige Wetten, nicht 10.</b> Durchschnittliche
+  paarweise Korrelation der Tagesrenditen über alle 45 Coin-Paare: <b>0.55</b> (Spanne
+  0.26 bis 0.82). Mit der Standard-Formel für effektive Streuung
+  (N<sub>eff</sub> = N / (1 + (N-1)·Korrelation)) ergibt das aus nominell 10 Coins nur
+  <b>1.69</b> tatsächlich unabhängige Positionen. An <b>42.6%</b>
+  aller Tage sind entweder 0 oder alle 10 Coins gleichzeitig "bullish" (594 bzw.
+  326 von 2162 Tagen) -- die durchschnittliche paarweise Signal-Übereinstimmung
+  liegt bei <b>78.8%</b> (bei echter Unabhängigkeit wären es ~50%).
+  </div>
+  <div class="table-scroll"><table><thead><tr><th></th><th>BTC</th><th>ETH</th><th>SOL</th><th>XRP</th><th>BNB</th><th>ADA</th><th>DOGE</th><th>DOT</th><th>AVAX</th><th>LINK</th></tr></thead><tbody>
+    <tr><td style="font-weight:600;">BTC</td><td class="num" style="color:#b91c1c;font-weight:700;">1.00</td><td class="num" style="color:#b91c1c;font-weight:700;">0.82</td><td class="num" style="color:#d97706;font-weight:400;">0.55</td><td class="num" style="color:#d97706;font-weight:400;">0.60</td><td class="num" style="color:#d97706;font-weight:400;">0.64</td><td class="num" style="color:#d97706;font-weight:400;">0.69</td><td class="num" style="color:#15803d;font-weight:400;">0.41</td><td class="num" style="color:#d97706;font-weight:400;">0.64</td><td class="num" style="color:#d97706;font-weight:400;">0.56</td><td class="num" style="color:#d97706;font-weight:400;">0.61</td></tr><tr><td style="font-weight:600;">ETH</td><td class="num" style="color:#b91c1c;font-weight:700;">0.82</td><td class="num" style="color:#b91c1c;font-weight:700;">1.00</td><td class="num" style="color:#d97706;font-weight:400;">0.62</td><td class="num" style="color:#d97706;font-weight:400;">0.64</td><td class="num" style="color:#d97706;font-weight:400;">0.64</td><td class="num" style="color:#b91c1c;font-weight:700;">0.74</td><td class="num" style="color:#15803d;font-weight:400;">0.39</td><td class="num" style="color:#d97706;font-weight:400;">0.70</td><td class="num" style="color:#d97706;font-weight:400;">0.59</td><td class="num" style="color:#d97706;font-weight:400;">0.68</td></tr><tr><td style="font-weight:600;">SOL</td><td class="num" style="color:#d97706;font-weight:400;">0.55</td><td class="num" style="color:#d97706;font-weight:400;">0.62</td><td class="num" style="color:#b91c1c;font-weight:700;">1.00</td><td class="num" style="color:#15803d;font-weight:400;">0.46</td><td class="num" style="color:#d97706;font-weight:400;">0.53</td><td class="num" style="color:#d97706;font-weight:400;">0.55</td><td class="num" style="color:#15803d;font-weight:400;">0.26</td><td class="num" style="color:#d97706;font-weight:400;">0.57</td><td class="num" style="color:#d97706;font-weight:400;">0.55</td><td class="num" style="color:#d97706;font-weight:400;">0.57</td></tr><tr><td style="font-weight:600;">XRP</td><td class="num" style="color:#d97706;font-weight:400;">0.60</td><td class="num" style="color:#d97706;font-weight:400;">0.64</td><td class="num" style="color:#15803d;font-weight:400;">0.46</td><td class="num" style="color:#b91c1c;font-weight:700;">1.00</td><td class="num" style="color:#15803d;font-weight:400;">0.49</td><td class="num" style="color:#d97706;font-weight:400;">0.67</td><td class="num" style="color:#15803d;font-weight:400;">0.32</td><td class="num" style="color:#d97706;font-weight:400;">0.52</td><td class="num" style="color:#15803d;font-weight:400;">0.48</td><td class="num" style="color:#d97706;font-weight:400;">0.54</td></tr><tr><td style="font-weight:600;">BNB</td><td class="num" style="color:#d97706;font-weight:400;">0.64</td><td class="num" style="color:#d97706;font-weight:400;">0.64</td><td class="num" style="color:#d97706;font-weight:400;">0.53</td><td class="num" style="color:#15803d;font-weight:400;">0.49</td><td class="num" style="color:#b91c1c;font-weight:700;">1.00</td><td class="num" style="color:#d97706;font-weight:400;">0.55</td><td class="num" style="color:#15803d;font-weight:400;">0.30</td><td class="num" style="color:#d97706;font-weight:400;">0.57</td><td class="num" style="color:#d97706;font-weight:400;">0.51</td><td class="num" style="color:#d97706;font-weight:400;">0.52</td></tr><tr><td style="font-weight:600;">ADA</td><td class="num" style="color:#d97706;font-weight:400;">0.69</td><td class="num" style="color:#b91c1c;font-weight:700;">0.74</td><td class="num" style="color:#d97706;font-weight:400;">0.55</td><td class="num" style="color:#d97706;font-weight:400;">0.67</td><td class="num" style="color:#d97706;font-weight:400;">0.55</td><td class="num" style="color:#b91c1c;font-weight:700;">1.00</td><td class="num" style="color:#15803d;font-weight:400;">0.39</td><td class="num" style="color:#d97706;font-weight:400;">0.68</td><td class="num" style="color:#d97706;font-weight:400;">0.62</td><td class="num" style="color:#d97706;font-weight:400;">0.62</td></tr><tr><td style="font-weight:600;">DOGE</td><td class="num" style="color:#15803d;font-weight:400;">0.41</td><td class="num" style="color:#15803d;font-weight:400;">0.39</td><td class="num" style="color:#15803d;font-weight:400;">0.26</td><td class="num" style="color:#15803d;font-weight:400;">0.32</td><td class="num" style="color:#15803d;font-weight:400;">0.30</td><td class="num" style="color:#15803d;font-weight:400;">0.39</td><td class="num" style="color:#b91c1c;font-weight:700;">1.00</td><td class="num" style="color:#15803d;font-weight:400;">0.33</td><td class="num" style="color:#15803d;font-weight:400;">0.29</td><td class="num" style="color:#15803d;font-weight:400;">0.34</td></tr><tr><td style="font-weight:600;">DOT</td><td class="num" style="color:#d97706;font-weight:400;">0.64</td><td class="num" style="color:#d97706;font-weight:400;">0.70</td><td class="num" style="color:#d97706;font-weight:400;">0.57</td><td class="num" style="color:#d97706;font-weight:400;">0.52</td><td class="num" style="color:#d97706;font-weight:400;">0.57</td><td class="num" style="color:#d97706;font-weight:400;">0.68</td><td class="num" style="color:#15803d;font-weight:400;">0.33</td><td class="num" style="color:#b91c1c;font-weight:700;">1.00</td><td class="num" style="color:#d97706;font-weight:400;">0.59</td><td class="num" style="color:#b91c1c;font-weight:700;">0.71</td></tr><tr><td style="font-weight:600;">AVAX</td><td class="num" style="color:#d97706;font-weight:400;">0.56</td><td class="num" style="color:#d97706;font-weight:400;">0.59</td><td class="num" style="color:#d97706;font-weight:400;">0.55</td><td class="num" style="color:#15803d;font-weight:400;">0.48</td><td class="num" style="color:#d97706;font-weight:400;">0.51</td><td class="num" style="color:#d97706;font-weight:400;">0.62</td><td class="num" style="color:#15803d;font-weight:400;">0.29</td><td class="num" style="color:#d97706;font-weight:400;">0.59</td><td class="num" style="color:#b91c1c;font-weight:700;">1.00</td><td class="num" style="color:#d97706;font-weight:400;">0.57</td></tr><tr><td style="font-weight:600;">LINK</td><td class="num" style="color:#d97706;font-weight:400;">0.61</td><td class="num" style="color:#d97706;font-weight:400;">0.68</td><td class="num" style="color:#d97706;font-weight:400;">0.57</td><td class="num" style="color:#d97706;font-weight:400;">0.54</td><td class="num" style="color:#d97706;font-weight:400;">0.52</td><td class="num" style="color:#d97706;font-weight:400;">0.62</td><td class="num" style="color:#15803d;font-weight:400;">0.34</td><td class="num" style="color:#b91c1c;font-weight:700;">0.71</td><td class="num" style="color:#d97706;font-weight:400;">0.57</td><td class="num" style="color:#b91c1c;font-weight:700;">1.00</td></tr>
+  </tbody></table></div>
+  <div class="methodology">
+  <b>Was das für die Zahlen oben bedeutet:</b> der ausgewiesene Sharpe (1.62) ist methodisch korrekt --
+  er wird aus der tatsächlich realisierten gemeinsamen Portfolio-Rendite berechnet, nicht aus einer
+  angenommenen Unabhängigkeit, und bestraft starke Gleichläufe damit automatisch über höhere Volatilität in
+  diesen Wochen. Das Problem liegt woanders: <b>die scheinbare Robustheit ("alle 10 Coins einzeln positiv",
+  1.380 Trades) täuscht mehr statistische Unabhängigkeit vor, als tatsächlich da ist.</b> Mit nur ~1,7
+  effektiv unabhängigen Positionen ist dieser Backtest der Sache nach näher an einer Handvoll großer,
+  korrelierter Wetten auf "bricht der gesamte Kryptomarkt gerade breit nach oben aus" als an einem
+  diversifizierten 10-Asset-System. Das deckt sich mit der Zeitfenster-Analyse oben (zyklisch, nicht
+  stetig) -- beide Befunde zeigen dieselbe Grundursache aus verschiedenen Blickwinkeln: es ist im Kern
+  <b>ein</b> Markt-Timing-Signal auf Krypto insgesamt, zehnfach ausgeführt, nicht zehn unabhängige Edges.
+  BTC-Korrelation zu den anderen 9 Coins liegt zwischen 0.41
+  (DOGE, am lockersten gekoppelt) und 0.82 (ETH, fast
+  gleichlaufend).
   </div>
 
   <h2 id="robustness">📉 Zwei-Perioden-Robustheit</h2>
@@ -349,10 +381,12 @@ tr.best-row{background:#eef8f0;}
 
   <h2 id="verdict">💭 Einschätzung: ist der Score nutzbar?</h2>
   <div class="callout" style="border-left-color:#d97706;">
-  <b>Korrigierte Einschätzung nach der Zeitfenster-Analyse: real, aber deutlich schwächer und unzuverlässiger
-  als die Headline-Zahl suggeriert.</b> Die Edge ist über 10 Einzelcoins konsistent vorhanden (nicht von 1-2
-  Ausreißern getragen) und schlägt Buy&amp;Hold strukturell, weil sie mehrjährige Abwärtstrends korrekt
-  vermeidet (ADA, DOT). Aber: der Sharpe von 1.62 und die +133.192%-Gesamtrendite stammen überwiegend aus der
+  <b>Zweifach korrigierte Einschätzung: real, aber deutlich schwächer, weniger unabhängig bestätigt und
+  unzuverlässiger als die Headline-Zahl suggeriert.</b> Die Edge ist über 10 Einzelcoins konsistent
+  vorhanden und schlägt Buy&amp;Hold strukturell, weil sie mehrjährige Abwärtstrends korrekt vermeidet (ADA,
+  DOT) -- aber "10 von 10 Coins" sind laut Korrelations-Analyse oben effektiv nur 1.7
+  unabhängige Wetten, nicht 10: im Kern ein einziges Markt-Timing-Signal auf Krypto insgesamt, zehnfach
+  ausgeführt. Dazu kommt: der Sharpe von 1.62 und die +133.192%-Gesamtrendite stammen überwiegend aus der
   nicht wiederholbaren 2020/21-Krypto-Manie. Seit Mitte 2021 liegt die Ø Rendite pro Trade nur noch bei
   +2,54%, über die letzten 12 Monate war sie <b>negativ</b>. <b>Richtiges mentales Modell:</b> kein stetiger
   Renditemotor, sondern ein System, das in starken Trendphasen (2019-21, 2024) deutlich gewinnt und in
