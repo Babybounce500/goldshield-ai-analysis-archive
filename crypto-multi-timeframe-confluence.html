@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Crypto Multi-Timeframe-Konfluenz</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#0c0a1f">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0a1f;--surface:#161332;--panel:#1b1740;--border:#2d2763;--accent:#818cf8;--accent-rgb:129,140,248;--green:#34d399;--red:#f87171;--muted:#938fc2;--text:#e0def7;--bright:#f6f5ff;--warn-text:#fecaca;--amber-link:#a5b4fc;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f5f5fe;--surface:#ffffff;--panel:#ebebfc;--border:#d7d6f5;--accent:#4338ca;--accent-rgb:67,56,202;--green:#15803d;--red:#b91c1c;--muted:#605c8c;--text:#211e3d;--bright:#0c0a1f;--warn-text:#7a1f1f;--amber-link:#4338ca;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(67,56,202,.16), rgba(67,56,202,.04));border:1px solid rgba(129,140,248,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #a5b4fc);color:#0c0a1f;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr:hover{background:rgba(var(--accent-rgb),.06);}
+tbody tr.confluent{background:rgba(52,211,153,.05);}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.badge.yes{background:rgba(52,211,153,.18);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.3);}
+.badge.no{background:rgba(148,163,184,.14);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(148,163,184,.2);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>📐 Crypto Multi-Timeframe-Konfluenz</h1>
+  <div class="subtitle">Derselbe SMA(3/20/50/100)-Score auf Tages- und Wochenkerzen gleichzeitig -- nur wenn beide übereinstimmen, zählt es als volle Konfluenz.</div>
+
+  <div class="callout">
+  <b>Idee: weniger Whipsaws durch zwei Zeitebenen.</b> Der <a href="crypto-trend-combined.html" style="color:var(--accent);">Crypto-Trend-Score</a>
+  reagiert täglich auf Kreuzungen der kurzen SMAs -- das kann in volatilen Phasen mehrfach pro Woche flippen.
+  Dieses Tool rechnet denselben Score zusätzlich auf wöchentlich resampelten Kerzen (letzter Schlusskurs
+  jeder Kalenderwoche) und zeigt, wo Tages- und Wochensignal aktuell übereinstimmen -- in der Theorie ein
+  Filter für höhere Überzeugung, aber <b>noch nicht per Backtest validiert</b>, nur als Live-Snapshot gebaut.
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">🔍 Live scannen (10 Coins, Daily + Weekly)</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>📋 Konfluenz-Tabelle</h2>
+    <div class="methodology" id="results-note"></div>
+    <div class="table-scroll">
+    <table><thead><tr><th>Coin</th><th>Daily-Score</th><th>Daily-Signal</th><th>Weekly-Score</th><th>Weekly-Signal</th><th>Konfluenz</th></tr></thead><tbody id="confluence-body"></tbody></table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie, kein validierter
+  Backtest dieser Zwei-Zeitebenen-Idee. Datenquelle: derselbe EOD-Proxy wie der Rest des Archivs, live
+  abgerufen. Basis-Methodik: <a href="crypto-trend-combined.html">Crypto-Trend-Score</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const FETCH_FROM = '2018-01-01';
+const SYMBOLS = ['BTC-USD.CC','ETH-USD.CC','SOL-USD.CC','XRP-USD.CC','BNB-USD.CC','ADA-USD.CC','DOGE-USD.CC','DOT-USD.CC','AVAX-USD.CC','LINK-USD.CC'];
+
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function buildVerdict(price, s3, s20, s50, s100) {
+  let score = 0;
+  if (s3 !== null) score += price > s3 ? 1 : -1;
+  if (s20 !== null) score += price > s20 ? 1 : -1;
+  if (s50 !== null) score += price > s50 ? 1 : -1;
+  if (s100 !== null) score += price > s100 ? 1 : -1;
+  if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
+  if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
+  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+}
+function computeSeriesVerdicts(series) {
+  const closes = series.map(r => r.close);
+  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
+}
+function isoWeekKey(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00Z');
+  const day = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const week = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return d.getUTCFullYear() + '-W' + week;
+}
+function resampleWeekly(series) {
+  const byWeek = new Map();
+  for (const r of series) {
+    const key = isoWeekKey(r.date);
+    byWeek.set(key, r); // last entry per calendar week wins (series is chronological) -> week's last close
+  }
+  return [...byWeek.values()].sort((a,b) => a.date.localeCompare(b.date));
+}
+
+async function fetchHistorical(symbol) {
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + FETCH_FROM);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+async function fetchRealtime(symbol) {
+  const res = await fetch(PROXY + '/eod/realtime/' + encodeURIComponent(symbol));
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+function stripSuffix(sym) { return sym.replace('-USD.CC', ''); }
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f5f5fe' : '#0c0a1f');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+scanBtn.addEventListener('click', async () => {
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + SYMBOLS.length + ' Coins (seit 2018)...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    const failed = [];
+    const rows = [];
+    await Promise.all(SYMBOLS.map(async sym => {
+      try {
+        const daily = await fetchHistorical(sym);
+        const weekly = resampleWeekly(daily);
+        const dailyVerdicts = computeSeriesVerdicts(daily);
+        const weeklyVerdicts = computeSeriesVerdicts(weekly);
+        const lastDaily = dailyVerdicts[dailyVerdicts.length - 1];
+        const lastWeekly = weeklyVerdicts[weeklyVerdicts.length - 1];
+        if (!lastDaily.s100ready || !lastWeekly.s100ready) { failed.push(sym + ' (zu wenig Historie für SMA100 auf einer Zeitebene)'); return; }
+        rows.push({ sym, dailyScore: lastDaily.score, dailyDir: lastDaily.cls === 'bullish' ? 'LONG' : 'SHORT', weeklyScore: lastWeekly.score, weeklyDir: lastWeekly.cls === 'bullish' ? 'LONG' : 'SHORT' });
+      } catch (e) { failed.push(sym + ' (' + e.message + ')'); }
+    }));
+
+    rows.sort((a,b) => (a.dailyDir === a.weeklyDir ? 0 : 1) - (b.dailyDir === b.weeklyDir ? 0 : 1));
+    const confluentCount = rows.filter(r => r.dailyDir === r.weeklyDir).length;
+
+    document.getElementById('results-note').innerHTML = rows.length + ' von ' + SYMBOLS.length + ' Coins ausgewertet · ' + confluentCount + ' mit voller Daily/Weekly-Konfluenz.' +
+      (failed.length ? '<br><b style="color:var(--red);">Übersprungen:</b> ' + failed.map(esc).join(', ') : '');
+
+    document.getElementById('confluence-body').innerHTML = rows.map(r => {
+      const agree = r.dailyDir === r.weeklyDir;
+      return '<tr class="' + (agree ? 'confluent' : '') + '">' +
+        '<td>' + esc(stripSuffix(r.sym)) + '</td>' +
+        '<td class="num">' + r.dailyScore + '</td>' +
+        '<td><span class="badge ' + (r.dailyDir==='LONG'?'long':'short') + '">' + r.dailyDir + '</span></td>' +
+        '<td class="num">' + r.weeklyScore + '</td>' +
+        '<td><span class="badge ' + (r.weeklyDir==='LONG'?'long':'short') + '">' + r.weeklyDir + '</span></td>' +
+        '<td><span class="badge ' + (agree?'yes':'no') + '">' + (agree ? '✓ VOLL' : '✗ GEMISCHT') + '</span></td>' +
+      '</tr>';
+    }).join('');
+
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.';
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
