@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Pairs-Trading / Stat-Arb Scanner</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#071a1d">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#071a1d;--surface:#0e2b2f;--panel:#12363b;--border:#1e4e54;--accent:#22d3ee;--accent-rgb:34,211,238;--green:#34d399;--red:#f87171;--muted:#86adb3;--text:#d9f2f5;--bright:#f0fdff;--warn-text:#fecaca;--amber-link:#67e8f9;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f0fbfc;--surface:#ffffff;--panel:#e0f4f6;--border:#c5e6ea;--accent:#0e7490;--accent-rgb:14,116,144;--green:#15803d;--red:#b91c1c;--muted:#577c81;--text:#0f2628;--bright:#071a1d;--warn-text:#7a1f1f;--amber-link:#0e7490;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:980px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(14,116,144,.16), rgba(14,116,144,.04));border:1px solid rgba(34,211,238,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #67e8f9);color:#071a1d;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:620px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr:hover{background:rgba(var(--accent-rgb),.06);}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+.warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10px;color:var(--warn-text);margin-bottom:14px;line-height:1.6;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>🔗 Pairs-Trading / Stat-Arb Scanner</h1>
+  <div class="subtitle">Welche zwei DAX-Aktien bewegen sich normalerweise im Gleichschritt -- und wie weit ist ihr Spread gerade von diesem Gleichschritt entfernt?</div>
+
+  <div class="callout">
+  <b>Vereinfachter Proxy, kein vollständiger Kointegrations-Test.</b> Dieses Tool rechnet pro Paar eine
+  OLS-Regression der Log-Preise (180-Tage-Fenster), bildet den Residual-Spread und schätzt dessen
+  Mean-Reversion-Geschwindigkeit über den AR(1)-Koeffizienten (daraus eine Halbwertszeit). Das ist der
+  gängige schnelle Vortest, den Stat-Arb-Desks vor einem echten Engle-Granger-/ADF-Test nutzen -- aber
+  <b>kein</b> formaler Stationaritätstest. Nur als Ausgangspunkt für eigene tiefere Prüfung zu verstehen,
+  nicht als fertiges Handelssignal.
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">🔍 DAX-37 scannen (666 Paare, live)</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>📊 Auffälligste Paare (hohe Korrelation, schnelle Mean-Reversion, aktuell extremer Spread)</h2>
+    <div class="methodology" id="results-note"></div>
+    <div class="table-scroll">
+    <table><thead><tr><th>Paar</th><th>Korrelation</th><th>Hedge-Ratio (β)</th><th>Spread Z-Score (jetzt)</th><th>Halbwertszeit</th><th>Signal</th></tr></thead><tbody id="pairs-body"></tbody></table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Datenquelle:
+  derselbe EOD-Proxy wie der Rest des Archivs, live abgerufen. Verwandte Tools:
+  <a href="crypto-trend-correlation-live.html">Crypto-Korrelations-Monitor</a> ·
+  <a href="dax-trend-score.html">DAX-Trend-Score</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const FETCH_DAYS_BACK = 300;
+const LOOKBACK = 180;
+const MIN_CORR = 0.5;
+const Z_THRESHOLD = 1.5;
+const MAX_HALFLIFE_DAYS = 60;
+const TOP_N = 20;
+
+const SYMBOLS = ['ADS.XETRA','AIR.XETRA','ALV.XETRA','BAS.XETRA','BAYN.XETRA','BEI.XETRA','BMW.XETRA','BNR.XETRA','CBK.XETRA','CON.XETRA','1COV.XETRA','DTG.XETRA','DBK.XETRA','DB1.XETRA','DTE.XETRA','DHL.XETRA','EOAN.XETRA','FRE.XETRA','HNR1.XETRA','HEI.XETRA','HEN3.XETRA','IFX.XETRA','MBG.XETRA','MRK.XETRA','MTX.XETRA','MUV2.XETRA','RHM.XETRA','RWE.XETRA','SAP.XETRA','SRT3.XETRA','SIE.XETRA','ENR.XETRA','SHL.XETRA','SY1.XETRA','VOW3.XETRA','VNA.XETRA','ZAL.XETRA'];
+
+async function fetchHistorical(symbol, fromDate) {
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromDate);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)) && Number(h.close) > 0)
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+function stripSuffix(sym) { return sym.replace('.XETRA', ''); }
+
+function pearsonArrays(x, y) {
+  const n = x.length;
+  const mx = x.reduce((a,b)=>a+b,0)/n, my = y.reduce((a,b)=>a+b,0)/n;
+  let num=0, dx=0, dy=0;
+  for (let i=0;i<n;i++){ num += (x[i]-mx)*(y[i]-my); dx += (x[i]-mx)**2; dy += (y[i]-my)**2; }
+  const den = Math.sqrt(dx*dy);
+  return den > 0 ? num/den : 0;
+}
+
+function analyzePair(logA, logB) {
+  const n = logA.length;
+  const meanA = logA.reduce((a,b)=>a+b,0)/n, meanB = logB.reduce((a,b)=>a+b,0)/n;
+  let covAB=0, varB=0;
+  for (let i=0;i<n;i++){ covAB += (logA[i]-meanA)*(logB[i]-meanB); varB += (logB[i]-meanB)**2; }
+  const beta = varB > 0 ? covAB/varB : null;
+  if (beta == null) return null;
+  const alpha = meanA - beta*meanB;
+  const spread = logA.map((v,i) => v - beta*logB[i] - alpha);
+  const spreadStd = Math.sqrt(spread.reduce((a,b)=>a+b*b,0)/n); // mean is exactly 0 by OLS construction
+  if (spreadStd === 0) return null;
+  // AR(1) on the spread: spread[t] = rho * spread[t-1] + eps
+  let num=0, den=0;
+  for (let i=1;i<n;i++){ num += spread[i]*spread[i-1]; den += spread[i-1]*spread[i-1]; }
+  const rho = den > 0 ? num/den : null;
+  const halfLife = (rho != null && rho > 0 && rho < 1) ? -Math.log(2)/Math.log(rho) : null;
+  const zNow = spread[n-1] / spreadStd;
+  return { beta, zNow, halfLife };
+}
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f0fbfc' : '#071a1d');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+scanBtn.addEventListener('click', async () => {
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + SYMBOLS.length + ' DAX-Aktien...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    const fromDate = new Date(Date.now() - FETCH_DAYS_BACK * 86400000).toISOString().slice(0, 10);
+    const seriesBySymbol = {};
+    const failed = [];
+    await Promise.all(SYMBOLS.map(async sym => {
+      try { seriesBySymbol[sym] = await fetchHistorical(sym, fromDate); }
+      catch (e) { failed.push(sym + ' (' + e.message + ')'); }
+    }));
+    const usable = SYMBOLS.filter(s => seriesBySymbol[s] && seriesBySymbol[s].length >= LOOKBACK + 10);
+
+    statusEl.textContent = 'Berechne ' + (usable.length*(usable.length-1)/2) + ' Paare...';
+    await new Promise(r => setTimeout(r, 10)); // let the status text paint before the sync crunch
+
+    // align by date intersection per pair, take the last LOOKBACK common trading days
+    const results = [];
+    for (let i = 0; i < usable.length; i++) {
+      for (let j = i+1; j < usable.length; j++) {
+        const a = usable[i], b = usable[j];
+        const seriesA = seriesBySymbol[a], seriesB = seriesBySymbol[b];
+        const byDateB = new Map(seriesB.map(p => [p.date, p.close]));
+        const aligned = seriesA.filter(p => byDateB.has(p.date)).map(p => ({ date: p.date, a: p.close, b: byDateB.get(p.date) }));
+        if (aligned.length < LOOKBACK + 10) continue;
+        const window = aligned.slice(-LOOKBACK);
+        const closesA = window.map(w => w.a), closesB = window.map(w => w.b);
+        const retA = []; for (let k=1;k<closesA.length;k++) retA.push((closesA[k]-closesA[k-1])/closesA[k-1]);
+        const retB = []; for (let k=1;k<closesB.length;k++) retB.push((closesB[k]-closesB[k-1])/closesB[k-1]);
+        const corr = pearsonArrays(retA, retB);
+        if (corr < MIN_CORR) continue;
+        const logA = closesA.map(Math.log), logB = closesB.map(Math.log);
+        const analysis = analyzePair(logA, logB);
+        if (!analysis) continue;
+        results.push({ a, b, corr, ...analysis });
+      }
+    }
+
+    const candidates = results.filter(r => r.halfLife != null && r.halfLife <= MAX_HALFLIFE_DAYS && Math.abs(r.zNow) >= Z_THRESHOLD);
+    candidates.sort((x,y) => Math.abs(y.zNow) - Math.abs(x.zNow));
+    const top = candidates.slice(0, TOP_N);
+
+    document.getElementById('results-note').innerHTML =
+      usable.length + ' von ' + SYMBOLS.length + ' Aktien verwertbar · ' + results.length + ' Paare mit Korrelation ≥ ' + MIN_CORR +
+      ' · ' + candidates.length + ' davon mit Halbwertszeit ≤ ' + MAX_HALFLIFE_DAYS + ' Tagen und aktuell |Z| ≥ ' + Z_THRESHOLD + '.' +
+      (failed.length ? '<br><b style="color:var(--red);">Nicht abrufbar:</b> ' + failed.map(esc).join(', ') : '');
+
+    document.getElementById('pairs-body').innerHTML = top.length
+      ? top.map(r => {
+          // z > 0: A is rich relative to B -> short A / long B (and vice versa)
+          const signal = r.zNow > 0
+            ? '<span class="badge short">' + esc(stripSuffix(r.a)) + '</span> / <span class="badge long">' + esc(stripSuffix(r.b)) + '</span>'
+            : '<span class="badge long">' + esc(stripSuffix(r.a)) + '</span> / <span class="badge short">' + esc(stripSuffix(r.b)) + '</span>';
+          return '<tr><td>' + esc(stripSuffix(r.a)) + ' / ' + esc(stripSuffix(r.b)) + '</td><td class="num">' + r.corr.toFixed(2) + '</td><td class="num">' + r.beta.toFixed(2) + '</td><td class="num" style="color:' + (Math.abs(r.zNow)>=2?'var(--red)':'#fbbf24') + ';font-weight:700;">' + r.zNow.toFixed(2) + '</td><td class="num">' + r.halfLife.toFixed(0) + ' Tg</td><td>' + signal + '</td></tr>';
+        }).join('')
+      : '<tr><td colspan="6" style="color:var(--muted);">Keine Paare erfüllen aktuell alle Kriterien (Korrelation, Halbwertszeit, Z-Score).</td></tr>';
+
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.';
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
