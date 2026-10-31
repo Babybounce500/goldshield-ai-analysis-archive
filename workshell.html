@@ -54,7 +54,97 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
   </div>
 
   <div class="featured-section">
-  <h2 class="section-head">✨ Neu: Trend-Score Suite (Crypto + DAX + Forex) <span class="new-pill">NEU</span></h2>
+  <h2 class="section-head">✨ Neu: Robustheit, Risiko &amp; Cross-Strategy-Tools <span class="new-pill">NEU</span></h2>
+  <div class="grid">
+    <a class="tile" href="pairs-trading-scanner.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#22d3ee;">
+    <div class="tile-badge">Live-Tool · Vereinfachter Proxy</div>
+    <div class="tile-head"><span class="tile-icon">🔗</span><h3>Pairs-Trading / Stat-Arb Scanner</h3></div>
+    <p class="tile-desc">OLS-Hedge-Ratio, Spread-Z-Score und AR(1)-Halbwertszeit über alle 666 DAX-37-Paare -- kein vollständiger Kointegrations-Test, aber derselbe schnelle Vortest, den Stat-Arb-Desks nutzen. Top-Treffer plausibilisiert sich selbst: HNR1/MUV2, zwei deutsche Rückversicherer.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>666</b><span>GETESTETE PAARE</span></div><div class="tile-stat"><b>9 Tg</b><span>KÜRZESTE HALBWERTSZEIT (BEISPIEL)</span></div></div>
+    <div class="tile-preview">
+      <iframe src="pairs-trading-scanner.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="kelly-criterion-sizer.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#fb7185;">
+    <div class="tile-badge">Live-Tool · Rechner</div>
+    <div class="tile-head"><span class="tile-icon">🎲</span><h3>Kelly-Criterion-Sizer</h3></div>
+    <p class="tile-desc">Positionsgröße aus der echten Win-Rate/Payoff-Statistik des Crypto-Trend-Score (f* = W - (1-W)/R) statt naivem 1/N, mit Quarter-Kelly-Voreinstellung und Warnung, wenn die Summe über mehrere gleichzeitig offene Positionen über 100% des Kapitals geht.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>34%</b><span>WIN-RATE (2531 TRADES)</span></div><div class="tile-stat"><b>4,48</b><span>Ø-GEWINN/Ø-VERLUST (R)</span></div></div>
+    <div class="tile-preview">
+      <iframe src="kelly-criterion-sizer.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="cross-strategy-confluence-scanner.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#38bdf8;">
+    <div class="tile-badge">Live-Tool · 3 Strategien</div>
+    <div class="tile-head"><span class="tile-icon">🧭</span><h3>Cross-Strategy-Konfluenz-Scanner</h3></div>
+    <p class="tile-desc">Trend-Score, RSI-Mean-Reversion und Donchian-Breakout -- drei unabhängig validierte Strategien, live auf demselben DAX-37-Universum verglichen. Markiert Aktien, wo mindestens 2 von 3 gerade dieselbe Richtung zeigen.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>3</b><span>UNABHÄNGIGE STRATEGIEN</span></div><div class="tile-stat"><b>2/3</b><span>KONFLUENZ-SCHWELLE</span></div></div>
+    <div class="tile-preview">
+      <iframe src="cross-strategy-confluence-scanner.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="market-breadth-indicator.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#2dd4bf;">
+    <div class="tile-badge">Live-Tool · Zeitreihe</div>
+    <div class="tile-head"><span class="tile-icon">📊</span><h3>Markt-Breadth-Indikator</h3></div>
+    <p class="tile-desc">% bullish gestimmter Symbole über die letzten ~2 Jahre, je Markt (Crypto/DAX/Forex) -- ein Sentiment-Verlauf statt Einzelsignal-Schnappschuss, auf derselben Trend-Score-Methodik aufgebaut.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>3</b><span>MÄRKTE</span></div><div class="tile-stat"><b>~2 Jahre</b><span>ZEITFENSTER</span></div></div>
+    <div class="tile-preview">
+      <iframe src="market-breadth-indicator.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="drawdown-recovery-analysis.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#e11d48;">
+    <div class="tile-badge">Live-Tool · Ehrlichkeits-Check</div>
+    <div class="tile-head"><span class="tile-icon">📉</span><h3>Drawdown-Recovery-Analyse</h3></div>
+    <p class="tile-desc">Zerlegt den Crypto-Trend-Score-Equity-Verlauf in einzelne Drawdown-Episoden statt nur einer Max-Drawdown-Zahl. Sobering Fund: die tiefste Episode (-31,3%) brauchte 446 Tage bis zur Erholung.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>446 Tg</b><span>LÄNGSTE ERHOLUNGSZEIT</span></div><div class="tile-stat"><b>22</b><span>EPISODEN ≥ 5%</span></div></div>
+    <div class="tile-preview">
+      <iframe src="drawdown-recovery-analysis.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="regime-detector.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#8b5cf6;">
+    <div class="tile-badge">Live-Tool · Regime-Analyse</div>
+    <div class="tile-head"><span class="tile-icon">🧭</span><h3>Regime-Detector</h3></div>
+    <p class="tile-desc">BTC-200-Tage-Trend als Markt-Regime-Proxy: jeder Trade des Crypto-Trend-Score nach Bull/Bär/Seitwärts bei Einstieg aufgeschlüsselt. Fund: Win-Rate bleibt über alle Regimes fast gleich (31-34%), aber der P&amp;L-Beitrag ist im Bull-Regime rund 4x so hoch wie im Bären- oder Seitwärtsmarkt.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>+4,46%</b><span>Ø RENDITE/TRADE IM BULL-REGIME</span></div><div class="tile-stat"><b>+2,22%</b><span>Ø RENDITE/TRADE IM BÄR-REGIME</span></div></div>
+    <div class="tile-preview">
+      <iframe src="regime-detector.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="crypto-multi-timeframe-confluence.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#818cf8;">
+    <div class="tile-badge">Live-Tool · Experimentell</div>
+    <div class="tile-head"><span class="tile-icon">📐</span><h3>Crypto Multi-Timeframe-Konfluenz</h3></div>
+    <p class="tile-desc">Derselbe Score auf Tages- und Wochenkerzen gleichzeitig -- markiert, wo beide Zeitebenen übereinstimmen. Idee für weniger Whipsaws, aber noch nicht per Backtest validiert, nur als Live-Snapshot gebaut.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>2</b><span>ZEITEBENEN (DAILY+WEEKLY)</span></div><div class="tile-stat"><b>9/10</b><span>COINS MIT VOLLER KONFLUENZ (BEISPIEL)</span></div></div>
+    <div class="tile-preview">
+      <iframe src="crypto-multi-timeframe-confluence.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+  </div>
+  </div>
+
+  <div class="featured-section">
+  <h2 class="section-head">Trend-Score Suite (Crypto + DAX + Forex)</h2>
   <div class="grid">
     <a class="tile" href="crypto-trend-combined.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#34d399;">
     <div class="tile-badge">Live-Tool · Stärkste Variante</div>
