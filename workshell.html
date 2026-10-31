@@ -45,23 +45,74 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
 <div class="wrap">
   <a href="index.html" class="backlink">← Zurück zum Archiv</a>
   <h1>🛠️ Workshell</h1>
-  <div class="subtitle">Kuratierte Übersicht: alle Protokolle, Rechner und Backtests dieses Projekts an einem Ort -- mit Live-Vorschau statt bloßer Linkliste · erstellt 30. Oktober 2026</div>
+  <div class="subtitle">Kuratierte Übersicht: alle Protokolle, Rechner und Backtests dieses Projekts an einem Ort -- mit Live-Vorschau statt bloßer Linkliste · erstellt 31. Oktober 2026</div>
 
   <div class="callout">
   Jede Kachel unten ist ein <b>echtes Live-Fenster</b> in die jeweilige Seite -- kein Screenshot, sondern
   ein skaliertes Iframe, das sich mit jedem Report-Rebuild automatisch aktualisiert. Klick auf die Kachel
-  (oder "Öffnen") führt zur vollen Seite in neuem Tab. Die drei Tools ganz oben wurden gerade frisch
-  überarbeitet: Dark-Mode-Redesign mit Light-Mode-Toggle, und die langen Beispielkorb-Listen sind jetzt
-  kompakte Dropdowns statt 20-30 Buttons.
+  (oder "Öffnen") führt zur vollen Seite in neuem Tab.
   </div>
 
   <div class="featured-section">
-  <h2 class="section-head">✨ Frisch überarbeitet <span class="new-pill">NEU</span></h2>
+  <h2 class="section-head">✨ Neu: Crypto-Trend-Score Suite <span class="new-pill">NEU</span></h2>
+  <div class="grid">
+    <a class="tile" href="crypto-trend-combined.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#34d399;">
+    <div class="tile-badge">Live-Tool · Stärkste Variante</div>
+    <div class="tile-head"><span class="tile-icon">🔀</span><h3>Crypto-Trend-Score (Long+Short)</h3></div>
+    <p class="tile-desc">Validierung eines externen SMA(3/20/50/100)-Trendscores: Long bei Bullish, Short bei Bearish, ein Portfolio. Schlägt reines Long-only über jedes getestete Zeitfenster bei Gesamtrendite (komplette Historie +228.729% vs. +133.192%, letzte 12 Monate +49,2% vs. -7,5%), bei ähnlichem/besserem Max-Drawdown und praktisch identischem Sharpe (1,624).</p>
+    <div class="tile-stats"><div class="tile-stat"><b>1,624</b><span>SHARPE (10 COINS, 8,5 JAHRE)</span></div><div class="tile-stat"><b>-31%</b><span>MAX-DRAWDOWN</span></div></div>
+    <div class="tile-preview">
+      <iframe src="crypto-trend-combined.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="crypto-trend-score-report.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#7c3aed;">
+    <div class="tile-badge">Report</div>
+    <div class="tile-head"><span class="tile-icon">💠</span><h3>Crypto-Trend-Score — Report</h3></div>
+    <p class="tile-desc">Volle Validierung: Zeitfenster-Analyse (die Mega-Rendite stammt überwiegend aus der 2020/21-Manie), Korrelations-Analyse (effektiv nur 1,7 statt 10 unabhängige Wetten), Drawdown-Schutz vs. Buy&amp;Hold (ADA/DOT-Hodler bis heute -94%/-98% vom ATH) und der Long+Short-vs-Flat-Vergleich.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>1,7</b><span>EFFEKTIVE UNABHÄNGIGE WETTEN (VON 10)</span></div><div class="tile-stat"><b>10/10</b><span>COINS SCHLAGEN BUY&HOLD</span></div></div>
+    <div class="tile-preview">
+      <iframe src="crypto-trend-score-report.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:940px;height:1000px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="crypto-trend-long.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#a78bfa;">
+    <div class="tile-badge">Live-Tool · Validiert</div>
+    <div class="tile-head"><span class="tile-icon">🪙</span><h3>Crypto-Trend-Score (Long-Only)</h3></div>
+    <p class="tile-desc">Konservativste Variante: nur die validierte Long-Seite, Bearish-Phasen werden flach gehandelt statt geshortet. Sharpe 1,62 über ~8,5 Jahre auf den 10 größten Coins, schlägt Buy&amp;Hold strukturell durch Vermeiden mehrjähriger Abwärtstrends.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>1,62</b><span>SHARPE</span></div><div class="tile-stat"><b>10/10</b><span>COINS SCHLAGEN B&H</span></div></div>
+    <div class="tile-preview">
+      <iframe src="crypto-trend-long.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="crypto-trend-short.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#f87171;">
+    <div class="tile-badge">Live-Tool · Isolierter Monitor</div>
+    <div class="tile-head"><span class="tile-icon">🔻</span><h3>Crypto-Trend-Score (Short-Only)</h3></div>
+    <p class="tile-desc">Spiegelbild zum Long-Tool: isolierte Short-Seite desselben Scores, zum Beobachten der Short-Signale für sich. Für sich genommen schwächer als Long (Sharpe 0,34), aber genau dort stark, wo Long schwächelt (2018, 2022, 2026).</p>
+    <div class="tile-stats"><div class="tile-stat"><b>0,34</b><span>SHARPE (SOLO)</span></div><div class="tile-stat"><b>+2,81%</b><span>Ø RENDITE 2022 (BÄRENMARKT)</span></div></div>
+    <div class="tile-preview">
+      <iframe src="crypto-trend-short.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+  </div>
+  </div>
+
+  <h2 class="section-head">Alle weiteren Tools &amp; Reports</h2>
   <div class="grid">
     <a class="tile" href="live-portfolio.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#22d3ee;">
     <div class="tile-badge">Live-Tool · Dark Mode</div>
     <div class="tile-head"><span class="tile-icon">📡</span><h3>Live-Portfolio-Baukasten</h3></div>
-    <p class="tile-desc">30 vorbereitete Themen-Körbe (DAX, Crypto, Pleitegeier, Biotech, Uran, Quantencomputing u.v.m.) oder eigene Ticker eingeben -- echte Live-Kurse, sortierbare Trade-Liste mit echter Positionsgröße &amp; P&amp;L in €, Long/Short- und Pro-Symbol-Aufschlüsselung, plus eine 3-/5-Jahres-Bootstrap-Projektion mit Unsicherheitsband. Jetzt im futuristischen Dark-Mode-Redesign (Light-Mode per Klick wählbar) mit kompaktem Dropdown statt 31 Einzel-Buttons.</p>
+    <p class="tile-desc">30 vorbereitete Themen-Körbe (DAX, Crypto, Pleitegeier, Biotech, Uran, Quantencomputing u.v.m.) oder eigene Ticker eingeben -- echte Live-Kurse, sortierbare Trade-Liste mit echter Positionsgröße &amp; P&amp;L in €, Long/Short- und Pro-Symbol-Aufschlüsselung, plus eine 3-/5-Jahres-Bootstrap-Projektion mit Unsicherheitsband.</p>
     <div class="tile-stats"><div class="tile-stat"><b>30</b><span>FERTIGE KÖRBE</span></div><div class="tile-stat"><b>0s</b><span>CACHE-VERZÖGERUNG</span></div></div>
     <div class="tile-preview">
       <iframe src="live-portfolio.html" loading="lazy" scrolling="no" tabindex="-1"
@@ -73,7 +124,7 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <a class="tile" href="rsi-mean-reversion.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#a78bfa;">
     <div class="tile-badge">Live-Tool · Dark Mode</div>
     <div class="tile-head"><span class="tile-icon">🔄</span><h3>RSI-Mean-Reversion-Baukasten</h3></div>
-    <p class="tile-desc">Komplett vom Donchian-Kanal unabhängige Gegentrend-Strategie: Montag-Einstieg bei RSI(14) &lt;30/&gt;70 vom letzten Freitag. Validiert auf dem DAX-37 (Sharpe 0,32, robust in beiden Zeithälften, auffällig niedriger Max-Drawdown) -- live auf jedem Korb anwendbar. Jetzt im Dark-Mode-Redesign mit Light-Mode-Toggle und kompaktem Körbe-Dropdown.</p>
+    <p class="tile-desc">Komplett vom Donchian-Kanal unabhängige Gegentrend-Strategie: Montag-Einstieg bei RSI(14) &lt;30/&gt;70 vom letzten Freitag. Validiert auf dem DAX-37 (Sharpe 0,32, robust in beiden Zeithälften, auffällig niedriger Max-Drawdown) -- live auf jedem Korb anwendbar.</p>
     <div class="tile-stats"><div class="tile-stat"><b>0,32</b><span>SHARPE (DAX-37, VALIDIERT)</span></div><div class="tile-stat"><b>-3,8%</b><span>MAX-DRAWDOWN (VALIDIERT)</span></div></div>
     <div class="tile-preview">
       <iframe src="rsi-mean-reversion.html" loading="lazy" scrolling="no" tabindex="-1"
@@ -85,7 +136,7 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <a class="tile" href="signal-heatmap.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#34d399;">
     <div class="tile-badge">Live-Tool · Dark Mode</div>
     <div class="tile-head"><span class="tile-icon">🔥</span><h3>Signal-Heatmap</h3></div>
-    <p class="tile-desc">Live-Ampel-Raster statt Tabelle: welche Aktien eines Korbs stehen diese Woche auf LONG, SHORT oder flach -- auf einen Blick, mit denselben echten Live-Daten wie der Live-Portfolio-Baukasten. Jetzt im Dark-Mode-Redesign mit Light-Mode-Toggle; beide Körbe-Gruppen (Basis + Themen) jetzt ein einziges kompaktes Dropdown statt 29 Buttons.</p>
+    <p class="tile-desc">Live-Ampel-Raster statt Tabelle: welche Aktien eines Korbs stehen diese Woche auf LONG, SHORT oder flach -- auf einen Blick, mit denselben echten Live-Daten wie der Live-Portfolio-Baukasten.</p>
     <div class="tile-stats"><div class="tile-stat"><b>30</b><span>FERTIGE KÖRBE</span></div><div class="tile-stat"><b>0s</b><span>CACHE-VERZÖGERUNG</span></div></div>
     <div class="tile-preview">
       <iframe src="signal-heatmap.html" loading="lazy" scrolling="no" tabindex="-1"
@@ -94,11 +145,6 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     </div>
     <div class="tile-open">Öffnen <span>→</span></div>
   </a>
-  </div>
-  </div>
-
-  <h2 class="section-head">Alle weiteren Tools &amp; Reports</h2>
-  <div class="grid">
     <a class="tile" href="app.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#b45309;">
     <div class="tile-badge">App</div>
     <div class="tile-head"><span class="tile-icon">📲</span><h3>App installieren</h3></div>
