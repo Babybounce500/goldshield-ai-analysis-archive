@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Markt-Breadth-Indikator</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#071f1a">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#071f1a;--surface:#0f332a;--panel:#133e33;--border:#1f5a4a;--accent:#2dd4bf;--accent-rgb:45,212,191;--green:#34d399;--red:#f87171;--muted:#80b0a4;--text:#d7f2ec;--bright:#effffb;--warn-text:#fecaca;--amber-link:#5eead4;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#eefbf8;--surface:#ffffff;--panel:#def6f1;--border:#bfe9df;--accent:#0f766e;--accent-rgb:15,118,110;--green:#15803d;--red:#b91c1c;--muted:#507c73;--text:#0c2521;--bright:#071f1a;--warn-text:#7a1f1f;--amber-link:#0f766e;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(15,118,110,.16), rgba(15,118,110,.04));border:1px solid rgba(45,212,191,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #5eead4);color:#071f1a;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:10px;}
+.chart-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+.chart-label b{font-family:var(--head);font-size:13px;color:var(--bright);}
+.chart-now{font-size:11px;font-weight:700;}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.hidden{display:none;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>📊 Markt-Breadth-Indikator</h1>
+  <div class="subtitle">% der Symbole mit Bullish-Trend-Score über Zeit, je Markt -- ein einfacher Sentiment-Gauge statt Einzelsignale.</div>
+
+  <div class="callout">
+  <b>Breite statt Tiefe.</b> Jedes der drei Universen (10 Crypto, 37 DAX, 16 Forex) bekommt denselben
+  SMA(3/20/50/100)-Score wie <a href="trend-score-multi-asset-screener.html" style="color:var(--accent);">im Multi-Asset-Screener</a>,
+  aber statt eines Schnappschusses hier über die letzten ~2 Jahre als Zeitreihe: wie viel Prozent der
+  Symbole waren an jedem Tag bullish? Werte nahe 100% = fast der ganze Markt long-gerichtet (oft spät im
+  Trend), nahe 0% = fast alles short-gerichtet, um 50% = gemischt/richtungslos.
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">🔍 Breadth berechnen (3 Märkte, ~2 Jahre, live)</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>🪙 Crypto (10 Coins)</h2>
+    <div class="chart-wrap"><div class="chart-label"><b>Bullish-Breadth</b><span class="chart-now" id="crypto-now"></span></div><div id="crypto-chart"></div></div>
+
+    <h2>📈 DAX (37 Aktien)</h2>
+    <div class="chart-wrap"><div class="chart-label"><b>Bullish-Breadth</b><span class="chart-now" id="dax-now"></span></div><div id="dax-chart"></div></div>
+
+    <h2>💱 Forex (16 Paare)</h2>
+    <div class="chart-wrap"><div class="chart-label"><b>Bullish-Breadth</b><span class="chart-now" id="forex-now"></span></div><div id="forex-chart"></div></div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Datenquelle:
+  derselbe EOD-Proxy wie der Rest des Archivs, live abgerufen. Verwandte Tools:
+  <a href="trend-score-multi-asset-screener.html">Multi-Asset-Screener</a> ·
+  <a href="trend-score-alerts.html">Trend-Score Alerts</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const FETCH_DAYS_BACK = 730;
+const MIN_COVERAGE = 0.5; // ignore dates where fewer than half of a market's usable symbols have a verdict
+
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function buildVerdict(price, s3, s20, s50, s100) {
+  let score = 0;
+  if (s3 !== null) score += price > s3 ? 1 : -1;
+  if (s20 !== null) score += price > s20 ? 1 : -1;
+  if (s50 !== null) score += price > s50 ? 1 : -1;
+  if (s100 !== null) score += price > s100 ? 1 : -1;
+  if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
+  if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
+  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+}
+function computeSeriesVerdicts(series) {
+  const closes = series.map(r => r.close);
+  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
+}
+
+async function fetchHistorical(symbol, fromDate) {
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromDate);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+
+const GROUPS = {
+  crypto: ['BTC-USD.CC','ETH-USD.CC','SOL-USD.CC','XRP-USD.CC','BNB-USD.CC','ADA-USD.CC','DOGE-USD.CC','DOT-USD.CC','AVAX-USD.CC','LINK-USD.CC'],
+  dax: ['ADS.XETRA','AIR.XETRA','ALV.XETRA','BAS.XETRA','BAYN.XETRA','BEI.XETRA','BMW.XETRA','BNR.XETRA','CBK.XETRA','CON.XETRA','1COV.XETRA','DTG.XETRA','DBK.XETRA','DB1.XETRA','DTE.XETRA','DHL.XETRA','EOAN.XETRA','FRE.XETRA','HNR1.XETRA','HEI.XETRA','HEN3.XETRA','IFX.XETRA','MBG.XETRA','MRK.XETRA','MTX.XETRA','MUV2.XETRA','RHM.XETRA','RWE.XETRA','SAP.XETRA','SRT3.XETRA','SIE.XETRA','ENR.XETRA','SHL.XETRA','SY1.XETRA','VOW3.XETRA','VNA.XETRA','ZAL.XETRA'],
+  forex: ['EURUSD.FOREX','GBPUSD.FOREX','USDJPY.FOREX','USDCHF.FOREX','USDCAD.FOREX','AUDUSD.FOREX','NZDUSD.FOREX','EURGBP.FOREX','EURJPY.FOREX','GBPJPY.FOREX','EURCHF.FOREX','AUDJPY.FOREX','EURAUD.FOREX','USDSEK.FOREX','USDNOK.FOREX','USDMXN.FOREX']
+};
+
+function breadthLineSvg(points) {
+  const W = 820, H = 180, PAD_L = 36, PAD_R = 14, PAD_T = 14, PAD_B = 22;
+  const n = points.length;
+  const x = i => PAD_L + (i / Math.max(1, n - 1)) * (W - PAD_L - PAD_R);
+  const y = v => PAD_T + (1 - v / 100) * (H - PAD_T - PAD_B);
+  const linePath = points.map((p, i) => (i === 0 ? 'M' : 'L') + x(i).toFixed(1) + ' ' + y(p.breadth).toFixed(1)).join(' ');
+  const areaPath = linePath + ' L' + x(n-1).toFixed(1) + ' ' + (H-PAD_B) + ' L' + x(0).toFixed(1) + ' ' + (H-PAD_B) + ' Z';
+  const y50 = y(50);
+  const firstDate = points[0].date, lastDate = points[n-1].date;
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" preserveAspectRatio="xMidYMid meet">' +
+    '<line x1="' + PAD_L + '" y1="' + y(100).toFixed(1) + '" x2="' + (W-PAD_R) + '" y2="' + y(100).toFixed(1) + '" stroke="var(--border)" stroke-width="1"/>' +
+    '<text x="' + (PAD_L-6) + '" y="' + (y(100)+3).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="end">100%</text>' +
+    '<line x1="' + PAD_L + '" y1="' + y50.toFixed(1) + '" x2="' + (W-PAD_R) + '" y2="' + y50.toFixed(1) + '" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4,4"/>' +
+    '<text x="' + (PAD_L-6) + '" y="' + (y50+3).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="end">50%</text>' +
+    '<line x1="' + PAD_L + '" y1="' + y(0).toFixed(1) + '" x2="' + (W-PAD_R) + '" y2="' + y(0).toFixed(1) + '" stroke="var(--border)" stroke-width="1"/>' +
+    '<text x="' + (PAD_L-6) + '" y="' + (y(0)+3).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="end">0%</text>' +
+    '<path d="' + areaPath + '" fill="var(--accent)" fill-opacity="0.12" stroke="none"/>' +
+    '<path d="' + linePath + '" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<text x="' + PAD_L + '" y="' + (H-6) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="start">' + esc(firstDate) + '</text>' +
+    '<text x="' + (W-PAD_R) + '" y="' + (H-6) + '" font-family="JetBrains Mono,monospace" font-size="9" fill="var(--muted)" text-anchor="end">' + esc(lastDate) + '</text>' +
+    '</svg>';
+}
+
+async function computeBreadth(symbols) {
+  const fromDate = new Date(Date.now() - FETCH_DAYS_BACK * 86400000).toISOString().slice(0, 10);
+  const verdictsBySymbol = {};
+  await Promise.all(symbols.map(async sym => {
+    try {
+      const series = await fetchHistorical(sym, fromDate);
+      verdictsBySymbol[sym] = computeSeriesVerdicts(series).filter(v => v.s100ready);
+    } catch (e) { /* skip unreachable symbol */ }
+  }));
+  const usableSymbols = Object.keys(verdictsBySymbol);
+  const byDate = new Map();
+  for (const sym of usableSymbols) {
+    for (const v of verdictsBySymbol[sym]) {
+      if (!byDate.has(v.date)) byDate.set(v.date, { bull: 0, total: 0 });
+      const entry = byDate.get(v.date);
+      entry.total++;
+      if (v.cls === 'bullish') entry.bull++;
+    }
+  }
+  const minCount = Math.max(1, Math.ceil(usableSymbols.length * MIN_COVERAGE));
+  const points = [...byDate.entries()]
+    .filter(([, e]) => e.total >= minCount)
+    .map(([date, e]) => ({ date, breadth: e.bull / e.total * 100 }))
+    .sort((a,b) => a.date.localeCompare(b.date));
+  return { points, usableCount: usableSymbols.length };
+}
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#eefbf8' : '#071f1a');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+scanBtn.addEventListener('click', async () => {
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für 63 Symbole über ~2 Jahre und berechne Breadth...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    for (const key of Object.keys(GROUPS)) {
+      const { points, usableCount } = await computeBreadth(GROUPS[key]);
+      if (!points.length) {
+        document.getElementById(key + '-chart').innerHTML = '<p style="font-size:10.5px;color:var(--muted);">Zu wenig Daten für eine Breadth-Kurve.</p>';
+        document.getElementById(key + '-now').textContent = '—';
+        continue;
+      }
+      document.getElementById(key + '-chart').innerHTML = breadthLineSvg(points);
+      const now = points[points.length - 1];
+      const nowEl = document.getElementById(key + '-now');
+      nowEl.textContent = now.breadth.toFixed(0) + '% bullish (' + usableCount + ' Symbole)';
+      nowEl.style.color = now.breadth >= 60 ? 'var(--green)' : now.breadth <= 40 ? 'var(--red)' : 'var(--muted)';
+    }
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.';
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
