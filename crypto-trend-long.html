@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Crypto-Trend-Score (Long-Only)</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#0c0a16">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0a16;--surface:#171326;--panel:#1c1830;--border:#2e2650;--accent:#a78bfa;--accent-rgb:167,139,250;--green:#34d399;--red:#f87171;--muted:#9188b5;--text:#e3dcf7;--bright:#f8f6ff;--warn-text:#fecaca;--amber-link:#c4b5fd;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f6f4fd;--surface:#ffffff;--panel:#ede8fb;--border:#ddd3f7;--accent:#7c3aed;--accent-rgb:124,58,237;--green:#15803d;--red:#b91c1c;--muted:#5f5577;--text:#271f3d;--bright:#120c22;--warn-text:#7a1f1f;--amber-link:#7c3aed;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),radial-gradient(700px 500px at 100% 0%, rgba(52,211,153,.07), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+::-webkit-scrollbar{width:9px;height:9px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:999px;}
+::-webkit-scrollbar-thumb:hover{background:var(--accent);}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(124,58,237,.16), rgba(124,58,237,.04));border:1px solid rgba(167,139,250,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;backdrop-filter:blur(6px);}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.step-num{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--accent);color:#0c0a16;font-size:10px;font-weight:700;margin-right:6px;box-shadow:0 0 10px rgba(var(--accent-rgb),.5);}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;box-shadow:0 1px 0 rgba(255,255,255,.03) inset,0 20px 40px -24px rgba(0,0,0,.6);animation:riseIn .5s cubic-bezier(.16,1,.3,1) both;}
+@keyframes riseIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+textarea{width:100%;font-family:var(--mono);font-size:11px;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);resize:vertical;min-height:50px;transition:border-color .15s,box-shadow .15s;}
+textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.15);}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.opt-btn{font-family:var(--mono);font-size:11px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--border);background:var(--panel);color:var(--text);cursor:pointer;transition:all .18s cubic-bezier(.16,1,.3,1);}
+.opt-btn:hover{border-color:var(--accent);color:var(--bright);transform:translateY(-1px);box-shadow:0 4px 14px -6px rgba(var(--accent-rgb),.4);}
+.opt-btn.active{background:var(--accent);border-color:var(--accent);color:#0c0a16;font-weight:700;box-shadow:0 0 16px rgba(var(--accent-rgb),.35);}
+.control-label{font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;}
+.control-group{margin-bottom:16px;}
+input[type=number]{font-family:var(--mono);font-size:12px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);width:160px;transition:border-color .15s,box-shadow .15s;}
+input[type=number]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(var(--accent-rgb),.15);}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #c4b5fd);color:#0c0a16;cursor:pointer;font-weight:700;letter-spacing:.3px;transition:transform .15s,box-shadow .15s;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);box-shadow:0 10px 28px -8px rgba(var(--accent-rgb),.75);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;transform:none;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--red);margin-right:5px;box-shadow:0 0 8px var(--red);animation:pulse 1.4s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
+.bstat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;transition:transform .15s,border-color .15s;}
+.bstat:hover{transform:translateY(-2px);border-color:rgba(var(--accent-rgb),.4);}
+.bstat b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
+.bstat b.pos{color:var(--green);} .bstat b.neg{color:var(--red);}
+.bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.4px;}
+.chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px;margin-bottom:16px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr:hover{background:rgba(var(--accent-rgb),.06);}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+td.pos{color:var(--green);} td.neg{color:var(--red);}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.flat{background:rgba(145,136,181,.14);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(145,136,181,.2);}
+.badge.stopped{background:rgba(217,119,6,.18);color:#fbbf24;box-shadow:inset 0 0 0 1px rgba(251,191,36,.3);}
+.warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10px;color:var(--warn-text);margin-bottom:14px;line-height:1.6;}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.theme-toggle-btn:hover{border-color:var(--accent);color:var(--bright);}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;} .stat-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;} input[type=number]{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>🪙 Crypto-Trend-Score — Long-Only</h1>
+  <div class="subtitle">Validierte Long-Seite des 6-Faktoren SMA(3/20/50/100)-Trendscores · Sharpe 1.62 über ~8,5 Jahre, siehe <a href="crypto-trend-score-report.html" style="color:var(--accent);">Validierungs-Report</a>.</div>
+
+  <div class="callout">
+  <b>Nur die validierte Long-Seite wird gehandelt.</b> Das Original-Tool
+  (<a href="https://crypto-tankstelle.replit.app/public-index.html" target="_blank" rel="noopener noreferrer">crypto-tankstelle.replit.app</a>)
+  zeigt auch ein "Short"-Signal -- im Backtest hatte die Short-Seite praktisch keine Edge (Ø +0,03%/Trade)
+  und ein reales, unbegrenztes Blow-up-Risiko ohne Stop (echter DOGE-Short-Squeeze Jan. 2021, +355% an
+  einem Tag). Dieses Tool handelt deshalb nur Long: "Bearish"-Phasen werden flach gehandelt (keine
+  Position), nicht geshortet. Details und Zahlen im <a href="crypto-trend-score-report.html" style="color:var(--accent);">Report</a>.
+  </div>
+
+  <h2><span class="step-num">1</span>Coins</h2>
+  <div class="panel">
+    <div class="control-label">CRYPTO-SYMBOLE, KOMMAGETRENNT (FORMAT: BTC-USD.CC) -- DIE VOREINGESTELLTEN 10 SIND DIE VALIDIERTEN</div>
+    <textarea id="symbols-input">BTC-USD.CC, ETH-USD.CC, SOL-USD.CC, XRP-USD.CC, BNB-USD.CC, ADA-USD.CC, DOGE-USD.CC, DOT-USD.CC, AVAX-USD.CC, LINK-USD.CC</textarea>
+    <div class="methodology" style="margin-top:8px;margin-bottom:0;">Andere/weitere Coins laufen technisch mit, wurden aber NICHT separat validiert -- nur diese 10 sind im Report rückgetestet.</div>
+  </div>
+
+  <h2><span class="step-num">2</span>Einstellungen</h2>
+  <div class="panel">
+    <div class="control-group">
+      <div class="control-label">STARTKAPITAL (€)</div>
+      <input type="number" id="capital-input" value="100000" min="1000" step="1000">
+    </div>
+    <div class="control-group" style="margin-bottom:0;">
+      <div class="control-label">STOP-LOSS (VALIDIERT: -10% / -15% / -20% zeigen fast identisches Sharpe -- -15% als Mittelweg gewählt)</div>
+      <div class="btn-row">
+        <button class="opt-btn" data-stop="0.10">-10%</button>
+        <button class="opt-btn active" data-stop="0.15">-15% (empfohlen)</button>
+        <button class="opt-btn" data-stop="0.20">-20%</button>
+      </div>
+    </div>
+  </div>
+
+  <h2><span class="step-num">3</span>Live berechnen</h2>
+  <div class="panel">
+    <button class="primary-btn" id="compute-btn">📡 Live-Daten laden &amp; Backtest/Signale berechnen</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>📊 Historisches Ergebnis (mit soeben geladenen Live-Daten gerechnet)</h2>
+    <div class="stat-grid" id="stats"></div>
+    <div class="chart-wrap" id="chart"></div>
+    <div class="methodology" id="meta"></div>
+
+    <h2><span class="live-dot"></span>Aktuelles Signal: was würde ich JETZT halten?</h2>
+    <div id="current-note" class="methodology"></div>
+    <div id="warnings"></div>
+    <div class="table-scroll">
+    <table><thead><tr><th>Coin</th><th>Score</th><th>Verdict</th><th>Live-Kurs</th><th>Position</th><th>Unrealisiert %</th><th>Unrealisiert $</th></tr></thead><tbody id="current-body"></tbody></table>
+    </div>
+
+    <h2>🪙 Aufschlüsselung pro Coin</h2>
+    <div class="table-scroll">
+    <table><thead><tr><th>Coin</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite</th><th>Summe P&amp;L</th></tr></thead><tbody id="coin-breakdown-body"></tbody></table>
+    </div>
+
+    <h2>📋 Alle Trades</h2>
+    <div class="methodology" id="trades-note"></div>
+    <button class="opt-btn" id="export-csv-btn" style="margin-bottom:12px;">📥 Trades als CSV exportieren</button>
+    <div class="table-scroll" style="max-height:480px;overflow-y:auto;overflow-x:auto;">
+    <table><thead><tr><th>#</th><th>Coin</th><th>Einstieg</th><th>Ausstieg</th><th>Positionsgröße</th><th>Rendite</th><th>Gestoppt?</th><th>P&amp;L</th></tr></thead><tbody id="trades-body"></tbody></table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Datenquelle:
+  derselbe EOD-Proxy wie der Rest des Archivs, live abgerufen. Score-Methodik unverändert aus
+  <a href="https://crypto-tankstelle.replit.app/public-index.html" target="_blank" rel="noopener noreferrer">crypto-tankstelle.replit.app</a>
+  übernommen, nicht von GENITUS entwickelt. Methodik-Details: <a href="crypto-trend-score-report.html">Validierungs-Report</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const MAX_SYMBOLS = 20;
+const FETCH_FROM = '2018-01-01';
+
+const state = { stopPct: 0.15 };
+
+// ========== exact port of crypto-tankstelle-public.html's own sma()/buildVerdict() ==========
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function buildVerdict(price, s3, s20, s50, s100) {
+  let score = 0;
+  if (s3 !== null) score += price > s3 ? 1 : -1;
+  if (s20 !== null) score += price > s20 ? 1 : -1;
+  if (s50 !== null) score += price > s50 ? 1 : -1;
+  if (s100 !== null) score += price > s100 ? 1 : -1;
+  if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
+  if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
+  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+}
+function computeSeriesVerdicts(series) {
+  const closes = series.map(r => r.close);
+  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
+}
+
+// LONG-only: enter next-day close on a bullish flip, exit on stop or bearish flip. Bearish = flat, not short.
+function backtestLongOnly(sym, series, stopPct) {
+  const verdicts = computeSeriesVerdicts(series);
+  const trades = [];
+  let i = 0;
+  while (i < verdicts.length && !verdicts[i].s100ready) i++;
+  while (i < verdicts.length - 1) {
+    if (verdicts[i].cls !== 'bullish') { i++; continue; }
+    const entryIdx = i + 1;
+    if (entryIdx >= verdicts.length) break;
+    const entryPrice = verdicts[entryIdx].close;
+    let exitIdx = -1, stopped = false;
+    for (let k = entryIdx + 1; k < verdicts.length; k++) {
+      const r = (verdicts[k].close - entryPrice) / entryPrice;
+      if (stopPct != null && r <= -stopPct) { exitIdx = k; stopped = true; break; }
+      if (verdicts[k].s100ready && verdicts[k].cls === 'bearish') { exitIdx = k; break; }
+    }
+    if (exitIdx === -1) { i = verdicts.length; continue; }
+    const finalReturn = stopped ? -stopPct : (verdicts[exitIdx].close - entryPrice) / entryPrice;
+    trades.push({ sym, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped, holdDays: exitIdx - entryIdx });
+    i = exitIdx + 1;
+  }
+  return { trades, verdicts };
+}
+
+function isoWeek(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00Z');
+  const day = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - day);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  const week = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return d.getUTCFullYear() + '-W' + week;
+}
+
+// ========== fetching ==========
+async function fetchHistorical(symbol) {
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + FETCH_FROM);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+async function fetchRealtime(symbol) {
+  const res = await fetch(PROXY + '/eod/realtime/' + encodeURIComponent(symbol));
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+// ========== rendering helpers ==========
+function fmtEur(v) { return '€' + Math.round(v).toLocaleString('de-DE'); }
+function fmtEurSigned(v) { return (v >= 0 ? '+' : '-') + '€' + Math.round(Math.abs(v)).toLocaleString('de-DE'); }
+function fmtPct(v, dp) { dp = dp == null ? 2 : dp; return (v >= 0 ? '+' : '') + v.toFixed(dp) + '%'; }
+function fmtNum(v, dp) { dp = dp == null ? 2 : dp; return v == null ? '—' : v.toFixed(dp); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+
+function equityCurveSvg(curve, color) {
+  const W = 820, H = 220, PAD = 40;
+  const logCurve = curve.map(v => Math.log10(Math.max(v, 1e-6)));
+  const min = Math.min.apply(null, logCurve.concat([0])), max = Math.max.apply(null, logCurve.concat([0]));
+  const span = (max - min) || 1;
+  const n = logCurve.length;
+  const x = i => PAD + (i / (n - 1)) * (W - PAD * 2);
+  const y = v => PAD + (1 - (v - min) / span) * (H - PAD * 2);
+  const pts = logCurve.map((v, i) => [x(i), y(v)]);
+  const linePath = pts.map((p, i) => (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  const areaPath = linePath + ' L' + pts[n-1][0].toFixed(1) + ' ' + (H-PAD) + ' L' + pts[0][0].toFixed(1) + ' ' + (H-PAD) + ' Z';
+  const baselineY = y(0);
+  const finalVal = curve[curve.length - 1];
+  return '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" height="' + H + '" preserveAspectRatio="xMidYMid meet">' +
+    '<line x1="' + PAD + '" y1="' + baselineY.toFixed(1) + '" x2="' + (W-PAD) + '" y2="' + baselineY.toFixed(1) + '" stroke="var(--muted)" stroke-width="1" stroke-dasharray="4,4"/>' +
+    '<text x="' + (W-PAD) + '" y="' + (baselineY-5).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="10" fill="var(--muted)" text-anchor="end">Start (log-Skala)</text>' +
+    '<path d="' + areaPath + '" fill="' + color + '" fill-opacity="0.12" stroke="none"/>' +
+    '<path d="' + linePath + '" fill="none" stroke="' + color + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<circle cx="' + pts[n-1][0].toFixed(1) + '" cy="' + pts[n-1][1].toFixed(1) + '" r="4" fill="' + color + '" stroke="#fff" stroke-width="2"/>' +
+    '<text x="' + (pts[n-1][0]-6).toFixed(1) + '" y="' + (pts[n-1][1]-10).toFixed(1) + '" font-family="JetBrains Mono,monospace" font-size="11" font-weight="700" fill="' + color + '" text-anchor="end">' + fmtPct((finalVal-1)*100,0) + '</text>' +
+    '</svg>';
+}
+
+function parseSymbols() {
+  return document.getElementById('symbols-input').value.split(',').map(s => s.trim().toUpperCase()).filter(Boolean);
+}
+const VALIDATED = new Set(['BTC-USD.CC','ETH-USD.CC','SOL-USD.CC','XRP-USD.CC','BNB-USD.CC','ADA-USD.CC','DOGE-USD.CC','DOT-USD.CC','AVAX-USD.CC','LINK-USD.CC']);
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f6f4fd' : '#0c0a16');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+document.querySelectorAll('[data-stop]').forEach(btn => btn.addEventListener('click', () => {
+  state.stopPct = Number(btn.dataset.stop);
+  document.querySelectorAll('[data-stop]').forEach(b => b.classList.toggle('active', b === btn));
+}));
+
+const statusEl = document.getElementById('status');
+const computeBtn = document.getElementById('compute-btn');
+let currentTradeDetails = [];
+
+document.getElementById('export-csv-btn').addEventListener('click', () => {
+  if (!currentTradeDetails.length) return;
+  const header = ['Coin', 'Einstieg', 'Ausstieg', 'Positionsgroesse', 'Rendite_pct', 'Gestoppt', 'PnL_absolut'];
+  const rows = currentTradeDetails.map(t => [t.sym, t.entryDate, t.exitDate, t.positionSize.toFixed(2), (t.finalReturn*100).toFixed(3), t.stopped ? 'ja' : 'nein', t.pnlAbs.toFixed(2)]);
+  const csv = [header, ...rows].map(r => r.map(c => '"' + String(c).replace(/"/g, '""') + '"').join(';')).join('\r\n');
+  const blob = new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'goldshield-crypto-trend-trades-' + new Date().toISOString().slice(0, 10) + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+});
+
+computeBtn.addEventListener('click', async () => {
+  const symbols = parseSymbols();
+  if (!symbols.length) { statusEl.textContent = 'Bitte mindestens ein Symbol eingeben.'; statusEl.className = 'err'; return; }
+  if (symbols.length > MAX_SYMBOLS) { statusEl.textContent = 'Maximal ' + MAX_SYMBOLS + ' Symbole.'; statusEl.className = 'err'; return; }
+  const capitalRaw = Number(document.getElementById('capital-input').value);
+  const capital = Number.isFinite(capitalRaw) && capitalRaw >= 1000 ? capitalRaw : 100000;
+  const stopPct = state.stopPct;
+
+  computeBtn.disabled = true;
+  document.getElementById('results').classList.add('hidden');
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + symbols.length + ' Coins (seit 2018, kann etwas dauern)...';
+
+  const seriesBySymbol = {};
+  const failed = [];
+  await Promise.all(symbols.map(async sym => {
+    try { seriesBySymbol[sym] = await fetchHistorical(sym); }
+    catch (e) { failed.push(sym + ' (' + e.message + ')'); }
+  }));
+  const usableSymbols = Object.keys(seriesBySymbol);
+  if (!usableSymbols.length) {
+    statusEl.className = 'err'; statusEl.textContent = 'Keine verwertbaren Daten erhalten.'; computeBtn.disabled = false; return;
+  }
+
+  statusEl.textContent = 'Berechne Crypto-Trend-Score auf ' + usableSymbols.length + ' Coins...';
+
+  const perSymbol = {};
+  const allExits = [];
+  for (const sym of usableSymbols) {
+    const { trades, verdicts } = backtestLongOnly(sym, seriesBySymbol[sym], stopPct);
+    perSymbol[sym] = { trades, verdicts };
+    for (const t of trades) allExits.push(t);
+  }
+  allExits.sort((a, b) => a.exitDate.localeCompare(b.exitDate));
+
+  // fixed-slot (1/N) dynamic portfolio equity, same convention as the validated report
+  let equity = capital, peak = capital, maxDD = 0;
+  const curve = [1];
+  const tradeDetails = [];
+  for (const e of allExits) {
+    const positionSize = equity / usableSymbols.length;
+    const pnlAbs = positionSize * e.finalReturn;
+    equity += pnlAbs;
+    curve.push(equity / capital);
+    if (equity > peak) peak = equity;
+    const dd = (equity - peak) / peak;
+    if (dd < maxDD) maxDD = dd;
+    tradeDetails.push({ ...e, positionSize, pnlAbs });
+  }
+  const totalReturnPct = (equity - capital) / capital * 100;
+  const maxDrawdownPct = maxDD * 100;
+
+  // weekly return contribution uses finalReturn/N directly (scale-invariant), NOT pnlAbs/capital --
+  // position sizes compound with equity, so dividing dollar P&L by the fixed starting capital would make
+  // later (much larger) trades look like huge % swings and artificially inflate volatility/deflate Sharpe.
+  const byWeek = new Map();
+  for (const t of tradeDetails) { const wk = isoWeek(t.exitDate); byWeek.set(wk, (byWeek.get(wk) || 0) + t.finalReturn / usableSymbols.length); }
+  const weeklyReturns = [...byWeek.values()];
+  const avgW = weeklyReturns.length ? weeklyReturns.reduce((a,b)=>a+b,0) / weeklyReturns.length : 0;
+  const stdW = weeklyReturns.length ? Math.sqrt(weeklyReturns.reduce((a,b)=>a+Math.pow(b-avgW,2),0) / weeklyReturns.length) : 0;
+  const sharpe = stdW > 0 ? (avgW / stdW) * Math.sqrt(52) : 0;
+  const winRate = tradeDetails.length ? tradeDetails.filter(t => t.finalReturn > 0).length / tradeDetails.length * 100 : 0;
+
+  // ---- current live signal per coin ----
+  const currentRows = usableSymbols.map(sym => {
+    const { verdicts } = perSymbol[sym];
+    const last = verdicts[verdicts.length - 1];
+    if (!last.s100ready) return { sym, error: 'zu wenig Historie' };
+    // is there an open trade right now? (last trade's exitDate === last.date would mean just closed; if the
+    // most recent trade has no bar after its entry showing a flip/stop yet, it is still open)
+    const trades = perSymbol[sym].trades;
+    const lastTrade = trades[trades.length - 1];
+    const stillOpen = lastTrade && lastTrade.exitDate === last.date && last.cls === 'bullish';
+    return { sym, score: last.score, cls: last.cls, close: last.close, stillOpen, entryPrice: stillOpen ? lastTrade.entryPrice : null, entryDate: stillOpen ? lastTrade.entryDate : null };
+  });
+
+  const openSymbols = currentRows.filter(r => r.stillOpen).map(r => r.sym);
+  const realtimeBySymbol = {};
+  await Promise.all(openSymbols.map(async sym => {
+    try { realtimeBySymbol[sym] = await fetchRealtime(sym); } catch (e) {}
+  }));
+  const openCount = currentRows.filter(r => r.cls === 'bullish').length;
+  const livePerPosition = openCount > 0 ? equity / openCount : 0;
+
+  // ---- render ----
+  document.getElementById('stats').innerHTML =
+    '<div class="bstat"><b class="' + (totalReturnPct>=0?'pos':'neg') + '">' + fmtPct(totalReturnPct,0) + '</b><span>GESAMTRENDITE (LOG-SKALIERT)</span></div>' +
+    '<div class="bstat"><b>' + fmtEur(equity) + '</b><span>ENDKAPITAL</span></div>' +
+    '<div class="bstat"><b class="' + (sharpe>=0?'pos':'neg') + '">' + fmtNum(sharpe,3) + '</b><span>SHARPE</span></div>' +
+    '<div class="bstat"><b class="neg">' + fmtPct(maxDrawdownPct,1) + '</b><span>MAX DRAWDOWN</span></div>';
+  document.getElementById('chart').innerHTML = curve.length > 1 ? equityCurveSvg(curve, '#a78bfa') : '<p style="font-size:10.5px;color:var(--muted);">Zu wenig Trades für eine Kurve.</p>';
+  document.getElementById('meta').innerHTML = usableSymbols.length + ' von ' + symbols.length + ' Coins verwertbar · ' + tradeDetails.length + ' Trades · Win-Rate ' + fmtNum(winRate,0) + '% · Stop -' + (stopPct*100) + '% · Daten seit ' + FETCH_FROM + ', live abgerufen.' +
+    (failed.length ? '<br><b style="color:var(--red);">Nicht abrufbar:</b> ' + failed.map(esc).join(', ') : '');
+
+  const nonValidated = usableSymbols.filter(s => !VALIDATED.has(s));
+  const warningsEl = document.getElementById('warnings');
+  warningsEl.innerHTML = nonValidated.length
+    ? '<div class="warn-box"><b>Nicht separat validiert:</b> ' + nonValidated.map(esc).join(', ') + ' -- der Report hat nur die 10 Standard-Coins rückgetestet. Zahlen für diese Symbole sind real berechnet, aber ohne dieselbe Absicherung zu lesen.</div>'
+    : '';
+
+  document.getElementById('current-note').innerHTML = 'Score aus den letzten verfügbaren Tagesdaten. <b>Bullish = aktive Long-Position</b> (Einstieg war am nächsten Handelstag nach dem Flip). <b>Bearish = flach, keine Position</b> -- wird laut Validierung bewusst nicht geshortet. $ -Beträge nutzen ' + fmtEur(livePerPosition) + ' pro offener Position (' + openCount + ' offen, 1/N-Slot wie im Report).';
+
+  const tbody = document.getElementById('current-body');
+  tbody.innerHTML = currentRows.map(r => {
+    if (r.error) return '<tr><td>' + esc(r.sym.replace('-USD.CC','')) + '</td><td colspan="6" style="color:var(--muted);">' + esc(r.error) + '</td></tr>';
+    const badgeClass = r.cls === 'bullish' ? 'long' : 'flat';
+    const badgeLabel = r.cls === 'bullish' ? 'LONG' : 'FLACH';
+    let liveCell = '€' + r.close.toFixed(4), pnlPctCell = '—', pnlAbsCell = '—';
+    if (r.stillOpen) {
+      const rt = realtimeBySymbol[r.sym];
+      const livePrice = rt && Number.isFinite(rt.close) ? rt.close : r.close;
+      liveCell = '€' + livePrice.toFixed(4);
+      const pnlPct = (livePrice - r.entryPrice) / r.entryPrice;
+      pnlPctCell = '<span class="' + (pnlPct>=0?'pos':'neg') + '">' + fmtPct(pnlPct*100) + '</span>';
+      pnlAbsCell = '<span class="' + (pnlPct>=0?'pos':'neg') + '">' + fmtEurSigned(livePerPosition * pnlPct) + '</span>';
+    }
+    return '<tr><td>' + esc(r.sym.replace('-USD.CC','')) + '</td><td class="num">' + r.score + '</td><td><span class="badge ' + badgeClass + '">' + badgeLabel + '</span></td><td class="num">' + liveCell + '</td><td>' + (r.stillOpen ? 'offen seit ' + esc(r.entryDate) : '—') + '</td><td class="num">' + pnlPctCell + '</td><td class="num">' + pnlAbsCell + '</td></tr>';
+  }).join('');
+
+  const coinGroups = new Map();
+  for (const t of tradeDetails) { if (!coinGroups.has(t.sym)) coinGroups.set(t.sym, []); coinGroups.get(t.sym).push(t); }
+  const coinBody = document.getElementById('coin-breakdown-body');
+  coinBody.innerHTML = [...coinGroups.entries()].map(([sym, trades]) => {
+    const n = trades.length;
+    const wins = trades.filter(t => t.finalReturn > 0).length;
+    const avgRet = trades.reduce((a,t)=>a+t.finalReturn,0) / n;
+    const totalPnl = trades.reduce((a,t)=>a+t.pnlAbs,0);
+    return '<tr><td>' + esc(sym.replace('-USD.CC','')) + '</td><td class="num">' + n + '</td><td class="num">' + fmtNum(wins/n*100,0) + '%</td><td class="num ' + (avgRet>=0?'pos':'neg') + '">' + fmtPct(avgRet*100,2) + '</td><td class="num ' + (totalPnl>=0?'pos':'neg') + '">' + fmtEurSigned(totalPnl) + '</td></tr>';
+  }).join('');
+
+  currentTradeDetails = tradeDetails;
+  const tradesBody = document.getElementById('trades-body');
+  tradesBody.innerHTML = tradeDetails.slice().reverse().map((t, idx) => '<tr>' +
+    '<td class="num">' + (tradeDetails.length - idx) + '</td>' +
+    '<td>' + esc(t.sym.replace('-USD.CC','')) + '</td>' +
+    '<td>' + esc(t.entryDate) + '</td>' +
+    '<td>' + esc(t.exitDate) + '</td>' +
+    '<td class="num">' + fmtEur(t.positionSize) + '</td>' +
+    '<td class="num ' + (t.finalReturn>=0?'pos':'neg') + '">' + fmtPct(t.finalReturn*100,2) + '</td>' +
+    '<td>' + (t.stopped ? '<span class="neg">ja</span>' : 'nein') + '</td>' +
+    '<td class="num ' + (t.pnlAbs>=0?'pos':'neg') + '">' + fmtEurSigned(t.pnlAbs) + '</td>' +
+  '</tr>').join('');
+  document.getElementById('trades-note').textContent = tradeDetails.length + ' Trades gesamt, neueste zuerst.';
+
+  document.getElementById('results').classList.remove('hidden');
+  statusEl.className = '';
+  statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.';
+  computeBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
