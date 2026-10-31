@@ -184,62 +184,68 @@ tr.best-row{background:#eef8f0;}
 
   <h2 id="shortvsflat">⚔️ Flach bleiben vs. tatsächlich shorten bei Bearish-Signal</h2>
   <div class="methodology" style="margin-bottom:12px;">
-  Die SMA-Logik wird bei starken Kurs-Kollapsen automatisch "bearish" -- aktuell handelt das Live-Tool
-  diese Phasen flach (keine Position). Alternative: die Short-Seite tatsächlich mitnehmen (gleicher
-  -15%-Stop, gleicher Trendwechsel-Exit). Vergleich über dieselben Zeitfenster, 1/10-Slot:
+  Die SMA-Logik wird bei starken Kurs-Kollapsen automatisch "bearish" -- das Live-Tool bietet dafür zwei
+  Modi: flach bleiben (keine Position) oder tatsächlich shorten (gleicher -15%-Stop, gleicher
+  Trendwechsel-Exit). Vergleich über dieselben Zeitfenster, 1/10-Slot. <b>Hinweis zur Methodik:</b> eine
+  frühere Version dieser Tabelle hatte einen Timing-Fehler -- nach einem Richtungswechsel wurde der Flip-Tag
+  selbst übersprungen statt als neuer Einstiegstrigger erkannt zu werden, was Short-Einstiege systematisch
+  unterzählt hat (z.B. 122 statt korrekt 150 Short-Trades im letzten 12-Monats-Fenster). Korrigiert, s.u.
   </div>
   <div class="table-scroll"><table><thead><tr><th>Zeitraum</th><th>FLAT (aktuell)</th><th>LONG+SHORT</th><th>Max DD (Flat/L+S)</th><th>Short-Trades (n)</th><th>Ø Rendite/Short-Trade</th><th>Win-Rate Short</th></tr></thead><tbody>
     <tr>
     <td>Komplette Historie</td>
     <td class="num pos">+133192.0%</td>
-    <td class="num pos">+144731.2%</td>
-    <td class="num neg">-33.4% / -33.4%</td>
-    <td class="num">1006</td>
-    <td class="num pos">+0.55%</td>
-    <td class="num">32.6%</td>
+    <td class="num pos">+228729.4%</td>
+    <td class="num neg">-33.4% / -31.1%</td>
+    <td class="num">1271</td>
+    <td class="num pos">+0.41%</td>
+    <td class="num">32.4%</td>
   </tr><tr>
     <td>Nach der 2020/21-Manie</td>
     <td class="num pos">+780.8%</td>
-    <td class="num pos">+1033.6%</td>
-    <td class="num neg">-33.4% / -33.4%</td>
-    <td class="num">720</td>
-    <td class="num pos">+0.88%</td>
-    <td class="num">32.9%</td>
+    <td class="num pos">+1837.6%</td>
+    <td class="num neg">-33.4% / -31.1%</td>
+    <td class="num">888</td>
+    <td class="num pos">+0.78%</td>
+    <td class="num">33.0%</td>
   </tr><tr>
     <td>Letzte ~4 Jahre</td>
     <td class="num pos">+479.5%</td>
-    <td class="num pos">+396.0%</td>
-    <td class="num neg">-23.2% / -33.4%</td>
-    <td class="num">538</td>
+    <td class="num pos">+621.8%</td>
+    <td class="num neg">-23.2% / -31.1%</td>
+    <td class="num">666</td>
     <td class="num pos">+0.19%</td>
-    <td class="num">31.8%</td>
+    <td class="num">30.9%</td>
   </tr><tr>
     <td>Letzte 2 Jahre</td>
     <td class="num pos">+131.3%</td>
-    <td class="num pos">+142.0%</td>
-    <td class="num neg">-23.2% / -30.4%</td>
-    <td class="num">265</td>
-    <td class="num pos">+0.70%</td>
-    <td class="num">29.1%</td>
+    <td class="num pos">+167.9%</td>
+    <td class="num neg">-23.2% / -31.1%</td>
+    <td class="num">329</td>
+    <td class="num pos">+0.57%</td>
+    <td class="num">27.4%</td>
   </tr><tr>
     <td>Letzte 12 Monate</td>
     <td class="num neg">-7.5%</td>
-    <td class="num pos">+44.7%</td>
-    <td class="num neg">-20.0% / -19.7%</td>
-    <td class="num">122</td>
-    <td class="num pos">+3.98%</td>
-    <td class="num">36.1%</td>
+    <td class="num pos">+49.2%</td>
+    <td class="num neg">-20.0% / -21.7%</td>
+    <td class="num">150</td>
+    <td class="num pos">+3.07%</td>
+    <td class="num">34.0%</td>
   </tr>
   </tbody></table></div>
-  <div class="warn-box">
-  <b>Regimeabhängig, und die jüngste Verbesserung steht auf dünnem Eis.</b> Über die "letzten ~4 Jahre" und
-  "letzten 2 Jahre" bringt Shorten kaum etwas bis leicht weniger Gesamtrendite bei spürbar höherem Drawdown
-  -- die Short-Trades selbst liegen nur knapp über null (+0,19% bzw. +0,70% pro Trade). Erst im
-  <b>letzten 12-Monats-Fenster</b> dreht Shorten das Bild deutlich: Short-Trades allein bringen
-  <b>+3,98% pro Trade</b> bei 36% Win-Rate, und das Gesamtsystem geht von -7,5% auf +44,7%. Das ist aber nur
-  122 Short-Trades jung -- exakt die Art kleiner, rezenter Stichprobe, vor der
-  dieser Report beim Stop-Loss schon gewarnt hat. Keine Empfehlung, direkt umzustellen; eher ein Kandidat
-  für weitere Beobachtung, bevor er ins Live-Tool als Standard übernommen wird.
+  <div class="callout" style="border-left-color:var(--green);">
+  <b>Nach der Korrektur: konsistent über ALLE Zeitfenster hinweg besser, nicht mehr nur eine dünne
+  12-Monats-Beobachtung.</b> Kombiniert schlägt Flach-only in jedem einzelnen getesteten Fenster bei
+  Gesamtrendite (komplette Historie: +228.729% vs. +133.192%; letzte 2 Jahre: +167,9% vs. +131,3%; letzte 12
+  Monate: +49,2% vs. <b>-7,5%</b>) -- bei ähnlichem oder sogar leicht besserem Max-Drawdown
+  (-31,1% kombiniert vs. -33,4% Flach-only über die komplette Historie). Die Short-Trades selbst bleiben für
+  sich genommen nur eine schwache Edge (Ø +0,41% pro Trade über die komplette Historie, in manchen Fenstern
+  nahe null) -- der Mehrwert entsteht nicht daraus, dass Shorten für sich stark wäre, sondern daraus, dass es
+  echte Abwärtsbewegungen einfängt, die das Flach-only-System komplett liegen lässt. Sharpe kombiniert liegt
+  bei 1.624 -- praktisch identisch zum Long-only-Sharpe (1.624), bei deutlich höherer absoluter Rendite.
+  <b>Einschränkung bleibt:</b> ein einziger historischer Backtest, keine Handelskosten, und das reale
+  Short-Squeeze-Tail-Risiko (DOGE Jan. 2021) besteht unverändert -- der -15%-Stop ist deshalb nicht optional.
   </div>
   <div class="table-scroll"><table class="period-table"><thead><tr><th>Jahr</th><th>Trades</th><th>Ø Rendite/Trade</th><th>Win-Rate</th></tr></thead><tbody>
     <tr style="background:#fff1ee;">
@@ -289,6 +295,11 @@ tr.best-row{background:#eef8f0;}
     <td class="num">29.3%</td>
   </tr>
   </tbody></table></div>
+  <div class="methodology">
+  Jahres-Tabelle oben zeigt die FLAT-Variante (Long-only) -- zur Einordnung, in welchen Jahren Shorten
+  überhaupt etwas zu fangen hätte: 2018, 2022 und 2026 waren die schwächsten Long-Jahre, genau dort zeigt die
+  Short-Seite (siehe Short-Only-Tool) ihre besten Werte -- ein sinnvolles, gegenläufiges Muster, kein Zufall.
+  </div>
 
   <h2 id="stopsens">🎚️ Stop-Sensitivität</h2>
   <div class="table-scroll"><table><thead><tr><th>Stop</th><th>Trades</th><th>Ø Rendite</th><th>Win-Rate</th><th>Sharpe</th><th>Max DD</th><th>Gestoppt</th></tr></thead><tbody>
@@ -556,9 +567,15 @@ tr.best-row{background:#eef8f0;}
   brauchbares Exit-Signal, das verhindert, einen fallenden Markt stur durchzuhalten -- in Trendphasen
   (2019-21, 2024) gewinnt es deutlich, in schwachen Phasen (2018, 2022, 2025-26, aktuell) verliert es leicht
   statt viel. Niedrige Trefferquote (~29-35%) erfordert Disziplin bei vielen kleinen Verlust-Trades, keine
-  Handelskosten eingerechnet. <b>Als Long/Short-System wie im Original-Tool dargestellt: weiterhin nein</b>
-  -- die Short-Hälfte bleibt statistisch nicht von Null zu unterscheiden und birgt reales Tail-Risiko ohne
-  Stop. Live-Tool unten setzt nur die Long-Seite um.
+  Handelskosten eingerechnet. <b>Als kombiniertes Long/Short-System: ja, mit Stop</b> -- korrigierte
+  Zahlen (s. Abschnitt "Flach vs. Short") zeigen konsistent über alle Zeitfenster höhere Gesamtrendite und
+  ähnlichen/besseren Max-Drawdown als reines Flach-only, bei praktisch identischem Sharpe (1.624). Die
+  Short-Seite ist für sich genommen schwach, trägt aber sinnvoll zum Portfolio bei, weil sie echte
+  Abwärtsbewegungen einfängt statt sie auszusitzen -- und weil ein -15%-Stop zwingend ist (reales
+  Short-Squeeze-Tail-Risiko, DOGE Jan. 2021), nicht optional. Drei Live-Tools stehen entsprechend bereit:
+  <a href="crypto-trend-long.html">Long-only</a> (validiert, konservativste Wahl), das gleiche Tool mit
+  zuschaltbarem Short-Modus für die kombinierte Sicht, und <a href="crypto-trend-short.html">Short-only</a>
+  als isolierter Monitor für die Short-Seite allein.
   </div>
 
   <div class="footer-note">

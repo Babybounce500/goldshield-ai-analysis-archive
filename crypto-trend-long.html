@@ -239,7 +239,11 @@ function backtestLongOnly(sym, series, stopPct, bearishMode) {
     if (exitIdx === -1) { i = verdicts.length; continue; }
     const finalReturn = stopped ? -stopPct : (dir === 'LONG' ? (verdicts[exitIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[exitIdx].close) / entryPrice);
     trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped, holdDays: exitIdx - entryIdx });
-    i = exitIdx + 1;
+    // a trend-flip exit means exitIdx's own verdict already shows the NEW direction -- re-check that exact
+    // day as a fresh opposite-direction trigger instead of skipping straight to the day after it (that skip
+    // was a bug: it silently missed the very first day's entry opportunity after every flip-driven exit).
+    // A stop-triggered exit carries no such information (the class hasn't flipped), so resume normally.
+    i = stopped ? exitIdx + 1 : exitIdx;
   }
   return { trades, verdicts };
 }
