@@ -219,6 +219,7 @@ function computeSeriesVerdicts(series) {
 function backtestLongOnly(sym, series, stopPct, bearishMode) {
   const verdicts = computeSeriesVerdicts(series);
   const trades = [];
+  let openPosition = null; // set if a position is still running when the data runs out -- this IS "what I'd hold right now"
   let i = 0;
   while (i < verdicts.length && !verdicts[i].s100ready) i++;
   while (i < verdicts.length - 1) {
@@ -236,7 +237,14 @@ function backtestLongOnly(sym, series, stopPct, bearishMode) {
       const stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
       if (verdicts[k].s100ready && !stillSameDir) { exitIdx = k; break; }
     }
-    if (exitIdx === -1) { i = verdicts.length; continue; }
+    if (exitIdx === -1) {
+      // no exit found before the data ran out -- this position is still open as of the latest bar. Used to
+      // be silently dropped here, which made the "current signal" table unable to show an entry date or
+      // live P&L for any position that had been running for more than a day.
+      openPosition = { direction: dir, entryDate: verdicts[entryIdx].date, entryPrice };
+      i = verdicts.length;
+      continue;
+    }
     const finalReturn = stopped ? -stopPct : (dir === 'LONG' ? (verdicts[exitIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[exitIdx].close) / entryPrice);
     trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped, holdDays: exitIdx - entryIdx });
     // a trend-flip exit means exitIdx's own verdict already shows the NEW direction -- re-check that exact
@@ -245,7 +253,7 @@ function backtestLongOnly(sym, series, stopPct, bearishMode) {
     // A stop-triggered exit carries no such information (the class hasn't flipped), so resume normally.
     i = stopped ? exitIdx + 1 : exitIdx;
   }
-  return { trades, verdicts };
+  return { trades, verdicts, openPosition };
 }
 
 function isoWeek(dateStr) {
@@ -378,8 +386,8 @@ computeBtn.addEventListener('click', async () => {
   const perSymbol = {};
   const allExits = [];
   for (const sym of usableSymbols) {
-    const { trades, verdicts } = backtestLongOnly(sym, seriesBySymbol[sym], stopPct, bearishMode);
-    perSymbol[sym] = { trades, verdicts };
+    const { trades, verdicts, openPosition } = backtestLongOnly(sym, seriesBySymbol[sym], stopPct, bearishMode);
+    perSymbol[sym] = { trades, verdicts, openPosition };
     for (const t of trades) allExits.push(t);
   }
   allExits.sort((a, b) => a.exitDate.localeCompare(b.exitDate));
@@ -414,17 +422,12 @@ computeBtn.addEventListener('click', async () => {
 
   // ---- current live signal per coin ----
   const currentRows = usableSymbols.map(sym => {
-    const { verdicts } = perSymbol[sym];
+    const { verdicts, openPosition } = perSymbol[sym];
     const last = verdicts[verdicts.length - 1];
     if (!last.s100ready) return { sym, error: 'zu wenig Historie' };
-    // is there an open trade right now? (last trade's exitDate === last.date would mean just closed; if the
-    // most recent trade has no bar after its entry showing a flip/stop yet, it is still open)
-    const trades = perSymbol[sym].trades;
-    const lastTrade = trades[trades.length - 1];
-    const wantOpen = last.cls === 'bullish' || (bearishMode === 'short' && last.cls === 'bearish');
-    const stillOpen = lastTrade && lastTrade.exitDate === last.date && wantOpen;
-    const direction = stillOpen ? lastTrade.direction : (last.cls === 'bullish' ? 'LONG' : (bearishMode === 'short' ? 'SHORT' : null));
-    return { sym, score: last.score, cls: last.cls, close: last.close, stillOpen, direction, entryPrice: stillOpen ? lastTrade.entryPrice : null, entryDate: stillOpen ? lastTrade.entryDate : null };
+    const stillOpen = !!openPosition;
+    const direction = stillOpen ? openPosition.direction : (last.cls === 'bullish' ? 'LONG' : (bearishMode === 'short' ? 'SHORT' : null));
+    return { sym, score: last.score, cls: last.cls, close: last.close, stillOpen, direction, entryPrice: stillOpen ? openPosition.entryPrice : null, entryDate: stillOpen ? openPosition.entryDate : null };
   });
 
   const openSymbols = currentRows.filter(r => r.stillOpen).map(r => r.sym);
