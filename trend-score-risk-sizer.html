@@ -245,10 +245,10 @@ scanBtn.addEventListener('click', async () => {
       '<div class="bstat"><b>' + fmtEur(total) + '</b><span>' + esc(name).toUpperCase() + ' (' + (capital>0?(total/capital*100).toFixed(0):0) + '% DES KAPITALS, ' + perMarket[name].length + ' OFFENE SIGNALE)</span></div>'
     ).join('');
 
-    const dominant = Object.entries(marketTotals).sort((a,b)=>b[1]-a[1])[0];
+    const strandedMarkets = activeMarkets.filter(([name]) => perMarket[name].length === 0).map(([name]) => name);
     document.getElementById('concentration-warning').innerHTML =
-      (activeMarkets.length > 1 && dominant && capital > 0 && (dominant[1]/capital) > 0.5 && perMarket[dominant[0]].length === 0)
-      ? '<div class="warn-box"><b>Hinweis:</b> Ein Markt hat aktuell keine offenen Signale -- das Kapital, das ihm zugeteilt wäre, bleibt in der Rechnung ungenutzt statt automatisch umverteilt zu werden.</div>'
+      (activeMarkets.length > 1 && strandedMarkets.length)
+      ? '<div class="warn-box"><b>Hinweis:</b> ' + strandedMarkets.map(esc).join(', ') + ' hat/haben aktuell keine offenen Signale -- das Kapital, das diesem Markt zugeteilt wäre, bleibt in der Rechnung ungenutzt statt automatisch auf die anderen Märkte umverteilt zu werden.</div>'
       : '';
 
     sizingRows.sort((a,b) => a.market.localeCompare(b.market) || a.sym.localeCompare(b.sym));
