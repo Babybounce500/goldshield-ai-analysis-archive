@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Crypto-Trend-Score Korrelations-Monitor</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#120a1a">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#120a1a;--surface:#1f1229;--panel:#271733;--border:#3d2a4d;--accent:#e879f9;--accent-rgb:232,121,249;--green:#34d399;--red:#f87171;--muted:#a593b5;--text:#ecdcf7;--bright:#fbf5ff;--warn-text:#fecaca;--amber-link:#f0abfc;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#faf3fd;--surface:#ffffff;--panel:#f3e4fa;--border:#e4c9f0;--accent:#a21caf;--accent-rgb:162,28,175;--green:#15803d;--red:#b91c1c;--muted:#7a6188;--text:#2b1836;--bright:#120a1a;--warn-text:#7a1f1f;--amber-link:#a21caf;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(162,28,175,.16), rgba(162,28,175,.04));border:1px solid rgba(232,121,249,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #f0abfc);color:#120a1a;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{border-collapse:collapse;font-size:9.5px;}
+th{text-align:center;color:var(--muted);font-weight:600;padding:6px 8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+th.rowlabel{text-align:left;}
+td{padding:6px 8px;border-bottom:1px solid var(--border);white-space:nowrap;text-align:center;font-variant-numeric:tabular-nums;}
+td.rowlabel{text-align:left;color:var(--muted);font-weight:600;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+.warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10px;color:var(--warn-text);margin-bottom:14px;line-height:1.6;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>🕸️ Crypto Korrelations-Monitor</h1>
+  <div class="subtitle">90-Tage-Korrelation der täglichen Renditen über die 10 validierten Coins, plus welche aktuell offenen Positionen sich am stärksten gleich bewegen.</div>
+
+  <div class="callout">
+  <b>Diversifikation nur auf dem Papier?</b> Wenn mehrere gleichzeitig offene
+  <a href="crypto-trend-combined.html" style="color:var(--accent);">Crypto-Trend-Score</a>-Positionen stark
+  korreliert sind, ist das effektiv eine einzige, größere Wette -- nicht 5 oder 10 unabhängige. Dieses Tool
+  berechnet die paarweise Korrelation der letzten 90 Tages-Renditen und markiert hoch korrelierte Paare
+  (&gt; 0.7), die aktuell beide offen und in dieselbe Richtung positioniert sind.
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">🔍 Live scannen &amp; Korrelationen berechnen</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>🔗 Konzentrationsrisiko (aktuell offene, gleichgerichtete, hoch korrelierte Paare)</h2>
+    <div id="concentration-warning"></div>
+    <div class="table-scroll">
+    <table id="concentration-table"><thead><tr><th class="rowlabel">Paar</th><th>Richtung</th><th>Korrelation (90T)</th></tr></thead><tbody id="concentration-body"></tbody></table>
+    </div>
+
+    <h2>🧮 Aktuelles Signal pro Coin</h2>
+    <div class="table-scroll">
+    <table><thead><tr><th class="rowlabel">Coin</th><th>Position</th><th>Live-Kurs</th></tr></thead><tbody id="signal-body"></tbody></table>
+    </div>
+
+    <h2>🕸️ Korrelationsmatrix (90 Tage, Tagesrenditen)</h2>
+    <div class="methodology">Werte nahe +1.00 = bewegen sich fast immer gleich (wenig Diversifikationsnutzen); nahe 0 = unabhängig; negativ = bewegen sich eher entgegengesetzt.</div>
+    <div class="table-scroll">
+    <table id="matrix-table"></table>
+    </div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Datenquelle:
+  derselbe EOD-Proxy wie der Rest des Archivs, live abgerufen. Verwandte Tools:
+  <a href="crypto-trend-combined.html">Crypto-Trend-Score</a> ·
+  <a href="trend-score-risk-sizer.html">Risk-Sizer</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const CORR_WINDOW_DAYS = 90;
+const FETCH_DAYS_BACK = 300; // buffer above SMA100 and the 90-day correlation window
+
+const SYMBOLS = ['BTC-USD.CC','ETH-USD.CC','SOL-USD.CC','XRP-USD.CC','BNB-USD.CC','ADA-USD.CC','DOGE-USD.CC','DOT-USD.CC','AVAX-USD.CC','LINK-USD.CC'];
+
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function buildVerdict(price, s3, s20, s50, s100) {
+  let score = 0;
+  if (s3 !== null) score += price > s3 ? 1 : -1;
+  if (s20 !== null) score += price > s20 ? 1 : -1;
+  if (s50 !== null) score += price > s50 ? 1 : -1;
+  if (s100 !== null) score += price > s100 ? 1 : -1;
+  if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
+  if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
+  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+}
+function computeSeriesVerdicts(series) {
+  const closes = series.map(r => r.close);
+  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
+}
+
+async function fetchHistorical(symbol, fromDate) {
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromDate);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+async function fetchRealtime(symbol) {
+  const res = await fetch(PROXY + '/eod/realtime/' + encodeURIComponent(symbol));
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+function stripSuffix(sym) { return sym.replace('-USD.CC', ''); }
+
+function dailyReturns(series) {
+  const out = [];
+  for (let i = 1; i < series.length; i++) {
+    out.push({ date: series[i].date, ret: (series[i].close - series[i-1].close) / series[i-1].close });
+  }
+  return out.slice(-CORR_WINDOW_DAYS);
+}
+
+function pearson(a, b) {
+  // aligned by date, since all crypto symbols from the same proxy share the same daily calendar
+  const byDate = new Map(b.map(r => [r.date, r.ret]));
+  const pairs = a.filter(r => byDate.has(r.date)).map(r => [r.ret, byDate.get(r.date)]);
+  const n = pairs.length;
+  if (n < 10) return null;
+  const meanX = pairs.reduce((s,p)=>s+p[0],0) / n;
+  const meanY = pairs.reduce((s,p)=>s+p[1],0) / n;
+  let num = 0, denX = 0, denY = 0;
+  for (const [x,y] of pairs) { num += (x-meanX)*(y-meanY); denX += (x-meanX)**2; denY += (y-meanY)**2; }
+  const den = Math.sqrt(denX*denY);
+  return den > 0 ? num/den : null;
+}
+
+function corrColor(v) {
+  if (v == null) return 'var(--muted)';
+  const abs = Math.abs(v);
+  if (v >= 0.7) return 'var(--red)';
+  if (v >= 0.4) return '#fbbf24';
+  if (v <= -0.3) return 'var(--green)';
+  return 'var(--text)';
+}
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#faf3fd' : '#120a1a');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+scanBtn.addEventListener('click', async () => {
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + SYMBOLS.length + ' Coins und berechne Korrelationen...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    const fromDate = new Date(Date.now() - FETCH_DAYS_BACK * 86400000).toISOString().slice(0, 10);
+    const seriesBySymbol = {}, returnsBySymbol = {}, signalBySymbol = {};
+    const failed = [];
+    await Promise.all(SYMBOLS.map(async sym => {
+      try {
+        const series = await fetchHistorical(sym, fromDate);
+        seriesBySymbol[sym] = series;
+        returnsBySymbol[sym] = dailyReturns(series);
+        const verdicts = computeSeriesVerdicts(series);
+        const last = verdicts[verdicts.length - 1];
+        let liveClose = last.close;
+        try { const rt = await fetchRealtime(sym); if (rt && Number.isFinite(rt.close)) liveClose = rt.close; } catch (e) {}
+        signalBySymbol[sym] = { direction: last.s100ready ? (last.cls === 'bullish' ? 'LONG' : 'SHORT') : null, close: liveClose };
+      } catch (e) { failed.push(sym + ' (' + e.message + ')'); }
+    }));
+    const usable = SYMBOLS.filter(s => seriesBySymbol[s]);
+    if (usable.length < 2) throw new Error('Zu wenige Coins verfügbar für eine Korrelationsmatrix.');
+
+    const matrix = {};
+    for (const a of usable) { matrix[a] = {}; for (const b of usable) { matrix[a][b] = a === b ? 1 : pearson(returnsBySymbol[a], returnsBySymbol[b]); } }
+
+    // ---- signal table ----
+    document.getElementById('signal-body').innerHTML = usable.map(sym => {
+      const s = signalBySymbol[sym];
+      const badge = s.direction ? '<span class="badge ' + (s.direction==='LONG'?'long':'short') + '">' + s.direction + '</span>' : '<span style="color:var(--muted);">zu wenig Historie</span>';
+      return '<tr><td class="rowlabel">' + esc(stripSuffix(sym)) + '</td><td>' + badge + '</td><td>€' + s.close.toFixed(4) + '</td></tr>';
+    }).join('');
+
+    // ---- concentration risk: open pairs, same direction, correlation > 0.7 ----
+    const openSymbols = usable.filter(s => signalBySymbol[s].direction);
+    const riskyPairs = [];
+    for (let i = 0; i < openSymbols.length; i++) {
+      for (let j = i+1; j < openSymbols.length; j++) {
+        const a = openSymbols[i], b = openSymbols[j];
+        if (signalBySymbol[a].direction !== signalBySymbol[b].direction) continue;
+        const c = matrix[a][b];
+        if (c != null && c >= 0.7) riskyPairs.push({ a, b, c, direction: signalBySymbol[a].direction });
+      }
+    }
+    riskyPairs.sort((x,y) => y.c - x.c);
+    document.getElementById('concentration-warning').innerHTML = riskyPairs.length
+      ? '<div class="warn-box"><b>' + riskyPairs.length + ' hoch korrelierte, gleichgerichtete Paar(e) aktuell offen.</b> Mehrere dieser Positionen gleichzeitig zu halten bringt wenig zusätzliche Diversifikation -- effektiv näher an einer größeren Einzelwette.</div>'
+      : '<div class="methodology" style="margin-bottom:14px;">Keine hoch korrelierten (&gt; 0.7), gleichgerichteten offenen Paare gefunden.</div>';
+    document.getElementById('concentration-body').innerHTML = riskyPairs.map(p =>
+      '<tr><td class="rowlabel">' + esc(stripSuffix(p.a)) + ' / ' + esc(stripSuffix(p.b)) + '</td><td><span class="badge ' + (p.direction==='LONG'?'long':'short') + '">' + p.direction + ' / ' + p.direction + '</span></td><td style="color:' + corrColor(p.c) + ';font-weight:700;">' + p.c.toFixed(2) + '</td></tr>'
+    ).join('');
+
+    // ---- matrix ----
+    const headerRow = '<tr><th class="rowlabel"></th>' + usable.map(s => '<th>' + esc(stripSuffix(s)) + '</th>').join('') + '</tr>';
+    const bodyRows = usable.map(a => '<tr><td class="rowlabel">' + esc(stripSuffix(a)) + '</td>' + usable.map(b => {
+      const v = matrix[a][b];
+      return '<td style="color:' + corrColor(v) + ';font-weight:' + (a===b?400:600) + ';">' + (v!=null ? v.toFixed(2) : '—') + '</td>';
+    }).join('') + '</tr>').join('');
+    document.getElementById('matrix-table').innerHTML = '<thead>' + headerRow + '</thead><tbody>' + bodyRows + '</tbody>';
+
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + ' (' + usable.length + '/' + SYMBOLS.length + ' Coins).' +
+      (failed.length ? ' Nicht abrufbar: ' + failed.join(', ') : '');
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
