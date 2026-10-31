@@ -76,6 +76,7 @@ tr.best-row{background:#eef8f0;}
   <div class="toc">
     <a href="#result">📊 Gesamtergebnis</a>
     <a href="#timewindows">⏱️ Zeitfenster-Analyse</a>
+    <a href="#shortvsflat">⚔️ Flach vs. Short</a>
     <a href="#stopsens">🎚️ Stop-Sensitivität</a>
     <a href="#percoin">🪙 Pro Coin vs. Buy&amp;Hold</a>
     <a href="#drawdown">🛡️ Drawdown-Schutz vs. Halten</a>
@@ -114,7 +115,7 @@ tr.best-row{background:#eef8f0;}
   </div>
 
   <h2 id="timewindows">⏱️ Zeitfenster-Analyse: was bleibt ohne die 2021-Manie übrig?</h2>
-  <div class="table-scroll"><table><thead><tr><th>Zeitraum</th><th>Trades</th><th>Gesamtrendite (1/10-Slot)</th><th>Ø Rendite/Trade</th><th>Win-Rate</th><th>Max DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Zeitraum</th><th>Trades</th><th>Gesamtrendite (1/10-Slot)</th><th>Ø Rendite/Trade</th><th>Win-Rate</th><th>Max DD</th><th>Markt-Vergleich (Equal-Weight B&amp;H)</th></tr></thead><tbody>
     <tr>
     <td>Komplette Historie (seit 2018)</td>
     <td class="num">1380</td>
@@ -122,6 +123,7 @@ tr.best-row{background:#eef8f0;}
     <td class="num pos">+6.00%</td>
     <td class="num">34.7%</td>
     <td class="num neg">-33.4%</td>
+    <td class="num pos">+2296.7%</td>
   </tr><tr>
     <td>Nach der 2020/21-Manie (ab Juni 2021)</td>
     <td class="num">966</td>
@@ -129,6 +131,7 @@ tr.best-row{background:#eef8f0;}
     <td class="num pos">+2.54%</td>
     <td class="num">32.0%</td>
     <td class="num neg">-33.4%</td>
+    <td class="num pos">+3.3%</td>
   </tr><tr>
     <td>Letzte ~4 Jahre (ab 2023)</td>
     <td class="num">727</td>
@@ -136,6 +139,7 @@ tr.best-row{background:#eef8f0;}
     <td class="num pos">+2.70%</td>
     <td class="num">31.2%</td>
     <td class="num neg">-23.2%</td>
+    <td class="num pos">+172.4%</td>
   </tr><tr>
     <td>Letzte 2 Jahre</td>
     <td class="num">355</td>
@@ -143,6 +147,7 @@ tr.best-row{background:#eef8f0;}
     <td class="num pos">+2.65%</td>
     <td class="num">31.0%</td>
     <td class="num neg">-23.2%</td>
+    <td class="num neg">-13.0%</td>
   </tr><tr style="background:#fff1ee;">
     <td>Letzte 12 Monate</td>
     <td class="num">158</td>
@@ -150,6 +155,7 @@ tr.best-row{background:#eef8f0;}
     <td class="num neg">-0.47%</td>
     <td class="num">29.1%</td>
     <td class="num neg">-20.0%</td>
+    <td class="num neg">-50.1%</td>
   </tr>
   </tbody></table></div>
   <div class="methodology">
@@ -163,6 +169,77 @@ tr.best-row{background:#eef8f0;}
   <a href="https://crypto-tankstelle.replit.app/public-index.html" target="_blank" rel="noopener noreferrer">10/10-Short-Lage</a>
   des Original-Tools zum Zeitpunkt dieses Reports -- aktuell kein starker Aufwärtstrend vorhanden, den das
   System reiten könnte.
+  </div>
+  <div class="callout">
+  <b>Entscheidend für die Einordnung der "negativen" letzten 12 Monate: relativ zum Markt ist das trotzdem
+  eine deutliche Outperformance.</b> Die letzte Spalte oben vergleicht gegen eine simple
+  Equal-Weight-Buy&amp;Hold-Position in denselben 10 Coins über dasselbe Fenster. In den letzten 12 Monaten
+  ist dieser Markt-Durchschnitt um <b>-50.1%</b> eingebrochen -- das System
+  verlor im selben Zeitraum nur -7.5%.
+  Über die letzten 2 Jahre war der Markt sogar <b>-13.0%</b> im Minus,
+  während das System +131.3% machte. Die "schwache Phase" des Systems
+  fällt in eine noch schwächere Marktphase insgesamt -- isoliert betrachtet sieht -7,5% nach Misserfolg aus,
+  im Marktkontext ist es eine der stärksten relativen Phasen des gesamten Backtests.
+  </div>
+
+  <h2 id="shortvsflat">⚔️ Flach bleiben vs. tatsächlich shorten bei Bearish-Signal</h2>
+  <div class="methodology" style="margin-bottom:12px;">
+  Die SMA-Logik wird bei starken Kurs-Kollapsen automatisch "bearish" -- aktuell handelt das Live-Tool
+  diese Phasen flach (keine Position). Alternative: die Short-Seite tatsächlich mitnehmen (gleicher
+  -15%-Stop, gleicher Trendwechsel-Exit). Vergleich über dieselben Zeitfenster, 1/10-Slot:
+  </div>
+  <div class="table-scroll"><table><thead><tr><th>Zeitraum</th><th>FLAT (aktuell)</th><th>LONG+SHORT</th><th>Max DD (Flat/L+S)</th><th>Short-Trades (n)</th><th>Ø Rendite/Short-Trade</th><th>Win-Rate Short</th></tr></thead><tbody>
+    <tr>
+    <td>Komplette Historie</td>
+    <td class="num pos">+133192.0%</td>
+    <td class="num pos">+144731.2%</td>
+    <td class="num neg">-33.4% / -33.4%</td>
+    <td class="num">1006</td>
+    <td class="num pos">+0.55%</td>
+    <td class="num">32.6%</td>
+  </tr><tr>
+    <td>Nach der 2020/21-Manie</td>
+    <td class="num pos">+780.8%</td>
+    <td class="num pos">+1033.6%</td>
+    <td class="num neg">-33.4% / -33.4%</td>
+    <td class="num">720</td>
+    <td class="num pos">+0.88%</td>
+    <td class="num">32.9%</td>
+  </tr><tr>
+    <td>Letzte ~4 Jahre</td>
+    <td class="num pos">+479.5%</td>
+    <td class="num pos">+396.0%</td>
+    <td class="num neg">-23.2% / -33.4%</td>
+    <td class="num">538</td>
+    <td class="num pos">+0.19%</td>
+    <td class="num">31.8%</td>
+  </tr><tr>
+    <td>Letzte 2 Jahre</td>
+    <td class="num pos">+131.3%</td>
+    <td class="num pos">+142.0%</td>
+    <td class="num neg">-23.2% / -30.4%</td>
+    <td class="num">265</td>
+    <td class="num pos">+0.70%</td>
+    <td class="num">29.1%</td>
+  </tr><tr>
+    <td>Letzte 12 Monate</td>
+    <td class="num neg">-7.5%</td>
+    <td class="num pos">+44.7%</td>
+    <td class="num neg">-20.0% / -19.7%</td>
+    <td class="num">122</td>
+    <td class="num pos">+3.98%</td>
+    <td class="num">36.1%</td>
+  </tr>
+  </tbody></table></div>
+  <div class="warn-box">
+  <b>Regimeabhängig, und die jüngste Verbesserung steht auf dünnem Eis.</b> Über die "letzten ~4 Jahre" und
+  "letzten 2 Jahre" bringt Shorten kaum etwas bis leicht weniger Gesamtrendite bei spürbar höherem Drawdown
+  -- die Short-Trades selbst liegen nur knapp über null (+0,19% bzw. +0,70% pro Trade). Erst im
+  <b>letzten 12-Monats-Fenster</b> dreht Shorten das Bild deutlich: Short-Trades allein bringen
+  <b>+3,98% pro Trade</b> bei 36% Win-Rate, und das Gesamtsystem geht von -7,5% auf +44,7%. Das ist aber nur
+  122 Short-Trades jung -- exakt die Art kleiner, rezenter Stichprobe, vor der
+  dieser Report beim Stop-Loss schon gewarnt hat. Keine Empfehlung, direkt umzustellen; eher ein Kandidat
+  für weitere Beobachtung, bevor er ins Live-Tool als Standard übernommen wird.
   </div>
   <div class="table-scroll"><table class="period-table"><thead><tr><th>Jahr</th><th>Trades</th><th>Ø Rendite/Trade</th><th>Win-Rate</th></tr></thead><tbody>
     <tr style="background:#fff1ee;">
