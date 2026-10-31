@@ -135,6 +135,30 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
     <div id="status"></div>
   </div>
 
+  <h2>💼 Dein Live-Portfolio (echter Einstieg)</h2>
+  <div class="methodology">
+  Die Gesamtrendite, die nach "Live berechnen" erscheint, ist eine von €100.000 seit 2018 hochkompoundierte
+  Backtest-Simulation -- kein reales Geld. Dieser Abschnitt ist etwas anderes: ein echter Einstieg
+  <b>heute</b>, zu den aktuellen Live-Preisen, mit deinem eigenen Startkapital (Feld oben unter "Startkapital").
+  Einmal gestartet, bleibt er in diesem Browser gespeichert -- beim nächsten Besuch siehst du den echten
+  Verlauf seit deinem Einstieg, nicht die historische Kurve. Setzt voraus, dass du oben einmal "Live-Daten
+  laden" geklickt hast (die aktuellen Signale kommen von dort).
+  </div>
+  <div class="panel" id="paper-start-panel">
+    <button class="primary-btn" id="paper-start-btn" type="button">💼 Live-Portfolio jetzt starten (mit obigem Startkapital, zu Live-Preisen)</button>
+  </div>
+  <div id="paper-portfolio-view" class="hidden">
+    <div class="stat-grid" id="paper-stats"></div>
+    <div id="paper-warnings"></div>
+    <div class="table-scroll">
+    <table><thead><tr><th>Coin</th><th>Position</th><th>Einstieg (echt)</th><th>Einstiegspreis</th><th>Live-Preis</th><th>Unrealisiert %</th><th>Unrealisiert €</th><th>Status</th></tr></thead><tbody id="paper-body"></tbody></table>
+    </div>
+    <div class="btn-row">
+      <button class="opt-btn" id="paper-refresh-btn" type="button">🔄 Live-Preise aktualisieren</button>
+      <button class="opt-btn" id="paper-reset-btn" type="button" style="border-color:var(--red);color:var(--red);">🗑️ Portfolio zurücksetzen</button>
+    </div>
+  </div>
+
   <div id="results" class="hidden">
     <h2>📊 Historisches Ergebnis (mit soeben geladenen Live-Daten gerechnet)</h2>
     <div class="stat-grid" id="stats"></div>
@@ -331,6 +355,101 @@ document.querySelectorAll('[data-stop]').forEach(btn => btn.addEventListener('cl
 const statusEl = document.getElementById('status');
 const computeBtn = document.getElementById('compute-btn');
 let currentTradeDetails = [];
+let lastCurrentRows = [], lastRealtimeBySymbol = {}, lastCapitalInput = 100000;
+
+// ========== real paper portfolio: a genuine "I enter today with my own capital" tracker, separate from
+// the backtest's compounded-since-2018 numbers. Persisted per-browser via localStorage (a convenience for
+// this one viewer, not shared/critical state) so returning to the page later shows the real live P&L
+// since the actual entry moment, not the inflated historical curve. ==========
+const PAPER_KEY = 'goldshield:cryptoCombinedPaper';
+function loadPaper() { try { const raw = localStorage.getItem(PAPER_KEY); return raw ? JSON.parse(raw) : null; } catch (e) { return null; } }
+function savePaper(data) { try { localStorage.setItem(PAPER_KEY, JSON.stringify(data)); } catch (e) {} }
+function clearPaper() { try { localStorage.removeItem(PAPER_KEY); } catch (e) {} }
+
+async function renderPaperPortfolio() {
+  const paper = loadPaper();
+  const startPanel = document.getElementById('paper-start-panel');
+  const view = document.getElementById('paper-portfolio-view');
+  if (!paper) { startPanel.classList.remove('hidden'); view.classList.add('hidden'); return; }
+  startPanel.classList.add('hidden');
+  view.classList.remove('hidden');
+
+  const liveBySymbol = {};
+  await Promise.all(paper.positions.map(async p => {
+    try { liveBySymbol[p.sym] = await fetchRealtime(p.sym); } catch (e) {}
+  }));
+
+  let totalValue = 0, totalPnl = 0;
+  const rows = paper.positions.map(p => {
+    const rt = liveBySymbol[p.sym];
+    const livePrice = rt && Number.isFinite(rt.close) ? rt.close : null;
+    let pnlPct = null, pnlAbs = null, stoppedOut = false;
+    if (livePrice != null) {
+      pnlPct = p.direction === 'LONG' ? (livePrice - p.entryPrice) / p.entryPrice : (p.entryPrice - livePrice) / p.entryPrice;
+      stoppedOut = pnlPct <= -0.15;
+      pnlAbs = p.positionSize * pnlPct;
+      totalValue += p.positionSize + pnlAbs;
+      totalPnl += pnlAbs;
+    } else {
+      totalValue += p.positionSize;
+    }
+    return { ...p, livePrice, pnlPct, pnlAbs, stoppedOut };
+  });
+
+  const totalPnlPct = paper.startCapital > 0 ? totalPnl / paper.startCapital * 100 : 0;
+  document.getElementById('paper-stats').innerHTML =
+    '<div class="bstat"><b>' + fmtEur(paper.startCapital) + '</b><span>STARTKAPITAL (' + esc(paper.startDate) + ')</span></div>' +
+    '<div class="bstat"><b>' + fmtEur(totalValue) + '</b><span>AKTUELLER WERT</span></div>' +
+    '<div class="bstat"><b class="' + (totalPnl>=0?'pos':'neg') + '">' + fmtEurSigned(totalPnl) + '</b><span>UNREALISIERT GESAMT</span></div>' +
+    '<div class="bstat"><b class="' + (totalPnlPct>=0?'pos':'neg') + '">' + fmtPct(totalPnlPct,2) + '</b><span>UNREALISIERT %</span></div>';
+
+  const anyStopped = rows.some(r => r.stoppedOut);
+  document.getElementById('paper-warnings').innerHTML = anyStopped
+    ? '<div class="warn-box"><b>Mindestens eine Position hat den -15%-Stop erreicht oder gerissen.</b> In echt wärst du hier schon ausgestiegen -- dieses Tool schließt nichts automatisch, es zeigt nur an. Erwäge, manuell zu schließen und das Portfolio neu zu starten.</div>'
+    : '';
+
+  document.getElementById('paper-body').innerHTML = rows.map(r => {
+    const badgeClass = r.direction === 'LONG' ? 'long' : 'short';
+    return '<tr' + (r.stoppedOut ? ' style="background:rgba(248,113,113,.08);"' : '') + '>' +
+      '<td>' + esc(r.sym.replace('-USD.CC','')) + '</td>' +
+      '<td><span class="badge ' + badgeClass + '">' + r.direction + '</span></td>' +
+      '<td>' + esc(r.entryDate) + '</td>' +
+      '<td class="num">€' + r.entryPrice.toFixed(4) + '</td>' +
+      '<td class="num">' + (r.livePrice!=null ? '€'+r.livePrice.toFixed(4) : '—') + '</td>' +
+      '<td class="num">' + (r.pnlPct!=null ? '<span class="'+(r.pnlPct>=0?'pos':'neg')+'">'+fmtPct(r.pnlPct*100)+'</span>' : '—') + '</td>' +
+      '<td class="num">' + (r.pnlAbs!=null ? '<span class="'+(r.pnlAbs>=0?'pos':'neg')+'">'+fmtEurSigned(r.pnlAbs)+'</span>' : '—') + '</td>' +
+      '<td>' + (r.stoppedOut ? '<span class="badge stopped">⚠ STOP</span>' : '<span style="color:var(--green);">✓ läuft</span>') + '</td>' +
+    '</tr>';
+  }).join('');
+}
+
+document.getElementById('paper-start-btn').addEventListener('click', async () => {
+  const signaled = lastCurrentRows.filter(r => r.direction);
+  if (!signaled.length) {
+    alert('Bitte zuerst oben "Live-Daten laden & Long+Short-Signale berechnen" klicken -- das Portfolio startet aus den aktuellen Signalen.');
+    return;
+  }
+  const btn = document.getElementById('paper-start-btn');
+  btn.disabled = true; btn.textContent = 'Starte... hole Live-Preise...';
+  const positionSize = lastCapitalInput / signaled.length;
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const entries = await Promise.all(signaled.map(async r => {
+    let entryPrice = r.close;
+    try { const rt = await fetchRealtime(r.sym); if (rt && Number.isFinite(rt.close)) entryPrice = rt.close; } catch (e) {}
+    return { sym: r.sym, direction: r.direction, entryPrice, positionSize, entryDate: todayStr };
+  }));
+  savePaper({ startDate: todayStr, startCapital: lastCapitalInput, positions: entries });
+  btn.disabled = false; btn.textContent = '💼 Live-Portfolio jetzt starten (mit obigem Startkapital, zu Live-Preisen)';
+  await renderPaperPortfolio();
+});
+document.getElementById('paper-refresh-btn').addEventListener('click', renderPaperPortfolio);
+document.getElementById('paper-reset-btn').addEventListener('click', () => {
+  if (!confirm('Live-Portfolio wirklich zurücksetzen? Das kann nicht rückgängig gemacht werden.')) return;
+  clearPaper();
+  renderPaperPortfolio();
+});
+// show the stored paper portfolio (if any) immediately on page load, independent of clicking "compute"
+renderPaperPortfolio();
 
 document.getElementById('export-csv-btn').addEventListener('click', () => {
   if (!currentTradeDetails.length) return;
@@ -423,6 +542,12 @@ computeBtn.addEventListener('click', async () => {
   }));
   const openCount = currentRows.filter(r => r.direction).length;
   const livePerPosition = openCount > 0 ? equity / openCount : 0;
+
+  // keep the latest signal + live-price snapshot around for the "real paper portfolio" feature below --
+  // it reuses exactly this data instead of re-fetching, and needs it available outside this handler.
+  lastCurrentRows = currentRows;
+  lastRealtimeBySymbol = realtimeBySymbol;
+  lastCapitalInput = capital;
 
   // non-inflated "last 12 months" window -- same reasoning as the other two tools: the headline total
   // return compounds off the current (already-grown) account, so a few outsized early trades distort
