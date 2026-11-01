@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Cross-Sectional: Beste vs. Schwächste Aktien</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#0f0a1a">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f0a1a;--surface:#1a1229;--panel:#211832;--border:#352750;--accent:#a78bfa;--accent-rgb:167,139,250;--green:#34d399;--red:#f87171;--muted:#9188b0;--text:#e4def7;--bright:#f8f6ff;--warn-text:#fecaca;--amber-link:#c4b5fd;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f6f4fd;--surface:#ffffff;--panel:#ede8fb;--border:#ddd3f7;--accent:#6d28d9;--accent-rgb:109,40,217;--green:#15803d;--red:#b91c1c;--muted:#5f5577;--text:#271f3d;--bright:#120c22;--warn-text:#7a1f1f;--amber-link:#6d28d9;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:980px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(109,40,217,.16), rgba(109,40,217,.04));border:1px solid rgba(167,139,250,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.control-label{font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;}
+.control-group{margin-bottom:16px;}
+input[type=number]{font-family:var(--mono);font-size:12px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);width:140px;}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.opt-btn{font-family:var(--mono);font-size:11px;padding:8px 16px;border-radius:999px;border:1.5px solid var(--border);background:var(--panel);color:var(--text);cursor:pointer;}
+.opt-btn.active{background:var(--accent);border-color:var(--accent);color:#0f0a1a;font-weight:700;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #c4b5fd);color:#0f0a1a;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:10px 0;}
+.bstat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
+.bstat b.pos{color:var(--green);} .bstat b.neg{color:var(--red);}
+.bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.4px;}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
+.compare-col{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px 16px;}
+.compare-col h3{font-family:var(--head);font-size:12px;color:var(--bright);margin-bottom:10px;}
+.compare-col.winner{border-color:var(--green);box-shadow:0 0 0 1px rgba(52,211,153,.3);}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+tbody tr:hover{background:rgba(var(--accent-rgb),.06);}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+.verdict-box{background:linear-gradient(135deg, rgba(167,139,250,.14), rgba(167,139,250,.03));border:1px solid rgba(167,139,250,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11.5px;line-height:1.8;margin-bottom:16px;}
+.verdict-box b{color:var(--bright);}
+.mode-section{margin-bottom:8px;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;} .compare-grid{grid-template-columns:1fr;}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;} input[type=number]{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>🏆 Cross-Sectional: Beste vs. Schwächste Aktien</h1>
+  <div class="subtitle">Keine Aktie gegen einen Index mehr -- Aktien direkt gegeneinander. Einmal der beste gegen den schwächsten im ganzen Dow-30-Pool, einmal nur innerhalb derselben Branche.</div>
+
+  <div class="callout">
+  <b>Zwei verschiedene Wetten, beide live gegeneinander getestet.</b> "Absolut" rankt alle 30 Dow-Aktien nach
+  Trailing-Rendite und longt die stärksten / shortet die schwächsten (oder umgekehrt) -- der klassische
+  Cross-Sectional-Momentum-Factor-Aufbau. "Sektor-intern" macht dasselbe, aber nur INNERHALB derselben
+  Branche (z.B. bester vs. schwächster Tech-Wert) -- das filtert branchenweite Bewegungen raus und isoliert
+  reine Einzelwert-Stärke. Fortsetzung des Tests aus dem <a href="relative-strength-reversion-vs-momentum.html" style="color:var(--accent);">Aktie-vs-SPY-Tool</a>.
+  </div>
+
+  <h2><span class="step-num">1</span>Einstellungen</h2>
+  <div class="panel">
+    <div class="control-group">
+      <div class="control-label">RENDITE-FENSTER FÜRS RANKING (TAGE)</div>
+      <input type="number" id="window-input" value="20" min="5" max="60" step="1">
+    </div>
+    <div class="control-group">
+      <div class="control-label">HALTEDAUER NACH SIGNAL (HANDELSTAGE)</div>
+      <input type="number" id="holding-input" value="10" min="1" max="40" step="1">
+    </div>
+    <div class="control-group" style="margin-bottom:0;">
+      <div class="control-label">GRÖSSE WINNER/LOSER-GRUPPE (ABSOLUT-MODUS, VON 30)</div>
+      <input type="number" id="topk-input" value="6" min="1" max="14" step="1">
+    </div>
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">📡 Live-Daten laden &amp; beide Modi + beide Richtungen backtesten</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <div class="btn-row">
+      <button class="opt-btn active" data-mode="absolute">🏆 Absolut (ganzer Dow-30-Pool)</button>
+      <button class="opt-btn" data-mode="sector">🏢 Sektor-intern</button>
+    </div>
+
+    <div id="absolute-section" class="mode-section">
+      <h2>📊 Aktuelles Ranking: Top/Bottom im ganzen Pool</h2>
+      <div class="methodology" id="absolute-live-note"></div>
+      <div class="table-scroll">
+      <table><thead><tr><th>Aktie</th><th>Kurs</th><th>Trailing-Rendite</th><th>Rang</th><th>Gruppe</th></tr></thead><tbody id="absolute-live-body"></tbody></table>
+      </div>
+      <h2>🥊 Backtest: Mean-Reversion vs. Momentum (Absolut)</h2>
+      <div class="compare-grid">
+        <div class="compare-col" id="abs-reversion-col"><h3>🔄 Mean-Reversion</h3><div id="abs-reversion-stats"></div></div>
+        <div class="compare-col" id="abs-momentum-col"><h3>🚀 Momentum</h3><div id="abs-momentum-stats"></div></div>
+      </div>
+      <div id="abs-verdict"></div>
+      <div class="table-scroll">
+      <table><thead><tr><th>Strategie</th><th>Zeitraum</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite/Trade</th><th>Sharpe (grob)</th></tr></thead><tbody id="abs-period-body"></tbody></table>
+      </div>
+    </div>
+
+    <div id="sector-section" class="mode-section hidden">
+      <h2>📊 Aktuelles Ranking: Bester/Schwächster je Sektor</h2>
+      <div class="methodology" id="sector-live-note"></div>
+      <div class="table-scroll">
+      <table><thead><tr><th>Sektor</th><th>Bester</th><th>Rendite</th><th>Schwächster</th><th>Rendite</th></tr></thead><tbody id="sector-live-body"></tbody></table>
+      </div>
+      <h2>🥊 Backtest: Mean-Reversion vs. Momentum (Sektor-intern)</h2>
+      <div class="compare-grid">
+        <div class="compare-col" id="sec-reversion-col"><h3>🔄 Mean-Reversion</h3><div id="sec-reversion-stats"></div></div>
+        <div class="compare-col" id="sec-momentum-col"><h3>🚀 Momentum</h3><div id="sec-momentum-stats"></div></div>
+      </div>
+      <div id="sec-verdict"></div>
+      <div class="table-scroll">
+      <table><thead><tr><th>Strategie</th><th>Zeitraum</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite/Trade</th><th>Sharpe (grob)</th></tr></thead><tbody id="sec-period-body"></tbody></table>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Sektor-Zuordnung
+  ist eine grobe, eigene Einschätzung (kein offizielles GICS-Mapping). Energie (CVX), Grundstoffe (SHW) und
+  Kommunikation (VZ) haben im Dow-30 nur je ein Mitglied und werden im Sektor-Modus deshalb ausgelassen --
+  ein "bester vs. schwächster" braucht mindestens zwei Kandidaten. Datenquelle: derselbe EOD-Proxy wie der
+  Rest des Archivs, live abgerufen. Verwandte Tools:
+  <a href="relative-strength-reversion-vs-momentum.html">Aktie vs. SPY</a> ·
+  <a href="pairs-trading-scanner.html">Pairs-Trading-Scanner</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const FETCH_DAYS_BACK = 1200;
+const SECTORS = {
+  'Technologie': ['AAPL.US','MSFT.US','CRM.US','CSCO.US','IBM.US','NVDA.US'],
+  'Gesundheit': ['AMGN.US','JNJ.US','MRK.US','UNH.US'],
+  'Finanzen': ['AXP.US','GS.US','JPM.US','TRV.US','V.US'],
+  'Konsum (zyklisch)': ['HD.US','MCD.US','NKE.US','DIS.US','AMZN.US'],
+  'Konsum (Basis)': ['KO.US','PG.US','WMT.US'],
+  'Industrie': ['BA.US','CAT.US','HON.US','MMM.US'],
+  'Energie': ['CVX.US'],
+  'Grundstoffe': ['SHW.US'],
+  'Kommunikation': ['VZ.US'],
+};
+const ALL_SYMBOLS = Object.values(SECTORS).flat();
+const sectorOf = {};
+for (const [sec, syms] of Object.entries(SECTORS)) for (const s of syms) sectorOf[s] = sec;
+
+async function fetchHistorical(symbol) {
+  const fromDate = new Date(Date.now() - FETCH_DAYS_BACK * 86400000).toISOString().slice(0, 10);
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromDate);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+async function fetchRealtime(symbol) {
+  const res = await fetch(PROXY + '/eod/realtime/' + encodeURIComponent(symbol));
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  return res.json();
+}
+
+function fmtPct(v, dp) { dp = dp == null ? 2 : dp; return (v >= 0 ? '+' : '') + v.toFixed(dp) + '%'; }
+function fmtNum(v, dp) { dp = dp == null ? 2 : dp; return v == null ? '—' : v.toFixed(dp); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+function stripSuffix(sym) { return sym.replace('.US', ''); }
+
+function statsOf(trades, holdingDays) {
+  if (!trades.length) return { n: 0, winRate: 0, avgRet: 0, sharpe: null };
+  const n = trades.length;
+  const winRate = trades.filter(t => t.ret > 0).length / n * 100;
+  const avgRet = trades.reduce((a,t)=>a+t.ret,0) / n;
+  const variance = trades.reduce((a,t)=>a+(t.ret-avgRet)**2,0) / n;
+  const std = Math.sqrt(variance);
+  const sharpe = std > 0 ? (avgRet/std) * Math.sqrt(252/holdingDays) : null;
+  return { n, winRate, avgRet, sharpe };
+}
+function renderStatsBlock(s) {
+  return '<div class="stat-grid">' +
+    '<div class="bstat"><b>' + s.n.toLocaleString('de-DE') + '</b><span>TRADES</span></div>' +
+    '<div class="bstat"><b>' + fmtNum(s.winRate,0) + '%</b><span>WIN-RATE</span></div>' +
+    '<div class="bstat"><b class="' + (s.avgRet>=0?'pos':'neg') + '">' + fmtPct(s.avgRet*100,3) + '</b><span>Ø RENDITE/TRADE</span></div>' +
+    '<div class="bstat"><b class="' + (s.sharpe!=null && s.sharpe>=0?'pos':'neg') + '">' + (s.sharpe!=null?fmtNum(s.sharpe,2):'—') + '</b><span>SHARPE (GROB)</span></div>' +
+  '</div>';
+}
+function renderVerdict(rStats, mStats, rConsistent, mConsistent, contextLabel) {
+  if (rStats.avgRet > 0 && mStats.avgRet <= 0 && rConsistent) {
+    return '<div class="verdict-box"><b>Mean-Reversion zeigt hier den Edge</b> (' + fmtPct(rStats.avgRet*100,3) + ' Ø/Trade, robust in beiden Zeithälften) -- ' + contextLabel + '.</div>';
+  } else if (mStats.avgRet > 0 && rStats.avgRet <= 0 && mConsistent) {
+    return '<div class="verdict-box"><b>Momentum zeigt hier den Edge</b> (' + fmtPct(mStats.avgRet*100,3) + ' Ø/Trade, robust in beiden Zeithälften) -- ' + contextLabel + '.</div>';
+  } else if (rStats.avgRet <= 0 && mStats.avgRet <= 0) {
+    return '<div class="verdict-box"><b>Weder Mean-Reversion noch Momentum zeigen hier einen echten Edge.</b></div>';
+  }
+  return '<div class="verdict-box"><b>Gemischtes Bild</b> -- kein in beiden Zeithälften konsistenter Edge in eine Richtung.</div>';
+}
+function periodSplit(trades, midDate) {
+  return { older: trades.filter(t => t.date < midDate), newer: trades.filter(t => t.date >= midDate) };
+}
+function renderPeriodRows(label, split, holdingDays, midDate) {
+  const o = statsOf(split.older, holdingDays), n = statsOf(split.newer, holdingDays);
+  return [
+    '<tr><td>' + label + '</td><td>Ältere Hälfte (bis ' + midDate + ')</td><td class="num">' + o.n + '</td><td class="num">' + fmtNum(o.winRate,0) + '%</td><td class="num ' + (o.avgRet>=0?'pos':'neg') + '">' + fmtPct(o.avgRet*100,3) + '</td><td class="num">' + (o.sharpe!=null?fmtNum(o.sharpe,2):'—') + '</td></tr>',
+    '<tr><td>' + label + '</td><td>Neuere Hälfte (ab ' + midDate + ')</td><td class="num">' + n.n + '</td><td class="num">' + fmtNum(n.winRate,0) + '%</td><td class="num ' + (n.avgRet>=0?'pos':'neg') + '">' + fmtPct(n.avgRet*100,3) + '</td><td class="num">' + (n.sharpe!=null?fmtNum(n.sharpe,2):'—') + '</td></tr>',
+  ].join('');
+}
+function isConsistent(split, holdingDays) {
+  const o = statsOf(split.older, holdingDays), n = statsOf(split.newer, holdingDays);
+  return Math.sign(o.avgRet) === Math.sign(n.avgRet) && o.avgRet !== 0;
+}
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f6f4fd' : '#0f0a1a');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+document.querySelectorAll('[data-mode]').forEach(btn => btn.addEventListener('click', () => {
+  document.querySelectorAll('[data-mode]').forEach(b => b.classList.toggle('active', b === btn));
+  document.getElementById('absolute-section').classList.toggle('hidden', btn.dataset.mode !== 'absolute');
+  document.getElementById('sector-section').classList.toggle('hidden', btn.dataset.mode !== 'sector');
+}));
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+scanBtn.addEventListener('click', async () => {
+  const windowDays = Math.max(5, Math.min(60, Number(document.getElementById('window-input').value) || 20));
+  const holdingDays = Math.max(1, Math.min(40, Number(document.getElementById('holding-input').value) || 10));
+  const topK = Math.max(1, Math.min(14, Number(document.getElementById('topk-input').value) || 6));
+
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + ALL_SYMBOLS.length + ' Dow-Aktien...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    const seriesBySymbol = {};
+    const failed = [];
+    await Promise.all(ALL_SYMBOLS.map(async sym => {
+      try { seriesBySymbol[sym] = await fetchHistorical(sym); }
+      catch (e) { failed.push(sym + ' (' + e.message + ')'); }
+    }));
+    const usableSymbols = Object.keys(seriesBySymbol);
+    if (usableSymbols.length < 6) throw new Error('Zu wenige Symbole verwertbar.');
+
+    statusEl.textContent = 'Berechne Trailing-Renditen & Ranking...';
+    await new Promise(r => setTimeout(r, 10));
+
+    // trailing-return series per symbol, keyed by date
+    const retBySymbol = {}; // sym -> Map(date -> { ret, close, idx })
+    for (const sym of usableSymbols) {
+      const series = seriesBySymbol[sym];
+      const m = new Map();
+      for (let i = windowDays; i < series.length; i++) {
+        const ret = (series[i].close - series[i - windowDays].close) / series[i - windowDays].close;
+        m.set(series[i].date, { ret, close: series[i].close, idx: i });
+      }
+      retBySymbol[sym] = m;
+    }
+    // common dates where at least 6 symbols have a valid trailing return
+    const dateCounts = new Map();
+    for (const sym of usableSymbols) for (const date of retBySymbol[sym].keys()) dateCounts.set(date, (dateCounts.get(date)||0)+1);
+    const commonDates = [...dateCounts.entries()].filter(([,c]) => c >= Math.min(6, usableSymbols.length)).map(([d]) => d).sort();
+
+    // forward-return lookup: given a symbol and a date, the close `holdingDays` trading bars later
+    function forwardReturn(sym, date) {
+      const series = seriesBySymbol[sym];
+      const info = retBySymbol[sym].get(date);
+      if (!info) return null;
+      const exitIdx = info.idx + holdingDays;
+      if (exitIdx >= series.length) return null;
+      return (series[exitIdx].close - info.close) / info.close;
+    }
+
+    // ---- ABSOLUTE: rank whole pool, top-K / bottom-K ----
+    const absTradesRev = [], absTradesMom = [];
+    for (const date of commonDates) {
+      const ranked = usableSymbols.filter(s => retBySymbol[s].has(date)).map(s => ({ sym: s, ret: retBySymbol[s].get(date).ret })).sort((a,b) => b.ret - a.ret);
+      if (ranked.length < 2) continue;
+      const k = Math.min(topK, Math.floor(ranked.length / 2));
+      const winners = ranked.slice(0, k), losers = ranked.slice(-k);
+      for (const w of winners) {
+        const fwd = forwardReturn(w.sym, date);
+        if (fwd == null) continue;
+        absTradesRev.push({ sym: w.sym, date, ret: -fwd }); // reversion: short the winner
+        absTradesMom.push({ sym: w.sym, date, ret: fwd });  // momentum: long the winner
+      }
+      for (const l of losers) {
+        const fwd = forwardReturn(l.sym, date);
+        if (fwd == null) continue;
+        absTradesRev.push({ sym: l.sym, date, ret: fwd });   // reversion: long the loser
+        absTradesMom.push({ sym: l.sym, date, ret: -fwd });  // momentum: short the loser
+      }
+    }
+
+    // ---- SECTOR: best vs worst within each sector (>=2 members) ----
+    const multiMemberSectors = Object.entries(SECTORS).filter(([,syms]) => syms.filter(s => usableSymbols.includes(s)).length >= 2);
+    const secTradesRev = [], secTradesMom = [];
+    for (const date of commonDates) {
+      for (const [sec, syms] of multiMemberSectors) {
+        const present = syms.filter(s => usableSymbols.includes(s) && retBySymbol[s].has(date)).map(s => ({ sym: s, ret: retBySymbol[s].get(date).ret }));
+        if (present.length < 2) continue;
+        present.sort((a,b) => b.ret - a.ret);
+        const best = present[0], worst = present[present.length - 1];
+        const fwdBest = forwardReturn(best.sym, date), fwdWorst = forwardReturn(worst.sym, date);
+        if (fwdBest == null || fwdWorst == null) continue;
+        secTradesRev.push({ sym: best.sym, date, ret: -fwdBest }, { sym: worst.sym, date, ret: fwdWorst });
+        secTradesMom.push({ sym: best.sym, date, ret: fwdBest }, { sym: worst.sym, date, ret: -fwdWorst });
+      }
+    }
+
+    if (!absTradesRev.length && !secTradesRev.length) throw new Error('Keine auswertbaren Signale -- Fenster/Haltedauer prüfen.');
+
+    // ---- live current ranking ----
+    const lastDate = commonDates[commonDates.length - 1];
+    const liveRanked = usableSymbols.filter(s => retBySymbol[s].has(lastDate)).map(s => ({ sym: s, ret: retBySymbol[s].get(lastDate).ret })).sort((a,b) => b.ret - a.ret);
+    const kLive = Math.min(topK, Math.floor(liveRanked.length / 2));
+    const realtimeBySymbol = {};
+    await Promise.all(liveRanked.map(async r => { try { realtimeBySymbol[r.sym] = await fetchRealtime(r.sym); } catch (e) {} }));
+    document.getElementById('absolute-live-note').textContent = 'Stand ' + lastDate + ' (letztes Datum mit vollständigem Ranking) · Top ' + kLive + ' = Gewinner-Gruppe, Bottom ' + kLive + ' = Verlierer-Gruppe.';
+    document.getElementById('absolute-live-body').innerHTML = liveRanked.map((r, idx) => {
+      const rt = realtimeBySymbol[r.sym];
+      const close = rt && Number.isFinite(rt.close) ? rt.close : null;
+      const group = idx < kLive ? '<span class="badge long">GEWINNER</span>' : idx >= liveRanked.length - kLive ? '<span class="badge short">VERLIERER</span>' : '<span style="color:var(--muted);">—</span>';
+      return '<tr><td>' + esc(stripSuffix(r.sym)) + '</td><td class="num">' + (close!=null?close.toFixed(2):'—') + '</td><td class="num ' + (r.ret>=0?'pos':'neg') + '">' + fmtPct(r.ret*100) + '</td><td class="num">' + (idx+1) + '/' + liveRanked.length + '</td><td>' + group + '</td></tr>';
+    }).join('');
+
+    document.getElementById('sector-live-note').textContent = multiMemberSectors.length + ' von ' + Object.keys(SECTORS).length + ' Sektoren mit ≥2 auswertbaren Mitgliedern, Stand ' + lastDate + '.';
+    document.getElementById('sector-live-body').innerHTML = multiMemberSectors.map(([sec, syms]) => {
+      const present = syms.filter(s => usableSymbols.includes(s) && retBySymbol[s].has(lastDate)).map(s => ({ sym: s, ret: retBySymbol[s].get(lastDate).ret }));
+      if (present.length < 2) return '';
+      present.sort((a,b) => b.ret - a.ret);
+      const best = present[0], worst = present[present.length - 1];
+      return '<tr><td>' + esc(sec) + '</td><td>' + esc(stripSuffix(best.sym)) + '</td><td class="num pos">' + fmtPct(best.ret*100) + '</td><td>' + esc(stripSuffix(worst.sym)) + '</td><td class="num neg">' + fmtPct(worst.ret*100) + '</td></tr>';
+    }).join('');
+
+    // ---- render absolute backtest ----
+    const absRStats = statsOf(absTradesRev, holdingDays), absMStats = statsOf(absTradesMom, holdingDays);
+    document.getElementById('abs-reversion-stats').innerHTML = renderStatsBlock(absRStats);
+    document.getElementById('abs-momentum-stats').innerHTML = renderStatsBlock(absMStats);
+    document.getElementById('abs-reversion-col').classList.toggle('winner', absRStats.avgRet > absMStats.avgRet && absRStats.avgRet > 0);
+    document.getElementById('abs-momentum-col').classList.toggle('winner', absMStats.avgRet > absRStats.avgRet && absMStats.avgRet > 0);
+
+    const absMid = commonDates[Math.floor(commonDates.length / 2)];
+    const absRSplit = periodSplit(absTradesRev, absMid), absMSplit = periodSplit(absTradesMom, absMid);
+    document.getElementById('abs-period-body').innerHTML = renderPeriodRows('Mean-Reversion', absRSplit, holdingDays, absMid) + renderPeriodRows('Momentum', absMSplit, holdingDays, absMid);
+    document.getElementById('abs-verdict').innerHTML = renderVerdict(absRStats, absMStats, isConsistent(absRSplit, holdingDays), isConsistent(absMSplit, holdingDays), 'ganzer Dow-30-Pool, Top/Bottom ' + topK);
+
+    // ---- render sector backtest ----
+    const secRStats = statsOf(secTradesRev, holdingDays), secMStats = statsOf(secTradesMom, holdingDays);
+    document.getElementById('sec-reversion-stats').innerHTML = renderStatsBlock(secRStats);
+    document.getElementById('sec-momentum-stats').innerHTML = renderStatsBlock(secMStats);
+    document.getElementById('sec-reversion-col').classList.toggle('winner', secRStats.avgRet > secMStats.avgRet && secRStats.avgRet > 0);
+    document.getElementById('sec-momentum-col').classList.toggle('winner', secMStats.avgRet > secRStats.avgRet && secMStats.avgRet > 0);
+
+    const secMid = commonDates[Math.floor(commonDates.length / 2)];
+    const secRSplit = periodSplit(secTradesRev, secMid), secMSplit = periodSplit(secTradesMom, secMid);
+    document.getElementById('sec-period-body').innerHTML = renderPeriodRows('Mean-Reversion', secRSplit, holdingDays, secMid) + renderPeriodRows('Momentum', secMSplit, holdingDays, secMid);
+    document.getElementById('sec-verdict').innerHTML = renderVerdict(secRStats, secMStats, isConsistent(secRSplit, holdingDays), isConsistent(secMSplit, holdingDays), 'bester vs. schwächster Wert je Sektor');
+
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.' +
+      (failed.length ? ' Nicht abrufbar: ' + failed.join(', ') : '');
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
