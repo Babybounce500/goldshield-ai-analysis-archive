@@ -213,19 +213,19 @@ const scanBtn = document.getElementById('scan-btn');
 
 async function scanGroup(group) {
   const fromDate = new Date(Date.now() - SCAN_DAYS_BACK * 86400000).toISOString().slice(0, 10);
-  const rows = [];
+  const rows = [], failed = [];
   await Promise.all(group.symbols.map(async sym => {
     try {
       const series = await fetchHistorical(sym, fromDate);
       const verdicts = computeSeriesVerdicts(series);
       const last = verdicts[verdicts.length - 1];
-      if (!last.s100ready) return;
+      if (!last.s100ready) { failed.push(sym + ' (zu wenig Historie)'); return; }
       let liveClose = last.close;
       try { const rt = await fetchRealtime(sym); if (rt && Number.isFinite(rt.close)) liveClose = rt.close; } catch (e) {}
       rows.push({ sym: sym.replace(group.suffix,''), direction: last.cls === 'bullish' ? 'LONG' : 'SHORT', close: liveClose, dp: group.dp });
-    } catch (e) { /* skip unreachable symbol */ }
+    } catch (e) { failed.push(sym + ' (' + e.message + ')'); }
   }));
-  return rows;
+  return { rows, failed };
 }
 
 scanBtn.addEventListener('click', async () => {
@@ -243,7 +243,12 @@ scanBtn.addEventListener('click', async () => {
 
   try {
     const perMarket = {};
-    await Promise.all(activeMarkets.map(async ([name, group]) => { perMarket[name] = await scanGroup(group); }));
+    const allFailed = [];
+    await Promise.all(activeMarkets.map(async ([name, group]) => {
+      const { rows, failed } = await scanGroup(group);
+      perMarket[name] = rows;
+      for (const f of failed) allFailed.push(name + ': ' + f);
+    }));
 
     const capitalPerMarket = capital / activeMarkets.length;
     let totalAllocated = 0;
@@ -264,10 +269,11 @@ scanBtn.addEventListener('click', async () => {
     ).join('');
 
     const strandedMarkets = activeMarkets.filter(([name]) => perMarket[name].length === 0).map(([name]) => name);
-    document.getElementById('concentration-warning').innerHTML =
-      (activeMarkets.length > 1 && strandedMarkets.length)
+    const failedNote = allFailed.length ? '<div class="warn-box"><b>Nicht abrufbar (' + allFailed.length + '):</b> ' + allFailed.map(esc).join(', ') + ' -- diese Symbole zählen nirgends mit, auch nicht in den Signal-Zählern oben.</div>' : '';
+    const strandedNote = (activeMarkets.length > 1 && strandedMarkets.length)
       ? '<div class="warn-box"><b>Hinweis:</b> ' + strandedMarkets.map(esc).join(', ') + ' hat/haben aktuell keine offenen Signale -- das Kapital, das diesem Markt zugeteilt wäre, bleibt in der Rechnung ungenutzt statt automatisch auf die anderen Märkte umverteilt zu werden.</div>'
       : '';
+    document.getElementById('concentration-warning').innerHTML = failedNote + strandedNote;
 
     sizingRows.sort((a,b) => a.market.localeCompare(b.market) || a.sym.localeCompare(b.sym));
     document.getElementById('sizing-body').innerHTML = sizingRows.length
