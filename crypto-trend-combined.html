@@ -396,7 +396,8 @@ async function renderPaperPortfolio() {
     let pnlPct = null, pnlAbs = null, stoppedOut = false;
     if (livePrice != null) {
       pnlPct = p.direction === 'LONG' ? (livePrice - p.entryPrice) / p.entryPrice : (p.entryPrice - livePrice) / p.entryPrice;
-      stoppedOut = pnlPct <= -0.15;
+      const paperStopPct = paper.stopPct != null ? paper.stopPct : 0.15; // positions saved before this field existed default to the then-only option, -15%
+      stoppedOut = pnlPct <= -paperStopPct;
       pnlAbs = p.positionSize * pnlPct;
       totalValue += p.positionSize + pnlAbs;
       totalPnl += pnlAbs;
@@ -407,15 +408,17 @@ async function renderPaperPortfolio() {
   });
 
   const totalPnlPct = paper.startCapital > 0 ? totalPnl / paper.startCapital * 100 : 0;
+  const stopPctUsed = paper.stopPct != null ? paper.stopPct : 0.15;
   document.getElementById('paper-stats').innerHTML =
     '<div class="bstat"><b>' + fmtEur(paper.startCapital) + '</b><span>STARTKAPITAL (' + esc(paper.startDate) + ')</span></div>' +
     '<div class="bstat"><b>' + fmtEur(totalValue) + '</b><span>AKTUELLER WERT</span></div>' +
     '<div class="bstat"><b class="' + (totalPnl>=0?'pos':'neg') + '">' + fmtEurSigned(totalPnl) + '</b><span>UNREALISIERT GESAMT</span></div>' +
-    '<div class="bstat"><b class="' + (totalPnlPct>=0?'pos':'neg') + '">' + fmtPct(totalPnlPct,2) + '</b><span>UNREALISIERT %</span></div>';
+    '<div class="bstat"><b class="' + (totalPnlPct>=0?'pos':'neg') + '">' + fmtPct(totalPnlPct,2) + '</b><span>UNREALISIERT %</span></div>' +
+    '<div class="bstat"><b>-' + (stopPctUsed*100).toFixed(0) + '%</b><span>STOP (BEI EINSTIEG GEWÄHLT)</span></div>';
 
   const anyStopped = rows.some(r => r.stoppedOut);
   document.getElementById('paper-warnings').innerHTML = anyStopped
-    ? '<div class="warn-box"><b>Mindestens eine Position hat den -15%-Stop erreicht oder gerissen.</b> In echt wärst du hier schon ausgestiegen -- dieses Tool schließt nichts automatisch, es zeigt nur an. Erwäge, manuell zu schließen und das Portfolio neu zu starten.</div>'
+    ? '<div class="warn-box"><b>Mindestens eine Position hat den -' + (stopPctUsed*100).toFixed(0) + '%-Stop erreicht oder gerissen.</b> In echt wärst du hier schon ausgestiegen -- dieses Tool schließt nichts automatisch, es zeigt nur an. Erwäge, manuell zu schließen und das Portfolio neu zu starten.</div>'
     : '';
 
   document.getElementById('paper-body').innerHTML = rows.map(r => {
@@ -448,7 +451,7 @@ document.getElementById('paper-start-btn').addEventListener('click', async () =>
     try { const rt = await fetchRealtime(r.sym); if (rt && Number.isFinite(rt.close)) entryPrice = rt.close; } catch (e) {}
     return { sym: r.sym, direction: r.direction, entryPrice, positionSize, entryDate: todayStr };
   }));
-  savePaper({ startDate: todayStr, startCapital: lastCapitalInput, positions: entries });
+  savePaper({ startDate: todayStr, startCapital: lastCapitalInput, stopPct: state.stopPct, positions: entries });
   btn.disabled = false; btn.textContent = '💼 Live-Portfolio jetzt starten (mit obigem Startkapital, zu Live-Preisen)';
   await renderPaperPortfolio();
 });
@@ -599,7 +602,7 @@ computeBtn.addEventListener('click', async () => {
     ? '<div class="warn-box"><b>Nicht separat validiert:</b> ' + nonValidated.map(esc).join(', ') + ' -- der Report hat nur die 10 Standard-Coins rückgetestet. Zahlen für diese Symbole sind real berechnet, aber ohne dieselbe Absicherung zu lesen.</div>'
     : '';
 
-  document.getElementById('current-note').innerHTML = 'Score aus den letzten verfügbaren Tagesdaten. <b>Bullish = aktive Long-Position, Bearish = aktive Short-Position</b> -- Einstieg jeweils am nächsten Handelstag nach dem Flip, -15%-Stop auf beiden Seiten. $ -Beträge nutzen ' + fmtEur(livePerPosition) + ' pro offener Position (' + openCount + ' offen, 1/N-Slot wie im Report).';
+  document.getElementById('current-note').innerHTML = 'Score aus den letzten verfügbaren Tagesdaten. <b>Bullish = aktive Long-Position, Bearish = aktive Short-Position</b> -- Einstieg jeweils am nächsten Handelstag nach dem Flip, -' + (stopPct*100).toFixed(0) + '%-Stop auf beiden Seiten. $ -Beträge nutzen ' + fmtEur(livePerPosition) + ' pro offener Position (' + openCount + ' offen, 1/N-Slot wie im Report).';
 
   const tbody = document.getElementById('current-body');
   tbody.innerHTML = currentRows.map(r => {
