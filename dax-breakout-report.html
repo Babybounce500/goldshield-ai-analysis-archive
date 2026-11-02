@@ -147,7 +147,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   <div class="tables" style="margin-top:20px;">
     <div>
       <h3>Top 10 nach Gesamt-Rendite</h3>
-      <div class="table-scroll"><table><thead><tr><th>Symbol</th><th>Rendite</th><th>Trades</th><th>Win-Rate</th><th>Sharpe</th><th>Max DD</th></tr></thead><tbody><tr>
+      <div class="table-scroll"><table><thead><tr><th>Symbol</th><th class="num">Rendite</th><th class="num">Trades</th><th class="num">Win-Rate</th><th class="num">Sharpe</th><th class="num">Max DD</th></tr></thead><tbody><tr>
     <td>RHM.XETRA</td>
     <td class="num pos">+54.5%</td>
     <td class="num">24</td>
@@ -221,7 +221,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
     </div>
     <div>
       <h3>Bottom 10 nach Gesamt-Rendite</h3>
-      <div class="table-scroll"><table><thead><tr><th>Symbol</th><th>Rendite</th><th>Trades</th><th>Win-Rate</th><th>Sharpe</th><th>Max DD</th></tr></thead><tbody><tr>
+      <div class="table-scroll"><table><thead><tr><th>Symbol</th><th class="num">Rendite</th><th class="num">Trades</th><th class="num">Win-Rate</th><th class="num">Sharpe</th><th class="num">Max DD</th></tr></thead><tbody><tr>
     <td>ENR.XETRA</td>
     <td class="num neg">-40.5%</td>
     <td class="num">27</td>
@@ -301,7 +301,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   1:1 übertragen auf die anderen Asset-Klassen aus dem GoldShield-Archiv -- gleiche Daten, kein zusätzlicher
   Fetch nötig, gleiches Robustheits-Verfahren (ältere/neuere Hälfte unabhängig getestet).
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th>Symbole</th><th>Ø Rendite</th><th>Sharpe (gesamt)</th><th>Sharpe (älter)</th><th>Sharpe (neuer)</th><th>Robustheit</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th class="num">Symbole</th><th class="num">Ø Rendite</th><th class="num">Sharpe (gesamt)</th><th class="num">Sharpe (älter)</th><th class="num">Sharpe (neuer)</th><th>Robustheit</th></tr></thead><tbody>
     <tr>
         <td>DAX</td><td class="num">37</td>
         <td class="num pos">+4.5%</td>
@@ -370,7 +370,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin-bottom:8px;">Baseline (bis Freitag halten) vs. Early-Exit (bei erstem Kanal-Rückfall schließen)</h3>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Wochenrendite</th><th>Sharpe</th><th>Win-Rate</th><th>n</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Ø Wochenrendite</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">n</th></tr></thead><tbody>
     <tr class="best-row"><td>Baseline (bis Freitag halten)</td><td class="num pos">+0.202%</td><td class="num pos">0.37</td><td class="num">52.0%</td><td class="num">844</td></tr>
     <tr><td>Early-Exit (bei 1. Kanal-Rückfall schließen)</td><td class="num pos">+0.059%</td><td class="num pos">0.12</td><td class="num">41.0%</td><td class="num">844</td></tr>
   </tbody></table></div>
@@ -395,7 +395,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Stop-Order mit den verfügbaren Tagesschlusskurs-Daten -- echte untertägige Füllung am exakten
   Kanal-Niveau ist ohne Tick-/Intraday-Daten nicht simulierbar)?
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th>Variante</th><th>Trigger-Rate</th><th>Ø Rendite</th><th>Sharpe</th><th>Win-Rate</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th>Variante</th><th class="num">Trigger-Rate</th><th class="num">Ø Rendite</th><th class="num">Sharpe</th><th class="num">Win-Rate</th></tr></thead><tbody>
     <tr class="best-row"><td>DAX</td><td>Montag-Close (Baseline)</td><td class="num">47.6%</td><td class="num pos">+0.202%</td><td class="num">0.37</td><td class="num">52.0%</td></tr>
     <tr><td>DAX</td><td>Jeder Tag (Stop-Order-Näherung)</td><td class="num">82.3%</td><td class="num pos">+0.160%</td><td class="num">0.33</td><td class="num">47.5%</td></tr>
     <tr class="best-row"><td>Aktien (525)</td><td>Montag-Close (Baseline)</td><td class="num">48.2%</td><td class="num pos">+0.311%</td><td class="num">0.44</td><td class="num">52.3%</td></tr>
@@ -433,7 +433,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   zu den Kopfzahlen oben, die auf dem ursprünglichen, kürzeren Cache-Fenster basieren) -- beide Varianten
   auf exakt demselben Datensatz gerechnet, damit der Vergleich fair ist.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Ø Rendite/Symbol</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Trades</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr class="best-row"><td>Montag-Close (Baseline)</td><td class="num pos">+28.45%</td><td class="num">0.228</td><td class="num">51.0%</td><td class="num">5802</td><td class="num pos">+29.53%</td><td class="num neg">-15.80%</td></tr>
     <tr><td>Freitag-Extrempunkt (neu)</td><td class="num pos">+25.51%</td><td class="num">0.125</td><td class="num">49.9%</td><td class="num">8846</td><td class="num pos">+16.15%</td><td class="num neg">-26.22%</td></tr>
   </tbody></table></div>
@@ -474,7 +474,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   nutzt nur die 3 Fridays strikt vor Woche i), auf demselben 2020-2026-Datensatz wie die
   <a href="#friday-extreme">Freitag-Extrempunkt</a>-Variante oben gerechnet.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Ø Rendite/Symbol</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Trades</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr class="best-row"><td>Donchian-Breakout (Baseline)</td><td class="num pos">+28.45%</td><td class="num">0.228</td><td class="num">51.0%</td><td class="num">5802</td><td class="num pos">+29.53%</td><td class="num neg">-15.80%</td></tr>
     <tr><td>Midpoint-Trendfolge (neu)</td><td class="num neg">-2.77%</td><td class="num">0.030</td><td class="num">44.4%</td><td class="num">11849</td><td class="num neg">-6.83%</td><td class="num neg">-30.72%</td></tr>
   </tbody></table></div>
@@ -511,7 +511,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   identischen Einstiegen (gleiche 5802 Trades) und demselben
   2020-2026-Datensatz gerechnet.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Vorzeitig gestoppt</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Ø Rendite/Symbol</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Vorzeitig gestoppt</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr><td>Kein Stop (Baseline)</td><td class="num pos">+28.45%</td><td class="num">0.228</td><td class="num">51.0%</td><td class="num">--</td><td class="num pos">+29.53%</td><td class="num neg">-15.80%</td></tr>
     <tr class="best-row"><td>Fixer -4%-Stop</td><td class="num pos">+91.53%</td><td class="num">0.558</td><td class="num">50.1%</td><td class="num">15.9%</td><td class="num pos">+88.65%</td><td class="num neg">-5.28%</td></tr>
     <tr><td>Donchian-Mittellinie (neu)</td><td class="num pos">+20.06%</td><td class="num">0.180</td><td class="num">48.9%</td><td class="num">16.2%</td><td class="num pos">+20.43%</td><td class="num neg">-17.22%</td></tr>
@@ -548,7 +548,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   echten Tages-Hoch/Tief-Werte. Sharpe hier mit √252 (täglich) annualisiert statt √52 (wöchentlich) --
   <b>nicht direkt mit den Sharpe-Werten oben vergleichbar</b>, Gesamtrendite und Max-Drawdown aber schon.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>System</th><th>Ø Rendite/Symbol</th><th>Sharpe (täglich)</th><th>Win-Rate</th><th>Trades</th><th>Gestoppt (2N)</th><th>Ø Rendite/Trade</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>System</th><th class="num">Ø Rendite/Symbol</th><th class="num">Sharpe (täglich)</th><th class="num">Win-Rate</th><th class="num">Trades</th><th class="num">Gestoppt (2N)</th><th class="num">Ø Rendite/Trade</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr><td>System 1 (20/10)</td><td class="num neg">-2.26%</td><td class="num">-0.020</td><td class="num">34.2%</td><td class="num">2061</td><td class="num">37.3%</td><td class="num">+0.00%</td><td class="num neg">-4.67%</td><td class="num neg">-25.29%</td></tr>
     <tr><td>System 2 (55/20)</td><td class="num neg">-0.41%</td><td class="num">-0.139</td><td class="num">29.0%</td><td class="num">990</td><td class="num">51.1%</td><td class="num">-0.23%</td><td class="num neg">-4.02%</td><td class="num neg">-20.20%</td></tr>
   </tbody></table></div>
@@ -591,7 +591,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Einstieg/Ausstieg wie die Baseline, zusätzlich gefiltert auf Montag-Volumen relativ zum 20-Tage-Ø-Volumen
   davor (lookahead-frei).
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Ø Rendite/Symbol</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Trades</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr><td>Kein Volumen-Filter (Baseline)</td><td class="num pos">+28.45%</td><td class="num">0.228</td><td class="num">51.0%</td><td class="num">5802</td><td class="num pos">+29.53%</td><td class="num neg">-15.80%</td></tr>
     <tr><td>Volumen ≥ 1,0x Ø(20 Tage)</td><td class="num pos">+22.74%</td><td class="num">0.238</td><td class="num">51.1%</td><td class="num">2043</td><td class="num pos">+24.37%</td><td class="num neg">-9.06%</td></tr>
     <tr><td>Volumen ≥ 1,5x Ø(20 Tage)</td><td class="num pos">+8.45%</td><td class="num">0.163</td><td class="num">50.6%</td><td class="num">662</td><td class="num pos">+9.96%</td><td class="num neg">-11.33%</td></tr>
@@ -628,7 +628,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   am Freitag geschlossen. Beide Varianten auf Tagesauflösung (√252-Sharpe) neu gerechnet, damit sie
   direkt vergleichbar sind.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Mehrwöchig</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Ø Rendite/Symbol</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Trades</th><th class="num">Mehrwöchig</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr><td>Fixer Freitag-Exit (Baseline)</td><td class="num pos">+20.55%</td><td class="num">0.187</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">0%</td><td class="num pos">+20.84%</td><td class="num neg">-16.16%</td></tr>
     <tr class="best-row"><td>Trailing-Stop für Gewinner (neu)</td><td class="num pos">+37.41%</td><td class="num">0.275</td><td class="num">49.0%</td><td class="num">4923</td><td class="num">15.1%</td><td class="num pos">+37.40%</td><td class="num neg">-11.86%</td></tr>
   </tbody></table></div>
@@ -665,7 +665,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   übernommen, nie eigenständig geprüft. Sweep über Trigger {2,3,4,5,6}% × Trail {3,4,5,6}% (20
   Kombinationen), Sharpe pro Zelle:
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Trigger ↓ / Trail →</th><th>3%</th><th>4%</th><th>5%</th><th>6%</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Trigger ↓ / Trail →</th><th class="num">3%</th><th class="num">4%</th><th class="num">5%</th><th class="num">6%</th></tr></thead><tbody>
     <tr><td>+2%</td><td class="num">0.199</td><td class="num">0.201</td><td class="num">0.184</td><td class="num">0.167</td></tr><tr><td>+3%</td><td class="num">0.224</td><td class="num">0.235</td><td class="num">0.248</td><td class="num">0.243</td></tr><tr class="best-row"><td>+4%</td><td class="num pos">0.249</td><td class="num pos">0.275</td><td class="num pos">0.281</td><td class="num pos">0.297</td></tr><tr><td>+5%</td><td class="num">0.243</td><td class="num">0.241</td><td class="num">0.254</td><td class="num">0.246</td></tr><tr><td>+6%</td><td class="num">0.239</td><td class="num">0.241</td><td class="num">0.263</td><td class="num">0.252</td></tr>
   </tbody></table></div>
   <h4 style="font-size:11px;margin:16px 0 8px;color:var(--muted);">Robustheit für Original vs. die beiden Top-Kombinationen</h4>
@@ -684,7 +684,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin:24px 0 8px;">Stresstest 2: trägt der Fund nur ein paar Short-Ausreißer (COVID-Crash)?</h3>
-  <div class="table-scroll"><table><thead><tr><th>Richtung</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite/Trade</th><th>Trades ≥+10%</th><th>Trades ≥+20%</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Richtung</th><th class="num">Trades</th><th class="num">Win-Rate</th><th class="num">Ø Rendite/Trade</th><th class="num">Trades ≥+10%</th><th class="num">Trades ≥+20%</th></tr></thead><tbody>
     <tr><td>LONG</td><td class="num">2754</td><td class="num">49.9%</td><td class="num pos">+0.277%</td><td class="num">107</td><td class="num">22</td></tr>
     <tr><td>SHORT</td><td class="num">2169</td><td class="num">47.9%</td><td class="num pos">+0.312%</td><td class="num">94</td><td class="num">28</td></tr>
   </tbody></table></div>
@@ -704,7 +704,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   auftritt, wird eine 2. Einheit zum aktuellen Kurs hinzugefügt (max. 2 Einheiten, jede mit eigenem
   Stop/Trailing, Symbol-Rendite = Durchschnitt der offenen Einheiten).
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Pyramiding-Zukäufe</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Trades</th><th class="num">Pyramiding-Zukäufe</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr><td>Nur Trailing (Baseline)</td><td class="num">0.275</td><td class="num">49.0%</td><td class="num">4923</td><td class="num">0</td><td class="num pos">+37.40%</td><td class="num neg">-11.86%</td></tr>
     <tr><td>Trailing + Pyramiding</td><td class="num">0.276</td><td class="num">48.6%</td><td class="num">5645</td><td class="num">727</td><td class="num pos">+38.63%</td><td class="num neg">-12.65%</td></tr>
   </tbody></table></div>
@@ -727,7 +727,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   er zwischenzeitlich stand, wird ausgestiegen. Vor dem Erreichen von +4% identisch zur Baseline
   (-4%-Stop, Freitag-Exit). Gleicher 2020-2026-Datensatz, gleiche Tagesauflösung wie der Trailing-Test.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Ø Gewinn-Rückgabe</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Ø Rendite/Symbol</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Trades</th><th class="num">Ø Gewinn-Rückgabe</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr><td>Fixer Freitag-Exit (Baseline)</td><td class="num pos">+20.55%</td><td class="num">0.187</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">--</td><td class="num pos">+20.84%</td><td class="num neg">-16.16%</td></tr>
     <tr class="best-row"><td>Trailing-Stop (bestätigt)</td><td class="num pos">+37.41%</td><td class="num">0.275</td><td class="num">49.0%</td><td class="num">4923</td><td class="num">5.45pp</td><td class="num pos">+37.40%</td><td class="num neg">-11.86%</td></tr>
     <tr><td>Fixer Floor bei +4% (neu)</td><td class="num pos">+44.81%</td><td class="num">0.150</td><td class="num">50.4%</td><td class="num">3010</td><td class="num">10.42pp</td><td class="num pos">+37.06%</td><td class="num neg">-25.50%</td></tr>
@@ -785,7 +785,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   schlechtesten Fall -10.63%.
   </div>
   <div class="table-scroll">
-  <div class="table-scroll"><table><thead><tr><th>Symbol</th><th>Richtung</th><th>Freitag-Close</th><th>Trail-Stop</th><th>Montag-Open</th><th>Gap</th><th>Status</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Freitag-Close</th><th class="num">Trail-Stop</th><th class="num">Montag-Open</th><th class="num">Gap</th><th>Status</th></tr></thead><tbody>
     <tr><td>SRT3.XETRA</td><td>LONG</td><td class="num">355.50</td><td class="num">341.28</td><td class="num">305.00</td><td class="num neg">-14.21%</td><td>durchbrochen</td></tr><tr><td>RHM.XETRA</td><td>SHORT</td><td class="num">82.32</td><td class="num">85.61</td><td class="num">89.96</td><td class="num neg">-9.28%</td><td>vom Backtest verpasst</td></tr><tr><td>MBG.XETRA</td><td>LONG</td><td class="num">67.10</td><td class="num">64.42</td><td class="num">61.79</td><td class="num neg">-7.91%</td><td>durchbrochen</td></tr><tr><td>AIR.XETRA</td><td>SHORT</td><td class="num">49.59</td><td class="num">51.57</td><td class="num">53.45</td><td class="num neg">-7.78%</td><td>durchbrochen</td></tr><tr><td>CBK.XETRA</td><td>LONG</td><td class="num">8.81</td><td class="num">8.64</td><td class="num">8.28</td><td class="num neg">-6.05%</td><td>durchbrochen</td></tr>
   </tbody></table></div>
   </div>
@@ -815,7 +815,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Jones, Euro Stoxx 50, Nikkei 225, Hang Seng, ASX 200.
   </div>
   <div class="table-scroll">
-  <div class="table-scroll"><table><thead><tr><th>Index</th><th>Sharpe (Freitag-Exit)</th><th>Sharpe (Trailing)</th><th>Gesamtrendite (Freitag-Exit)</th><th>Max-DD (Freitag-Exit)</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Index</th><th class="num">Sharpe (Freitag-Exit)</th><th class="num">Sharpe (Trailing)</th><th class="num">Gesamtrendite (Freitag-Exit)</th><th class="num">Max-DD (Freitag-Exit)</th></tr></thead><tbody>
     <tr><td>DAX (Deutschland)</td><td class="num pos">0.295</td><td class="num pos">0.276</td><td class="num pos">+23.21%</td><td class="num neg">-35.30%</td></tr><tr><td>S&P 500 (USA)</td><td class="num neg">-0.316</td><td class="num neg">-0.367</td><td class="num neg">-23.98%</td><td class="num neg">-29.49%</td></tr><tr><td>Nasdaq 100 (USA)</td><td class="num neg">-0.082</td><td class="num neg">-0.030</td><td class="num neg">-12.71%</td><td class="num neg">-23.63%</td></tr><tr><td>Dow Jones (USA)</td><td class="num neg">-0.029</td><td class="num neg">-0.106</td><td class="num neg">-5.96%</td><td class="num neg">-26.20%</td></tr><tr><td>Euro Stoxx 50 (Europa)</td><td class="num pos">0.482</td><td class="num pos">0.387</td><td class="num pos">+45.23%</td><td class="num neg">-21.58%</td></tr><tr><td>Nikkei 225 (Japan)</td><td class="num neg">-0.413</td><td class="num neg">-0.260</td><td class="num neg">-33.04%</td><td class="num neg">-43.58%</td></tr><tr><td>Hang Seng (Hongkong)</td><td class="num neg">-0.505</td><td class="num neg">-0.307</td><td class="num neg">-44.78%</td><td class="num neg">-51.52%</td></tr><tr><td>ASX 200 (Australien)</td><td class="num neg">-0.448</td><td class="num neg">-0.390</td><td class="num neg">-28.42%</td><td class="num neg">-40.60%</td></tr>
     <tr class="best-row"><td>Gepoolt (alle 8, gleichgewichtet)</td><td class="num neg">-0.127</td><td class="num neg">-0.100</td><td class="num neg">-10.06%</td><td class="num neg">-33.99%</td></tr>
   </tbody></table></div>
@@ -862,7 +862,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   <a href="research-log.html">Forschungsprotokoll</a>).
   </div>
   <div class="table-scroll">
-  <div class="table-scroll"><table><thead><tr><th>Korb</th><th>Symbole</th><th>Sharpe (Freitag-Exit)</th><th>Sharpe (Trailing)</th><th>Portfolio (Freitag-Exit)</th><th>Max-DD (Freitag-Exit)</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Korb</th><th class="num">Symbole</th><th class="num">Sharpe (Freitag-Exit)</th><th class="num">Sharpe (Trailing)</th><th class="num">Portfolio (Freitag-Exit)</th><th class="num">Max-DD (Freitag-Exit)</th></tr></thead><tbody>
     <tr><td>Dow Jones 30 (USA)</td><td class="num">30/30</td><td class="num pos">0.006</td><td class="num neg">-0.066</td><td class="num neg">-1.93%</td><td class="num neg">-15.92%</td></tr><tr><td>Nasdaq 100 -- Stichprobe (USA)</td><td class="num">25/25</td><td class="num neg">-0.084</td><td class="num neg">-0.108</td><td class="num neg">-11.37%</td><td class="num neg">-28.27%</td></tr><tr><td>Euro Stoxx 50 -- Stichprobe (DE/FR/NL/ES, ohne IT -- nicht verfügbar)</td><td class="num">18/18</td><td class="num pos">0.206</td><td class="num pos">0.199</td><td class="num pos">+19.38%</td><td class="num neg">-14.04%</td></tr><tr><td>Hang Seng -- Stichprobe (Hongkong)</td><td class="num">11/11</td><td class="num neg">-0.331</td><td class="num neg">-0.273</td><td class="num neg">-35.28%</td><td class="num neg">-46.35%</td></tr><tr><td>ASX 200 -- Stichprobe (Australien)</td><td class="num">12/12</td><td class="num neg">-0.204</td><td class="num neg">-0.064</td><td class="num neg">-20.23%</td><td class="num neg">-32.75%</td></tr>
   </tbody></table></div>
   </div>
@@ -896,7 +896,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   ursprünglichen Analyse die verfügbare Historie für diese Symbole, also direkt vergleichbar mit jenem
   Präzedenzfall, keine Abwertung extra für diesen Test).
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Markt</th><th>Symbole</th><th>Sharpe (Freitag-Exit)</th><th>Sharpe (Trailing)</th><th>Portfolio (Freitag-Exit)</th><th>Portfolio (Trailing)</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Markt</th><th class="num">Symbole</th><th class="num">Sharpe (Freitag-Exit)</th><th class="num">Sharpe (Trailing)</th><th class="num">Portfolio (Freitag-Exit)</th><th class="num">Portfolio (Trailing)</th></tr></thead><tbody>
     <tr><td>Crypto</td><td class="num">10</td><td class="num">-0.011</td><td class="num neg">-0.167</td><td class="num neg">-7.28%</td><td class="num neg">-12.84%</td></tr>
     <tr><td>Forex</td><td class="num">50</td><td class="num">0.246</td><td class="num">0.246</td><td class="num pos">+1.00%</td><td class="num pos">+1.00%</td></tr>
     <tr><td>ETFs/Funds</td><td class="num">19</td><td class="num">-0.066</td><td class="num neg">-0.073</td><td class="num neg">-0.39%</td><td class="num neg">-1.77%</td></tr>
@@ -936,7 +936,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   nicht kompoundierte Wochenrendite zur Renditeserie bei, Sharpe bleibt auf derselben √52-Basis wie die
   ursprüngliche Baseline.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Mehrwöchig</th><th>Ø Wochen gehalten</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Ø Rendite/Symbol</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Trades</th><th class="num">Mehrwöchig</th><th class="num">Ø Wochen gehalten</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr><td>Fixer Freitag-Exit (Baseline)</td><td class="num pos">+20.55%</td><td class="num">0.189</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">0%</td><td class="num">1,00</td><td class="num pos">+20.84%</td><td class="num neg">-13.40%</td></tr>
     <tr><td>Laufen lassen bei grüner Woche (neu)</td><td class="num pos">+22.52%</td><td class="num">0.189</td><td class="num">33.2%</td><td class="num">3811</td><td class="num">50.0%</td><td class="num">2.00</td><td class="num pos">+22.56%</td><td class="num neg">-13.58%</td></tr>
   </tbody></table></div>
@@ -974,7 +974,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Korrelation zwischen Montag- und Dienstag-Tagesrendite über alle 37 DAX-Aktien, 2020-2026 (nur echte
   Montag→Dienstag-Tagespaare, Feiertagswochen ehrlich übersprungen statt angenommen).
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Bedingung</th><th>n</th><th>Ø Dienstag-Rendite</th><th>Dienstag-Win-Rate</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Bedingung</th><th class="num">n</th><th class="num">Ø Dienstag-Rendite</th><th class="num">Dienstag-Win-Rate</th></tr></thead><tbody>
     <tr><td>Nach rotem Montag</td><td class="num">5859</td><td class="num pos">+0.1296%</td><td class="num">52.9%</td></tr>
     <tr><td>Nach grünem Montag</td><td class="num">6478</td><td class="num pos">+0.1480%</td><td class="num">51.7%</td></tr>
     <tr><td>Nach Montag &lt;-1% (starker roter Montag)</td><td class="num">2828</td><td class="num pos">+0.1691%</td><td class="num">53.5%</td></tr>
@@ -1001,7 +1001,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Haltedauer)? Keine Re-Einstiege, solange eine mehrwöchige Position noch offen ist. Gleiches
   2020-2026-Dataset, gleiche Tagesauflösung.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Haltedauer</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Gestoppt</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Haltedauer</th><th class="num">Ø Rendite/Symbol</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Trades</th><th class="num">Gestoppt</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr class="best-row"><td>1 Woche (Baseline)</td><td class="num pos">+20.55%</td><td class="num">0.187</td><td class="num">50.1%</td><td class="num">5802</td><td class="num">15.9%</td><td class="num pos">+20.84%</td><td class="num neg">-16.16%</td></tr>
     <tr><td>2 Wochen</td><td class="num pos">+30.52%</td><td class="num">0.194</td><td class="num">48.0%</td><td class="num">4143</td><td class="num">32.0%</td><td class="num pos">+29.57%</td><td class="num neg">-14.05%</td></tr>
     <tr><td>3 Wochen</td><td class="num pos">+6.42%</td><td class="num">0.079</td><td class="num">43.6%</td><td class="num">3372</td><td class="num">42.9%</td><td class="num neg">+2.78%</td><td class="num neg">-19.33%</td></tr>
@@ -1054,7 +1054,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin:20px 0 8px;">Fester Stop-Loss (Preis-basiert) vs. reiner Zeit-Stop</h3>
-  <div class="table-scroll"><table><thead><tr><th>Stop-Schwelle</th><th>DAX Sharpe</th><th>DAX Win-Rate</th><th>Aktien Sharpe</th><th>Aktien Win-Rate</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Stop-Schwelle</th><th class="num">DAX Sharpe</th><th class="num">DAX Win-Rate</th><th class="num">Aktien Sharpe</th><th class="num">Aktien Win-Rate</th></tr></thead><tbody>
     <tr><td>Kein Stop (Baseline)</td><td class="num">0.37</td><td class="num">52.0%</td><td class="num">0.44</td><td class="num">52.3%</td></tr>
     <tr><td>-0.25%</td><td class="num">2.64</td><td class="num">31.0%</td><td class="num">2.70</td><td class="num">31.8%</td></tr><tr><td>-0.50%</td><td class="num">2.39</td><td class="num">35.2%</td><td class="num">2.44</td><td class="num">34.8%</td></tr><tr><td>-1.00%</td><td class="num">1.92</td><td class="num">41.4%</td><td class="num">2.06</td><td class="num">40.2%</td></tr><tr><td>-2.00%</td><td class="num">1.29</td><td class="num">47.3%</td><td class="num">1.55</td><td class="num">46.4%</td></tr><tr><td>-3.00%</td><td class="num">0.92</td><td class="num">49.4%</td><td class="num">1.26</td><td class="num">49.4%</td></tr><tr class="best-row"><td>-4.00% (empfohlen)</td><td class="num">0.76</td><td class="num">50.8%</td><td class="num">1.06</td><td class="num">50.8%</td></tr><tr><td>-5.00%</td><td class="num">0.60</td><td class="num">51.5%</td><td class="num">0.90</td><td class="num">51.5%</td></tr><tr><td>-8.00%</td><td class="num">0.46</td><td class="num">52.0%</td><td class="num">0.69</td><td class="num">52.2%</td></tr><tr><td>-15.00%</td><td class="num">0.38</td><td class="num">52.0%</td><td class="num">0.50</td><td class="num">52.3%</td></tr>
   </tbody></table></div>
@@ -1098,7 +1098,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h4 style="font-size:10.5px;margin-bottom:6px;color:var(--text);">Feiner Sweep mit Robustheit pro Punkt (DAX / Aktien)</h4>
-  <div class="table-scroll"><table><thead><tr><th>Stop</th><th>DAX Sharpe</th><th>DAX min(älter,neuer)</th><th>Aktien Sharpe</th><th>Aktien min(älter,neuer)</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Stop</th><th class="num">DAX Sharpe</th><th class="num">DAX min(älter,neuer)</th><th class="num">Aktien Sharpe</th><th class="num">Aktien min(älter,neuer)</th></tr></thead><tbody>
     <tr><td>-3.00%</td>
         <td class="num">0.92</td><td class="num">0.52</td>
         <td class="num">1.26</td><td class="num">1.23</td></tr><tr><td>-3.50%</td>
@@ -1113,7 +1113,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </tbody></table></div>
 
   <h4 style="font-size:10.5px;margin:16px 0 6px;color:var(--text);">Kosten-Sensitivität: Sharpe nach Kostenabzug, -3% / -4% / -5%-Stop (DAX)</h4>
-  <div class="table-scroll"><table><thead><tr><th>Kosten (Round-Trip)</th><th>-3%</th><th>-4%</th><th>-5%</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Kosten (Round-Trip)</th><th class="num">-3%</th><th class="num">-4%</th><th class="num">-5%</th></tr></thead><tbody>
     <tr><td>0.05%</td>
       <td class="num pos">0.82</td>
       <td class="num pos">0.66</td>
@@ -1142,7 +1142,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h4 style="font-size:10.5px;margin:16px 0 6px;color:var(--text);">False-Stop-Analyse: Gewinner fälschlich geschnitten vs. Verlierer echt gekappt (DAX / Aktien)</h4>
-  <div class="table-scroll"><table><thead><tr><th>Stop</th><th>DAX Gewinner geschnitten</th><th>DAX Verlierer gekappt</th><th>Aktien Gewinner geschnitten</th><th>Aktien Verlierer gekappt</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Stop</th><th class="num">DAX Gewinner geschnitten</th><th class="num">DAX Verlierer gekappt</th><th class="num">Aktien Gewinner geschnitten</th><th class="num">Aktien Verlierer gekappt</th></tr></thead><tbody>
     <tr><td>-3%</td>
         <td class="num neg">5.0%</td><td class="num pos">44.9%</td>
         <td class="num neg">5.7%</td><td class="num pos">50.2%</td></tr><tr><td>-4%</td>
@@ -1161,7 +1161,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h4 style="font-size:10.5px;margin:16px 0 6px;color:var(--text);">Gilt der Effekt auch für Crypto, Forex, Funds?</h4>
-  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th>Baseline Sharpe</th><th>-4%-Stop Sharpe</th><th>Robustheit mit Stop</th><th>Verdict</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th class="num">Baseline Sharpe</th><th class="num">-4%-Stop Sharpe</th><th class="num">Robustheit mit Stop</th><th>Verdict</th></tr></thead><tbody>
     <tr><td>DAX</td><td class="num">0.37</td><td class="num">0.76</td>
         <td class="num">1.16 / 0.32</td>
         <td style="color:var(--green);font-weight:600;font-size:9.5px;">robust -- hilft deutlich</td></tr><tr><td>Aktien</td><td class="num">0.44</td><td class="num">1.06</td>
@@ -1198,7 +1198,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin-bottom:8px;">Long vs. Short</h3>
-  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th>Richtung</th><th>Anteil</th><th>Ø Rendite</th><th>Sharpe</th><th>Win-Rate</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th>Richtung</th><th class="num">Anteil</th><th class="num">Ø Rendite</th><th class="num">Sharpe</th><th class="num">Win-Rate</th></tr></thead><tbody>
     <tr class="best-row"><td>DAX</td><td>LONG</td><td class="num">54.9%</td><td class="num pos">+0.308%</td><td class="num pos">0.59</td><td class="num">54.4%</td></tr>
     <tr><td>DAX</td><td>SHORT</td><td class="num">45.1%</td><td class="num pos">+0.072%</td><td class="num pos">0.12</td><td class="num">49.1%</td></tr>
     <tr><td>Aktien (525)</td><td>LONG</td><td class="num">50.6%</td><td class="num pos">+0.229%</td><td class="num pos">0.31</td><td class="num">51.8%</td></tr>
@@ -1234,7 +1234,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin:20px 0 8px;">Equal-Weight vs. Volatilitäts-Gewichtung (invers zur Kanal-Breite)</h3>
-  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th>Variante</th><th>Ø Rendite</th><th>Sharpe (gesamt)</th><th>Sharpe (älter)</th><th>Sharpe (neuer)</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th>Variante</th><th class="num">Ø Rendite</th><th class="num">Sharpe (gesamt)</th><th class="num">Sharpe (älter)</th><th class="num">Sharpe (neuer)</th></tr></thead><tbody>
     <tr class="best-row"><td>DAX</td><td>Equal-Weight</td><td class="num pos">+0.202%</td><td class="num">0.37</td><td class="num">0.75</td><td class="num">-0.06</td></tr>
     <tr><td>DAX</td><td>Vol-Weighted</td><td class="num pos">+0.345%</td><td class="num">0.35</td><td class="num">0.96</td><td class="num">-0.25</td></tr>
     <tr class="best-row"><td>Aktien (525)</td><td>Equal-Weight</td><td class="num pos">+0.311%</td><td class="num">0.44</td><td class="num">0.44</td><td class="num">0.44</td></tr>
@@ -1268,7 +1268,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin-bottom:8px;">Kapazität & Klumpenrisiko je Korbgröße</h3>
-  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th>Aktive Wochen</th><th>Ø Positionen</th><th>Max Positionen</th><th>Wochen mit nur 1 Position</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th class="num">Aktive Wochen</th><th class="num">Ø Positionen</th><th class="num">Max Positionen</th><th class="num">Wochen mit nur 1 Position</th></tr></thead><tbody>
     <tr>
     <td>3</td>
     <td class="num">37 / 52</td>
@@ -1310,7 +1310,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin:20px 0 8px;">Portfolio-Ergebnis ohne Stop (nur Zeit-Stop)</h3>
-  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th>Endkapital</th><th>Gesamtrendite</th><th>Max Drawdown</th><th>Sharpe</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th class="num">Endkapital</th><th class="num">Gesamtrendite</th><th class="num">Max Drawdown</th><th class="num">Sharpe</th></tr></thead><tbody>
     <tr>
     <td>3</td>
     <td class="num">€119.990</td>
@@ -1345,7 +1345,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </tbody></table></div>
 
   <h3 style="font-size:12px;margin:20px 0 8px;">Portfolio-Ergebnis mit -4%-Preis-Stop</h3>
-  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th>Endkapital</th><th>Gesamtrendite</th><th>Max Drawdown</th><th>Sharpe</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th class="num">Endkapital</th><th class="num">Gesamtrendite</th><th class="num">Max Drawdown</th><th class="num">Sharpe</th></tr></thead><tbody>
     <tr>
     <td>3</td>
     <td class="num">€125.825</td>
@@ -1455,7 +1455,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin-bottom:8px;">1) Einzelaktie (N=1): 10 verschiedene Kandidaten, dieselbe Strategie</h3>
-  <div class="table-scroll"><table><thead><tr><th>Aktie</th><th>Endkapital (ohne Stop)</th><th>Rendite</th><th>MaxDD</th><th>Endkapital (mit -4%)</th><th>Rendite</th><th>MaxDD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Aktie</th><th class="num">Endkapital (ohne Stop)</th><th class="num">Rendite</th><th class="num">MaxDD</th><th class="num">Endkapital (mit -4%)</th><th class="num">Rendite</th><th class="num">MaxDD</th></tr></thead><tbody>
     <tr>
     <td>ADS.XETRA</td>
     <td class="num">€137.311</td>
@@ -1549,7 +1549,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin:20px 0 8px;">2) Positionsgröße: volles Kapital auf Signale vs. fixer Slot pro Aktie</h3>
-  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th>Sizing</th><th>Endkapital</th><th>Rendite</th><th>MaxDD</th><th>Sharpe</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th>Sizing</th><th class="num">Endkapital</th><th class="num">Rendite</th><th class="num">MaxDD</th><th class="num">Sharpe</th></tr></thead><tbody>
     <tr class="best-row">
     <td>3</td><td>Volles Kapital</td>
     <td class="num">€125.825</td>
@@ -1600,7 +1600,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin:20px 0 8px;">3) Sektor-Diversifikation vs. naive Pool-Reihenfolge</h3>
-  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th>Methode</th><th>Sektoren</th><th>Endkapital</th><th>Rendite</th><th>MaxDD</th><th>Sharpe</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th>Methode</th><th class="num">Sektoren</th><th class="num">Endkapital</th><th class="num">Rendite</th><th class="num">MaxDD</th><th class="num">Sharpe</th></tr></thead><tbody>
     <tr>
     <td>3</td><td>Naiv</td><td class="num">3</td>
     <td class="num">€125.825</td>
@@ -1682,7 +1682,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin:20px 0 8px;">4) Exit-Timing: Freitag-Close vs. Mittwoch-Close (kürzer im Markt)</h3>
-  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th>Exit</th><th>Sharpe (ohne Stop)</th><th>Sharpe (mit -4%)</th><th>Trades</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Klasse</th><th>Exit</th><th class="num">Sharpe (ohne Stop)</th><th class="num">Sharpe (mit -4%)</th><th class="num">Trades</th></tr></thead><tbody>
     <tr>
     <td>DAX</td><td>Freitag</td>
     <td class="num">0.37</td>
@@ -1709,7 +1709,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </tr>
   </tbody></table></div>
   <h4 style="font-size:11px;margin:16px 0 8px;color:var(--muted);">... und direkt im Retail-Depot (naiver Korb, -4%-Stop, volles Kapital)</h4>
-  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th>Exit</th><th>Endkapital</th><th>Rendite</th><th>MaxDD</th><th>Sharpe</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Korb (N)</th><th>Exit</th><th class="num">Endkapital</th><th class="num">Rendite</th><th class="num">MaxDD</th><th class="num">Sharpe</th></tr></thead><tbody>
     <tr>
     <td>3</td><td>Freitag</td>
     <td class="num">€125.825</td>
@@ -1804,7 +1804,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin-bottom:8px;">DAX (37 Symbole)</h3>
-  <div class="table-scroll"><table><thead><tr><th>Kanal-Lookback / Haltedauer</th><th>Sharpe ohne Stop</th><th>Sharpe mit -4%</th><th>Robustheit (älter/neuer, mit Stop)</th><th>Trades</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Kanal-Lookback / Haltedauer</th><th class="num">Sharpe ohne Stop</th><th class="num">Sharpe mit -4%</th><th class="num">Robustheit (älter/neuer, mit Stop)</th><th class="num">Trades</th></tr></thead><tbody>
     <tr>
         <td>15 Tage / 5 Tage</td>
         <td class="num neg">-0.44</td>
@@ -1839,7 +1839,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </tbody></table></div>
 
   <h3 style="font-size:12px;margin:20px 0 8px;">Aktien (breite Stichprobe)</h3>
-  <div class="table-scroll"><table><thead><tr><th>Kanal-Lookback / Haltedauer</th><th>Sharpe ohne Stop</th><th>Sharpe mit -4%</th><th>Robustheit (älter/neuer, mit Stop)</th><th>Trades</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Kanal-Lookback / Haltedauer</th><th class="num">Sharpe ohne Stop</th><th class="num">Sharpe mit -4%</th><th class="num">Robustheit (älter/neuer, mit Stop)</th><th class="num">Trades</th></tr></thead><tbody>
     <tr>
         <td>15 Tage / 5 Tage</td>
         <td class="num neg">-0.03</td>
@@ -1898,7 +1898,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Gegensignal, Schließung sobald der Kurs wieder in den Kanal zurückfällt. Getestet mit und ohne den
   bereits bestätigten -4%-Stop.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Ø Rendite/Symbol</th><th>Sharpe</th><th>Win-Rate</th><th>Trades</th><th>Stop-Rate</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Ø Rendite/Symbol</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Trades</th><th class="num">Stop-Rate</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr><td>Ohne Stop</td><td class="num pos">+6.43%</td><td class="num">0.037</td><td class="num">33.5%</td><td class="num">19796</td><td class="num">--</td><td class="num pos">+12.41%</td><td class="num neg">-27.89%</td></tr>
     <tr><td>Mit -4%-Stop</td><td class="num pos">+6.43%</td><td class="num">0.037</td><td class="num">33.5%</td><td class="num">19796</td><td class="num">3.3%</td><td class="num pos">+12.41%</td><td class="num neg">-27.89%</td></tr>
   </tbody></table></div>
@@ -1937,7 +1937,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   durchgehenden Zeitreihe verglichen werden.
   </div>
   <div class="table-scroll">
-  <div class="table-scroll"><table><thead><tr><th>Quartil</th><th>Ø Kanalbreite</th><th>Spanne</th><th>n</th><th>Ø Trade-Rendite</th><th>Win-Rate</th><th>Verhältnis (nicht annualisiert)</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Quartil</th><th class="num">Ø Kanalbreite</th><th class="num">Spanne</th><th class="num">n</th><th class="num">Ø Trade-Rendite</th><th class="num">Win-Rate</th><th class="num">Verhältnis (nicht annualisiert)</th></tr></thead><tbody>
     <tr><td>Q1</td><td class="num">1.47%</td><td class="num">0.07-2.43%</td><td class="num">1450</td><td class="num pos">+0.188%</td><td class="num">49.1%</td><td class="num">0.062</td></tr><tr><td>Q2</td><td class="num">3.32%</td><td class="num">2.43-4.29%</td><td class="num">1450</td><td class="num pos">+0.458%</td><td class="num">52.5%</td><td class="num">0.142</td></tr><tr><td>Q3</td><td class="num">5.55%</td><td class="num">4.29-7.18%</td><td class="num">1450</td><td class="num pos">+0.513%</td><td class="num">52.0%</td><td class="num">0.140</td></tr><tr><td>Q4</td><td class="num">12.80%</td><td class="num">7.18-65.65%</td><td class="num">1452</td><td class="num pos">+0.563%</td><td class="num">46.7%</td><td class="num">0.118</td></tr>
   </tbody></table></div>
   </div>
@@ -2008,7 +2008,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   gehalten und der RSI steigt unter der Woche über 70 (überkauft), sofort Gewinn mitnehmen statt bis
   Freitag zu warten -- spiegelbildlich bei SHORT und RSI unter 30.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Sharpe</th><th>Win-Rate</th><th>Vorzeitig durch RSI geschlossen</th><th>Portfolio-Gesamtrendite</th><th>Portfolio Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th class="num">Sharpe</th><th class="num">Win-Rate</th><th class="num">Vorzeitig durch RSI geschlossen</th><th class="num">Portfolio-Gesamtrendite</th><th class="num">Portfolio Max-DD</th></tr></thead><tbody>
     <tr class="best-row"><td>Baseline (kein RSI-Exit)</td><td class="num">0.189</td><td class="num">50.1%</td><td class="num">0%</td><td class="num pos">+20.84%</td><td class="num neg">-13.40%</td></tr>
     <tr><td>Mit RSI-Gewinnmitnahme</td><td class="num">0.149</td><td class="num">52.2%</td><td class="num">25.9%</td><td class="num pos">+12.92%</td><td class="num neg">-11.89%</td></tr>
   </tbody></table></div>
@@ -2046,7 +2046,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin-bottom:8px;">A) Als zwei parallele Kapital-Sleeves (50/50-Blend)</h3>
-  <div class="table-scroll"><table><thead><tr><th>Sleeve</th><th>Sharpe (Portfolio)</th><th>Gesamtrendite</th><th>Max-DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Sleeve</th><th class="num">Sharpe (Portfolio)</th><th class="num">Gesamtrendite</th><th class="num">Max-DD</th></tr></thead><tbody>
     <tr><td>Kanal allein</td><td class="num pos">1.608</td><td class="num pos">+242.34%</td><td class="num neg">-10.06%</td></tr>
     <tr><td>RSI allein</td><td class="num pos">0.617</td><td class="num pos">+77.18%</td><td class="num neg">-16.87%</td></tr>
     <tr class="best-row"><td>50/50-Blend</td><td class="num pos">1.613</td><td class="num pos">+156.72%</td><td class="num neg">-7.83%</td></tr>
@@ -2072,7 +2072,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   </div>
 
   <h3 style="font-size:12px;margin:20px 0 8px;">B) Als gegenseitiges Bestätigungssignal auf Symbol-Ebene</h3>
-  <div class="table-scroll"><table><thead><tr><th>Kategorie</th><th>n</th><th>Ø Rendite</th><th>Win-Rate</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Kategorie</th><th class="num">n</th><th class="num">Ø Rendite</th><th class="num">Win-Rate</th></tr></thead><tbody>
     <tr><td>Bestätigt (Kanal + RSI gleiche Richtung)</td><td class="num">8</td><td class="num pos">+1.578%</td><td class="num">62.5%</td></tr>
     <tr><td>Konflikt (Kanal + RSI entgegengesetzt)</td><td class="num">696</td><td class="num pos">+0.406%</td><td class="num">47.3%</td></tr>
     <tr><td>Nur Kanal (RSI neutral)</td><td class="num">5098</td><td class="num pos">+0.432%</td><td class="num">50.4%</td></tr>
@@ -2120,7 +2120,7 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   <b>variable, meist kürzere</b> Haltedauer (Ø 3.35 statt 4
   Tage) und wird separat eingeordnet.
   </div>
-  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Bein</th><th>n</th><th>Ø Rendite</th><th>Win-Rate</th><th>Sharpe</th><th>Max DD</th></tr></thead><tbody>
+  <div class="table-scroll"><table><thead><tr><th>Variante</th><th>Bein</th><th class="num">n</th><th class="num">Ø Rendite</th><th class="num">Win-Rate</th><th class="num">Sharpe</th><th class="num">Max DD</th></tr></thead><tbody>
     <tr class="best-row"><td>Nur Montag (Hold kontrolliert)</td><td>VWAP-Limit-Entry</td><td class="num">2442</td><td class="num pos">+0.668%</td><td class="num">54.3%</td><td class="num pos">1.29</td><td class="num neg">-10.4%</td></tr>
     <tr><td>Nur Montag (Hold kontrolliert)</td><td>Markt-Entry (gleiche Trades)</td><td class="num">2442</td><td class="num pos">+0.190%</td><td class="num">48.3%</td><td class="num">0.39</td><td class="num neg">-15.5%</td></tr>
     <tr><td>Ganze Woche (Hold variabel)</td><td>VWAP-Limit-Entry</td><td class="num">4664</td><td class="num pos">+0.511%</td><td class="num">50.4%</td><td class="num">1.08</td><td class="num neg">-5.1%</td></tr>

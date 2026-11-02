@@ -45,6 +45,7 @@ table{width:100%;min-width:480px;border-collapse:collapse;font-size:10px;}
 th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
 td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
 td.num{text-align:right;font-variant-numeric:tabular-nums;}
+th.num{text-align:right;}
 .theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
 .top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
 .methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
@@ -752,6 +753,37 @@ document.getElementById('export-paths-csv-btn').addEventListener('click', () => 
 });
 
 if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+
+(function(){
+  function alignHeaders(table) {
+    var headRow = table.querySelector('thead tr');
+    var bodyRow = table.querySelector('tbody tr');
+    if (!headRow || !bodyRow) return;
+    var ths = headRow.children, tds = bodyRow.children;
+    for (var i = 0; i < ths.length; i++) {
+      if (tds[i] && tds[i].classList.contains('num')) ths[i].classList.add('num');
+      else ths[i].classList.remove('num');
+    }
+  }
+  function alignAll() { document.querySelectorAll('table').forEach(alignHeaders); }
+  var tbodyObserver = new MutationObserver(alignAll);
+  function watchExistingTbodies() {
+    document.querySelectorAll('tbody').forEach(function(tb) {
+      tbodyObserver.observe(tb, { childList: true });
+    });
+  }
+  watchExistingTbodies();
+  new MutationObserver(function(muts) {
+    var needsRescan = false;
+    muts.forEach(function(m) {
+      m.addedNodes.forEach(function(n) {
+        if (n.nodeType === 1 && (n.tagName === 'TBODY' || (n.querySelector && n.querySelector('tbody')))) needsRescan = true;
+      });
+    });
+    if (needsRescan) { watchExistingTbodies(); alignAll(); }
+  }).observe(document.body, { childList: true, subtree: true });
+  alignAll();
+})();
 </script>
 </body>
 </html>

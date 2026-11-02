@@ -39,7 +39,7 @@ h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:30px 0 12px
 .rejects li a{color:var(--accent);text-decoration:none;font-size:9.5px;}
 .rejects li a:hover{text-decoration:underline;}
 .methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
-.table-scroll{overflow-x:auto;margin-bottom:16px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
 table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
 th{text-align:left;color:var(--muted);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
 td{padding:8px;border-bottom:1px solid var(--border);}
@@ -160,7 +160,7 @@ td.num{font-family:var(--mono);text-align:right;white-space:nowrap;}
 
   <h2 id="vorbehalte">⚠️ Geltungsbereich &amp; Vorbehalte</h2>
   <div class="table-scroll">
-  <table><thead><tr><th>Baustein</th><th>Gilt für</th><th>Gilt NICHT ohne erneuten Test für</th></tr></thead><tbody>
+  <table><thead><tr><th>Baustein</th><th class="num">Gilt für</th><th class="num">Gilt NICHT ohne erneuten Test für</th></tr></thead><tbody>
     <tr><td>Montag-Kanal-Einstieg + -4%-Stop + Equal-Weight + 10-20er-Korb</td><td class="num pos">DAX-37, breite Aktien-Stichprobe, Euro-Stoxx-50-Korb</td><td class="num neg">Dow-30-, Nasdaq-100-, Hang-Seng- und ASX-200-Körbe (robust negativ bzw. bestenfalls neutral, trotz identischer Diversifikation) -- und erst recht die Indizes selbst statt eines Aktienkorbs</td></tr>
     <tr><td>Trailing-Stop-Upgrade</td><td class="num pos">DAX-37 über die volle 2020-2026-Historie</td><td class="num neg">Crypto, Forex, ETFs/Funds, breite Aktien-Stichprobe -- und sogar der DAX selbst auf kürzeren, ruhigeren Zeitfenstern</td></tr>
   </tbody></table>

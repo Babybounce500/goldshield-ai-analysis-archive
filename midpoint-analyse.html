@@ -33,10 +33,11 @@ h2{font-family:var(--head);font-size:13px;letter-spacing:1px;color:var(--gold);m
 .finding b{color:var(--bright)}
 .caveat{font-size:10.5px;color:var(--muted);line-height:1.8;background:var(--panel);border-left:2px solid var(--gold);padding:10px 14px;margin:16px 0;}
 canvas{background:var(--card);border:1px solid var(--border);border-radius:6px;width:100%;height:auto;}
-.table-scroll{overflow-x:auto;margin-bottom:16px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
 table{width:100%;min-width:620px;border-collapse:collapse;font-size:10px;margin-top:10px;}
 th{font-family:var(--head);font-size:7.5px;letter-spacing:.5px;color:var(--muted);text-align:left;padding:7px 5px;border-bottom:1px solid var(--border);white-space:nowrap;}
 th.num,td.num{text-align:right;font-variant-numeric:tabular-nums;}
+th.num{text-align:right;}
 td{padding:6px 5px;border-bottom:1px solid rgba(190,24,93,.12);white-space:nowrap;}
 .loading,.error{font-family:var(--mono);font-size:11px;color:var(--muted);padding:30px 0;text-align:center;}
 .error{color:var(--red);}
@@ -265,6 +266,37 @@ async function loadStrategy() {
 loadBacktest();
 loadStrategy();
 if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+
+(function(){
+  function alignHeaders(table) {
+    var headRow = table.querySelector('thead tr');
+    var bodyRow = table.querySelector('tbody tr');
+    if (!headRow || !bodyRow) return;
+    var ths = headRow.children, tds = bodyRow.children;
+    for (var i = 0; i < ths.length; i++) {
+      if (tds[i] && tds[i].classList.contains('num')) ths[i].classList.add('num');
+      else ths[i].classList.remove('num');
+    }
+  }
+  function alignAll() { document.querySelectorAll('table').forEach(alignHeaders); }
+  var tbodyObserver = new MutationObserver(alignAll);
+  function watchExistingTbodies() {
+    document.querySelectorAll('tbody').forEach(function(tb) {
+      tbodyObserver.observe(tb, { childList: true });
+    });
+  }
+  watchExistingTbodies();
+  new MutationObserver(function(muts) {
+    var needsRescan = false;
+    muts.forEach(function(m) {
+      m.addedNodes.forEach(function(n) {
+        if (n.nodeType === 1 && (n.tagName === 'TBODY' || (n.querySelector && n.querySelector('tbody')))) needsRescan = true;
+      });
+    });
+    if (needsRescan) { watchExistingTbodies(); alignAll(); }
+  }).observe(document.body, { childList: true, subtree: true });
+  alignAll();
+})();
 </script>
 </body>
 </html>
