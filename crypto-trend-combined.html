@@ -151,7 +151,7 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
     <div class="stat-grid" id="paper-stats"></div>
     <div id="paper-warnings"></div>
     <div class="table-scroll">
-    <table><thead><tr><th>Coin</th><th>Position</th><th>Einstieg (echt)</th><th>Einstiegspreis</th><th>Live-Preis</th><th>Unrealisiert %</th><th>Unrealisiert €</th><th>Status</th></tr></thead><tbody id="paper-body"></tbody></table>
+    <table><thead><tr><th>Coin</th><th>Position</th><th>Einstieg (echt)</th><th>Einstiegspreis ($)</th><th>Live-Preis ($)</th><th>Unrealisiert %</th><th>Unrealisiert €</th><th>Status</th></tr></thead><tbody id="paper-body"></tbody></table>
     </div>
     <div class="btn-row">
       <button class="opt-btn" id="paper-refresh-btn" type="button">🔄 Live-Preise aktualisieren</button>
@@ -169,7 +169,7 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
     <div id="current-note" class="methodology"></div>
     <div id="warnings"></div>
     <div class="table-scroll">
-    <table><thead><tr><th>Coin</th><th>Score</th><th>Position</th><th>Live-Kurs</th><th>Offen seit</th><th>Unrealisiert %</th><th>Unrealisiert $</th></tr></thead><tbody id="current-body"></tbody></table>
+    <table><thead><tr><th>Coin</th><th>Score</th><th>Position</th><th>Live-Kurs ($)</th><th>Offen seit</th><th>Unrealisiert %</th><th>Unrealisiert €</th></tr></thead><tbody id="current-body"></tbody></table>
     </div>
 
     <h2>🪙 Aufschlüsselung pro Coin</h2>
@@ -427,8 +427,8 @@ async function renderPaperPortfolio() {
       '<td>' + esc(r.sym.replace('-USD.CC','')) + '</td>' +
       '<td><span class="badge ' + badgeClass + '">' + r.direction + '</span></td>' +
       '<td>' + esc(r.entryDate) + '</td>' +
-      '<td class="num">€' + r.entryPrice.toFixed(4) + '</td>' +
-      '<td class="num">' + (r.livePrice!=null ? '€'+r.livePrice.toFixed(4) : '—') + '</td>' +
+      '<td class="num">$' + r.entryPrice.toFixed(4) + '</td>' +
+      '<td class="num">' + (r.livePrice!=null ? '$'+r.livePrice.toFixed(4) : '—') + '</td>' +
       '<td class="num">' + (r.pnlPct!=null ? '<span class="'+(r.pnlPct>=0?'pos':'neg')+'">'+fmtPct(r.pnlPct*100)+'</span>' : '—') + '</td>' +
       '<td class="num">' + (r.pnlAbs!=null ? '<span class="'+(r.pnlAbs>=0?'pos':'neg')+'">'+fmtEurSigned(r.pnlAbs)+'</span>' : '—') + '</td>' +
       '<td>' + (r.stoppedOut ? '<span class="badge stopped">⚠ STOP</span>' : '<span style="color:var(--green);">✓ läuft</span>') + '</td>' +
@@ -602,18 +602,18 @@ computeBtn.addEventListener('click', async () => {
     ? '<div class="warn-box"><b>Nicht separat validiert:</b> ' + nonValidated.map(esc).join(', ') + ' -- der Report hat nur die 10 Standard-Coins rückgetestet. Zahlen für diese Symbole sind real berechnet, aber ohne dieselbe Absicherung zu lesen.</div>'
     : '';
 
-  document.getElementById('current-note').innerHTML = 'Score aus den letzten verfügbaren Tagesdaten. <b>Bullish = aktive Long-Position, Bearish = aktive Short-Position</b> -- Einstieg jeweils am nächsten Handelstag nach dem Flip, -' + (stopPct*100).toFixed(0) + '%-Stop auf beiden Seiten. $ -Beträge nutzen ' + fmtEur(livePerPosition) + ' pro offener Position (' + openCount + ' offen, 1/N-Slot wie im Report).';
+  document.getElementById('current-note').innerHTML = 'Score aus den letzten verfügbaren Tagesdaten. <b>Bullish = aktive Long-Position, Bearish = aktive Short-Position</b> -- Einstieg jeweils am nächsten Handelstag nach dem Flip, -' + (stopPct*100).toFixed(0) + '%-Stop auf beiden Seiten. €-Beträge nutzen ' + fmtEur(livePerPosition) + ' pro offener Position (' + openCount + ' offen, 1/N-Slot wie im Report).';
 
   const tbody = document.getElementById('current-body');
   tbody.innerHTML = currentRows.map(r => {
     if (r.error) return '<tr><td>' + esc(r.sym.replace('-USD.CC','')) + '</td><td colspan="6" style="color:var(--muted);">' + esc(r.error) + '</td></tr>';
     const badgeClass = r.direction === 'LONG' ? 'long' : 'short';
     const badgeLabel = r.direction;
-    let liveCell = '€' + r.close.toFixed(4), pnlPctCell = '—', pnlAbsCell = '—';
+    let liveCell = '$' + r.close.toFixed(4), pnlPctCell = '—', pnlAbsCell = '—';
     if (r.stillOpen) {
       const rt = realtimeBySymbol[r.sym];
       const livePrice = rt && Number.isFinite(rt.close) ? rt.close : r.close;
-      liveCell = '€' + livePrice.toFixed(4);
+      liveCell = '$' + livePrice.toFixed(4);
       const pnlPct = r.direction === 'LONG' ? (livePrice - r.entryPrice) / r.entryPrice : (r.entryPrice - livePrice) / r.entryPrice;
       pnlPctCell = '<span class="' + (pnlPct>=0?'pos':'neg') + '">' + fmtPct(pnlPct*100) + '</span>';
       pnlAbsCell = '<span class="' + (pnlPct>=0?'pos':'neg') + '">' + fmtEurSigned(livePerPosition * pnlPct) + '</span>';
