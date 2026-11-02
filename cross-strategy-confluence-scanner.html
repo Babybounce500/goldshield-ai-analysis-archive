@@ -66,10 +66,12 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;}
   <a href="dax-trend-score.html" style="color:var(--accent);">Trend-Score</a> ist täglich und folgt dem Trend;
   <a href="rsi-mean-reversion.html" style="color:var(--accent);">RSI-Mean-Reversion</a> und die
   Donchian-Kanal-Strategie (aus <a href="live-portfolio.html" style="color:var(--accent);">Live-Portfolio</a>)
-  sind beide wöchentlich (Montag-Einstieg aus dem letzten abgeschlossenen Freitag) -- RSI wettet gegen
-  Extreme, der Kanal auf Ausbrüche. <b>Achtung Zeitebenen:</b> Trend-Score zeigt den Stand von heute, RSI und
-  Breakout zeigen den Stand der letzten abgeschlossenen Handelswoche. Konfluenz heißt hier: mindestens 2 von
-  3 zeigen dieselbe Richtung.
+  sind beide wöchentlich -- RSI wettet gegen Extreme, der Kanal auf Ausbrüche. <b>Achtung Zeitebenen, alle
+  drei unterschiedlich:</b> Trend-Score zeigt den Stand von heute (täglich); RSI nutzt den Wert vom letzten
+  <b>abgeschlossenen</b> Freitag (eine Woche "alt", exakt wie im RSI-Tool selbst); Breakout testet den
+  Montag-Kurs der <b>laufenden</b> Woche gegen den Kanal aus den 3 zuletzt abgeschlossenen Freitagen --
+  genau wie im Live-Portfolio-Baukasten selbst "was würde ich JETZT halten". Konfluenz heißt hier: mindestens
+  2 von 3 zeigen dieselbe Richtung, trotz der unterschiedlichen Aktualität der drei Signale.
   </div>
 
   <div class="panel">
@@ -154,6 +156,13 @@ function computeRSI(series, period) {
 }
 
 // ---------- weekly Monday/Friday series, exact port from live-portfolio.html ----------
+function mostRecentMondayISO(fromDate) {
+  const d = new Date(Date.UTC(fromDate.getUTCFullYear(), fromDate.getUTCMonth(), fromDate.getUTCDate()));
+  const day = d.getUTCDay();
+  const diff = day === 0 ? 6 : day - 1;
+  d.setUTCDate(d.getUTCDate() - diff);
+  return d.toISOString().slice(0, 10);
+}
 function buildWeeklySeries(series) {
   const weeks = new Map();
   for (const p of series) {
@@ -235,13 +244,20 @@ scanBtn.addEventListener('click', async () => {
           if (r != null) { if (r < RSI_OVERSOLD) rsiDir = 'LONG'; else if (r > RSI_OVERBOUGHT) rsiDir = 'SHORT'; }
         }
 
+        // current (possibly in-progress) week's Monday vs. the channel from the 3 most recently COMPLETED
+        // weeks -- exact match to live-portfolio.html's own "Aktuelle Woche" logic. The previous version
+        // tested the last COMPLETED week's Monday (already a week stale) against the channel from the 3
+        // weeks before THAT, which is structurally never the live signal.
         let breakoutDir = null;
-        if (weeks.length >= 4) {
-          const last = weeks[weeks.length - 1];
-          const priorFridays = [weeks[weeks.length-4].fridayClose, weeks[weeks.length-3].fridayClose, weeks[weeks.length-2].fridayClose];
-          const LONG = Math.max.apply(null, priorFridays), SHORT = Math.min.apply(null, priorFridays);
-          if (last.mondayClose > LONG) breakoutDir = 'LONG';
-          else if (last.mondayClose < SHORT) breakoutDir = 'SHORT';
+        if (weeks.length >= 3) {
+          const lastThree = weeks.slice(-3).map(w => w.fridayClose);
+          const LONG = Math.max.apply(null, lastThree), SHORT = Math.min.apply(null, lastThree);
+          const todayMondayISO = mostRecentMondayISO(new Date());
+          const mondayBar = series.find(p => p.date === todayMondayISO);
+          if (mondayBar) {
+            if (mondayBar.close > LONG) breakoutDir = 'LONG';
+            else if (mondayBar.close < SHORT) breakoutDir = 'SHORT';
+          }
         }
 
         if (!trendDir) { failed.push(sym + ' (zu wenig Historie für SMA100)'); return; }
