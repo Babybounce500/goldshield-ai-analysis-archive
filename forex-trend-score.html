@@ -290,7 +290,13 @@ async function fetchHistorical(symbol) {
   if (!res.ok) throw new Error('HTTP ' + res.status);
   const raw = await res.json();
   if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
-  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+  return raw.filter(h => {
+    if (!h || !h.date || !Number.isFinite(Number(h.close))) return false;
+    // the feed includes thin Saturday/Sunday bars, but retail forex execution is closed on weekends --
+    // treating them as real trading days would put entries/exits on dates nobody could actually trade.
+    const dow = new Date(h.date + 'T00:00:00Z').getUTCDay();
+    return dow !== 0 && dow !== 6;
+  })
     .map(h => ({ date: h.date, close: Number(h.close) }))
     .sort((a, b) => a.date.localeCompare(b.date));
 }

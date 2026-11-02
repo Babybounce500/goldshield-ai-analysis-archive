@@ -143,7 +143,15 @@ async function fetchHistorical(symbol, fromDate) {
   if (!res.ok) throw new Error('HTTP ' + res.status);
   const raw = await res.json();
   if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
-  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+  // forex feed includes thin Saturday/Sunday bars that aren't real trading days for retail execution --
+  // crypto genuinely trades 7 days/week so this must only apply to .FOREX symbols, not strip real crypto days.
+  const isForex = symbol.endsWith('.FOREX');
+  return raw.filter(h => {
+    if (!h || !h.date || !Number.isFinite(Number(h.close))) return false;
+    if (!isForex) return true;
+    const dow = new Date(h.date + 'T00:00:00Z').getUTCDay();
+    return dow !== 0 && dow !== 6;
+  })
     .map(h => ({ date: h.date, close: Number(h.close) }))
     .sort((a, b) => a.date.localeCompare(b.date));
 }
