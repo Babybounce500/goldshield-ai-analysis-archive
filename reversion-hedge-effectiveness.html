@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Hedge-Effektivität: Short-the-Outperformer</title>
+<link rel="icon" href="data:,">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" id="themeColorMeta" content="#120a1f">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#120a1f;--surface:#1d1234;--panel:#241640;--border:#3a2563;--accent:#8b5cf6;--accent-rgb:139,92,246;--green:#34d399;--red:#f87171;--muted:#a394c7;--text:#e6def9;--bright:#f8f5ff;--warn-text:#fecaca;--amber-link:#c4b5fd;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f6f3fe;--surface:#ffffff;--panel:#ece5fc;--border:#dad0f7;--accent:#6d28d9;--accent-rgb:109,40,217;--green:#15803d;--red:#b91c1c;--muted:#655a8c;--text:#211539;--bright:#120a1f;--warn-text:#7a1f1f;--amber-link:#6d28d9;}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;}
+body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
+::selection{background:rgba(var(--accent-rgb),.3);color:#fff;}
+.wrap{max-width:980px;margin:0 auto;padding:30px 22px 70px;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;letter-spacing:.3px;text-shadow:0 0 20px rgba(var(--accent-rgb),.3);}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(109,40,217,.16), rgba(109,40,217,.04));border:1px solid rgba(139,92,246,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.callout a{color:var(--amber-link);}
+h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:24px 0 10px;letter-spacing:.3px;}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;margin-bottom:18px;}
+.control-label{font-size:10px;color:var(--muted);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;}
+.control-group{margin-bottom:16px;}
+input[type=number]{font-family:var(--mono);font-size:12px;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;background:var(--panel);color:var(--text);width:140px;}
+.primary-btn{font-family:var(--head);font-size:12px;padding:13px 22px;border-radius:9px;border:none;background:linear-gradient(135deg, var(--accent), #c4b5fd);color:#120a1f;cursor:pointer;font-weight:700;letter-spacing:.3px;box-shadow:0 8px 24px -10px rgba(var(--accent-rgb),.6);}
+.primary-btn:hover{transform:translateY(-1px);}
+.primary-btn:disabled{background:var(--muted);box-shadow:none;cursor:not-allowed;}
+#status{font-size:10.5px;color:var(--muted);margin-top:10px;min-height:16px;}
+#status.err{color:var(--red);}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0;}
+.bstat{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px 10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:15px;display:block;color:var(--bright);}
+.bstat b.pos{color:var(--green);} .bstat b.neg{color:var(--red);}
+.bstat span{font-size:7.5px;color:var(--muted);letter-spacing:.4px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;border-radius:10px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:10px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;letter-spacing:.3px;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+td.num{text-align:right;font-variant-numeric:tabular-nums;}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
+.badge.bull{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
+.badge.bear{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.badge.side{background:rgba(163,148,199,.14);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(163,148,199,.2);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.methodology a{color:var(--amber-link);}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+.hidden{display:none;}
+.verdict-box{background:linear-gradient(135deg, rgba(139,92,246,.14), rgba(139,92,246,.03));border:1px solid rgba(139,92,246,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11.5px;line-height:1.8;margin-bottom:16px;}
+.verdict-box b{color:var(--bright);}
+.warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10px;color:var(--warn-text);margin-bottom:14px;line-height:1.6;}
+@media (max-width:720px){.wrap{padding:22px 16px 60px;} .stat-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:420px){h1{font-size:16px;} .primary-btn{width:100%;} input[type=number]{width:100%;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>🛡️ Hedge-Effektivität: Short-the-Outperformer</h1>
+  <div class="subtitle">Nicht "verdient das Geld", sondern "schützt das, wenn's drauf ankommt" -- misst, ob die Short-Beine der Mean-Reversion-Signale (Dow-30 vs. SPY) ausgerechnet dann besser abschneiden, wenn SPY fällt.</div>
+
+  <div class="callout">
+  <b>Andere Frage als im <a href="relative-strength-reversion-vs-momentum.html" style="color:var(--accent);">Reversion-vs-Momentum-Tool</a>.</b>
+  Dort ging es um Ø-Rendite pro Trade -- die Antwort war ein schwacher, schrumpfender Edge (Sharpe 0,18),
+  nicht eindeutig profitabel nach Kosten. Hier geht es NICHT darum, ob die Short-Position im Schnitt Geld
+  verdient, sondern ob sie <b>negativ mit SPY-Einbrüchen korreliert</b> -- eine Absicherung darf im Mittel
+  nahe null oder sogar leicht negativ sein (wie eine Versicherungsprämie) und trotzdem wertvoll sein, wenn
+  sie genau in Crash-Phasen auszahlt. Nur die Short-the-Outperformer-Beine werden betrachtet (die
+  "Short Kingz"-Seite), nicht die Long-the-Underperformer-Gegenseite.
+  </div>
+
+  <h2><span class="step-num">1</span>Einstellungen</h2>
+  <div class="panel">
+    <div class="control-group">
+      <div class="control-label">RENDITE-FENSTER FÜR DEN SPREAD (TAGE)</div>
+      <input type="number" id="window-input" value="20" min="5" max="60" step="1">
+    </div>
+    <div class="control-group">
+      <div class="control-label">Z-SCORE-SCHWELLE FÜR EIN SIGNAL</div>
+      <input type="number" id="zthreshold-input" value="0.75" min="0.1" max="3" step="0.05">
+    </div>
+    <div class="control-group" style="margin-bottom:0;">
+      <div class="control-label">HALTEDAUER NACH SIGNAL (HANDELSTAGE)</div>
+      <input type="number" id="holding-input" value="10" min="1" max="40" step="1">
+    </div>
+  </div>
+
+  <div class="panel">
+    <button class="primary-btn" id="scan-btn">📡 Live-Daten laden &amp; Hedge-Effektivität testen</button>
+    <div id="status"></div>
+  </div>
+
+  <div id="results" class="hidden">
+    <h2>📊 Korrelation mit SPY-Bewegung während der Haltedauer</h2>
+    <div class="methodology">Für jeden Short-the-Outperformer-Trade: Rendite des Short-Beins vs. SPY-Rendite über denselben Zeitraum. Eine funktionierende Hedge zeigt eine NEGATIVE Korrelation -- das Short-Bein gewinnt, wenn SPY verliert.</div>
+    <div class="stat-grid" id="corr-stats"></div>
+    <div id="corr-warning"></div>
+
+    <h2>📋 Nach SPY-Regime (bei Einstieg)</h2>
+    <div class="methodology">BTC-Regime-Logik aus dem <a href="regime-detector.html">Regime-Detector</a>, hier auf SPY selbst angewendet (200-Tage-SMA ±5%-Band). Die eigentliche Hedge-Frage: schneidet das Short-Bein im BÄR-Regime besser ab als im BULL-Regime?</div>
+    <div class="table-scroll">
+    <table><thead><tr><th>Regime</th><th>Trades</th><th>Win-Rate</th><th>Ø Rendite Short-Bein</th></tr></thead><tbody id="regime-body"></tbody></table>
+    </div>
+
+    <h2>🔻 Tail-Test: SPY's schlechteste vs. beste Fenster</h2>
+    <div class="methodology">Alle Trades nach SPY-Rendite während der Haltedauer sortiert -- unterstes vs. oberstes Dezil (10%). Das ist der direkteste Test: wenn die Hedge funktioniert, sollte das Short-Bein im untersten SPY-Dezil klar besser abschneiden als im obersten.</div>
+    <div class="stat-grid" id="tail-stats"></div>
+
+    <div id="verdict"></div>
+  </div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung, keine Ausführungsgarantie. Kein
+  Transaktionskosten-, Leihgebühren- oder Margin-Modell. Datenquelle: derselbe EOD-Proxy wie der Rest des
+  Archivs, live abgerufen. Verwandte Tools:
+  <a href="relative-strength-reversion-vs-momentum.html">Reversion vs. Momentum</a> ·
+  <a href="regime-detector.html">Regime-Detector</a> ·
+  <a href="monte-carlo-risk-of-ruin.html">Monte-Carlo-Risk-of-Ruin</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const PROXY = 'https://theserver-open-ai.replit.app';
+const FETCH_DAYS_BACK = 1200;
+const BENCHMARK = 'SPY.US';
+const REGIME_SMA = 200;
+const REGIME_BAND_PCT = 0.05;
+const DOW30 = ['AAPL.US','AMGN.US','AXP.US','BA.US','CAT.US','CRM.US','CSCO.US','CVX.US','DIS.US','GS.US','HD.US','HON.US','IBM.US','JNJ.US','JPM.US','KO.US','MCD.US','MMM.US','MRK.US','MSFT.US','NKE.US','NVDA.US','PG.US','SHW.US','TRV.US','UNH.US','V.US','VZ.US','WMT.US','AMZN.US'];
+
+async function fetchHistorical(symbol) {
+  const fromDate = new Date(Date.now() - FETCH_DAYS_BACK * 86400000).toISOString().slice(0, 10);
+  const res = await fetch(PROXY + '/eod/historical/' + encodeURIComponent(symbol) + '?from=' + fromDate);
+  if (!res.ok) throw new Error('HTTP ' + res.status);
+  const raw = await res.json();
+  if (!Array.isArray(raw) || !raw.length) throw new Error('keine Daten');
+  return raw.filter(h => h && h.date && Number.isFinite(Number(h.close)))
+    .map(h => ({ date: h.date, close: Number(h.close) }))
+    .sort((a, b) => a.date.localeCompare(b.date));
+}
+
+function sma(values, period) {
+  const out = new Array(values.length).fill(null);
+  let sum = 0;
+  for (let i = 0; i < values.length; i++) {
+    sum += values[i];
+    if (i >= period) sum -= values[i - period];
+    if (i >= period - 1) out[i] = sum / period;
+  }
+  return out;
+}
+function classifySpyRegime(series) {
+  const closes = series.map(r => r.close);
+  const s200 = sma(closes, REGIME_SMA);
+  const byDate = new Map();
+  series.forEach((r, i) => {
+    if (s200[i] == null) { byDate.set(r.date, null); return; }
+    const upper = s200[i] * (1 + REGIME_BAND_PCT), lower = s200[i] * (1 - REGIME_BAND_PCT);
+    byDate.set(r.date, r.close > upper ? 'Bull' : r.close < lower ? 'Bear' : 'Seitwärts');
+  });
+  return byDate;
+}
+
+function fmtPct(v, dp) { dp = dp == null ? 2 : dp; return (v >= 0 ? '+' : '') + v.toFixed(dp) + '%'; }
+function fmtNum(v, dp) { dp = dp == null ? 2 : dp; return v == null ? '—' : v.toFixed(dp); }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+function regimeBadgeClass(r) { return r === 'Bull' ? 'bull' : r === 'Bear' ? 'bear' : 'side'; }
+
+function pearson(xs, ys) {
+  const n = xs.length;
+  const mx = xs.reduce((a,b)=>a+b,0)/n, my = ys.reduce((a,b)=>a+b,0)/n;
+  let num=0, dx=0, dy=0;
+  for (let i=0;i<n;i++){ num += (xs[i]-mx)*(ys[i]-my); dx += (xs[i]-mx)**2; dy += (ys[i]-my)**2; }
+  const den = Math.sqrt(dx*dy);
+  return den > 0 ? num/den : 0;
+}
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f6f3fe' : '#120a1f');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+
+const statusEl = document.getElementById('status');
+const scanBtn = document.getElementById('scan-btn');
+
+scanBtn.addEventListener('click', async () => {
+  const windowDays = Math.max(5, Math.min(60, Number(document.getElementById('window-input').value) || 20));
+  const zThreshold = Math.max(0.1, Number(document.getElementById('zthreshold-input').value) || 0.75);
+  const holdingDays = Math.max(1, Math.min(40, Number(document.getElementById('holding-input').value) || 10));
+
+  scanBtn.disabled = true;
+  statusEl.className = '';
+  statusEl.textContent = 'Lade Live-Kurse für ' + DOW30.length + ' Dow-Aktien + SPY...';
+  document.getElementById('results').classList.add('hidden');
+
+  try {
+    const benchSeries = await fetchHistorical(BENCHMARK);
+    const benchByDate = new Map(benchSeries.map((p, idx) => [p.date, { close: p.close, idx }]));
+    const spyRegimeByDate = classifySpyRegime(benchSeries);
+
+    const seriesBySymbol = {};
+    const failed = [];
+    await Promise.all(DOW30.map(async sym => {
+      try { seriesBySymbol[sym] = await fetchHistorical(sym); }
+      catch (e) { failed.push(sym + ' (' + e.message + ')'); }
+    }));
+    const usableSymbols = Object.keys(seriesBySymbol);
+    if (!usableSymbols.length) throw new Error('Keine verwertbaren Daten erhalten.');
+
+    statusEl.textContent = 'Berechne Z-Score-Historie und SPY-Fenster-Renditen...';
+    await new Promise(r => setTimeout(r, 10));
+
+    const Z_LOOKBACK = 150;
+    const shortTrades = []; // { sym, entryDate, shortRet, spyRet, regime }
+
+    for (const sym of usableSymbols) {
+      const series = seriesBySymbol[sym];
+      const spreads = [];
+      for (let i = windowDays; i < series.length; i++) {
+        const date = series[i].date;
+        const b = benchByDate.get(date);
+        if (!b || b.idx < windowDays) continue;
+        const assetRet = (series[i].close - series[i - windowDays].close) / series[i - windowDays].close;
+        const benchRet = (benchSeries[b.idx].close - benchSeries[b.idx - windowDays].close) / benchSeries[b.idx - windowDays].close;
+        spreads.push({ date, close: series[i].close, idx: i, benchIdx: b.idx, spread: assetRet - benchRet });
+      }
+      for (let i = Z_LOOKBACK; i < spreads.length - holdingDays; i++) {
+        const hist = spreads.slice(i - Z_LOOKBACK, i).map(s => s.spread);
+        const mean = hist.reduce((a,b)=>a+b,0) / hist.length;
+        const variance = hist.reduce((a,b)=>a+(b-mean)**2,0) / hist.length;
+        const std = Math.sqrt(variance);
+        const z = std > 0 ? (spreads[i].spread - mean) / std : 0;
+        if (z < zThreshold) continue; // only the short-the-outperformer leg
+        const entry = spreads[i];
+        const exitIdx = entry.idx + holdingDays, exitBenchIdx = entry.benchIdx + holdingDays;
+        if (exitIdx >= series.length || exitBenchIdx >= benchSeries.length) continue;
+        const exitPrice = series[exitIdx].close;
+        const shortRet = (entry.close - exitPrice) / entry.close; // short: profit when price falls
+        const spyExit = benchSeries[exitBenchIdx].close, spyEntry = benchSeries[entry.benchIdx].close;
+        const spyRet = (spyExit - spyEntry) / spyEntry;
+        const regime = spyRegimeByDate.get(entry.date) || null;
+        shortTrades.push({ sym, entryDate: entry.date, shortRet, spyRet, regime });
+      }
+    }
+
+    if (shortTrades.length < 20) throw new Error('Zu wenige Short-Signale (' + shortTrades.length + ') für eine aussagekräftige Hedge-Analyse.');
+
+    // ---- correlation ----
+    const corr = pearson(shortTrades.map(t=>t.shortRet), shortTrades.map(t=>t.spyRet));
+    const avgShortRet = shortTrades.reduce((a,t)=>a+t.shortRet,0) / shortTrades.length;
+    const winRate = shortTrades.filter(t=>t.shortRet>0).length / shortTrades.length * 100;
+
+    document.getElementById('corr-stats').innerHTML =
+      '<div class="bstat"><b>' + shortTrades.length.toLocaleString('de-DE') + '</b><span>SHORT-SIGNALE GESAMT</span></div>' +
+      '<div class="bstat"><b class="' + (corr<=-0.1?'pos':corr>=0.1?'neg':'') + '">' + corr.toFixed(3) + '</b><span>KORRELATION SHORT-RENDITE ↔ SPY-RENDITE</span></div>' +
+      '<div class="bstat"><b class="' + (avgShortRet>=0?'pos':'neg') + '">' + fmtPct(avgShortRet*100,3) + '</b><span>Ø RENDITE SHORT-BEIN</span></div>' +
+      '<div class="bstat"><b>' + fmtNum(winRate,0) + '%</b><span>WIN-RATE SHORT-BEIN</span></div>';
+
+    document.getElementById('corr-warning').innerHTML = corr > -0.05
+      ? '<div class="warn-box"><b>Korrelation ist nicht klar negativ (' + corr.toFixed(3) + ').</b> Eine funktionierende Hedge sollte deutlich negativ korrelieren -- das Short-Bein bewegt sich hier größtenteils UNABHÄNGIG von SPY, nicht als Absicherung dagegen.</div>'
+      : '';
+
+    // ---- regime split ----
+    const regimes = ['Bull', 'Bear', 'Seitwärts'];
+    const byRegime = {};
+    for (const r of regimes) byRegime[r] = shortTrades.filter(t => t.regime === r);
+    document.getElementById('regime-body').innerHTML = regimes.map(r => {
+      const trades = byRegime[r];
+      if (!trades.length) return '<tr><td><span class="badge ' + regimeBadgeClass(r) + '">' + r + '</span></td><td colspan="3" style="color:var(--muted);">keine Trades</td></tr>';
+      const wr = trades.filter(t=>t.shortRet>0).length / trades.length * 100;
+      const avg = trades.reduce((a,t)=>a+t.shortRet,0) / trades.length;
+      return '<tr><td><span class="badge ' + regimeBadgeClass(r) + '">' + r + '</span></td><td class="num">' + trades.length + '</td><td class="num">' + fmtNum(wr,0) + '%</td><td class="num ' + (avg>=0?'pos':'neg') + '">' + fmtPct(avg*100,3) + '</td></tr>';
+    }).join('');
+
+    // ---- tail test: worst vs best SPY-return decile during the holding window ----
+    const sorted = shortTrades.slice().sort((a,b) => a.spyRet - b.spyRet);
+    const decile = Math.max(1, Math.floor(sorted.length * 0.1));
+    const worstDecile = sorted.slice(0, decile);
+    const bestDecile = sorted.slice(-decile);
+    const avgWorst = worstDecile.reduce((a,t)=>a+t.shortRet,0) / worstDecile.length;
+    const avgBest = bestDecile.reduce((a,t)=>a+t.shortRet,0) / bestDecile.length;
+    const spyAvgWorst = worstDecile.reduce((a,t)=>a+t.spyRet,0) / worstDecile.length;
+    const spyAvgBest = bestDecile.reduce((a,t)=>a+t.spyRet,0) / bestDecile.length;
+
+    document.getElementById('tail-stats').innerHTML =
+      '<div class="bstat"><b class="neg">' + fmtPct(spyAvgWorst*100,1) + '</b><span>Ø SPY-RENDITE, SCHLECHTESTES DEZIL</span></div>' +
+      '<div class="bstat"><b class="' + (avgWorst>=0?'pos':'neg') + '">' + fmtPct(avgWorst*100,2) + '</b><span>Ø SHORT-BEIN-RENDITE DABEI</span></div>' +
+      '<div class="bstat"><b class="pos">' + fmtPct(spyAvgBest*100,1) + '</b><span>Ø SPY-RENDITE, BESTES DEZIL</span></div>' +
+      '<div class="bstat"><b class="' + (avgBest>=0?'pos':'neg') + '">' + fmtPct(avgBest*100,2) + '</b><span>Ø SHORT-BEIN-RENDITE DABEI</span></div>';
+
+    // ---- verdict ----
+    const bearStats = byRegime['Bear'].length ? byRegime['Bear'].reduce((a,t)=>a+t.shortRet,0)/byRegime['Bear'].length : null;
+    const bullStats = byRegime['Bull'].length ? byRegime['Bull'].reduce((a,t)=>a+t.shortRet,0)/byRegime['Bull'].length : null;
+    const tailGap = avgWorst - avgBest;
+    let verdictHtml;
+    if (corr <= -0.1 && tailGap > 0 && (bearStats == null || bullStats == null || bearStats > bullStats)) {
+      verdictHtml = '<div class="verdict-box"><b>Echte Hedge-Wirkung gefunden.</b> Korrelation ' + corr.toFixed(3) + ' (negativ), Short-Bein verdient im schlechtesten SPY-Dezil ' + fmtPct(avgWorst*100,2) + ' gegenüber ' + fmtPct(avgBest*100,2) + ' im besten -- das Signal zahlt sich tendenziell genau dann aus, wenn der Markt fällt. Nicht kostenlos zu verifizieren (keine Kosten modelliert), aber die Richtung stimmt.</div>';
+    } else if (tailGap <= 0 && corr >= -0.05) {
+      verdictHtml = '<div class="warn-box"><b>Keine belastbare Hedge-Wirkung gefunden.</b> Korrelation ' + corr.toFixed(3) + ', Short-Bein-Rendite im schlechtesten SPY-Dezil (' + fmtPct(avgWorst*100,2) + ') nicht klar besser als im besten (' + fmtPct(avgBest*100,2) + '). Das Signal bewegt sich weitgehend unabhängig von SPY-Crashs -- als gezielte Crash-Absicherung nicht zu empfehlen, bestenfalls als schwacher Diversifikator.</div>';
+    } else {
+      verdictHtml = '<div class="verdict-box"><b>Gemischtes Bild.</b> Korrelation (' + corr.toFixed(3) + ') und Tail-Test (' + fmtPct(tailGap*100,2) + ' Unterschied) zeigen nicht konsistent in dieselbe Richtung -- keine klare, verlässliche Hedge-Eigenschaft nachweisbar.</div>';
+    }
+    document.getElementById('verdict').innerHTML = verdictHtml;
+
+    document.getElementById('results').classList.remove('hidden');
+    statusEl.textContent = 'Fertig -- berechnet um ' + new Date().toLocaleTimeString('de-DE') + '.' +
+      (failed.length ? ' Nicht abrufbar: ' + failed.join(', ') : '');
+  } catch (e) {
+    statusEl.className = 'err';
+    statusEl.textContent = 'Fehler: ' + e.message;
+  }
+  scanBtn.disabled = false;
+});
+if ('serviceWorker' in navigator) { window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {})); }
+</script>
+</body>
+</html>
