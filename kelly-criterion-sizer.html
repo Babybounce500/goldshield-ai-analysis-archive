@@ -132,13 +132,21 @@ const SYMBOLS = ['BTC-USD.CC','ETH-USD.CC','SOL-USD.CC','XRP-USD.CC','BNB-USD.CC
 
 const state = { kellyFraction: 0.25 };
 
-function sma(values, period) {
+function sma(values, period, dates, maxGapDays) {
   const out = new Array(values.length).fill(null);
-  let sum = 0;
+  let sum = 0, windowStart = 0;
   for (let i = 0; i < values.length; i++) {
+    // a data gap > maxGapDays calendar days (far beyond a normal weekend/holiday) resets the rolling window
+    // instead of silently blending stale pre-gap prices into it -- catches real trading halts/delistings
+    // (e.g. a DAX stock going private mid-history) that would otherwise produce a false, fully "warmed up"
+    // signal the moment fresh post-gap data starts arriving.
+    if (dates && maxGapDays && i > 0) {
+      const gapDays = (new Date(dates[i] + 'T00:00:00Z') - new Date(dates[i-1] + 'T00:00:00Z')) / 86400000;
+      if (gapDays > maxGapDays) { sum = 0; windowStart = i; }
+    }
     sum += values[i];
-    if (i >= period) sum -= values[i - period];
-    if (i >= period - 1) out[i] = sum / period;
+    if (i - windowStart >= period) sum -= values[i - period];
+    if (i - windowStart >= period - 1) out[i] = sum / period;
   }
   return out;
 }
@@ -154,7 +162,9 @@ function buildVerdict(price, s3, s20, s50, s100) {
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
-  const s3 = sma(closes, 3), s20 = sma(closes, 20), s50 = sma(closes, 50), s100 = sma(closes, 100);
+  const dates = series.map(r => r.date);
+  const MAX_GAP_DAYS = 10;
+  const s3 = sma(closes, 3, dates, MAX_GAP_DAYS), s20 = sma(closes, 20, dates, MAX_GAP_DAYS), s50 = sma(closes, 50, dates, MAX_GAP_DAYS), s100 = sma(closes, 100, dates, MAX_GAP_DAYS);
   return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
 }
 // exact port of crypto-trend-combined.html's backtestCombined, including the open-position fix
