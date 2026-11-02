@@ -6,16 +6,18 @@
 <title>GoldShield AI — DAX Weekly Breakout Backtest</title>
 <link rel="icon" href="data:,">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<meta name="theme-color" id="themeColorMeta" content="#0b1620">
 <style>
-:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#b45309;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root{--bg:#0b1620;--surface:#132430;--panel:#16293a;--border:#24404f;--accent:#f59e0b;--green:#34d399;--red:#f87171;--muted:#8aa0ab;--text:#cfdce2;--bright:#f4f7fb;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#b45309;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
 .wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
 h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
 .subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
-.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout{background:linear-gradient(135deg, rgba(180,83,9,.14), rgba(180,83,9,.04));border:1px solid rgba(217,119,6,.35);border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
 .callout b{color:var(--bright);}
-.callout code{background:rgba(11,22,32,.06);padding:1px 4px;border-radius:3px;}
+.callout code{background:var(--panel);padding:1px 4px;border-radius:3px;}
 .methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:26px;border-left:2px solid var(--border);padding-left:14px;}
 .methodology b{color:var(--text);}
 h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:28px 0 14px;}
@@ -29,24 +31,30 @@ h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:28px 0 14px
 .tables h3{font-size:10.5px;color:var(--text);margin-bottom:6px;}
 .table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
 table{width:100%;min-width:560px;border-collapse:collapse;font-size:9.5px;margin-bottom:0;}
+.tables table{min-width:0;}
 .tables .table-scroll{margin-bottom:0;}
 th{text-align:left;color:var(--muted);font-weight:600;padding:4px 6px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
 td{padding:4px 6px;border-bottom:1px solid var(--border);white-space:nowrap;}
 td.num{text-align:right;font-variant-numeric:tabular-nums;}
 td.pos{color:var(--green);} td.neg{color:var(--red);}
-tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
+tr.best-row{background:rgba(180,83,9,.12);} tr.best-row td{font-weight:600;}
 .period-table td,.period-table th{text-align:center;}
 .toc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
 .toc a{font-size:10px;color:var(--accent);text-decoration:none;border:1px solid var(--border);padding:6px 12px;border-radius:999px;}
 .toc a:hover{background:var(--panel);}
 .footer-note{font-size:9.5px;color:var(--muted);margin-top:30px;border-top:1px solid var(--border);padding-top:14px;}
 .back{font-family:var(--mono);font-size:10px;color:var(--accent);text-decoration:none;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
 @media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr);}.tables{grid-template-columns:minmax(0,1fr);}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a class="back" href="index.html">← Zurück zum Archiv</a>
+  <div class="top-row">
+    <a class="back" href="index.html">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
   <h1 style="margin-top:10px;">📦 Weekly Breakout — Backtest (DAX + weitere Märkte)</h1>
   <div class="subtitle">Wöchentlicher Donchian-Channel-Breakout, erst über 37 DAX-Aktien, dann über Crypto/Forex/Funds/533 globale Aktien gegengetestet · erstellt 30. Oktober 2026</div>
 
@@ -2208,5 +2216,21 @@ tr.best-row{background:#fff7e6;} tr.best-row td{font-weight:600;}
   Original-Skript keine definiert. © 2026 GENITUS INC. — GoldShield AI.
   </div>
 </div>
+<script>
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f4f7fb' : '#0b1620');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+</script>
 </body>
 </html>

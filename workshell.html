@@ -20,8 +20,8 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;}
 .tile{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px 20px 16px;text-decoration:none;color:var(--text);position:relative;border-top:4px solid var(--tile-color);transition:transform .15s,box-shadow .15s;}
 .tile:hover{transform:translateY(-3px);box-shadow:0 10px 28px -8px rgba(11,22,32,.18);}
-.tile-badge{position:absolute;top:14px;right:16px;font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--tile-color);background:color-mix(in srgb, var(--tile-color) 12%, transparent);padding:3px 8px;border-radius:999px;font-weight:600;}
-.tile-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;padding-right:70px;}
+.tile-badge{display:inline-block;font-size:8px;letter-spacing:.5px;text-transform:uppercase;color:var(--tile-color);background:color-mix(in srgb, var(--tile-color) 12%, transparent);padding:3px 8px;border-radius:999px;font-weight:600;margin-bottom:9px;}
+.tile-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
 .tile-icon{font-size:20px;}
 .tile-head h3{font-family:var(--head);font-size:14.5px;color:var(--bright);}
 .tile-desc{font-size:10.5px;color:var(--muted);line-height:1.75;margin-bottom:12px;min-height:72px;}
@@ -29,6 +29,8 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
 .tile-stat b{font-family:var(--head);font-size:14px;color:var(--tile-color);display:block;}
 .tile-stat span{font-size:7.5px;color:var(--muted);letter-spacing:.3px;}
 .tile-preview{position:relative;width:100%;height:230px;overflow:hidden;border-radius:8px;border:1px solid var(--border);background:var(--panel);}
+.tile-loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--muted);background:var(--panel);z-index:1;animation:tileLoadingPulse 1.4s ease-in-out infinite;}
+@keyframes tileLoadingPulse{0%,100%{opacity:.45;}50%{opacity:1;}}
 .tile-fade{position:absolute;left:0;right:0;bottom:0;height:60px;background:linear-gradient(to bottom, transparent, var(--surface) 92%);pointer-events:none;}
 .tile-open{margin-top:12px;font-size:10px;font-weight:600;color:var(--tile-color);display:flex;align-items:center;gap:4px;}
 .tile-open span{transition:transform .15s;}
@@ -62,7 +64,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Validierung eines externen SMA(3/20/50/100)-Trendscores: Long bei Bullish, Short bei Bearish, ein Portfolio. Schlägt reines Long-only über jedes getestete Zeitfenster bei Gesamtrendite (komplette Historie +228.729% vs. +133.192%, letzte 12 Monate +49,2% vs. -7,5%), bei ähnlichem/besserem Max-Drawdown und praktisch identischem Sharpe (1,624). Jetzt mit echtem Live-Portfolio-Tracker (realer Einstieg heute).</p>
     <div class="tile-stats"><div class="tile-stat"><b>1,624</b><span>SHARPE (10 COINS, 8,5 JAHRE)</span></div><div class="tile-stat"><b>-31%</b><span>MAX-DRAWDOWN</span></div></div>
     <div class="tile-preview">
-      <iframe src="crypto-trend-combined.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="crypto-trend-combined.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -74,7 +77,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Volle Validierung: Zeitfenster-Analyse (die Mega-Rendite stammt überwiegend aus der 2020/21-Manie), Korrelations-Analyse (effektiv nur 1,7 statt 10 unabhängige Wetten), Drawdown-Schutz vs. Buy&amp;Hold (ADA/DOT-Hodler bis heute -94%/-98% vom ATH) und der Long+Short-vs-Flat-Vergleich.</p>
     <div class="tile-stats"><div class="tile-stat"><b>1,7</b><span>EFFEKTIVE UNABHÄNGIGE WETTEN (VON 10)</span></div><div class="tile-stat"><b>10/10</b><span>COINS SCHLAGEN BUY&HOLD</span></div></div>
     <div class="tile-preview">
-      <iframe src="crypto-trend-score-report.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="crypto-trend-score-report.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:1000px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -86,7 +90,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Konservativste Variante: nur die validierte Long-Seite, Bearish-Phasen werden flach gehandelt statt geshortet. Sharpe 1,62 über ~8,5 Jahre auf den 10 größten Coins, schlägt Buy&amp;Hold strukturell durch Vermeiden mehrjähriger Abwärtstrends. Jetzt mit echtem Live-Portfolio-Tracker.</p>
     <div class="tile-stats"><div class="tile-stat"><b>1,62</b><span>SHARPE</span></div><div class="tile-stat"><b>10/10</b><span>COINS SCHLAGEN B&H</span></div></div>
     <div class="tile-preview">
-      <iframe src="crypto-trend-long.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="crypto-trend-long.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -98,7 +103,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Spiegelbild zum Long-Tool: isolierte Short-Seite desselben Scores, zum Beobachten der Short-Signale für sich. Für sich genommen schwächer als Long (Sharpe 0,34), aber genau dort stark, wo Long schwächelt (2018, 2022, 2026). Jetzt mit echtem Live-Portfolio-Tracker.</p>
     <div class="tile-stats"><div class="tile-stat"><b>0,34</b><span>SHARPE (SOLO)</span></div><div class="tile-stat"><b>+2,81%</b><span>Ø RENDITE 2022 (BÄRENMARKT)</span></div></div>
     <div class="tile-preview">
-      <iframe src="crypto-trend-short.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="crypto-trend-short.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -110,7 +116,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Derselbe SMA(3/20/50/100)-Score, live auf alle 37 DAX-Mitglieder übertragen -- ehrlich als neu und noch nicht separat geprüft gekennzeichnet (kein eigener Robustheits-Report wie bei Crypto). Mit demselben echten Live-Portfolio-Tracker.</p>
     <div class="tile-stats"><div class="tile-stat"><b>37</b><span>DAX-AKTIEN</span></div><div class="tile-stat"><b>2015</b><span>DATEN SEIT</span></div></div>
     <div class="tile-preview">
-      <iframe src="dax-trend-score.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="dax-trend-score.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -122,7 +129,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Derselbe Score auf 16 liquide Forex-Majors/-Crosses (EURUSD, GBPUSD, USDJPY u.a.) -- Kassakurs-Rendite ohne Hebel/Margin, ebenfalls ehrlich als unvalidiert gekennzeichnet. Mit demselben echten Live-Portfolio-Tracker.</p>
     <div class="tile-stats"><div class="tile-stat"><b>16</b><span>FOREX-PAARE</span></div><div class="tile-stat"><b>2015</b><span>DATEN SEIT</span></div></div>
     <div class="tile-preview">
-      <iframe src="forex-trend-score.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="forex-trend-score.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -134,7 +142,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Ein Klick, 63 Symbole: aktuelle Trend-Score-Signale für Crypto, DAX und Forex nebeneinander -- ohne Backtest, nur "was würde ich jetzt halten" über alle drei Märkte.</p>
     <div class="tile-stats"><div class="tile-stat"><b>63</b><span>SYMBOLE</span></div><div class="tile-stat"><b>3</b><span>MÄRKTE</span></div></div>
     <div class="tile-preview">
-      <iframe src="trend-score-multi-asset-screener.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="trend-score-multi-asset-screener.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -146,7 +155,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Welche der 63 Symbole haben in den letzten Tagen (einstellbares Zeitfenster) die Richtung gewechselt? Reiner Snapshot bei jedem Scan, kein Hintergrund-Monitoring.</p>
     <div class="tile-stats"><div class="tile-stat"><b>63</b><span>SYMBOLE</span></div><div class="tile-stat"><b>14 Tg</b><span>STANDARD-FENSTER</span></div></div>
     <div class="tile-preview">
-      <iframe src="trend-score-alerts.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="trend-score-alerts.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -158,7 +168,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Kapital zuerst gleich auf die gewählten Märkte, dann gleich auf die dort offenen Signale verteilen -- statt eines naiven 1/63-Splits, der DAX automatisch übergewichten würde.</p>
     <div class="tile-stats"><div class="tile-stat"><b>3</b><span>MÄRKTE (AN/AUS)</span></div><div class="tile-stat"><b>Market-first</b><span>ALLOKATIONSLOGIK</span></div></div>
     <div class="tile-preview">
-      <iframe src="trend-score-risk-sizer.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="trend-score-risk-sizer.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -170,7 +181,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">90-Tage-Korrelationsmatrix der 10 Crypto-Coins, plus eine Liste aktuell offener, gleichgerichteter Positionen mit Korrelation &gt; 0,7 -- Diversifikation, die auf dem Papier mehr aussieht als sie ist.</p>
     <div class="tile-stats"><div class="tile-stat"><b>90 Tg</b><span>KORRELATIONSFENSTER</span></div><div class="tile-stat"><b>0,7</b><span>RISIKO-SCHWELLE</span></div></div>
     <div class="tile-preview">
-      <iframe src="crypto-trend-correlation-live.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="crypto-trend-correlation-live.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -187,7 +199,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">30 vorbereitete Themen-Körbe (DAX, Crypto, Pleitegeier, Biotech, Uran, Quantencomputing u.v.m.) oder eigene Ticker eingeben -- echte Live-Kurse, sortierbare Trade-Liste mit echter Positionsgröße &amp; P&amp;L in €, Long/Short- und Pro-Symbol-Aufschlüsselung, plus eine 3-/5-Jahres-Bootstrap-Projektion mit Unsicherheitsband.</p>
     <div class="tile-stats"><div class="tile-stat"><b>30</b><span>FERTIGE KÖRBE</span></div><div class="tile-stat"><b>0s</b><span>CACHE-VERZÖGERUNG</span></div></div>
     <div class="tile-preview">
-      <iframe src="live-portfolio.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="live-portfolio.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -199,7 +212,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Komplett vom Donchian-Kanal unabhängige Gegentrend-Strategie: Montag-Einstieg bei RSI(14) &lt;30/&gt;70 vom letzten Freitag. Validiert auf dem DAX-37 (Sharpe 0,32, robust in beiden Zeithälften, auffällig niedriger Max-Drawdown) -- live auf jedem Korb anwendbar.</p>
     <div class="tile-stats"><div class="tile-stat"><b>0,32</b><span>SHARPE (DAX-37, VALIDIERT)</span></div><div class="tile-stat"><b>-3,8%</b><span>MAX-DRAWDOWN (VALIDIERT)</span></div></div>
     <div class="tile-preview">
-      <iframe src="rsi-mean-reversion.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="rsi-mean-reversion.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -211,7 +225,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Live-Ampel-Raster statt Tabelle: welche Aktien eines Korbs stehen diese Woche auf LONG, SHORT oder flach -- auf einen Blick, mit denselben echten Live-Daten wie der Live-Portfolio-Baukasten.</p>
     <div class="tile-stats"><div class="tile-stat"><b>30</b><span>FERTIGE KÖRBE</span></div><div class="tile-stat"><b>0s</b><span>CACHE-VERZÖGERUNG</span></div></div>
     <div class="tile-preview">
-      <iframe src="signal-heatmap.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="signal-heatmap.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:980px;height:700px;transform:scale(0.527);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -223,7 +238,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Die Live-Tools (Kanal, RSI, Heatmap, Rechner, Midpoint-Analyse) als installierbare PWA: eigenes Fenster, Icon auf dem Home-Bildschirm, Oberfläche offline erreichbar -- Live-Kurse bleiben dabei selbstverständlich online-pflichtig.</p>
     <div class="tile-stats"><div class="tile-stat"><b>6</b><span>GEBÜNDELTE TOOLS</span></div><div class="tile-stat"><b>1-Klick</b><span>INSTALLATION</span></div></div>
     <div class="tile-preview">
-      <iframe src="app.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="app.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -235,7 +251,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Alle 30 Live-Portfolio-Körbe nach Sharpe gerankt (mit Warnhinweisen für dünne Stichproben), eine konkrete Korb-Empfehlung, plus eine vollständige Spezifikation -- Pseudocode inklusive -- um diese validierte Logik als automatisierten Trading-Bot umzusetzen.</p>
     <div class="tile-stats"><div class="tile-stat"><b>30</b><span>GERANKTE KÖRBE</span></div><div class="tile-stat"><b>2.71</b><span>BESTER SHARPE</span></div></div>
     <div class="tile-preview">
-      <iframe src="basket-ranking.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="basket-ranking.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:980px;height:900px;transform:scale(0.527);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -247,7 +264,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Positionsgröße nach Risikoprozentsatz statt Equal-Weight: "wie viel darf ich bei diesem Stop-Loss riskieren?" -- klassisches Risikomanagement, unabhängig von der konkreten Strategie.</p>
     <div class="tile-stats"><div class="tile-stat"><b>1-2%</b><span>TYPISCHES RISIKO/TRADE</span></div><div class="tile-stat"><b>4%</b><span>VALIDIERTER STOP</span></div></div>
     <div class="tile-preview">
-      <iframe src="risiko-rechner.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="risiko-rechner.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:720px;height:700px;transform:scale(0.717);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -259,7 +277,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Contrarian vs. Momentum nach Multi-Timeframe-Mittelpunkt-Konfluenz (1M/3M/6M/1Y), aus einem Schwester-Research-Projekt statisch übernommen. Kern-Befund: volle Bearish-Konfluenz schlägt volle Bullish-Konfluenz -- derselbe Mean-Reversion-Effekt wie bei RSI, auf komplett anderem Signal und Universum (S&amp;P500+DAX40).</p>
     <div class="tile-stats"><div class="tile-stat"><b>276k</b><span>BEOBACHTUNGEN</span></div><div class="tile-stat"><b>1.417</b><span>TITEL</span></div></div>
     <div class="tile-preview">
-      <iframe src="midpoint-analyse.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="midpoint-analyse.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:1000px;height:1000px;transform:scale(0.527);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -271,7 +290,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Die Synthese aus 30+ getesteten Hypothesen: das validierte Gesamt-Rezept in 5 Schritten (Montag-Kanal-Einstieg, -4%-Stop, Equal-Weight, 10-20er-Korb, optionales Trailing-Upgrade), plus eine explizite "Was NICHT reingehört"-Liste und der genaue Geltungsbereich.</p>
     <div class="tile-stats"><div class="tile-stat"><b>5</b><span>REZEPT-SCHRITTE</span></div><div class="tile-stat"><b>10</b><span>EXPLIZIT AUSGESCHLOSSEN</span></div></div>
     <div class="tile-preview">
-      <iframe src="empfohlene-strategie.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="empfohlene-strategie.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:980px;height:900px;transform:scale(0.527);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -283,7 +303,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Jeder Fachbegriff aus dem Archiv erklärt (Sharpe, MAE, Lookahead-Bias, Donchian-Channel...), plus die genaue API-Referenz des EOD-Daten-Proxys mit Code-Beispielen -- für eigene Bot-Implementierungen.</p>
     <div class="tile-stats"><div class="tile-stat"><b>9</b><span>BEGRIFFE ERKLÄRT</span></div><div class="tile-stat"><b>2</b><span>API-ENDPOINTS</span></div></div>
     <div class="tile-preview">
-      <iframe src="docs.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="docs.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -295,7 +316,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Die Basis von allem: 659 live Reports über Aktien, Krypto, Forex und Funds -- echte Kennzahlen, echte Kursverläufe im Original-Signal-Flag-Design. Durchsuchbar, filterbar, inklusive Live-Scanner für aktuell copy-trade-taugliche Crypto-Signale.</p>
     <div class="tile-stats"><div class="tile-stat"><b>659</b><span>REPORTS</span></div><div class="tile-stat"><b>76,5%</b><span>WIN-RATE</span></div><div class="tile-stat"><b>7,8x</b><span>GEWINNER LAUFEN WEITER</span></div></div>
     <div class="tile-preview">
-      <iframe src="index.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="index.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:1250px;height:1250px;transform:scale(0.413);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -307,7 +329,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">"Signal eingehen, halten bis Regime-Wechsel" -- über die komplette Historie von 659 Symbolen simuliert, lookahead-frei. Deckt den einzigen robusten Confirmed-Trend-Fund auf: Crypto, 5-8 Tage Bestätigung -- und zeigt ebenso ehrlich, wo dieselbe Idee NICHT trägt.</p>
     <div class="tile-stats"><div class="tile-stat"><b>0,79/0,86</b><span>SHARPE CRYPTO (BEIDE HÄLFTEN)</span></div><div class="tile-stat"><b>5-8 Tg</b><span>SWEET SPOT</span></div></div>
     <div class="tile-preview">
-      <iframe src="backtesting-report.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="backtesting-report.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:1000px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -319,7 +342,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Komplett andere Handelslogik: wöchentlicher Donchian-Channel-Breakout statt Sentiment. Von 37 DAX-Aktien bis zur 525-Aktien-Welt getestet -- Money-Management, Stop-Loss-Deep-Dive und eine echte 100.000€-Retail-Depot-Simulation mit Korbgrößen von 1 bis 100.</p>
     <div class="tile-stats"><div class="tile-stat"><b>2,76</b><span>SHARPE (N=100, -4% STOP)</span></div><div class="tile-stat"><b>-4%</b><span>EMPFOHLENER STOP</span></div></div>
     <div class="tile-preview">
-      <iframe src="dax-breakout-report.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="dax-breakout-report.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:1000px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -331,7 +355,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Vier konkrete Portfolios, gebaut ausschließlich aus bereits validierten Bausteinen. Kernfund: DAX-Breakout und Crypto-Confirmed-Trend korrelieren nur mit 0,02 -- echte Diversifikation. Von "Solide" (-3% Max-Drawdown) bis "Retail-Realistisch" (von Hand nachbaubar).</p>
     <div class="tile-stats"><div class="tile-stat"><b>0,02</b><span>KORRELATION DAX↔CRYPTO</span></div><div class="tile-stat"><b>4</b><span>PORTFOLIOS</span></div></div>
     <div class="tile-preview">
-      <iframe src="model-portfolios.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="model-portfolios.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:1000px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -343,7 +368,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">27 verworfene Hypothesen (Pyramiding, enge Stops, Mittwoch-Exit...) und 21 gefundene Datenfehler stehen hier genauso wie die bestätigten Funde, jede Zeile verlinkt zur Quelle -- inklusive der 4 unabhängigen Subagent-Audits, die 6 davon erst aufgedeckt haben. Transparenz als Methode, nicht als Behauptung.</p>
     <div class="tile-stats"><div class="tile-stat"><b>13</b><span>BESTÄTIGT</span></div><div class="tile-stat"><b>27</b><span>VERWORFEN</span></div><div class="tile-stat"><b>21</b><span>BUGS GEFUNDEN</span></div></div>
     <div class="tile-preview">
-      <iframe src="research-log.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="research-log.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:980px;height:1000px;transform:scale(0.527);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -355,7 +381,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Korbgröße, Positionsgröße und Stop-Loss live kombinieren -- alle 24 Varianten vorab echt gerechnet, nicht im Browser simuliert. Von einer einzelnen Aktie bis zu 100 gleichzeitig, in Echtzeit vergleichbar.</p>
     <div class="tile-stats"><div class="tile-stat"><b>24</b><span>KOMBINATIONEN</span></div><div class="tile-stat"><b>1-100</b><span>KORBGRÖSSE</span></div></div>
     <div class="tile-preview">
-      <iframe src="strategie-rechner.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="strategie-rechner.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:940px;height:900px;transform:scale(0.549);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -367,7 +394,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">OLS-Hedge-Ratio, Spread-Z-Score und AR(1)-Halbwertszeit über alle 666 DAX-37-Paare -- kein vollständiger Kointegrations-Test, aber derselbe schnelle Vortest, den Stat-Arb-Desks nutzen.</p>
     <div class="tile-stats"><div class="tile-stat"><b>666</b><span>GETESTETE PAARE</span></div><div class="tile-stat"><b>9 Tg</b><span>KÜRZESTE HALBWERTSZEIT (BEISPIEL)</span></div></div>
     <div class="tile-preview">
-      <iframe src="pairs-trading-scanner.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="pairs-trading-scanner.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -379,7 +407,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Positionsgröße aus der echten Win-Rate/Payoff-Statistik des Crypto-Trend-Score statt naivem 1/N, mit Quarter-Kelly-Voreinstellung und Überallokations-Warnung.</p>
     <div class="tile-stats"><div class="tile-stat"><b>34%</b><span>WIN-RATE (2531 TRADES)</span></div><div class="tile-stat"><b>4,48</b><span>Ø-GEWINN/Ø-VERLUST (R)</span></div></div>
     <div class="tile-preview">
-      <iframe src="kelly-criterion-sizer.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="kelly-criterion-sizer.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -391,7 +420,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Trend-Score, RSI-Mean-Reversion und Donchian-Breakout live auf demselben DAX-37-Universum verglichen. Markiert Aktien, wo mindestens 2 von 3 Strategien übereinstimmen.</p>
     <div class="tile-stats"><div class="tile-stat"><b>3</b><span>UNABHÄNGIGE STRATEGIEN</span></div><div class="tile-stat"><b>2/3</b><span>KONFLUENZ-SCHWELLE</span></div></div>
     <div class="tile-preview">
-      <iframe src="cross-strategy-confluence-scanner.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="cross-strategy-confluence-scanner.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -403,7 +433,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">% bullish gestimmter Symbole über die letzten ~2 Jahre, je Markt (Crypto/DAX/Forex) -- Sentiment-Verlauf statt Einzelsignal-Schnappschuss.</p>
     <div class="tile-stats"><div class="tile-stat"><b>3</b><span>MÄRKTE</span></div><div class="tile-stat"><b>~2 Jahre</b><span>ZEITFENSTER</span></div></div>
     <div class="tile-preview">
-      <iframe src="market-breadth-indicator.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="market-breadth-indicator.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -415,7 +446,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Zerlegt den Crypto-Trend-Score-Equity-Verlauf in einzelne Drawdown-Episoden statt nur einer Max-Drawdown-Zahl. Tiefste Episode (-31,3%) brauchte 446 Tage bis zur Erholung.</p>
     <div class="tile-stats"><div class="tile-stat"><b>446 Tg</b><span>LÄNGSTE ERHOLUNGSZEIT</span></div><div class="tile-stat"><b>22</b><span>EPISODEN ≥ 5%</span></div></div>
     <div class="tile-preview">
-      <iframe src="drawdown-recovery-analysis.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="drawdown-recovery-analysis.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -427,7 +459,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">BTC-200-Tage-Trend als Markt-Regime-Proxy: jeder Trade des Crypto-Trend-Score nach Bull/Bär/Seitwärts bei Einstieg aufgeschlüsselt.</p>
     <div class="tile-stats"><div class="tile-stat"><b>+4,46%</b><span>Ø RENDITE/TRADE IM BULL-REGIME</span></div><div class="tile-stat"><b>+2,22%</b><span>Ø RENDITE/TRADE IM BÄR-REGIME</span></div></div>
     <div class="tile-preview">
-      <iframe src="regime-detector.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="regime-detector.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -439,7 +472,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Derselbe Score auf Tages- und Wochenkerzen gleichzeitig -- markiert, wo beide Zeitebenen übereinstimmen. Idee für weniger Whipsaws, noch nicht per Backtest validiert.</p>
     <div class="tile-stats"><div class="tile-stat"><b>2</b><span>ZEITEBENEN (DAILY+WEEKLY)</span></div><div class="tile-stat"><b>9/10</b><span>COINS MIT VOLLER KONFLUENZ (BEISPIEL)</span></div></div>
     <div class="tile-preview">
-      <iframe src="crypto-multi-timeframe-confluence.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="crypto-multi-timeframe-confluence.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -451,7 +485,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Bootstrap-Resampling echter historischer Trades (mit Zurücklegen, tausendfach) über 7 validierte und unvalidierte Strategien -- schätzt Drawdown-/Totalverlust-Wahrscheinlichkeit statt nur den einen real eingetretenen Kursverlauf zu zeigen. Mit HTML/CSV-Export inkl. Chart-Bild.</p>
     <div class="tile-stats"><div class="tile-stat"><b>7</b><span>TESTBARE SYSTEME</span></div><div class="tile-stat"><b>0%</b><span>PFADE ≥50% DD (CRYPTO-COMBINED)</span></div></div>
     <div class="tile-preview">
-      <iframe src="monte-carlo-risk-of-ruin.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="monte-carlo-risk-of-ruin.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -463,7 +498,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Testet live, ob hohe relative Stärke (Dow-30 vs. SPY) tatsächlich zur Umkehr neigt oder eher weiterläuft -- beide Richtungen gegeneinander backgetestet, inklusive Zwei-Perioden-Robustheit, statt eine Richtung einfach zu unterstellen.</p>
     <div class="tile-stats"><div class="tile-stat"><b>+0,225%</b><span>Ø EDGE MEAN-REVERSION (BEISPIEL)</span></div><div class="tile-stat"><b>2</b><span>GETESTETE RICHTUNGEN</span></div></div>
     <div class="tile-preview">
-      <iframe src="relative-strength-reversion-vs-momentum.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="relative-strength-reversion-vs-momentum.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -475,7 +511,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Prüft nicht die Ø-Rendite, sondern ob das Short-Bein der Mean-Reversion genau dann auszahlt, wenn SPY fällt -- Korrelation mit SPY-Renditen, Regime-Split und ein Tail-Test über das schlechteste vs. beste SPY-Dezil.</p>
     <div class="tile-stats"><div class="tile-stat"><b>-0,226</b><span>KORRELATION SHORT-BEIN ↔ SPY (BEISPIEL)</span></div><div class="tile-stat"><b>+2,53%</b><span>Ø RENDITE IM SCHLECHTESTEN SPY-DEZIL</span></div></div>
     <div class="tile-preview">
-      <iframe src="reversion-hedge-effectiveness.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="reversion-hedge-effectiveness.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
@@ -487,7 +524,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <p class="tile-desc">Aktien direkt gegen Aktien statt gegen einen Index -- einmal im ganzen Dow-30-Pool, einmal nur innerhalb derselben Branche (filtert Sektor-Rotation raus). Fund: der Pool-weite Edge bricht sektor-intern fast komplett zusammen.</p>
     <div class="tile-stats"><div class="tile-stat"><b>2</b><span>MODI (POOL / SEKTOR-INTERN)</span></div><div class="tile-stat"><b>6</b><span>SEKTOREN GETESTET</span></div></div>
     <div class="tile-preview">
-      <iframe src="cross-sectional-momentum-reversal.html" loading="lazy" scrolling="no" tabindex="-1"
+      <div class="tile-loading">Lädt Vorschau …</div>
+      <iframe src="cross-sectional-momentum-reversal.html" loading="lazy" scrolling="no" tabindex="-1" onload="this.previousElementSibling.style.display='none'"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>

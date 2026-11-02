@@ -9,8 +9,8 @@
 <meta name="theme-color" id="themeColorMeta" content="#0a0714">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0714;--surface:#140f24;--panel:#19132b;--border:#2b2242;--accent:#a78bfa;--accent-rgb:167,139,250;--green:#34d399;--red:#f87171;--muted:#8d81ab;--text:#e2daf2;--bright:#f8f6fd;--warn-text:#fecaca;--amber-link:#fbbf24;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
-:root.light{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#7c3aed;--accent-rgb:124,58,237;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--warn-text:#7a1f1f;--amber-link:#b45309;}
+:root{--bg:#0a0714;--surface:#140f24;--panel:#19132b;--border:#2b2242;--accent:#a78bfa;--accent-rgb:167,139,250;--green:#34d399;--red:#f87171;--muted:#8d81ab;--text:#e2daf2;--bright:#f8f6fd;--warn-text:#fecaca;--amber-link:#fbbf24;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;--badgestopped-text:#fbbf24;}
+:root.light{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#7c3aed;--accent-rgb:124,58,237;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--warn-text:#7a1f1f;--amber-link:#b45309;--badgestopped-text:#78350f;}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;}
 body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),radial-gradient(700px 500px at 100% 0%, rgba(34,211,238,.07), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
@@ -72,7 +72,7 @@ td.pos{color:var(--green);} td.neg{color:var(--red);}
 .badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
 .badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
 .badge.flat{background:rgba(141,129,171,.16);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(141,129,171,.22);}
-.badge.stopped{background:rgba(217,119,6,.18);color:#fbbf24;box-shadow:inset 0 0 0 1px rgba(251,191,36,.3);}
+.badge.stopped{background:rgba(217,119,6,.18);color:var(--badgestopped-text);box-shadow:inset 0 0 0 1px rgba(251,191,36,.3);}
 .warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10px;color:var(--warn-text);margin-bottom:14px;line-height:1.6;}
 .theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;transition:border-color .15s,color .15s;}
 .theme-toggle-btn:hover{border-color:var(--accent);color:var(--bright);}
@@ -807,7 +807,17 @@ computeBtn.addEventListener('click', async () => {
     const series = seriesBySymbol[s];
     return series && series.length && series[series.length - 1].close < 5;
   });
-  let warningsHtml = '<div class="warn-box"><b>Diese RSI-Strategie wurde nur auf dem DAX-37 validiert</b> (siehe <a href="dax-breakout-report.html#rsi" style="color:var(--warn-text);">DAX-Breakout-Report</a>) -- nicht auf anderen Körben, Branchen oder Märkten gesondert getestet. Zahlen unten sind real berechnet, aber ohne dieselbe Absicherung wie der validierte DAX-37-Korb zu lesen, sobald andere Symbole gewählt werden.</div>';
+  let warningsHtml = '';
+  const noMondayCount = currentWeekRows.filter(r => r.error === 'kein Montag-Kurs verfügbar (Feiertag oder Markt noch offen)').length;
+  if (currentWeekRows.length && noMondayCount / currentWeekRows.length >= 0.5) {
+    const lastAvailableDate = usableSymbols.reduce((max, sym) => {
+      const s = seriesBySymbol[sym];
+      const d = s[s.length - 1].date;
+      return !max || d > max ? d : max;
+    }, null);
+    warningsHtml += '<div class="callout" style="margin-bottom:14px;"><b>Kein Kurs für ' + esc(todayMondayISO) + ' (heutiger Montag) bei ' + noMondayCount + ' von ' + currentWeekRows.length + ' Symbolen.</b> Das ist normal, solange der heutige Handelstag noch läuft oder der Datenanbieter die heutigen EOD-Kurse noch nicht veröffentlicht hat -- meist erst nach US-Börsenschluss verfügbar. Letzter sicher verfügbarer Handelstag in den Daten: ' + esc(lastAvailableDate || '—') + '. Der Backtest oben ist davon nicht betroffen (nutzt nur abgeschlossene Wochen); einfach später nochmal laden für die aktuelle Woche.</div>';
+  }
+  warningsHtml += '<div class="warn-box"><b>Diese RSI-Strategie wurde nur auf dem DAX-37 validiert</b> (siehe <a href="dax-breakout-report.html#rsi" style="color:var(--warn-text);">DAX-Breakout-Report</a>) -- nicht auf anderen Körben, Branchen oder Märkten gesondert getestet. Zahlen unten sind real berechnet, aber ohne dieselbe Absicherung wie der validierte DAX-37-Korb zu lesen, sobald andere Symbole gewählt werden.</div>';
   if (hasCrypto) {
     warningsHtml += '<div class="warn-box"><b>Crypto im Korb:</b> weder die Kanal-Strategie noch diese RSI-Variante wurden für Crypto als robust bestätigt -- anders als die separat validierte <a href="backtesting-report.html#class-sweetspot" style="color:var(--warn-text);">Confirmed-Trend-Strategie für Crypto</a>. Zahlen unten sind real berechnet, aber experimentell zu lesen.</div>';
   }

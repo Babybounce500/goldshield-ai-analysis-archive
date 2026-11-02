@@ -6,14 +6,16 @@
 <title>GoldShield AI — Docs</title>
 <link rel="icon" href="data:,">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<meta name="theme-color" id="themeColorMeta" content="#0b1620">
 <style>
-:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#5f7277;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root{--bg:#0b1620;--surface:#132430;--panel:#16293a;--border:#24404f;--accent:#94a3b8;--green:#34d399;--red:#f87171;--muted:#8aa0ab;--text:#cfdce2;--bright:#f4f7fb;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#5f7277;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
-.wrap{max-width:900px;margin:0 auto;padding:30px 22px 70px;}
+.wrap{max-width:1020px;margin:0 auto;padding:30px 22px 70px;}
 h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
 .subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
-.callout{background:#fff7e6;border:1px solid #e0c178;border-left:4px solid #b45309;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout{background:linear-gradient(135deg, rgba(180,83,9,.14), rgba(180,83,9,.04));border:1px solid rgba(217,119,6,.35);border-left:3px solid #d97706;border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
 .callout b{color:var(--bright);}
 h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:28px 0 12px;}
 .toc{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;}
@@ -31,11 +33,16 @@ td{padding:6px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
 .backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
 .backlink:hover{color:var(--accent);}
 .footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
   <h1>📚 Docs: Begriffe &amp; API-Referenz</h1>
   <div class="subtitle">Alle Fachbegriffe aus dem Archiv erklärt, plus die genaue API, die der Live-Portfolio-Baukasten verwendet -- als Referenz für eigene Bot-Implementierungen</div>
 
@@ -123,5 +130,21 @@ async function fetchRealtime(symbol) {
   externen Daten-Proxys in der Zukunft. © 2026 GENITUS INC. — GoldShield AI.
   </div>
 </div>
+<script>
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f4f7fb' : '#0b1620');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+</script>
 </body>
 </html>

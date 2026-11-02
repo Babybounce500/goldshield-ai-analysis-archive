@@ -6,18 +6,21 @@
 <title>GoldShield AI — Midpoint-Konfluenz-Analyse</title>
 <link rel="icon" href="data:,">
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#0b1620">
+<meta name="theme-color" id="themeColorMeta" content="#0b1620">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--card:#ffffff;--border:#d6e2ea;--accent:#be185d;--green:#15803d;--red:#b91c1c;--gold:#b45309;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root{--bg:#0b1620;--surface:#132430;--panel:#16293a;--card:#132430;--border:#24404f;--accent:#f472b6;--green:#34d399;--red:#f87171;--gold:#e0a860;--muted:#8aa0ab;--text:#cfdce2;--bright:#f4f7fb;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--card:#ffffff;--border:#d6e2ea;--accent:#be185d;--green:#15803d;--red:#b91c1c;--gold:#b45309;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
 .wrap{max-width:1000px;margin:0 auto;padding:30px 22px 70px;}
 .backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
 .backlink:hover{color:var(--accent);}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
 h1{font-family:var(--head);font-size:18px;color:var(--bright);margin-bottom:4px;}
 .subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
-.callout{background:#fdf2f8;border:1px solid #f3c6dd;border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout{background:linear-gradient(135deg, rgba(190,24,93,.14), rgba(190,24,93,.04));border:1px solid rgba(219,39,119,.35);border-left:4px solid var(--accent);border-radius:6px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
 .callout b{color:var(--bright);}
 .callout a{color:var(--accent);}
 h2{font-family:var(--head);font-size:13px;letter-spacing:1px;color:var(--gold);margin:30px 0 12px;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:7px;}
@@ -50,7 +53,10 @@ td{padding:6px 5px;border-bottom:1px solid rgba(190,24,93,.12);white-space:nowra
 </head>
 <body>
 <div class="wrap">
-  <a href="index.html" class="backlink">← Zurück zum Archiv</a>
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
   <h1>🎯 Midpoint-Konfluenz-Analyse: Contrarian vs. Momentum</h1>
   <div class="subtitle">Multi-Timeframe-Mittelpunkt-Signal (1M/3M/6M/1Y) auf S&amp;P500 + DAX40 — Bucket-Backtest und echte Trade-Simulation</div>
 
@@ -176,17 +182,20 @@ async function loadBacktest() {
     const minV = Math.min(0,...vals), maxV = Math.max(...vals);
     const bw = (W-2*pad)/sorted.length;
     const py = v => H-pad - (v-minV)/(maxV-minV) * (H-2*pad);
+    const rootStyle = getComputedStyle(document.documentElement);
+    const labelColor = rootStyle.getPropertyValue('--text').trim() || '#1c2e34';
+    const mutedColor = rootStyle.getPropertyValue('--muted').trim() || '#5f7277';
     ctx.strokeStyle = 'rgba(190,24,93,.3)'; ctx.beginPath(); ctx.moveTo(pad,py(0)); ctx.lineTo(W-pad,py(0)); ctx.stroke();
     sorted.forEach((r,i) => {
       const x = pad + i*bw + bw*0.15, w = bw*0.7;
       const y0 = py(0), y1 = py(r.avgFwd13);
-      ctx.fillStyle = r.score<0 ? 'rgba(21,128,61,0.75)' : r.score>0 ? 'rgba(185,28,28,0.55)' : 'rgba(95,114,119,0.6)';
+      ctx.fillStyle = r.avgFwd13 >= 0 ? 'rgba(21,128,61,0.75)' : 'rgba(185,28,28,0.55)';
       ctx.fillRect(x, Math.min(y0,y1), w, Math.abs(y1-y0));
-      ctx.fillStyle = '#1c2e34'; ctx.font = '10px JetBrains Mono'; ctx.textAlign = 'center';
+      ctx.fillStyle = labelColor; ctx.font = '10px JetBrains Mono'; ctx.textAlign = 'center';
       ctx.fillText('Score ' + r.score, x+w/2, H-pad+16);
     });
-    ctx.fillStyle = '#5f7277'; ctx.font='9px JetBrains Mono'; ctx.textAlign='left';
-    ctx.fillText('Ø Vorwärtsrendite 13 Wochen nach Konfluenz-Score (grün=bearish-Konfluenz, rot=bullish-Konfluenz)', pad, 20);
+    ctx.fillStyle = mutedColor; ctx.font='9px JetBrains Mono'; ctx.textAlign='left';
+    ctx.fillText('Ø Vorwärtsrendite 13 Wochen nach Konfluenz-Score (grün=positive Rendite, rot=negative Rendite)', pad, 20);
 
     content.innerHTML = `<div class="table-scroll"><table>
       <thead><tr><th>Score</th><th class="num">N</th><th class="num">% aller Fälle</th>
@@ -262,6 +271,22 @@ async function loadStrategy() {
     document.getElementById('contrarianContent').innerHTML = '<div class="error">Fehler beim Laden: ' + e.message + '</div>';
   }
 }
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light, redraw) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f4f7fb' : '#0b1620');
+  if (redraw) loadBacktest();
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light', false);
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light, true);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
 
 loadBacktest();
 loadStrategy();

@@ -294,10 +294,13 @@ computeBtn.addEventListener('click', async () => {
   const pennyStocks = [];
   const splitExcluded = [];
   const hasCrypto = symbols.some(s => s.endsWith('.CC'));
+  let lastAvailableDate = null;
 
   await Promise.all(symbols.map(async sym => {
     try {
       const series = await fetchHistorical(sym);
+      const seriesLastDate = series[series.length - 1].date;
+      if (!lastAvailableDate || seriesLastDate > lastAvailableDate) lastAvailableDate = seriesLastDate;
       const artifact = detectSplitArtifact(series);
       if (artifact) {
         splitExcluded.push(sym + ' (Kurssprung ' + artifact.ratio.toFixed(2) + 'x am ' + artifact.date + ')');
@@ -360,6 +363,10 @@ computeBtn.addEventListener('click', async () => {
   }).join('');
 
   let warningsHtml = '';
+  const noMondayCount = cells.filter(c => c.label === 'kein Montag-Kurs').length;
+  if (cells.length && noMondayCount / cells.length >= 0.5) {
+    warningsHtml += '<div class="callout" style="margin-bottom:14px;"><b>Kein Kurs für ' + esc(todayMondayISO) + ' (heutiger Montag) bei ' + noMondayCount + ' von ' + cells.length + ' Symbolen.</b> Das ist normal, solange der heutige Handelstag noch läuft oder der Datenanbieter die heutigen EOD-Kurse noch nicht veröffentlicht hat -- meist erst nach US-Börsenschluss verfügbar. Letzter sicher verfügbarer Handelstag in den Daten: ' + esc(lastAvailableDate || '—') + '. Einfach später nochmal laden.</div>';
+  }
   if (hasCrypto) {
     warningsHtml += '<div class="warn-box"><b>Crypto im Korb:</b> die Strategie wurde primär auf Aktien entwickelt und validiert -- Crypto-Ergebnisse sind interessant, aber mit Vorsicht zu behandeln.</div>';
   }
