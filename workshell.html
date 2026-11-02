@@ -45,7 +45,7 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
 <div class="wrap">
   <a href="index.html" class="backlink">← Zurück zum Archiv</a>
   <h1>🛠️ Workshell</h1>
-  <div class="subtitle">Kuratierte Übersicht: alle Protokolle, Rechner und Backtests dieses Projekts an einem Ort -- mit Live-Vorschau statt bloßer Linkliste · erstellt 31. Oktober 2026</div>
+  <div class="subtitle">Kuratierte Übersicht: alle Protokolle, Rechner und Backtests dieses Projekts an einem Ort -- mit Live-Vorschau statt bloßer Linkliste · erstellt 2. November 2026</div>
 
   <div class="callout">
   Jede Kachel unten ist ein <b>echtes Live-Fenster</b> in die jeweilige Seite -- kein Screenshot, sondern
@@ -340,8 +340,8 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <a class="tile" href="research-log.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#5f7277;">
     <div class="tile-badge">Protokoll</div>
     <div class="tile-head"><span class="tile-icon">🔬</span><h3>Forschungsprotokoll</h3></div>
-    <p class="tile-desc">Nicht nur die Erfolge: 8 verworfene Hypothesen (Pyramiding, enge Stops, Mittwoch-Exit...) und 5 gefundene Datenfehler stehen hier genauso wie die bestätigten Funde, jede Zeile verlinkt zur Quelle. Transparenz als Methode, nicht als Behauptung.</p>
-    <div class="tile-stats"><div class="tile-stat"><b>6</b><span>BESTÄTIGT</span></div><div class="tile-stat"><b>8</b><span>VERWORFEN</span></div><div class="tile-stat"><b>5</b><span>BUGS GEFUNDEN</span></div></div>
+    <p class="tile-desc">27 verworfene Hypothesen (Pyramiding, enge Stops, Mittwoch-Exit...) und 21 gefundene Datenfehler stehen hier genauso wie die bestätigten Funde, jede Zeile verlinkt zur Quelle -- inklusive der 4 unabhängigen Subagent-Audits, die 6 davon erst aufgedeckt haben. Transparenz als Methode, nicht als Behauptung.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>13</b><span>BESTÄTIGT</span></div><div class="tile-stat"><b>27</b><span>VERWORFEN</span></div><div class="tile-stat"><b>21</b><span>BUGS GEFUNDEN</span></div></div>
     <div class="tile-preview">
       <iframe src="research-log.html" loading="lazy" scrolling="no" tabindex="-1"
         style="width:980px;height:1000px;transform:scale(0.527);transform-origin:top left;border:0;pointer-events:none;"></iframe>
@@ -440,6 +440,42 @@ h2.section-head{font-family:var(--head);font-size:13px;letter-spacing:1px;color:
     <div class="tile-stats"><div class="tile-stat"><b>2</b><span>ZEITEBENEN (DAILY+WEEKLY)</span></div><div class="tile-stat"><b>9/10</b><span>COINS MIT VOLLER KONFLUENZ (BEISPIEL)</span></div></div>
     <div class="tile-preview">
       <iframe src="crypto-multi-timeframe-confluence.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="monte-carlo-risk-of-ruin.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#f97316;">
+    <div class="tile-badge">Live-Tool · Risiko-Simulation</div>
+    <div class="tile-head"><span class="tile-icon">🎰</span><h3>Monte-Carlo-Risk-of-Ruin</h3></div>
+    <p class="tile-desc">Bootstrap-Resampling echter historischer Trades (mit Zurücklegen, tausendfach) über 7 validierte und unvalidierte Strategien -- schätzt Drawdown-/Totalverlust-Wahrscheinlichkeit statt nur den einen real eingetretenen Kursverlauf zu zeigen. Mit HTML/CSV-Export inkl. Chart-Bild.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>7</b><span>TESTBARE SYSTEME</span></div><div class="tile-stat"><b>0%</b><span>PFADE ≥50% DD (CRYPTO-COMBINED)</span></div></div>
+    <div class="tile-preview">
+      <iframe src="monte-carlo-risk-of-ruin.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="relative-strength-reversion-vs-momentum.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#60a5fa;">
+    <div class="tile-badge">Live-Tool · Faktor-Test</div>
+    <div class="tile-head"><span class="tile-icon">⚔️</span><h3>Relative Stärke: Reversion vs. Momentum</h3></div>
+    <p class="tile-desc">Testet live, ob hohe relative Stärke (Dow-30 vs. SPY) tatsächlich zur Umkehr neigt oder eher weiterläuft -- beide Richtungen gegeneinander backgetestet, inklusive Zwei-Perioden-Robustheit, statt eine Richtung einfach zu unterstellen.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>+0,225%</b><span>Ø EDGE MEAN-REVERSION (BEISPIEL)</span></div><div class="tile-stat"><b>2</b><span>GETESTETE RICHTUNGEN</span></div></div>
+    <div class="tile-preview">
+      <iframe src="relative-strength-reversion-vs-momentum.html" loading="lazy" scrolling="no" tabindex="-1"
+        style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
+      <div class="tile-fade"></div>
+    </div>
+    <div class="tile-open">Öffnen <span>→</span></div>
+  </a>
+    <a class="tile" href="cross-sectional-momentum-reversal.html" target="_blank" rel="noopener noreferrer" style="--tile-color:#a78bfa;">
+    <div class="tile-badge">Live-Tool · Faktor-Test</div>
+    <div class="tile-head"><span class="tile-icon">🏆</span><h3>Cross-Sectional: Beste vs. Schwächste</h3></div>
+    <p class="tile-desc">Aktien direkt gegen Aktien statt gegen einen Index -- einmal im ganzen Dow-30-Pool, einmal nur innerhalb derselben Branche (filtert Sektor-Rotation raus). Fund: der Pool-weite Edge bricht sektor-intern fast komplett zusammen.</p>
+    <div class="tile-stats"><div class="tile-stat"><b>2</b><span>MODI (POOL / SEKTOR-INTERN)</span></div><div class="tile-stat"><b>6</b><span>SEKTOREN GETESTET</span></div></div>
+    <div class="tile-preview">
+      <iframe src="cross-sectional-momentum-reversal.html" loading="lazy" scrolling="no" tabindex="-1"
         style="width:900px;height:700px;transform:scale(0.573);transform-origin:top left;border:0;pointer-events:none;"></iframe>
       <div class="tile-fade"></div>
     </div>
