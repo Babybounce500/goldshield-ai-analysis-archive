@@ -43,7 +43,7 @@ tr:hover{background:var(--panel);}
 <div class="wrap">
   <a href="index.html" class="backlink">← Zurück zum Archiv</a>
   <h1>🔬 Forschungsprotokoll: Was wurde getestet -- und verworfen</h1>
-  <div class="subtitle">Jede Hypothese, jeder Datenfehler, jeder verworfene Ansatz aus diesem Projekt an einem Ort -- nicht nur die Funde, die am Ende überlebt haben · erstellt 31. Oktober 2026</div>
+  <div class="subtitle">Jede Hypothese, jeder Datenfehler, jeder verworfene Ansatz aus diesem Projekt an einem Ort -- nicht nur die Funde, die am Ende überlebt haben · erstellt 2. November 2026</div>
 
   <div class="callout">
   <b>Warum diese Seite existiert:</b> ein Archiv, das nur die erfolgreichen Funde zeigt, ist nicht von
@@ -54,9 +54,9 @@ tr:hover{background:var(--panel);}
   </div>
 
   <div class="stat-grid">
-    <div class="bstat"><b class="pos">12</b><span>BESTÄTIGTE FUNDE</span></div>
+    <div class="bstat"><b class="pos">13</b><span>BESTÄTIGTE FUNDE</span></div>
     <div class="bstat"><b class="neg">27</b><span>VERWORFENE HYPOTHESEN</span></div>
-    <div class="bstat"><b>15</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
+    <div class="bstat"><b>21</b><span>GEFUNDENE &amp; KORRIGIERTE DATENFEHLER</span></div>
   </div>
 
   <h2>📦 DAX-Weekly-Breakout: Strategie-Varianten</h2>
@@ -349,6 +349,19 @@ tr:hover{background:var(--panel);}
   </tbody></table>
   </div>
 
+  <h2>👀 Vier-Augen-Prinzip per unabhängigen Subagents</h2>
+  <div class="section-note">Eine strukturelle Schwäche aus dem Corporate-Finance-Vergleich (derselbe Akteur baut UND prüft) direkt angegangen: vier unabhängige, frisch gestartete Subagents ohne Kenntnis der eigenen Bauentscheidungen haben 17 Live-Tools gegen die echte Produktion getestet.</div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Hypothese</th><th>Verdikt</th><th>Befund</th><th>Quelle</th></tr></thead><tbody>
+    <tr>
+    <td class="hyp">Unabhängige, frisch gestartete Subagents finden echte Bugs, die der bauende Akteur selbst übersehen hat</td>
+    <td class="verdict pos">✅</td>
+    <td class="finding">4 parallele Audits (Live-Tests gegen die echte Produktion, kein bloßes Code-Lesen) fanden 1 kritischen Bug (falsches, eine Woche veraltetes Live-Signal im Cross-Strategy-Scanner, produzierte gerade live falsche Signale) und 5 weitere reale Bugs -- alle vor diesem Audit unentdeckt, obwohl jedes Tool bereits vor dem Ausliefern getestet worden war. Gleichzeitig bestätigten dieselben Audits an sehr vielen anderen Stellen (OLS-Regression, Kelly-Formel, Drawdown-Zustandsmaschine, Regime-Zuordnung, u.v.m.) explizit "kein Fehler gefunden" -- kein reflexhaftes Bugs-Erfinden, sondern echte Prüfung mit echtem Ergebnis in beide Richtungen.</td>
+    <td class="source"><a href="cross-strategy-confluence-scanner.html">Cross-Strategy-Konfluenz-Scanner</a></td>
+  </tr>
+  </tbody></table>
+  </div>
+
   <h2>🐛 Gefundene &amp; korrigierte Datenfehler</h2>
   <div class="section-note">Jeder dieser Fehler wurde vor Veröffentlichung des jeweiligen Reports gefangen -- hier transparent dokumentiert statt still gefixt.</div>
   <div class="table-scroll">
@@ -442,6 +455,42 @@ tr:hover{background:var(--panel);}
     <td class="verdict pos">🐛</td>
     <td class="finding">Anders als die bereits etablierte Monday/Friday-Wochenlogik (RSI-Mean-Reversion, Live-Portfolio) filterte die neue wöchentliche Resampling-Funktion nicht auf abgeschlossene Wochen -- ein Mittwoch-Kurs konnte als stabiler Wochenschluss durchgehen und den wöchentlichen SMA-Wert verfälschen. Fix: letzte Woche wird verworfen, wenn ihr letzter bekannter Tag kein Sonntag ist.</td>
     <td class="source"><a href="crypto-multi-timeframe-confluence.html">Multi-Timeframe-Konfluenz</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Der Donchian-Breakout im Cross-Strategy-Konfluenz-Scanner war eine Woche veraltet und produzierte live falsche Signale</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Testete den Montag-Kurs der letzten ABGESCHLOSSENEN Woche gegen einen Kanal aus den 3 Wochen davor -- strukturell nie das aktuelle Signal, obwohl als "exakter Port" von Live-Portfolio beworben. Von einem unabhängigen Audit live verifiziert: 9 von 37 DAX-Werten zeigten ein falsches LONG, während das validierte Live-Portfolio-Tool zum selben Zeitpunkt für dieselben Werte "keine Position" zeigte. Fix: testet jetzt den Montag-Kurs der LAUFENDEN Woche gegen den Kanal aus den 3 zuletzt abgeschlossenen Freitagen, exakt wie im Original.</td>
+    <td class="source"><a href="cross-strategy-confluence-scanner.html">Cross-Strategy-Konfluenz-Scanner</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Eine stillschweigende ~300-Tage-Datenlücke (1COV.XETRA, Going-Private 2025) wurde von der gleitenden SMA über die Lücke hinweg geglättet und erzeugte ein falsches Maximal-Signal</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Die SMA war rein index-basiert ohne Datums-Kontinuitätsprüfung -- blendete ~9 Monate alte Vorlücken-Kurse nahtlos mit frischen Nachlücken-Kursen, als wären es 100 aufeinanderfolgende Handelstage. Produzierte live ein "Score 6/6, LONG, offen seit 2025-12-15" für eine Aktie ohne echten durchgängigen Trend dahinter. Fix: die SMA setzt ihr rollierendes Fenster zurück, sobald zwei aufeinanderfolgende Kurse mehr als 10 Kalendertage auseinanderliegen -- in 16 betroffenen Dateien mit identischer Engine gefixt.</td>
+    <td class="source"><a href="dax-trend-score.html">DAX-Trend-Score</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Der Paper-Portfolio-Stop-Flag ignorierte den vom Nutzer gewählten Stop-Prozentsatz</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Alle drei Crypto-Tools lassen -10%/-15%/-20% wählen, aber die Stop-Prüfung im echten Live-Portfolio war fest auf -15% kodiert -- eine Position bei -13,64% mit gewähltem -10%-Stop zeigte "läuft" statt "gestoppt". Fix: der gewählte Stop wird beim Öffnen der Position mitgespeichert und konsequent für Flag, Warnung und eine neue Anzeige-Kachel verwendet.</td>
+    <td class="source"><a href="crypto-trend-combined.html">Crypto-Trend-Score (Long+Short)</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Crypto-Kurse wurden in allen drei Trend-Score-Tools als € statt als $ beschriftet</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Die *-USD.CC-Symbole liefern echte USD-Schlusskurse (direkt gegen die rohe API verifiziert), die UI zeigte sie aber mit €-Präfix -- "1 BTC = €77.557" statt real ≈$77.557. Die €-Kapital-/P&amp;L-Rechnung selbst war nie falsch (Prozentrenditen sind währungsneutral), nur die Kurs-Anzeige pro Coin. Fix: Kurse zeigen jetzt $, Kapitalbeträge bleiben €, alle betroffenen Spaltenköpfe nennen die Währung explizit.</td>
+    <td class="source"><a href="crypto-trend-combined.html">Crypto-Trend-Score (Long+Short)</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Forex-Wochenend-Kurse (Samstag/Sonntag) wurden als echte Handelstage behandelt</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Der Feed enthält dünne, aber nicht-stale Wochenend-Kerzen für Forex -- in ~7,6% der Trades landeten Einstieg oder Ausstieg auf einem Wochenend-Datum, obwohl die eigene Methodik-Beschreibung "nächster Handelstag" verspricht. Fix: Forex-Symbole filtern jetzt Samstag/Sonntag-Balken heraus, in allen 5 Tools, die Forex-Daten abrufen -- Crypto (handelt echt 7 Tage/Woche) bleibt bewusst unberührt.</td>
+    <td class="source"><a href="forex-trend-score.html">Forex-Trend-Score</a></td>
+  </tr>
+    <tr>
+    <td class="hyp">Der Risk-Sizer verschluckte fehlgeschlagene Symbol-Abrufe komplett lautlos, als einziges Tool in der Familie</td>
+    <td class="verdict pos">🐛</td>
+    <td class="finding">Jedes Schwester-Tool sammelt fehlgeschlagene Symbole und zeigt sie an -- der Risk-Sizer hatte einen leeren catch-Block ohne jede Spur. Die Allokations-Rechnung selbst war nie falsch (ein fehlendes Symbol reduziert korrekt nur den Nenner dieses Marktes), aber ein Nutzer, der echtes Kapital danach bemisst, hatte keine Möglichkeit zu erfahren, dass Daten fehlten. Fix: sammelt und zeigt fehlgeschlagene Symbole jetzt wie jedes andere Tool.</td>
+    <td class="source"><a href="trend-score-risk-sizer.html">Trend-Score Risk-Sizer</a></td>
   </tr>
   </tbody></table>
   </div>
