@@ -103,6 +103,66 @@ tr.best-row{background:rgba(52,211,153,.07);}
   </div>
   <div class="methodology" id="vaccine-flat-note"></div>
 
+  <div class="callout">
+  <b>Auf Nutzerwunsch, sechs weitere Themen-Baskets</b> -- alle mit derselben Wochenkanal-Logik, alle
+  <span style="color:var(--red);">nicht validiert, reine Neugier</span>, keine Index-Stichproben, auf
+  Zuruf zusammengestellte Namen je Thema.
+  </div>
+
+  <h2>💾 Halbleiter/KI-Chips — Wochenkanal (10 Aktien, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div id="semis-stats" class="stat-grid"></div>
+  <div class="methodology" id="semis-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="semis-body"></tbody></table>
+  </div>
+  <div class="methodology" id="semis-flat-note"></div>
+
+  <h2>☢️ Nuklear/Energie (KI-Rechenzentren) — Wochenkanal (10 Aktien, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div id="nuclear-stats" class="stat-grid"></div>
+  <div class="methodology" id="nuclear-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="nuclear-body"></tbody></table>
+  </div>
+  <div class="methodology" id="nuclear-flat-note"></div>
+
+  <h2>🔮 Quantum Computing — Wochenkanal (5 Aktien, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div id="quantum-stats" class="stat-grid"></div>
+  <div class="methodology" id="quantum-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="quantum-body"></tbody></table>
+  </div>
+  <div class="methodology" id="quantum-flat-note"></div>
+
+  <h2>🛡️ Verteidigung/Rüstung — Wochenkanal (9 Aktien, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div id="defense-stats" class="stat-grid"></div>
+  <div class="methodology" id="defense-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="defense-body"></tbody></table>
+  </div>
+  <div class="methodology" id="defense-flat-note"></div>
+
+  <h2>💊 GLP-1/Abnehm-Medikamente — Wochenkanal (5 Aktien, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div id="glp1-stats" class="stat-grid"></div>
+  <div class="methodology" id="glp1-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="glp1-body"></tbody></table>
+  </div>
+  <div class="methodology" id="glp1-flat-note"></div>
+
+  <h2>🚀 Space/Satelliten — Wochenkanal (7 Aktien, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div id="space-stats" class="stat-grid"></div>
+  <div class="methodology" id="space-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="space-body"></tbody></table>
+  </div>
+  <div class="methodology" id="space-flat-note"></div>
+
   <h2>📦 DAX-Wochenkanal (37 Mitglieder, Montag-Ausbruch → Freitag-Exit)</h2>
   <div id="dax-stats" class="stat-grid"></div>
   <div class="methodology" id="dax-note"></div>
@@ -145,6 +205,12 @@ tr.best-row{background:rgba(52,211,153,.07);}
 </div>
 
 <script>
+const SEMIS_DATA = [{"sym":"NVDA.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AMD.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AVGO.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"TSM.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ASML.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AMAT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MU.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"LRCX.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"KLAC.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MRVL.US","direction":null,"note":"kein Ausbruch diese Woche"}];
+const NUCLEAR_DATA = [{"sym":"SMR.US","direction":"SHORT","mondayClose":5.27,"exitDate":"2026-10-27","exitPrice":5.7,"stopped":true,"weekReturnPct":-4},{"sym":"OKLO.US","direction":"SHORT","mondayClose":25.94,"exitDate":"2026-10-27","exitPrice":27.33,"stopped":true,"weekReturnPct":-4},{"sym":"CEG.US","direction":"SHORT","mondayClose":252.48,"exitDate":"2026-10-29","exitPrice":264.58,"stopped":true,"weekReturnPct":-4},{"sym":"VST.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"NNE.US","direction":"SHORT","mondayClose":11.86,"exitDate":"2026-10-27","exitPrice":12.34,"stopped":true,"weekReturnPct":-4},{"sym":"GEV.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"TLN.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"NRG.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"CCJ.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"LEU.US","direction":"SHORT","mondayClose":98.44,"exitDate":"2026-10-27","exitPrice":109.42,"stopped":true,"weekReturnPct":-4}];
+const QUANTUM_DATA = [{"sym":"IONQ.US","direction":"SHORT","mondayClose":30.76,"exitDate":"2026-10-27","exitPrice":32.95,"stopped":true,"weekReturnPct":-4},{"sym":"RGTI.US","direction":"SHORT","mondayClose":11.44,"exitDate":"2026-10-27","exitPrice":12.44,"stopped":true,"weekReturnPct":-4},{"sym":"QBTS.US","direction":"SHORT","mondayClose":11.54,"exitDate":"2026-10-27","exitPrice":12.13,"stopped":true,"weekReturnPct":-4},{"sym":"QUBT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ARQQ.US","direction":null,"note":"kein Ausbruch diese Woche"}];
+const DEFENSE_DATA = [{"sym":"RTX.US","direction":"LONG","mondayClose":197.48,"exitDate":"2026-10-30","exitPrice":199.8,"stopped":false,"weekReturnPct":1.17480251164676},{"sym":"LMT.US","direction":"LONG","mondayClose":635.2,"exitDate":"2026-10-30","exitPrice":636.95,"stopped":false,"weekReturnPct":0.2755037783375315},{"sym":"NOC.US","direction":"LONG","mondayClose":565.41,"exitDate":"2026-10-30","exitPrice":557.54,"stopped":false,"weekReturnPct":-1.3919102951840265},{"sym":"GD.US","direction":"LONG","mondayClose":357.04,"exitDate":"2026-10-30","exitPrice":372.59,"stopped":false,"weekReturnPct":4.355254313242201},{"sym":"LHX.US","direction":"LONG","mondayClose":260.23,"exitDate":"2026-10-30","exitPrice":277.61,"stopped":false,"weekReturnPct":6.678707297390768},{"sym":"HII.US","direction":"LONG","mondayClose":281.05,"exitDate":"2026-10-30","exitPrice":316.88,"stopped":false,"weekReturnPct":12.748621241771922},{"sym":"TXT.US","direction":"LONG","mondayClose":78.11,"exitDate":"2026-10-30","exitPrice":85.7,"stopped":false,"weekReturnPct":9.717065676609913},{"sym":"KTOS.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AVAV.US","direction":null,"note":"kein Ausbruch diese Woche"}];
+const GLP1_DATA = [{"sym":"LLY.US","direction":"LONG","mondayClose":1279.14,"exitDate":"2026-10-30","exitPrice":1417.54,"stopped":false,"weekReturnPct":10.81976953265474},{"sym":"NVO.US","direction":"LONG","mondayClose":39.13,"exitDate":"2026-10-30","exitPrice":40,"stopped":false,"weekReturnPct":2.223358037311519},{"sym":"VKTX.US","direction":"SHORT","mondayClose":24.21,"exitDate":"2026-10-28","exitPrice":25.36,"stopped":true,"weekReturnPct":-4},{"sym":"RHHBY.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ALT.US","direction":"SHORT","mondayClose":2.05,"exitDate":"2026-10-29","exitPrice":2.14,"stopped":true,"weekReturnPct":-4}];
+const SPACE_DATA = [{"sym":"RKLB.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ASTS.US","direction":"SHORT","mondayClose":39.45,"exitDate":"2026-10-27","exitPrice":41.96,"stopped":true,"weekReturnPct":-4},{"sym":"LUNR.US","direction":"SHORT","mondayClose":10.48,"exitDate":"2026-10-27","exitPrice":11.56,"stopped":true,"weekReturnPct":-4},{"sym":"SPIR.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"RDW.US","direction":"SHORT","mondayClose":8.32,"exitDate":"2026-10-27","exitPrice":8.89,"stopped":true,"weekReturnPct":-4},{"sym":"PL.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"GSAT.US","direction":null,"note":"kein Ausbruch diese Woche"}];
 const VACCINE_DATA = [{"sym":"BNTX.US","direction":"SHORT","mondayClose":86.86,"exitDate":"2026-10-30","exitPrice":88.17,"stopped":false,"weekReturnPct":-1.5081740732212783},{"sym":"VALN.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MRNA.US","direction":"SHORT","mondayClose":198.85,"exitDate":"2026-10-27","exitPrice":207.97,"stopped":true,"weekReturnPct":-4},{"sym":"PFE.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"NVAX.US","direction":"SHORT","mondayClose":9.4,"exitDate":"2026-10-27","exitPrice":10.02,"stopped":true,"weekReturnPct":-4},{"sym":"CVAC.US","error":"kein Montag-Kurs"},{"sym":"GSK.US","direction":"LONG","mondayClose":51.1,"exitDate":"2026-10-28","exitPrice":48.74,"stopped":true,"weekReturnPct":-4},{"sym":"SNY.US","direction":"LONG","mondayClose":41.79,"exitDate":"2026-10-30","exitPrice":44.34,"stopped":false,"weekReturnPct":6.101938262742293},{"sym":"AZN.US","direction":"LONG","mondayClose":172.06,"exitDate":"2026-10-30","exitPrice":186.65,"stopped":false,"weekReturnPct":8.479600139486228},{"sym":"JNJ.US","direction":"LONG","mondayClose":266.3,"exitDate":"2026-10-30","exitPrice":273.2,"stopped":false,"weekReturnPct":2.59106271122793}];
 const CRYPTOSTOCKS_DATA = [{"sym":"COIN.US","direction":"SHORT","mondayClose":159.6,"exitDate":"2026-10-30","exitPrice":143.54,"stopped":false,"weekReturnPct":10.062656641604011},{"sym":"HOOD.US","direction":"SHORT","mondayClose":92.84,"exitDate":"2026-10-30","exitPrice":84.99,"stopped":false,"weekReturnPct":8.455407152089625},{"sym":"BKKT.US","direction":"SHORT","mondayClose":4.79,"exitDate":"2026-10-27","exitPrice":5.09,"stopped":true,"weekReturnPct":-4},{"sym":"GLXY.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"CRCL.US","direction":"SHORT","mondayClose":79.84,"exitDate":"2026-10-30","exitPrice":72.54,"stopped":false,"weekReturnPct":9.14328657314629},{"sym":"ETOR.US","direction":"SHORT","mondayClose":23.52,"exitDate":"2026-10-30","exitPrice":22.51,"stopped":false,"weekReturnPct":4.294217687074822},{"sym":"GEMI.US","direction":"SHORT","mondayClose":2.87,"exitDate":"2026-10-27","exitPrice":3.08,"stopped":true,"weekReturnPct":-4},{"sym":"BLSH.US","direction":"SHORT","mondayClose":27.6,"exitDate":"2026-10-27","exitPrice":28.94,"stopped":true,"weekReturnPct":-4}];
 const SP500_DATA = [{"sym":"MSFT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"GOOGL.US","direction":"SHORT","mondayClose":316.8,"exitDate":"2026-10-30","exitPrice":279.84,"stopped":false,"weekReturnPct":11.666666666666679},{"sym":"META.US","direction":"SHORT","mondayClose":630.56,"exitDate":"2026-10-30","exitPrice":614.99,"stopped":false,"weekReturnPct":2.4692336970312003},{"sym":"AVGO.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ORCL.US","direction":"SHORT","mondayClose":126.06,"exitDate":"2026-10-28","exitPrice":144.54,"stopped":true,"weekReturnPct":-4},{"sym":"CRM.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ADBE.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"UNH.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"LLY.US","direction":"LONG","mondayClose":1279.14,"exitDate":"2026-10-30","exitPrice":1417.54,"stopped":false,"weekReturnPct":10.81976953265474},{"sym":"ABBV.US","direction":"LONG","mondayClose":286.74,"exitDate":"2026-10-30","exitPrice":294.89,"stopped":false,"weekReturnPct":2.84229615679709},{"sym":"TMO.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ABT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"JPM.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BAC.US","direction":"SHORT","mondayClose":50.52,"exitDate":"2026-10-30","exitPrice":50.01,"stopped":false,"weekReturnPct":1.009501187648466},{"sym":"WFC.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"GS.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MA.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"V.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"HD.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MCD.US","direction":"LONG","mondayClose":250.83,"exitDate":"2026-10-30","exitPrice":258.12,"stopped":false,"weekReturnPct":2.9063509149623217},{"sym":"NKE.US","direction":"LONG","mondayClose":37.91,"exitDate":"2026-10-30","exitPrice":38.67,"stopped":false,"weekReturnPct":2.004748087575851},{"sym":"SBUX.US","direction":"LONG","mondayClose":102.69,"exitDate":"2026-10-30","exitPrice":103.67,"stopped":false,"weekReturnPct":0.9543285616905287},{"sym":"CAT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"HON.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"UPS.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BA.US","direction":"SHORT","mondayClose":188.31,"exitDate":"2026-10-30","exitPrice":171.55,"stopped":false,"weekReturnPct":8.900217726089952},{"sym":"XOM.US","direction":"LONG","mondayClose":184.54,"exitDate":"2026-10-30","exitPrice":187.25,"stopped":false,"weekReturnPct":1.4685163108269255},{"sym":"CVX.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"NFLX.US","direction":"SHORT","mondayClose":63.9,"exitDate":"2026-10-30","exitPrice":62.08,"stopped":false,"weekReturnPct":2.8482003129890456},{"sym":"DIS.US","direction":null,"note":"kein Ausbruch diese Woche"}];
@@ -182,20 +248,25 @@ function renderChannelUniverse(data, universeSize, prefix, currencySym, stripSuf
   const traded = data.filter(d => d.direction);
   const flat = data.filter(d => !d.direction && !d.error);
   const wins = traded.filter(d => d.weekReturnPct > 0).length;
-  const avg = traded.reduce((a,t)=>a+t.weekReturnPct,0) / traded.length;
+  const avg = traded.length ? traded.reduce((a,t)=>a+t.weekReturnPct,0) / traded.length : null;
   const stopped = traded.filter(d => d.stopped).length;
   const longCount = traded.filter(d=>d.direction==='LONG').length, shortCount = traded.filter(d=>d.direction==='SHORT').length;
   document.getElementById(prefix + '-stats').innerHTML =
     '<div class="bstat"><b>' + traded.length + '/' + universeSize + '</b><span>AUSBRÜCHE DIESE WOCHE</span></div>' +
     '<div class="bstat"><b>' + longCount + ' LONG · ' + shortCount + ' SHORT</b><span>RICHTUNGSVERTEILUNG</span></div>' +
-    '<div class="bstat"><b class="' + (wins>=traded.length/2?'pos':'neg') + '">' + wins + '/' + traded.length + '</b><span>GEWINNER</span></div>' +
-    '<div class="bstat"><b class="' + (avg>=0?'pos':'neg') + '">' + fmtPct(avg) + '</b><span>Ø RENDITE/POSITION DIESE WOCHE</span></div>';
-  const dirNote = longCount && !shortCount ? 'Alle Ausbrüche diese Woche waren LONG, keiner SHORT.' :
+    '<div class="bstat"><b class="' + (traded.length && wins>=traded.length/2?'pos':'neg') + '">' + wins + '/' + traded.length + '</b><span>GEWINNER</span></div>' +
+    '<div class="bstat"><b class="' + (avg==null?'':avg>=0?'pos':'neg') + '">' + (avg==null?'—':fmtPct(avg)) + '</b><span>Ø RENDITE/POSITION DIESE WOCHE</span></div>';
+  const dirNote = !traded.length ? 'Keine einzige Position ausgelöst diese Woche -- alle blieben innerhalb ihres eigenen 3-Wochen-Kanals.' :
+    longCount && !shortCount ? 'Alle Ausbrüche diese Woche waren LONG, keiner SHORT.' :
     shortCount && !longCount ? 'Alle Ausbrüche diese Woche waren SHORT, keiner LONG.' :
     longCount + ' LONG gegen ' + shortCount + ' SHORT -- gemischte Woche.';
-  document.getElementById(prefix + '-note').innerHTML = dirNote + ' ' + stopped + ' von ' + traded.length + ' Positionen rissen den -4%-Stop.' + (extraNote ? ' ' + extraNote : '');
+  document.getElementById(prefix + '-note').innerHTML = dirNote + (traded.length ? ' ' + stopped + ' von ' + traded.length + ' Positionen rissen den -4%-Stop.' : '') + (extraNote ? ' ' + extraNote : '');
   document.getElementById(prefix + '-flat-note').innerHTML = flat.length + ' von ' + universeSize + ' brachen diese Woche aus keinem 3-Freitags-Kanal aus (blieben innerhalb der Bandbreite, kein Trade): ' + flat.map(d=>esc(stripSuffix(d.sym))).join(', ') + '.';
   const sorted = traded.slice().sort((a,b) => b.weekReturnPct - a.weekReturnPct);
+  if (!sorted.length) {
+    document.getElementById(prefix + '-body').innerHTML = '<tr><td colspan="6" style="color:var(--muted);text-align:center;">keine Ausbrüche diese Woche</td></tr>';
+    return { traded, wins, avg };
+  }
   document.getElementById(prefix + '-body').innerHTML = sorted.map((r, i) => {
     const cls = i === 0 ? 'best-row' : (i === sorted.length - 1 ? 'worst-row' : '');
     const badgeClass = r.direction === 'LONG' ? 'long' : 'short';
@@ -211,6 +282,12 @@ function renderChannelUniverse(data, universeSize, prefix, currencySym, stripSuf
 
 const csStats = renderChannelUniverse(CRYPTOSTOCKS_DATA, 8, 'cryptostocks', '$', s => s.replace('.US',''), 'Keine Index-Stichprobe, nur 8 auf Zuruf zusammengestellte Namen.');
 const vaxStats = renderChannelUniverse(VACCINE_DATA, 10, 'vaccine', '$', s => s.replace('.US',''), 'Keine Index-Stichprobe, nur 10 auf Zuruf zusammengestellte Namen.');
+const semisStats = renderChannelUniverse(SEMIS_DATA, 10, 'semis', '$', s => s.replace('.US',''), 'Keine Index-Stichprobe, nur 10 auf Zuruf zusammengestellte Namen.');
+const nuclearStats = renderChannelUniverse(NUCLEAR_DATA, 10, 'nuclear', '$', s => s.replace('.US',''), 'Keine Index-Stichprobe, nur 10 auf Zuruf zusammengestellte Namen.');
+const quantumStats = renderChannelUniverse(QUANTUM_DATA, 5, 'quantum', '$', s => s.replace('.US',''), 'Keine Index-Stichprobe, nur 5 auf Zuruf zusammengestellte Namen -- kleine Marktkapitalisierung, entsprechend volatil.');
+const defenseStats = renderChannelUniverse(DEFENSE_DATA, 9, 'defense', '$', s => s.replace('.US',''), 'Keine Index-Stichprobe, nur 9 auf Zuruf zusammengestellte Namen.');
+const glp1Stats = renderChannelUniverse(GLP1_DATA, 5, 'glp1', '$', s => s.replace('.US',''), 'Keine Index-Stichprobe, nur 5 auf Zuruf zusammengestellte Namen.');
+const spaceStats = renderChannelUniverse(SPACE_DATA, 7, 'space', '$', s => s.replace('.US',''), 'Keine Index-Stichprobe, nur 7 auf Zuruf zusammengestellte Namen -- kleine Marktkapitalisierung, entsprechend volatil.');
 const dStats = renderChannelUniverse(DAX_DATA, 37, 'dax', '€', s => s.replace('.XETRA',''));
 const spStats = renderChannelUniverse(SP500_DATA, 30, 'sp500', '$', s => s.replace('.US',''), 'Stichprobe von 30 liquiden Werten, nicht der volle Index.');
 const ndxStats = renderChannelUniverse(NDX100_DATA, 30, 'ndx100', '$', s => s.replace('.US',''), 'Stichprobe von 30 liquiden Werten, nicht der volle Index -- Überschneidung mit dem S&P-500-Block oben ist normal (Nasdaq-100-Mitglieder sind auch im S&P 500).');
@@ -221,16 +298,32 @@ const spTraded = spStats.traded, spWins = spStats.wins, spAvg = spStats.avg;
 const ndxTraded = ndxStats.traded, ndxWins = ndxStats.wins, ndxAvg = ndxStats.avg;
 const csTraded = csStats.traded, csWins = csStats.wins, csAvg = csStats.avg;
 const vaxTraded = vaxStats.traded, vaxWins = vaxStats.wins, vaxAvg = vaxStats.avg;
+const semisTraded = semisStats.traded, semisWins = semisStats.wins, semisAvg = semisStats.avg;
+const nuclearTraded = nuclearStats.traded, nuclearWins = nuclearStats.wins, nuclearAvg = nuclearStats.avg;
+const quantumTraded = quantumStats.traded, quantumWins = quantumStats.wins, quantumAvg = quantumStats.avg;
+const defenseTraded = defenseStats.traded, defenseWins = defenseStats.wins, defenseAvg = defenseStats.avg;
+const glp1Traded = glp1Stats.traded, glp1Wins = glp1Stats.wins, glp1Avg = glp1Stats.avg;
+const spaceTraded = spaceStats.traded, spaceWins = spaceStats.wins, spaceAvg = spaceStats.avg;
 const cLosers = cTraded.filter(t => t.weekReturnPct < 0);
 const csLosers = csTraded.filter(t => t.weekReturnPct < 0);
 const vaxLosers = vaxTraded.filter(t => t.weekReturnPct < 0);
 const dLosers = dTraded.filter(t => t.weekReturnPct < 0);
 const spLosers = spTraded.filter(t => t.weekReturnPct < 0);
 const ndxLosers = ndxTraded.filter(t => t.weekReturnPct < 0);
+const nuclearLosers = nuclearTraded.filter(t => t.weekReturnPct < 0);
+const quantumLosers = quantumTraded.filter(t => t.weekReturnPct < 0);
+const defenseLosers = defenseTraded.filter(t => t.weekReturnPct < 0);
+const glp1Losers = glp1Traded.filter(t => t.weekReturnPct < 0);
+const spaceLosers = spaceTraded.filter(t => t.weekReturnPct < 0);
 const allLoserGroups = [
   { list: cLosers, strip: s => s.replace('-USD.CC','') },
   { list: csLosers, strip: s => s.replace('.US','') },
   { list: vaxLosers, strip: s => s.replace('.US','') },
+  { list: nuclearLosers, strip: s => s.replace('.US','') },
+  { list: quantumLosers, strip: s => s.replace('.US','') },
+  { list: defenseLosers, strip: s => s.replace('.US','') },
+  { list: glp1Losers, strip: s => s.replace('.US','') },
+  { list: spaceLosers, strip: s => s.replace('.US','') },
   { list: dLosers, strip: s => s.replace('.XETRA','') },
   { list: spLosers, strip: s => s.replace('.US','') },
   { list: ndxLosers, strip: s => s.replace('.US','') },
@@ -255,6 +348,14 @@ document.getElementById('verdict').innerHTML =
   ') -- die Wette auf weiter fallende Kurse ging nicht auf, sie legten stattdessen zu. Die großen diversifizierten Pharmakonzerne mit Impfstoff-Sparte (' +
   vaxTraded.filter(t=>['SNY','AZN','JNJ','GSK'].includes(t.sym.replace('.US',''))).map(t=>esc(t.sym.replace('.US',''))+' '+fmtPct(t.weekReturnPct)).join(', ') +
   ') liefen dagegen überwiegend profitabel LONG. Kein sauberer "Pandemie-Aktien"-Gleichlauf diese Woche -- Pure-Play-Impfstoffhersteller und diversifizierte Pharma-Riesen bewegten sich in unterschiedliche Richtungen, trotz gemeinsamem Sektor-Etikett.' +
+  '</div>' +
+  '<div class="callout">' +
+  '<b>Die sechs neuen Themen-Baskets, auffälligstes Muster zuerst:</b> Halbleiter/KI-Chips (NVDA, AMD, AVGO &amp; Co.) hatten diese Woche <b>null</b> Ausbrüche -- alle 10 blieben innerhalb ihres eigenen 3-Wochen-Kanals, trotz des Hype-Themas ungewöhnlich ruhig. Nuklear/Energie (' + nuclearTraded.length + ' Ausbrüche) und Quantum Computing (' + quantumTraded.length + ' Ausbrüche) zeigen dagegen das genaue Gegenteil von "ruhig": <b>jede einzige</b> ausgelöste Position in beiden Baskets riss den -4%-Stop (' +
+  nuclearTraded.map(t=>esc(t.sym.replace('.US',''))).join(', ') + ' bzw. ' + quantumTraded.map(t=>esc(t.sym.replace('.US',''))).join(', ') +
+  ') -- verifiziert über die echten Kursdaten, kein Rechenfehler: die meisten dieser Werte drehten scharf am Dienstag (27.10.) nach oben, direkt gegen die SHORT-Position. Space/Satelliten (' +
+  (spaceTraded.length ? spaceTraded.map(t=>esc(t.sym.replace('.US',''))).join(', ') : 'keine Ausbrüche') + ') lief ähnlich -- ' + (spaceTraded.filter(t=>t.stopped).length) + ' von ' + spaceTraded.length + ' rissen den Stop. ' +
+  'Verteidigung/Rüstung dagegen lief sauber und stark (' + defenseWins + '/' + defenseTraded.length + ' im Plus, Ø ' + fmtPct(defenseAvg) + '), GLP-1/Abnehm-Medikamente gemischt (' + glp1Wins + '/' + glp1Traded.length + ' im Plus, Ø ' + fmtPct(glp1Avg) + '). ' +
+  'Dasselbe Muster wie schon bei Crypto-Handelsplattformen: kleine, spekulative, stark gehypte Werte (Nuklear-Smallcaps, Quantum, Space) whipsawen in dieser Woche viel härter als große, etablierte Namen (Mega-Cap-Chips, große Rüstungskonzerne) -- Größe/Liquidität scheint hier mehr zu erklären als das Sektor-Thema selbst.' +
   '</div>' +
   (allLoserGroups.length ? '<div class="warn-box"><b>Verlierer dieser Woche, nicht verschwiegen:</b> ' +
     allLoserGroups.map(g => g.list.map(t=>esc(g.strip(t.sym))+' '+fmtPct(t.weekReturnPct)).join(', ')).join(' · ') +
