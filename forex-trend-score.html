@@ -235,7 +235,7 @@ function buildVerdict(price, s3, s20, s50, s100) {
   if (s100 !== null) score += price > s100 ? 1 : -1;
   if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
   if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
-  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+  return { cls: score > 0 ? 'bullish' : score < 0 ? 'bearish' : 'neutral', score };
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
@@ -251,27 +251,45 @@ function backtestCombined(sym, series, stopPct) {
   const trades = [];
   let openPosition = null; // set if a position is still running when the data runs out -- this IS "what I'd hold right now"
   let i = 0;
-  while (i < verdicts.length && !verdicts[i].s100ready) i++;
   while (i < verdicts.length - 1) {
+    // a neutral (tied) score is not a trade signal -- keep scanning forward until a real bullish/bearish
+    // day shows up (same treatment as "not enough history yet"). Re-checked every iteration, not just at
+    // the start, since i can land back on a neutral day after any exit (stop or flip).
+    if (!verdicts[i].s100ready || verdicts[i].cls === 'neutral') { i++; continue; }
     const dir = verdicts[i].cls === 'bullish' ? 'LONG' : 'SHORT';
     const entryIdx = i + 1;
     if (entryIdx >= verdicts.length) break;
     const entryPrice = verdicts[entryIdx].close;
-    let exitIdx = -1, stopped = false;
+    let stoppedIdx = -1, flipSignalIdx = -1;
     for (let k = entryIdx + 1; k < verdicts.length; k++) {
       const r = dir === 'LONG' ? (verdicts[k].close - entryPrice) / entryPrice : (entryPrice - verdicts[k].close) / entryPrice;
-      if (stopPct != null && r <= -stopPct) { exitIdx = k; stopped = true; break; }
-      const stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
-      if (verdicts[k].s100ready && !stillSameDir) { exitIdx = k; break; }
+      if (stopPct != null && r <= -stopPct) { stoppedIdx = k; break; }
+      // a neutral (tied) score is not an opposite-direction signal -- only a genuine flip to the other
+      // side closes the position; neutral days are held through, same as any other same-direction day.
+      const hasFlippedToOpposite = dir === 'LONG' ? verdicts[k].cls === 'bearish' : verdicts[k].cls === 'bullish';
+      if (verdicts[k].s100ready && hasFlippedToOpposite) { flipSignalIdx = k; break; }
     }
-    if (exitIdx === -1) {
-      openPosition = { direction: dir, entryDate: verdicts[entryIdx].date, entryPrice };
-      i = verdicts.length;
+    if (stoppedIdx !== -1) {
+      trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[stoppedIdx].date, entryPrice, exitPrice: verdicts[stoppedIdx].close, finalReturn: -stopPct, stopped: true, holdDays: stoppedIdx - entryIdx });
+      i = stoppedIdx + 1;
       continue;
     }
-    const finalReturn = stopped ? -stopPct : (dir === 'LONG' ? (verdicts[exitIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[exitIdx].close) / entryPrice);
-    trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped, holdDays: exitIdx - entryIdx });
-    i = stopped ? exitIdx + 1 : exitIdx;
+    if (flipSignalIdx !== -1) {
+      // the signal is only known after that day's close, same reasoning as the entry lag above -- the
+      // flip-driven exit executes at the NEXT day's close, not the same close that produced the signal.
+      const execIdx = flipSignalIdx + 1;
+      if (execIdx >= verdicts.length) {
+        openPosition = { direction: dir, entryDate: verdicts[entryIdx].date, entryPrice };
+        i = verdicts.length;
+        continue;
+      }
+      const finalReturn = dir === 'LONG' ? (verdicts[execIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[execIdx].close) / entryPrice;
+      trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[execIdx].date, entryPrice, exitPrice: verdicts[execIdx].close, finalReturn, stopped: false, holdDays: execIdx - entryIdx });
+      i = flipSignalIdx;
+      continue;
+    }
+    openPosition = { direction: dir, entryDate: verdicts[entryIdx].date, entryPrice };
+    i = verdicts.length;
   }
   return { trades, verdicts, openPosition };
 }
@@ -537,7 +555,7 @@ computeBtn.addEventListener('click', async () => {
     const last = verdicts[verdicts.length - 1];
     if (!last.s100ready) return { sym, error: 'zu wenig Historie' };
     const stillOpen = !!openPosition;
-    const direction = stillOpen ? openPosition.direction : (last.cls === 'bullish' ? 'LONG' : 'SHORT');
+    const direction = stillOpen ? openPosition.direction : (last.cls === 'bullish' ? 'LONG' : last.cls === 'bearish' ? 'SHORT' : null);
     return { sym, score: last.score, cls: last.cls, close: last.close, stillOpen, direction, entryPrice: stillOpen ? openPosition.entryPrice : null, entryDate: stillOpen ? openPosition.entryDate : null };
   });
 
@@ -594,8 +612,8 @@ computeBtn.addEventListener('click', async () => {
   const tbody = document.getElementById('current-body');
   tbody.innerHTML = currentRows.map(r => {
     if (r.error) return '<tr><td>' + esc(stripSuffix(r.sym)) + '</td><td colspan="6" style="color:var(--muted);">' + esc(r.error) + '</td></tr>';
-    const badgeClass = r.direction === 'LONG' ? 'long' : 'short';
-    const badgeLabel = r.direction;
+    const badgeClass = r.direction === 'LONG' ? 'long' : r.direction === 'SHORT' ? 'short' : 'flat';
+    const badgeLabel = r.direction || 'NEUTRAL (0)';
     let liveCell = r.close.toFixed(4), pnlPctCell = '—', pnlAbsCell = '—';
     if (r.stillOpen) {
       const rt = realtimeBySymbol[r.sym];

@@ -49,6 +49,11 @@ h2{font-family:var(--head);font-size:13px;color:var(--bright);margin:22px 0 10px
   <a href="dax-breakout-report.html#scenarios" style="color:var(--accent);">Szenarien</a>-Abschnitten -- hier nur
   neu kombiniert und interaktiv zugänglich gemacht. Basis: 100.000€ Startkapital, fester
   performance-blinder Pool (DAX-37 dann S&amp;P-500), Montag-Einstieg/Freitag-Ausstieg, ~52 Wochen Testfenster.
+  <br><b>Hinweis zum Sharpe-Wert:</b> Rendite, Trades, Win-Rate und Max-Drawdown sind hier 1:1 aus demselben
+  Trade-Verlauf übernommen -- der Sharpe hier wird aber direkt aus dieser Wochen-Equity-Kurve (√52-Annualisierung
+  auf Wochenrenditen) berechnet, während die »Top 10«-Tabelle im Report eine andere Annualisierung nutzt
+  (auf tatsächliche Trades/Jahr aus der Haltedauer). Beide sind für sich korrekt, aber für denselben Trade-Satz
+  nicht direkt vergleichbar -- die Sharpe-Zahl hier ist NICHT 1:1 aus dem Report übernommen, alles andere schon.
   </div>
 
   <div class="control-group">

@@ -230,7 +230,7 @@ function buildVerdict(price, s3, s20, s50, s100) {
   if (s100 !== null) score += price > s100 ? 1 : -1;
   if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
   if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
-  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+  return { cls: score > 0 ? 'bullish' : score < 0 ? 'bearish' : 'neutral', score };
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
@@ -253,23 +253,37 @@ function backtestShortOnly(sym, series, stopPct) {
     const entryIdx = i + 1;
     if (entryIdx >= verdicts.length) break;
     const entryPrice = verdicts[entryIdx].close;
-    let exitIdx = -1, stopped = false;
+    let stoppedIdx = -1, flipSignalIdx = -1;
     for (let k = entryIdx + 1; k < verdicts.length; k++) {
       const r = (entryPrice - verdicts[k].close) / entryPrice;
-      if (stopPct != null && r <= -stopPct) { exitIdx = k; stopped = true; break; }
-      if (verdicts[k].s100ready && verdicts[k].cls === 'bullish') { exitIdx = k; break; }
+      if (stopPct != null && r <= -stopPct) { stoppedIdx = k; break; }
+      if (verdicts[k].s100ready && verdicts[k].cls === 'bullish') { flipSignalIdx = k; break; }
     }
-    if (exitIdx === -1) {
-      // no exit found before the data ran out -- this position is still open as of the latest bar. Used to
-      // be silently dropped here, which made the "current signal" table unable to show an entry date or
-      // live P&L for any position that had been running for more than a day.
-      openPosition = { entryDate: verdicts[entryIdx].date, entryPrice };
-      i = verdicts.length;
+    if (stoppedIdx !== -1) {
+      trades.push({ sym, direction: 'SHORT', entryDate: verdicts[entryIdx].date, exitDate: verdicts[stoppedIdx].date, entryPrice, exitPrice: verdicts[stoppedIdx].close, finalReturn: -stopPct, stopped: true, holdDays: stoppedIdx - entryIdx });
+      i = stoppedIdx + 1;
       continue;
     }
-    const finalReturn = stopped ? -stopPct : (entryPrice - verdicts[exitIdx].close) / entryPrice;
-    trades.push({ sym, direction: 'SHORT', entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped, holdDays: exitIdx - entryIdx });
-    i = exitIdx + 1;
+    if (flipSignalIdx !== -1) {
+      // the signal is only known after that day's close, same reasoning as the entry lag above -- the
+      // flip-driven exit executes at the NEXT day's close, not the same close that produced the signal.
+      const execIdx = flipSignalIdx + 1;
+      if (execIdx >= verdicts.length) {
+        // flip detected on the very last available bar -- no next-day close exists yet to execute at.
+        openPosition = { entryDate: verdicts[entryIdx].date, entryPrice };
+        i = verdicts.length;
+        continue;
+      }
+      const finalReturn = (entryPrice - verdicts[execIdx].close) / entryPrice;
+      trades.push({ sym, direction: 'SHORT', entryDate: verdicts[entryIdx].date, exitDate: verdicts[execIdx].date, entryPrice, exitPrice: verdicts[execIdx].close, finalReturn, stopped: false, holdDays: execIdx - entryIdx });
+      i = flipSignalIdx;
+      continue;
+    }
+    // no exit found before the data ran out -- this position is still open as of the latest bar. Used to
+    // be silently dropped here, which made the "current signal" table unable to show an entry date or
+    // live P&L for any position that had been running for more than a day.
+    openPosition = { entryDate: verdicts[entryIdx].date, entryPrice };
+    i = verdicts.length;
   }
   return { trades, verdicts, openPosition };
 }

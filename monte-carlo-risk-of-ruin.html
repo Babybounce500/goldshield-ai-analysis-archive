@@ -217,7 +217,7 @@ function buildVerdict(price, s3, s20, s50, s100) {
   if (s100 !== null) score += price > s100 ? 1 : -1;
   if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
   if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
-  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+  return { cls: score > 0 ? 'bullish' : score < 0 ? 'bearish' : 'neutral', score };
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
@@ -234,35 +234,47 @@ function backtestSystem(sym, series, stopPct, mode, bearishMode) {
   const verdicts = computeSeriesVerdicts(series);
   const trades = [];
   let i = 0;
-  while (i < verdicts.length && !verdicts[i].s100ready) i++;
   while (i < verdicts.length - 1) {
     let dir = null;
-    if (mode === 'combined') {
-      dir = verdicts[i].cls === 'bullish' ? 'LONG' : 'SHORT';
-    } else if (mode === 'long') {
-      if (verdicts[i].cls === 'bullish') dir = 'LONG';
-      else if (bearishMode === 'short') dir = 'SHORT';
-    } else if (mode === 'short') {
-      if (verdicts[i].cls === 'bearish') dir = 'SHORT';
+    if (verdicts[i].s100ready && verdicts[i].cls !== 'neutral') {
+      if (mode === 'combined') {
+        dir = verdicts[i].cls === 'bullish' ? 'LONG' : 'SHORT';
+      } else if (mode === 'long') {
+        if (verdicts[i].cls === 'bullish') dir = 'LONG';
+        else if (bearishMode === 'short') dir = 'SHORT';
+      } else if (mode === 'short') {
+        if (verdicts[i].cls === 'bearish') dir = 'SHORT';
+      }
     }
     if (!dir) { i++; continue; }
     const entryIdx = i + 1;
     if (entryIdx >= verdicts.length) break;
     const entryPrice = verdicts[entryIdx].close;
-    let exitIdx = -1, stopped = false;
+    let stoppedIdx = -1, flipSignalIdx = -1;
     for (let k = entryIdx + 1; k < verdicts.length; k++) {
       const r = dir === 'LONG' ? (verdicts[k].close - entryPrice) / entryPrice : (entryPrice - verdicts[k].close) / entryPrice;
-      if (stopPct != null && r <= -stopPct) { exitIdx = k; stopped = true; break; }
-      let stillSameDir;
-      if (mode === 'combined') stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
-      else if (mode === 'long') stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
-      else stillSameDir = verdicts[k].cls === 'bearish';
-      if (verdicts[k].s100ready && !stillSameDir) { exitIdx = k; break; }
+      if (stopPct != null && r <= -stopPct) { stoppedIdx = k; break; }
+      // genuine opposite-class flip only -- a neutral (tied) score does not close the position (same
+      // treatment as the standalone crypto-trend-*.html engines this is ported from).
+      let hasFlippedToOpposite;
+      if (mode === 'short') hasFlippedToOpposite = verdicts[k].cls === 'bullish';
+      else hasFlippedToOpposite = dir === 'LONG' ? verdicts[k].cls === 'bearish' : verdicts[k].cls === 'bullish';
+      if (verdicts[k].s100ready && hasFlippedToOpposite) { flipSignalIdx = k; break; }
     }
-    if (exitIdx === -1) { i = verdicts.length; continue; }
-    const finalReturn = stopped ? -stopPct : (dir === 'LONG' ? (verdicts[exitIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[exitIdx].close) / entryPrice);
-    trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped });
-    i = stopped ? exitIdx + 1 : exitIdx;
+    if (stoppedIdx !== -1) {
+      trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[stoppedIdx].date, entryPrice, exitPrice: verdicts[stoppedIdx].close, finalReturn: -stopPct, stopped: true });
+      i = stoppedIdx + 1;
+      continue;
+    }
+    if (flipSignalIdx !== -1) {
+      const execIdx = flipSignalIdx + 1;
+      if (execIdx >= verdicts.length) { i = verdicts.length; continue; }
+      const finalReturn = dir === 'LONG' ? (verdicts[execIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[execIdx].close) / entryPrice;
+      trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[execIdx].date, entryPrice, exitPrice: verdicts[execIdx].close, finalReturn, stopped: false });
+      i = flipSignalIdx;
+      continue;
+    }
+    i = verdicts.length;
   }
   return trades;
 }

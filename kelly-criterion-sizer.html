@@ -159,7 +159,7 @@ function buildVerdict(price, s3, s20, s50, s100) {
   if (s100 !== null) score += price > s100 ? 1 : -1;
   if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
   if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
-  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+  return { cls: score > 0 ? 'bullish' : score < 0 ? 'bearish' : 'neutral', score };
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
@@ -168,33 +168,45 @@ function computeSeriesVerdicts(series) {
   const s3 = sma(closes, 3, dates, MAX_GAP_DAYS), s20 = sma(closes, 20, dates, MAX_GAP_DAYS), s50 = sma(closes, 50, dates, MAX_GAP_DAYS), s100 = sma(closes, 100, dates, MAX_GAP_DAYS);
   return series.map((r, i) => ({ date: r.date, close: r.close, ...buildVerdict(r.close, s3[i], s20[i], s50[i], s100[i]), s100ready: s100[i] !== null }));
 }
-// exact port of crypto-trend-combined.html's backtestCombined, including the open-position fix
+// exact port of crypto-trend-combined.html's backtestCombined, including the open-position fix, the
+// neutral-tie-break fix, and the flip-exit timing-lag fix
 function backtestCombined(sym, series, stopPct) {
   const verdicts = computeSeriesVerdicts(series);
   const trades = [];
   let openPosition = null;
   let i = 0;
-  while (i < verdicts.length && !verdicts[i].s100ready) i++;
   while (i < verdicts.length - 1) {
+    if (!verdicts[i].s100ready || verdicts[i].cls === 'neutral') { i++; continue; }
     const dir = verdicts[i].cls === 'bullish' ? 'LONG' : 'SHORT';
     const entryIdx = i + 1;
     if (entryIdx >= verdicts.length) break;
     const entryPrice = verdicts[entryIdx].close;
-    let exitIdx = -1, stopped = false;
+    let stoppedIdx = -1, flipSignalIdx = -1;
     for (let k = entryIdx + 1; k < verdicts.length; k++) {
       const r = dir === 'LONG' ? (verdicts[k].close - entryPrice) / entryPrice : (entryPrice - verdicts[k].close) / entryPrice;
-      if (stopPct != null && r <= -stopPct) { exitIdx = k; stopped = true; break; }
-      const stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
-      if (verdicts[k].s100ready && !stillSameDir) { exitIdx = k; break; }
+      if (stopPct != null && r <= -stopPct) { stoppedIdx = k; break; }
+      const hasFlippedToOpposite = dir === 'LONG' ? verdicts[k].cls === 'bearish' : verdicts[k].cls === 'bullish';
+      if (verdicts[k].s100ready && hasFlippedToOpposite) { flipSignalIdx = k; break; }
     }
-    if (exitIdx === -1) {
-      openPosition = { direction: dir, entryDate: verdicts[entryIdx].date, entryPrice };
-      i = verdicts.length;
+    if (stoppedIdx !== -1) {
+      trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[stoppedIdx].date, entryPrice, exitPrice: verdicts[stoppedIdx].close, finalReturn: -stopPct, stopped: true, holdDays: stoppedIdx - entryIdx });
+      i = stoppedIdx + 1;
       continue;
     }
-    const finalReturn = stopped ? -stopPct : (dir === 'LONG' ? (verdicts[exitIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[exitIdx].close) / entryPrice);
-    trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, entryPrice, exitPrice: verdicts[exitIdx].close, finalReturn, stopped, holdDays: exitIdx - entryIdx });
-    i = stopped ? exitIdx + 1 : exitIdx;
+    if (flipSignalIdx !== -1) {
+      const execIdx = flipSignalIdx + 1;
+      if (execIdx >= verdicts.length) {
+        openPosition = { direction: dir, entryDate: verdicts[entryIdx].date, entryPrice };
+        i = verdicts.length;
+        continue;
+      }
+      const finalReturn = dir === 'LONG' ? (verdicts[execIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[execIdx].close) / entryPrice;
+      trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[execIdx].date, entryPrice, exitPrice: verdicts[execIdx].close, finalReturn, stopped: false, holdDays: execIdx - entryIdx });
+      i = flipSignalIdx;
+      continue;
+    }
+    openPosition = { direction: dir, entryDate: verdicts[entryIdx].date, entryPrice };
+    i = verdicts.length;
   }
   return { trades, verdicts, openPosition };
 }
@@ -270,8 +282,8 @@ scanBtn.addEventListener('click', async () => {
       const last = verdicts[verdicts.length - 1];
       if (last.s100ready) {
         const stillOpen = !!openPosition;
-        const direction = stillOpen ? openPosition.direction : (last.cls === 'bullish' ? 'LONG' : 'SHORT');
-        currentRows.push({ sym, direction, close: last.close });
+        const direction = stillOpen ? openPosition.direction : (last.cls === 'bullish' ? 'LONG' : last.cls === 'bearish' ? 'SHORT' : null);
+        if (direction) currentRows.push({ sym, direction, close: last.close });
       }
     }
 

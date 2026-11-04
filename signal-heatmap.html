@@ -53,6 +53,7 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
 .cell.long{background:linear-gradient(145deg,var(--green),#047857);box-shadow:0 4px 14px -6px rgba(5,150,105,.6);}
 .cell.short{background:linear-gradient(145deg,var(--red),#b91c1c);box-shadow:0 4px 14px -6px rgba(220,38,38,.6);}
 .cell.flat{background:linear-gradient(145deg,#475569,#334155);}
+.cell.nodata{background:repeating-linear-gradient(45deg,#334155,#334155 6px,#3f4a5c 6px,#3f4a5c 12px);border:1px dashed var(--muted);}
 .cell.err{background:linear-gradient(145deg,var(--amber),#92400e);}
 .cell .sym{font-family:var(--head);font-size:9.5px;display:block;margin-bottom:3px;word-break:break-all;}
 .cell .sig{font-size:7.5px;opacity:.9;letter-spacing:.3px;display:block;}
@@ -139,6 +140,7 @@ h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;
     <span><span class="dot" style="background:var(--green);"></span>LONG (+Breakout-Stärke, Live-P&amp;L falls verfügbar)</span>
     <span><span class="dot" style="background:var(--red);"></span>SHORT (+Breakout-Stärke, Live-P&amp;L falls verfügbar)</span>
     <span><span class="dot" style="background:var(--muted);"></span>kein Signal (Distanz bis Ausbruch)</span>
+    <span><span class="dot" style="background:repeating-linear-gradient(45deg,#334155,#334155 2px,#3f4a5c 2px,#3f4a5c 4px);"></span>zu wenig/fehlende Daten (gestrichelt) -- anders als "kein Signal": wir wissen es hier schlicht nicht</span>
     <span><span class="dot" style="background:var(--amber);"></span>Datenfehler/Split/Fehler -- ausgeschlossen</span>
   </div>
 
@@ -310,12 +312,17 @@ computeBtn.addEventListener('click', async () => {
       const lastClose = series[series.length - 1].close;
       if (lastClose < 5) pennyStocks.push(sym);
 
-      const weeks = buildWeeklySeries(series);
-      if (weeks.length < 3) { cells.push({ sym, cls: 'flat', label: 'zu wenig Daten', extra: '', sortVal: 9999 }); return; }
-      const lastThree = weeks.slice(-3).map(w => w.fridayClose);
+      // weeks before the Monday we're judging only -- buildWeeklySeries() includes a week the moment it has
+      // BOTH a Monday and Friday close, with no idea which Monday "today" is. Without this filter, the
+      // channel would silently absorb the current week's own just-posted Friday close every Fri evening
+      // through Sunday (that week already has both closes by then), contaminating the very channel being
+      // used to judge that same week's Monday decision -- a date-dependent bug, not visible Mon-Thu.
+      const completedWeeks = buildWeeklySeries(series).filter(w => w.monday < todayMondayISO);
+      if (completedWeeks.length < 3) { cells.push({ sym, cls: 'nodata', label: 'zu wenig Daten', extra: '', sortVal: 9999 }); return; }
+      const lastThree = completedWeeks.slice(-3).map(w => w.fridayClose);
       const LONG = Math.max.apply(null, lastThree), SHORT = Math.min.apply(null, lastThree);
       const mondayBar = series.find(p => p.date === todayMondayISO);
-      if (!mondayBar) { cells.push({ sym, cls: 'flat', label: 'kein Montag-Kurs', extra: '', sortVal: 9999 }); return; }
+      if (!mondayBar) { cells.push({ sym, cls: 'nodata', label: 'kein Montag-Kurs', extra: '', sortVal: 9999 }); return; }
       const mc = mondayBar.close;
 
       if (mc > LONG) {
@@ -351,7 +358,7 @@ computeBtn.addEventListener('click', async () => {
     }
   }));
 
-  const groupOrder = { long: 0, short: 1, flat: 2, err: 3 };
+  const groupOrder = { long: 0, short: 1, flat: 2, nodata: 3, err: 4 };
   cells.sort((a, b) => groupOrder[a.cls] - groupOrder[b.cls] || a.sortVal - b.sortVal || a.sym.localeCompare(b.sym));
 
   document.getElementById('grid').innerHTML = cells.map(c => {

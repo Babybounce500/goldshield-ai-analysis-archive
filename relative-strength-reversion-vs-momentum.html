@@ -271,7 +271,7 @@ scanBtn.addEventListener('click', async () => {
     const underCount = liveRows.filter(r => r.z <= -zThreshold).length;
     const neutralCount = liveRows.length - overCount - underCount;
 
-    document.getElementById('live-note').innerHTML = overCount + ' Outperformer (Z ≥ ' + zThreshold + ') · ' + underCount + ' Underperformer (Z ≤ -' + zThreshold + ') · ' + neutralCount + ' neutral, von ' + liveRows.length + ' Aktien -- zur Einordnung: eine sauber normierte Verteilung sollte hier ungefähr ausgeglichen sein, nicht einseitig.';
+    document.getElementById('live-note').innerHTML = overCount + ' Outperformer (Z ≥ ' + zThreshold + ') · ' + underCount + ' Underperformer (Z ≤ -' + zThreshold + ') · ' + neutralCount + ' neutral, von ' + liveRows.length + ' Aktien -- zur Einordnung: eine sauber normierte Verteilung sollte hier ungefähr ausgeglichen sein, nicht einseitig. Hinweis: "Kurs" und die Rendite-Spalten sind der aktuelle Live-Kurs, Z-Score/Einstufung basieren auf dem letzten abgeschlossenen Handelstag -- bei einer großen Intraday-Bewegung können beide kurzzeitig auseinanderlaufen.';
     document.getElementById('live-body').innerHTML = liveRows.map(r => {
       const cls = r.z >= zThreshold ? 'over' : r.z <= -zThreshold ? 'under' : 'neutral';
       const label = r.z >= zThreshold ? 'OUTPERFORMER' : r.z <= -zThreshold ? 'UNDERPERFORMER' : 'neutral';

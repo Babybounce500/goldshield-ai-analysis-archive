@@ -38,6 +38,7 @@ th.num{text-align:right;}
 .badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;letter-spacing:.2px;}
 .badge.long{background:rgba(52,211,153,.14);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.25);}
 .badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
+.badge.flat{background:rgba(141,181,170,.14);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(141,181,170,.2);}
 .theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
 .top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
 .methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
@@ -129,7 +130,7 @@ function buildVerdict(price, s3, s20, s50, s100) {
   if (s100 !== null) score += price > s100 ? 1 : -1;
   if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
   if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
-  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+  return { cls: score > 0 ? 'bullish' : score < 0 ? 'bearish' : 'neutral', score };
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
@@ -209,8 +210,8 @@ async function scanGroup(key, group) {
   const errored = rows.filter(r => r.error);
   const body = document.getElementById(key + '-body');
   body.innerHTML = ok.map(r => {
-    const dir = r.cls === 'bullish' ? 'LONG' : 'SHORT';
-    const badgeClass = dir === 'LONG' ? 'long' : 'short';
+    const dir = r.cls === 'bullish' ? 'LONG' : r.cls === 'bearish' ? 'SHORT' : 'NEUTRAL (0)';
+    const badgeClass = r.cls === 'bullish' ? 'long' : r.cls === 'bearish' ? 'short' : 'flat';
     return '<tr><td>' + esc(r.sym.replace(group.suffix,'')) + '</td><td class="num">' + r.score + '</td><td><span class="badge ' + badgeClass + '">' + dir + '</span></td><td class="num">' + r.close.toFixed(group.dp) + '</td></tr>';
   }).join('');
   const longCount = ok.filter(r => r.cls === 'bullish').length;

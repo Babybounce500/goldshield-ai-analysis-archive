@@ -41,6 +41,7 @@ th.num{text-align:right;}
 .badge.short{background:rgba(248,113,113,.14);color:var(--red);box-shadow:inset 0 0 0 1px rgba(248,113,113,.25);}
 .badge.yes{background:rgba(52,211,153,.18);color:var(--green);box-shadow:inset 0 0 0 1px rgba(52,211,153,.3);}
 .badge.no{background:rgba(148,163,184,.14);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(148,163,184,.2);}
+.badge.flat{background:rgba(141,181,170,.14);color:var(--muted);box-shadow:inset 0 0 0 1px rgba(141,181,170,.2);}
 .theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
 .top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
 .methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
@@ -123,7 +124,7 @@ function buildVerdict(price, s3, s20, s50, s100) {
   if (s100 !== null) score += price > s100 ? 1 : -1;
   if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
   if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
-  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+  return { cls: score > 0 ? 'bullish' : score < 0 ? 'bearish' : 'neutral', score };
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
@@ -212,24 +213,27 @@ scanBtn.addEventListener('click', async () => {
         const lastDaily = dailyVerdicts[dailyVerdicts.length - 1];
         const lastWeekly = weeklyVerdicts[weeklyVerdicts.length - 1];
         if (!lastDaily.s100ready || !lastWeekly.s100ready) { failed.push(sym + ' (zu wenig Historie für SMA100 auf einer Zeitebene)'); return; }
-        rows.push({ sym, dailyScore: lastDaily.score, dailyDir: lastDaily.cls === 'bullish' ? 'LONG' : 'SHORT', weeklyScore: lastWeekly.score, weeklyDir: lastWeekly.cls === 'bullish' ? 'LONG' : 'SHORT' });
+        const clsDir = c => c === 'bullish' ? 'LONG' : c === 'bearish' ? 'SHORT' : 'NEUTRAL';
+        rows.push({ sym, dailyScore: lastDaily.score, dailyDir: clsDir(lastDaily.cls), weeklyScore: lastWeekly.score, weeklyDir: clsDir(lastWeekly.cls) });
       } catch (e) { failed.push(sym + ' (' + e.message + ')'); }
     }));
 
-    rows.sort((a,b) => (a.dailyDir === a.weeklyDir ? 0 : 1) - (b.dailyDir === b.weeklyDir ? 0 : 1));
-    const confluentCount = rows.filter(r => r.dailyDir === r.weeklyDir).length;
+    const isConfluent = r => r.dailyDir === r.weeklyDir && r.dailyDir !== 'NEUTRAL';
+    rows.sort((a,b) => (isConfluent(a) ? 0 : 1) - (isConfluent(b) ? 0 : 1));
+    const confluentCount = rows.filter(isConfluent).length;
 
     document.getElementById('results-note').innerHTML = rows.length + ' von ' + SYMBOLS.length + ' Coins ausgewertet · ' + confluentCount + ' mit voller Daily/Weekly-Konfluenz.' +
       (failed.length ? '<br><b style="color:var(--red);">Übersprungen:</b> ' + failed.map(esc).join(', ') : '');
 
     document.getElementById('confluence-body').innerHTML = rows.map(r => {
-      const agree = r.dailyDir === r.weeklyDir;
+      const agree = isConfluent(r);
+      const badgeCls = d => d==='LONG'?'long':d==='SHORT'?'short':'flat';
       return '<tr class="' + (agree ? 'confluent' : '') + '">' +
         '<td>' + esc(stripSuffix(r.sym)) + '</td>' +
         '<td class="num">' + r.dailyScore + '</td>' +
-        '<td><span class="badge ' + (r.dailyDir==='LONG'?'long':'short') + '">' + r.dailyDir + '</span></td>' +
+        '<td><span class="badge ' + badgeCls(r.dailyDir) + '">' + r.dailyDir + '</span></td>' +
         '<td class="num">' + r.weeklyScore + '</td>' +
-        '<td><span class="badge ' + (r.weeklyDir==='LONG'?'long':'short') + '">' + r.weeklyDir + '</span></td>' +
+        '<td><span class="badge ' + badgeCls(r.weeklyDir) + '">' + r.weeklyDir + '</span></td>' +
         '<td><span class="badge ' + (agree?'yes':'no') + '">' + (agree ? '✓ VOLL' : '✗ GEMISCHT') + '</span></td>' +
       '</tr>';
     }).join('');

@@ -132,7 +132,7 @@ function buildVerdict(price, s3, s20, s50, s100) {
   if (s100 !== null) score += price > s100 ? 1 : -1;
   if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
   if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
-  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+  return { cls: score > 0 ? 'bullish' : score < 0 ? 'bearish' : 'neutral', score };
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
@@ -145,8 +145,10 @@ function backtestCombined(sym, series, stopPct) {
   const verdicts = computeSeriesVerdicts(series);
   const trades = [];
   let i = 0;
-  while (i < verdicts.length && !verdicts[i].s100ready) i++;
   while (i < verdicts.length - 1) {
+    // a neutral (tied) score is not a trade signal -- keep scanning until a real bullish/bearish day
+    // shows up, re-checked every iteration since i can land back on a neutral day after any exit.
+    if (!verdicts[i].s100ready || verdicts[i].cls === 'neutral') { i++; continue; }
     const dir = verdicts[i].cls === 'bullish' ? 'LONG' : 'SHORT';
     const entryIdx = i + 1;
     if (entryIdx >= verdicts.length) break;
@@ -155,12 +157,17 @@ function backtestCombined(sym, series, stopPct) {
     for (let k = entryIdx + 1; k < verdicts.length; k++) {
       const r = dir === 'LONG' ? (verdicts[k].close - entryPrice) / entryPrice : (entryPrice - verdicts[k].close) / entryPrice;
       if (stopPct != null && r <= -stopPct) { exitIdx = k; stopped = true; break; }
-      const stillSameDir = dir === 'LONG' ? verdicts[k].cls === 'bullish' : verdicts[k].cls === 'bearish';
-      if (verdicts[k].s100ready && !stillSameDir) { exitIdx = k; break; }
+      // only a genuine flip to the opposite side closes the position -- a neutral tie is held through.
+      const hasFlippedToOpposite = dir === 'LONG' ? verdicts[k].cls === 'bearish' : verdicts[k].cls === 'bullish';
+      if (verdicts[k].s100ready && hasFlippedToOpposite) { exitIdx = k; break; }
     }
     if (exitIdx === -1) { i = verdicts.length; continue; }
     const finalReturn = stopped ? -stopPct : (dir === 'LONG' ? (verdicts[exitIdx].close - entryPrice) / entryPrice : (entryPrice - verdicts[exitIdx].close) / entryPrice);
     trades.push({ sym, direction: dir, entryDate: verdicts[entryIdx].date, exitDate: verdicts[exitIdx].date, finalReturn, stopped });
+    // NOTE: same-day flip exit (verdicts[exitIdx].close), not lagged one day like the entry -- this is the
+    // same exit-timing inconsistency already found and fixed in crypto-trend-combined/long/short.html.
+    // Left as-is here per explicit scope (this file's own backtest loop was out of scope for that fix);
+    // flagged for the parent to decide whether to apply the same fix here too.
     i = stopped ? exitIdx + 1 : exitIdx;
   }
   return trades;

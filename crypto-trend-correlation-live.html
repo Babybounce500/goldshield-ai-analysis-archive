@@ -134,7 +134,7 @@ function buildVerdict(price, s3, s20, s50, s100) {
   if (s100 !== null) score += price > s100 ? 1 : -1;
   if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
   if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
-  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+  return { cls: score > 0 ? 'bullish' : score < 0 ? 'bearish' : 'neutral', score };
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
@@ -230,7 +230,7 @@ scanBtn.addEventListener('click', async () => {
         const last = verdicts[verdicts.length - 1];
         let liveClose = last.close;
         try { const rt = await fetchRealtime(sym); if (rt && Number.isFinite(rt.close)) liveClose = rt.close; } catch (e) {}
-        signalBySymbol[sym] = { direction: last.s100ready ? (last.cls === 'bullish' ? 'LONG' : 'SHORT') : null, close: liveClose };
+        signalBySymbol[sym] = { direction: last.s100ready ? (last.cls === 'bullish' ? 'LONG' : last.cls === 'bearish' ? 'SHORT' : null) : null, close: liveClose };
       } catch (e) { failed.push(sym + ' (' + e.message + ')'); }
     }));
     const usable = SYMBOLS.filter(s => seriesBySymbol[s]);
@@ -242,7 +242,7 @@ scanBtn.addEventListener('click', async () => {
     // ---- signal table ----
     document.getElementById('signal-body').innerHTML = usable.map(sym => {
       const s = signalBySymbol[sym];
-      const badge = s.direction ? '<span class="badge ' + (s.direction==='LONG'?'long':'short') + '">' + s.direction + '</span>' : '<span style="color:var(--muted);">zu wenig Historie</span>';
+      const badge = s.direction ? '<span class="badge ' + (s.direction==='LONG'?'long':'short') + '">' + s.direction + '</span>' : '<span style="color:var(--muted);">kein Signal (zu wenig Historie oder neutral)</span>';
       return '<tr><td class="rowlabel">' + esc(stripSuffix(sym)) + '</td><td>' + badge + '</td><td>€' + s.close.toFixed(4) + '</td></tr>';
     }).join('');
 

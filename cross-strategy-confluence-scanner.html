@@ -135,7 +135,7 @@ function buildVerdict(price, s3, s20, s50, s100) {
   if (s100 !== null) score += price > s100 ? 1 : -1;
   if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
   if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
-  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+  return { cls: score > 0 ? 'bullish' : score < 0 ? 'bearish' : 'neutral', score };
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
@@ -243,7 +243,7 @@ scanBtn.addEventListener('click', async () => {
 
         const verdicts = computeSeriesVerdicts(series);
         const lastVerdict = verdicts[verdicts.length - 1];
-        const trendDir = lastVerdict.s100ready ? (lastVerdict.cls === 'bullish' ? 'LONG' : 'SHORT') : null;
+        const trendDir = lastVerdict.s100ready ? (lastVerdict.cls === 'bullish' ? 'LONG' : lastVerdict.cls === 'bearish' ? 'SHORT' : null) : null;
 
         const rsi = computeRSI(series, RSI_PERIOD);
         const weeks = buildWeeklySeries(series);
@@ -271,7 +271,7 @@ scanBtn.addEventListener('click', async () => {
           }
         }
 
-        if (!trendDir) { failed.push(sym + ' (zu wenig Historie für SMA100)'); return; }
+        if (!lastVerdict.s100ready) { failed.push(sym + ' (zu wenig Historie für SMA100)'); return; }
         rows.push({ sym, trendDir, rsiDir, breakoutDir });
       } catch (e) { failed.push(sym + ' (' + e.message + ')'); }
     }));
@@ -280,7 +280,9 @@ scanBtn.addEventListener('click', async () => {
       const signals = [r.trendDir, r.rsiDir, r.breakoutDir].filter(Boolean);
       const longCount = signals.filter(s => s === 'LONG').length;
       const shortCount = signals.filter(s => s === 'SHORT').length;
-      r.confluenceDir = longCount > shortCount ? 'LONG' : shortCount > longCount ? 'SHORT' : null;
+      // the page's own definition is "at least 2 of 3 agree" -- a single strategy outvoting the others
+      // 1-to-0 (the remaining 1-2 giving no signal at all) is not confluence, just one lone opinion.
+      r.confluenceDir = longCount >= 2 ? 'LONG' : shortCount >= 2 ? 'SHORT' : null;
       r.confluenceStrength = Math.max(longCount, shortCount);
     }
     rows.sort((a,b) => b.confluenceStrength - a.confluenceStrength);

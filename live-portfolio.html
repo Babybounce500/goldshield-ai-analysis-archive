@@ -799,8 +799,13 @@ computeBtn.addEventListener('click', async () => {
   const currentWeekRows = [];
   for (const sym of usableSymbols) {
     const { weeks, series } = perSymbol[sym];
-    if (weeks.length < 3) { currentWeekRows.push({ sym, error: 'zu wenig Historie für Kanal' }); continue; }
-    const lastThree = weeks.slice(-3).map(w => w.fridayClose);
+    // weeks before the Monday we're judging only -- weeks already has both a Monday and Friday close as
+    // soon as both have printed, with no idea which Monday "today" is. Without this filter, the channel
+    // would silently absorb the current week's own just-posted Friday close every Fri evening through
+    // Sunday, contaminating the very channel used to judge that same week's Monday decision.
+    const completedWeeks = weeks.filter(w => w.monday < todayMondayISO);
+    if (completedWeeks.length < 3) { currentWeekRows.push({ sym, error: 'zu wenig Historie für Kanal' }); continue; }
+    const lastThree = completedWeeks.slice(-3).map(w => w.fridayClose);
     const LONG = Math.max.apply(null, lastThree), SHORT = Math.min.apply(null, lastThree);
     const mondayBar = series.find(p => p.date === todayMondayISO);
     if (!mondayBar) { currentWeekRows.push({ sym, LONG, SHORT, error: 'kein Montag-Kurs verfügbar (Feiertag oder Markt noch offen)' }); continue; }

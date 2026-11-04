@@ -9,8 +9,8 @@
 <meta name="theme-color" id="themeColorMeta" content="#071a1d">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#071a1d;--surface:#0e2b2f;--panel:#12363b;--border:#1e4e54;--accent:#22d3ee;--accent-rgb:34,211,238;--green:#34d399;--red:#f87171;--muted:#86adb3;--text:#d9f2f5;--bright:#f0fdff;--warn-text:#fecaca;--amber-link:#67e8f9;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
-:root.light{--bg:#f0fbfc;--surface:#ffffff;--panel:#e0f4f6;--border:#c5e6ea;--accent:#0e7490;--accent-rgb:14,116,144;--green:#15803d;--red:#b91c1c;--muted:#577c81;--text:#0f2628;--bright:#071a1d;--warn-text:#7a1f1f;--amber-link:#0e7490;}
+:root{--bg:#071a1d;--surface:#0e2b2f;--panel:#12363b;--border:#1e4e54;--accent:#22d3ee;--accent-rgb:34,211,238;--green:#34d399;--red:#f87171;--muted:#86adb3;--text:#d9f2f5;--bright:#f0fdff;--warn-text:#fecaca;--amber-link:#67e8f9;--zmoderate-text:#fbbf24;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f0fbfc;--surface:#ffffff;--panel:#e0f4f6;--border:#c5e6ea;--accent:#0e7490;--accent-rgb:14,116,144;--green:#15803d;--red:#b91c1c;--muted:#577c81;--text:#0f2628;--bright:#071a1d;--warn-text:#7a1f1f;--amber-link:#0e7490;--zmoderate-text:#78350f;}
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;}
 body{background:radial-gradient(900px 500px at 8% -10%, rgba(var(--accent-rgb),.16), transparent 60%),var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;-webkit-font-smoothing:antialiased;}
@@ -219,7 +219,7 @@ scanBtn.addEventListener('click', async () => {
           const signal = r.zNow > 0
             ? '<span class="badge short">' + esc(stripSuffix(r.a)) + '</span> / <span class="badge long">' + esc(stripSuffix(r.b)) + '</span>'
             : '<span class="badge long">' + esc(stripSuffix(r.a)) + '</span> / <span class="badge short">' + esc(stripSuffix(r.b)) + '</span>';
-          return '<tr><td>' + esc(stripSuffix(r.a)) + ' / ' + esc(stripSuffix(r.b)) + '</td><td class="num">' + r.corr.toFixed(2) + '</td><td class="num">' + r.beta.toFixed(2) + '</td><td class="num" style="color:' + (Math.abs(r.zNow)>=2?'var(--red)':'#fbbf24') + ';font-weight:700;">' + r.zNow.toFixed(2) + '</td><td class="num">' + r.halfLife.toFixed(0) + ' Tg</td><td>' + signal + '</td></tr>';
+          return '<tr><td>' + esc(stripSuffix(r.a)) + ' / ' + esc(stripSuffix(r.b)) + '</td><td class="num">' + r.corr.toFixed(2) + '</td><td class="num">' + r.beta.toFixed(2) + '</td><td class="num" style="color:' + (Math.abs(r.zNow)>=2?'var(--red)':'var(--zmoderate-text)') + ';font-weight:700;">' + r.zNow.toFixed(2) + '</td><td class="num">' + r.halfLife.toFixed(0) + ' Tg</td><td>' + signal + '</td></tr>';
         }).join('')
       : '<tr><td colspan="6" style="color:var(--muted);">Keine Paare erfüllen aktuell alle Kriterien (Korrelation, Halbwertszeit, Z-Score).</td></tr>';
 

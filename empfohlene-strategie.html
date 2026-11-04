@@ -76,7 +76,7 @@ td.num{font-family:var(--mono);text-align:right;white-space:nowrap;}
   <div class="stat-grid">
     <div class="bstat"><b>10-20</b><span>AKTIEN IM KORB</span></div>
     <div class="bstat"><b class="pos">-4%</b><span>PREIS-STOP-LOSS</span></div>
-    <div class="bstat"><b class="pos">0,56</b><span>SHARPE MIT STOP (DAX-37)</span></div>
+    <div class="bstat"><b class="pos">0,56</b><span>SHARPE MIT STOP, WÖCHENTLICH (DAX-37)</span></div>
     <div class="bstat"><b class="pos">+37%</b><span>PORTFOLIO MIT TRAILING-UPGRADE*</span></div>
   </div>
 
@@ -144,8 +144,9 @@ td.num{font-family:var(--mono);text-align:right;white-space:nowrap;}
         <h3>Optionales Upgrade: Trailing-Stop für bewiesene Gewinner</h3>
         <p>Sobald ein Trade +4% im Gewinn erreicht, auf einen <a href="dax-breakout-report.html#trailing-winners" target="_blank" rel="noopener noreferrer">Trailing-Stop</a>
         umschalten (4% unter dem seit Einstieg erreichten Hoch) statt zwangsweise am Freitag zu schließen --
-        robust bestätigt für den DAX-37 über 2020-2026: Sharpe 0,19→0,28, Portfolio +20,8%→+37,4%, UND
-        kleinerer statt größerer Max-Drawdown. Entscheidend ist dabei das <b>Nachziehen</b> des Stops selbst,
+        robust bestätigt für den DAX-37 über 2020-2026: Sharpe 0,19→0,28 (Tagesauflösung, √252 -- <b>nicht</b>
+        direkt mit dem wöchentlichen 0,56 oben vergleichbar, siehe Vorbehalte unten), Portfolio +20,8%→+37,4%,
+        UND kleinerer statt größerer Max-Drawdown. Entscheidend ist dabei das <b>Nachziehen</b> des Stops selbst,
         nicht nur das längere Halten (siehe Vorbehalte unten).</p>
       </div>
     </div>
@@ -170,6 +171,7 @@ td.num{font-family:var(--mono);text-align:right;white-space:nowrap;}
   <table><thead><tr><th>Baustein</th><th>Gilt für</th><th>Gilt NICHT ohne erneuten Test für</th></tr></thead><tbody>
     <tr><td>Montag-Kanal-Einstieg + -4%-Stop + Equal-Weight + 10-20er-Korb</td><td class="pos">DAX-37, breite Aktien-Stichprobe, Euro-Stoxx-50-Korb</td><td class="neg">Dow-30-, Nasdaq-100-, Hang-Seng- und ASX-200-Körbe (robust negativ bzw. bestenfalls neutral, trotz identischer Diversifikation) -- und erst recht die Indizes selbst statt eines Aktienkorbs</td></tr>
     <tr><td>Trailing-Stop-Upgrade</td><td class="pos">DAX-37 über die volle 2020-2026-Historie</td><td class="neg">Crypto, Forex, ETFs/Funds, breite Aktien-Stichprobe -- und sogar der DAX selbst auf kürzeren, ruhigeren Zeitfenstern</td></tr>
+    <tr><td>Sharpe-Werte auf dieser Seite</td><td>Vergleich innerhalb derselben Auflösung (z.B. wöchentlich mit wöchentlich)</td><td class="neg">Direkter Vergleich zwischen den beiden oben genannten Sharpe-Werten -- die 0,56 ist wöchentlich (√52) gerechnet, die 0,19→0,28 des Trailing-Upgrades auf Tagesauflösung (√252); beide für sich korrekt, aber unterschiedliche Skalen</td></tr>
   </tbody></table>
   </div>
   <div class="methodology">

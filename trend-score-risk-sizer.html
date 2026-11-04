@@ -152,7 +152,7 @@ function buildVerdict(price, s3, s20, s50, s100) {
   if (s100 !== null) score += price > s100 ? 1 : -1;
   if (s3 !== null && s20 !== null) score += s3 > s20 ? 1 : -1;
   if (s20 !== null && s50 !== null) score += s20 > s50 ? 1 : -1;
-  return { cls: score > 0 ? 'bullish' : 'bearish', score };
+  return { cls: score > 0 ? 'bullish' : score < 0 ? 'bearish' : 'neutral', score };
 }
 function computeSeriesVerdicts(series) {
   const closes = series.map(r => r.close);
@@ -221,6 +221,7 @@ async function scanGroup(group) {
       const verdicts = computeSeriesVerdicts(series);
       const last = verdicts[verdicts.length - 1];
       if (!last.s100ready) { failed.push(sym + ' (zu wenig Historie)'); return; }
+      if (last.cls === 'neutral') return; // tied score (0) -- no open signal here, nothing to size capital for
       let liveClose = last.close;
       try { const rt = await fetchRealtime(sym); if (rt && Number.isFinite(rt.close)) liveClose = rt.close; } catch (e) {}
       rows.push({ sym: sym.replace(group.suffix,''), direction: last.cls === 'bullish' ? 'LONG' : 'SHORT', close: liveClose, dp: group.dp });
