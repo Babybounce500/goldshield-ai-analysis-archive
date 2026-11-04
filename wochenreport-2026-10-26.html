@@ -185,6 +185,36 @@ tr.best-row{background:rgba(52,211,153,.07);}
   </div>
   <div class="methodology" id="forex-flat-note"></div>
 
+  <h2>🇨🇳 China &amp; Hong Kong — Wochenkanal (10 Aktien, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div class="methodology">5 US-ADRs (Alibaba, JD.com, PDD/Temu, Baidu, NIO) + 5 Hongkong-notierte Namen (Tencent, Alibaba-HK, Meituan, BYD, Ping An). Keine Index-Stichprobe, auf Zuruf zusammengestellte Namen.</div>
+  <div id="china-stats" class="stat-grid"></div>
+  <div class="methodology" id="china-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="china-body"></tbody></table>
+  </div>
+  <div class="methodology" id="china-flat-note"></div>
+
+  <h2>🏦 US-Banken — Wochenkanal (10 Aktien, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div class="methodology">JPMorgan, Bank of America, Wells Fargo, Citigroup, Goldman Sachs, Morgan Stanley, US Bancorp, PNC, Truist, Capital One. Keine Index-Stichprobe, auf Zuruf zusammengestellte Namen.</div>
+  <div id="usbank-stats" class="stat-grid"></div>
+  <div class="methodology" id="usbank-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="usbank-body"></tbody></table>
+  </div>
+  <div class="methodology" id="usbank-flat-note"></div>
+
+  <h2>🏛️ EU-Banken — Wochenkanal (9 Aktien, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div class="methodology">Deutsche Bank, Commerzbank, BNP Paribas, Société Générale, Santander, BBVA, ING, UBS, Crédit Agricole. Keine Index-Stichprobe, auf Zuruf zusammengestellte Namen. Italienische Banken (UniCredit, Intesa) bei diesem Datenanbieter in früheren Tests nicht abrufbar, deshalb hier gar nicht erst versucht.</div>
+  <div id="eubank-stats" class="stat-grid"></div>
+  <div class="methodology" id="eubank-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="eubank-body"></tbody></table>
+  </div>
+  <div class="methodology" id="eubank-flat-note"></div>
+
   <h2>📦 DAX-Wochenkanal (37 Mitglieder, Montag-Ausbruch → Freitag-Exit)</h2>
   <div id="dax-stats" class="stat-grid"></div>
   <div class="methodology" id="dax-note"></div>
@@ -227,6 +257,9 @@ tr.best-row{background:rgba(52,211,153,.07);}
 </div>
 
 <script>
+const CHINA_DATA = [{"sym":"BABA.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"JD.US","direction":"SHORT","mondayClose":25.24,"exitDate":"2026-10-30","exitPrice":25.68,"stopped":false,"weekReturnPct":-1.7432646592710037},{"sym":"PDD.US","direction":"SHORT","mondayClose":78.13,"exitDate":"2026-10-30","exitPrice":78.61,"stopped":false,"weekReturnPct":-0.6143606809164265},{"sym":"BIDU.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"NIO.US","direction":"SHORT","mondayClose":3.26,"exitDate":"2026-10-30","exitPrice":3.21,"stopped":false,"weekReturnPct":1.5337423312883383},{"sym":"0700.HK","direction":"SHORT","mondayClose":386.4,"exitDate":"2026-10-30","exitPrice":383.6,"stopped":false,"weekReturnPct":0.7246376811594086},{"sym":"9988.HK","direction":"SHORT","mondayClose":97.95,"exitDate":"2026-10-30","exitPrice":97.05,"stopped":false,"weekReturnPct":0.9188361408882141},{"sym":"3690.HK","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"1211.HK","direction":"SHORT","mondayClose":70.8,"exitDate":"2026-10-30","exitPrice":68.25,"stopped":false,"weekReturnPct":3.6016949152542335},{"sym":"2318.HK","direction":"SHORT","mondayClose":48.46,"exitDate":"2026-10-30","exitPrice":49.74,"stopped":false,"weekReturnPct":-2.641353693768058}];
+const USBANK_DATA = [{"sym":"JPM.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BAC.US","direction":"SHORT","mondayClose":50.52,"exitDate":"2026-10-30","exitPrice":50.01,"stopped":false,"weekReturnPct":1.009501187648466},{"sym":"WFC.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"C.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"GS.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MS.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USB.US","direction":"LONG","mondayClose":59.7,"exitDate":"2026-10-30","exitPrice":59.45,"stopped":false,"weekReturnPct":-0.41876046901172526},{"sym":"PNC.US","direction":"LONG","mondayClose":225.84,"exitDate":"2026-10-30","exitPrice":227.86,"stopped":false,"weekReturnPct":0.8944385405596929},{"sym":"TFC.US","direction":"LONG","mondayClose":48.91,"exitDate":"2026-10-30","exitPrice":48.79,"stopped":false,"weekReturnPct":-0.24534859946840618},{"sym":"COF.US","direction":"LONG","mondayClose":202.35,"exitDate":"2026-10-30","exitPrice":204.85,"stopped":false,"weekReturnPct":1.2354830738818878}];
+const EUBANK_DATA = [{"sym":"DBK.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"CBK.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BNP.PA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"GLE.PA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"SAN.MC","direction":"SHORT","mondayClose":11.0208,"exitDate":"2026-10-30","exitPrice":10.118,"stopped":false,"weekReturnPct":8.191782810685243},{"sym":"BBVA.MC","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"INGA.AS","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"UBSG.SW","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ACA.PA","direction":null,"note":"kein Ausbruch diese Woche"}];
 const FOREX05_DATA = [{"sym":"EURUSD.FOREX","direction":"SHORT","mondayClose":1.1178,"exitDate":"2026-10-30","exitPrice":1.12015,"stopped":false,"weekReturnPct":-0.21023438897835697,"worstPct":-0.21023438897835697},{"sym":"GBPUSD.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDJPY.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDCHF.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDCAD.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AUDUSD.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"NZDUSD.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"EURGBP.FOREX","direction":"SHORT","mondayClose":0.8375,"exitDate":"2026-10-30","exitPrice":0.8333,"stopped":false,"weekReturnPct":0.5014925373134307,"worstPct":0},{"sym":"EURJPY.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"GBPJPY.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"EURCHF.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AUDJPY.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"EURAUD.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDSEK.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDNOK.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDMXN.FOREX","direction":null,"note":"kein Ausbruch diese Woche"}];
 const FOREX10_DATA = [{"sym":"EURUSD.FOREX","direction":"SHORT","mondayClose":1.1178,"exitDate":"2026-10-30","exitPrice":1.12015,"stopped":false,"weekReturnPct":-0.21023438897835697,"worstPct":-0.21023438897835697},{"sym":"GBPUSD.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDJPY.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDCHF.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDCAD.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AUDUSD.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"NZDUSD.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"EURGBP.FOREX","direction":"SHORT","mondayClose":0.8375,"exitDate":"2026-10-30","exitPrice":0.8333,"stopped":false,"weekReturnPct":0.5014925373134307,"worstPct":0},{"sym":"EURJPY.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"GBPJPY.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"EURCHF.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AUDJPY.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"EURAUD.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDSEK.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDNOK.FOREX","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"USDMXN.FOREX","direction":null,"note":"kein Ausbruch diese Woche"}];
 const SEMIS_DATA = [{"sym":"NVDA.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AMD.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AVGO.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"TSM.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ASML.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AMAT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MU.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"LRCX.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"KLAC.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MRVL.US","direction":null,"note":"kein Ausbruch diese Woche"}];
@@ -312,6 +345,9 @@ const fxIdentical = FOREX05_DATA.every((d, i) => {
   const d2 = FOREX10_DATA[i];
   return (d.direction === d2.direction) && (d.weekReturnPct == null || Math.abs(d.weekReturnPct - d2.weekReturnPct) < 0.0001);
 });
+const chinaStats = renderChannelUniverse(CHINA_DATA, 10, 'china', '', s => s.replace('.US','').replace('.HK',''), 'Kurse in Original-Währung ohne Symbol gezeigt (US-ADRs in $, Hongkong-Werte in HK$) -- gemischter Basket, kein einheitliches Währungspaar.');
+const usbankStats = renderChannelUniverse(USBANK_DATA, 10, 'usbank', '$', s => s.replace('.US',''), 'Keine Index-Stichprobe, nur 10 auf Zuruf zusammengestellte Namen.');
+const eubankStats = renderChannelUniverse(EUBANK_DATA, 9, 'eubank', '', s => s.replace('.XETRA','').replace('.PA','').replace('.MC','').replace('.AS','').replace('.SW',''), 'Kurse in Original-Währung ohne Symbol gezeigt -- 8 Namen in EUR, UBS (Schweiz) in CHF.');
 const forexStats = renderChannelUniverse(FOREX05_DATA, 16, 'forex', '', s => s.replace('.FOREX',''),
   fxIdentical
     ? 'Mit 1%-Stop statt 0,5% kommt exakt dasselbe Ergebnis raus -- keine der beiden ausgelösten Positionen kam der Wochen-Bewegung nach überhaupt in die Nähe von 0,5% Gegenbewegung, der engere Stop hätte also gar nicht gegriffen.'
@@ -333,6 +369,9 @@ const spTraded = spStats.traded, spWins = spStats.wins, spAvg = spStats.avg;
 const ndxTraded = ndxStats.traded, ndxWins = ndxStats.wins, ndxAvg = ndxStats.avg;
 const csTraded = csStats.traded, csWins = csStats.wins, csAvg = csStats.avg;
 const vaxTraded = vaxStats.traded, vaxWins = vaxStats.wins, vaxAvg = vaxStats.avg;
+const chinaTraded = chinaStats.traded, chinaWins = chinaStats.wins, chinaAvg = chinaStats.avg;
+const usbankTraded = usbankStats.traded, usbankWins = usbankStats.wins, usbankAvg = usbankStats.avg;
+const eubankTraded = eubankStats.traded, eubankWins = eubankStats.wins, eubankAvg = eubankStats.avg;
 const forexTraded = forexStats.traded, forexWins = forexStats.wins, forexAvg = forexStats.avg;
 const semisTraded = semisStats.traded, semisWins = semisStats.wins, semisAvg = semisStats.avg;
 const nuclearTraded = nuclearStats.traded, nuclearWins = nuclearStats.wins, nuclearAvg = nuclearStats.avg;
@@ -352,11 +391,17 @@ const defenseLosers = defenseTraded.filter(t => t.weekReturnPct < 0);
 const glp1Losers = glp1Traded.filter(t => t.weekReturnPct < 0);
 const spaceLosers = spaceTraded.filter(t => t.weekReturnPct < 0);
 const forexLosers = forexTraded.filter(t => t.weekReturnPct < 0);
+const chinaLosers = chinaTraded.filter(t => t.weekReturnPct < 0);
+const usbankLosers = usbankTraded.filter(t => t.weekReturnPct < 0);
+const eubankLosers = eubankTraded.filter(t => t.weekReturnPct < 0);
 const allLoserGroups = [
   { list: cLosers, strip: s => s.replace('-USD.CC','') },
   { list: csLosers, strip: s => s.replace('.US','') },
   { list: vaxLosers, strip: s => s.replace('.US','') },
   { list: forexLosers, strip: s => s.replace('.FOREX','') },
+  { list: chinaLosers, strip: s => s.replace('.US','').replace('.HK','') },
+  { list: usbankLosers, strip: s => s.replace('.US','') },
+  { list: eubankLosers, strip: s => s.replace('.XETRA','').replace('.PA','').replace('.MC','').replace('.AS','').replace('.SW','') },
   { list: nuclearLosers, strip: s => s.replace('.US','') },
   { list: quantumLosers, strip: s => s.replace('.US','') },
   { list: defenseLosers, strip: s => s.replace('.US','') },
@@ -399,6 +444,9 @@ document.getElementById('verdict').innerHTML =
   '<b>Forex mit engem Stop:</b> von 16 Paaren brachen diese Woche nur ' + forexTraded.length + ' überhaupt aus dem 3-Freitags-Kanal aus (' +
   (forexTraded.length ? forexTraded.map(t=>esc(t.sym.replace('.FOREX',''))+' '+t.direction+' '+fmtPct(t.weekReturnPct)).join(', ') : 'keine') +
   ') -- deutlich seltener als bei Aktien (DAX 12/37, Crypto 10/10). Devisenpaare bewegen sich pro Woche typischerweise nur um 1-2%, der 3-Wochen-Kanal ist entsprechend eng. Noch auffälliger: weder der 0,5%- noch der 1%-Stop wurde bei einer einzigen Position gerissen -- die Wochenbewegung blieb komplett innerhalb beider Stop-Budgets. Passt zum bereits an anderer Stelle im Archiv dokumentierten schwachen/negativen Forex-Edge dieser Strategie (siehe <a href="forex-trend-score.html" style="color:var(--accent);">Forex-Trend-Score</a>).' +
+  '</div>' +
+  '<div class="callout">' +
+  '<b>China/HK, US-Banken, EU-Banken:</b> China/Hongkong lief diese Woche durchweg SHORT (' + chinaTraded.length + '/10 Ausbrüche), aber uneinheitlich -- ' + chinaWins + ' von ' + chinaTraded.length + ' im Plus, Ø ' + fmtPct(chinaAvg) + ', nichts Dramatisches in beide Richtungen. US-Banken ebenfalls gemischt (' + usbankWins + '/' + usbankTraded.length + ' im Plus, Ø ' + fmtPct(usbankAvg) + '). EU-Banken: nur ' + eubankTraded.length + ' von 9 brach überhaupt aus' + (eubankTraded.length ? ' (' + eubankTraded.map(t=>esc(t.sym.replace('.XETRA','').replace('.PA','').replace('.MC','').replace('.AS','').replace('.SW',''))+' '+t.direction+' '+fmtPct(t.weekReturnPct)).join(', ') + ')' : '') + ' -- bei nur einer einzigen ausgelösten Position ist das wieder dieselbe Diversifikations-Warnung von oben: eine einzelne Aktienbewegung ist hier das ganze Ergebnis, kein Basket-Effekt.' +
   '</div>' +
   (allLoserGroups.length ? '<div class="warn-box"><b>Verlierer dieser Woche, nicht verschwiegen:</b> ' +
     allLoserGroups.map(g => g.list.map(t=>esc(g.strip(t.sym))+' '+fmtPct(t.weekReturnPct)).join(', ')).join(' · ') +
