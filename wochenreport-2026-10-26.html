@@ -59,11 +59,20 @@ tr.best-row{background:rgba(52,211,153,.07);}
   <b>Methodik:</b> für jedes Symbol wurde die Position nachgerechnet, die das jeweils <b>live-korrigierte</b>
   System (Score-Gleichstand = neutral, Trend-Flip-Exit mit 1-Tag-Verzögerung, Wochenkanal ohne
   Selbstkontamination -- alle Fixes vom 03./04.11.2026) während dieser Woche tatsächlich gehalten hätte,
-  anhand echter, live abgerufener Kursdaten. Zwei Systeme: <b>Crypto-Trend-Kombiniert</b> (10 validierte Coins,
-  täglicher SMA(3/20/50/100)-Score, Long+Short) und <b>DAX-Wochenkanal</b> (37 DAX-Mitglieder, Montag-Ausbruch
-  gegen den 3-Freitags-Kanal, Freitag-Exit, -4%-Preis-Stop). Keine Transaktionskosten/Spreads modelliert.
-  Positionen, die vor dieser Woche eröffnet wurden und noch offen sind, zählen mit dem Kursverlauf <b>innerhalb</b>
-  dieser Woche (Montag-Referenzkurs bis Freitag-Schluss), nicht mit dem vollen Trade seit Einstieg.
+  anhand echter, live abgerufener Kursdaten. Vier Blöcke: <b>Crypto-Trend-Kombiniert</b> (10 validierte Coins,
+  täglicher SMA(3/20/50/100)-Score, Long+Short) und drei Wochenkanal-Körbe (Montag-Ausbruch gegen den
+  3-Freitags-Kanal, Freitag-Exit, -4%-Preis-Stop): <b>DAX-37</b> (vollständig, validierte Strategie),
+  sowie <b>S&amp;P 500</b> und <b>Nasdaq 100</b> (je 30 liquide Werte als Stichprobe, nicht der volle Index --
+  genau wie die bereits im <a href="dax-breakout-report.html#index-baskets" style="color:var(--accent);">DAX-Breakout-Report</a>
+  getestete Nasdaq-Stichprobe). Keine Transaktionskosten/Spreads modelliert. Positionen, die vor dieser Woche
+  eröffnet wurden und noch offen sind, zählen mit dem Kursverlauf <b>innerhalb</b> dieser Woche (Montag-Referenzkurs
+  bis Freitag-Schluss), nicht mit dem vollen Trade seit Einstieg.
+  </div>
+  <div class="warn-box">
+  <b>Wichtig zu S&amp;P 500 und Nasdaq 100:</b> diese Wochenkanal-Strategie ist <b>nur für den DAX-37 validiert</b>.
+  Der eigene <a href="dax-breakout-report.html#index-baskets" style="color:var(--warn-text);">Index-Körbe-Test</a>
+  fand für eine Nasdaq-100-Stichprobe ein klar <b>negatives</b> Sharpe (-0,084 Freitag-Exit, -0,108 Trailing) --
+  diese beiden Blöcke sind reine Zusatz-Sicht für diese eine Woche, kein Hinweis auf einen funktionierenden Edge.
   </div>
 
   <h2>🪙 Crypto-Trend-Kombiniert (10 Coins, Long+Short)</h2>
@@ -83,6 +92,24 @@ tr.best-row{background:rgba(52,211,153,.07);}
   </div>
   <div class="methodology" id="dax-flat-note"></div>
 
+  <h2>🇺🇸 S&amp;P 500 — Wochenkanal (30 liquide Werte, Stichprobe, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div id="sp500-stats" class="stat-grid"></div>
+  <div class="methodology" id="sp500-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="sp500-body"></tbody></table>
+  </div>
+  <div class="methodology" id="sp500-flat-note"></div>
+
+  <h2>💻 Nasdaq 100 — Wochenkanal (30 liquide Werte, Stichprobe, <span style="color:var(--red);">nicht validiert</span>)</h2>
+  <div id="ndx100-stats" class="stat-grid"></div>
+  <div class="methodology" id="ndx100-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="ndx100-body"></tbody></table>
+  </div>
+  <div class="methodology" id="ndx100-flat-note"></div>
+
   <h2>⚖️ Ehrliches Fazit</h2>
   <div id="verdict"></div>
 
@@ -98,6 +125,8 @@ tr.best-row{background:rgba(52,211,153,.07);}
 </div>
 
 <script>
+const SP500_DATA = [{"sym":"MSFT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"GOOGL.US","direction":"SHORT","mondayClose":316.8,"exitDate":"2026-10-30","exitPrice":279.84,"stopped":false,"weekReturnPct":11.666666666666679},{"sym":"META.US","direction":"SHORT","mondayClose":630.56,"exitDate":"2026-10-30","exitPrice":614.99,"stopped":false,"weekReturnPct":2.4692336970312003},{"sym":"AVGO.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ORCL.US","direction":"SHORT","mondayClose":126.06,"exitDate":"2026-10-28","exitPrice":144.54,"stopped":true,"weekReturnPct":-4},{"sym":"CRM.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ADBE.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"UNH.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"LLY.US","direction":"LONG","mondayClose":1279.14,"exitDate":"2026-10-30","exitPrice":1417.54,"stopped":false,"weekReturnPct":10.81976953265474},{"sym":"ABBV.US","direction":"LONG","mondayClose":286.74,"exitDate":"2026-10-30","exitPrice":294.89,"stopped":false,"weekReturnPct":2.84229615679709},{"sym":"TMO.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ABT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"JPM.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BAC.US","direction":"SHORT","mondayClose":50.52,"exitDate":"2026-10-30","exitPrice":50.01,"stopped":false,"weekReturnPct":1.009501187648466},{"sym":"WFC.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"GS.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MA.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"V.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"HD.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MCD.US","direction":"LONG","mondayClose":250.83,"exitDate":"2026-10-30","exitPrice":258.12,"stopped":false,"weekReturnPct":2.9063509149623217},{"sym":"NKE.US","direction":"LONG","mondayClose":37.91,"exitDate":"2026-10-30","exitPrice":38.67,"stopped":false,"weekReturnPct":2.004748087575851},{"sym":"SBUX.US","direction":"LONG","mondayClose":102.69,"exitDate":"2026-10-30","exitPrice":103.67,"stopped":false,"weekReturnPct":0.9543285616905287},{"sym":"CAT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"HON.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"UPS.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BA.US","direction":"SHORT","mondayClose":188.31,"exitDate":"2026-10-30","exitPrice":171.55,"stopped":false,"weekReturnPct":8.900217726089952},{"sym":"XOM.US","direction":"LONG","mondayClose":184.54,"exitDate":"2026-10-30","exitPrice":187.25,"stopped":false,"weekReturnPct":1.4685163108269255},{"sym":"CVX.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"NFLX.US","direction":"SHORT","mondayClose":63.9,"exitDate":"2026-10-30","exitPrice":62.08,"stopped":false,"weekReturnPct":2.8482003129890456},{"sym":"DIS.US","direction":null,"note":"kein Ausbruch diese Woche"}];
+const NDX100_DATA = [{"sym":"AAPL.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MSFT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"NVDA.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AMZN.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"META.US","direction":"SHORT","mondayClose":630.56,"exitDate":"2026-10-30","exitPrice":614.99,"stopped":false,"weekReturnPct":2.4692336970312003},{"sym":"GOOGL.US","direction":"SHORT","mondayClose":316.8,"exitDate":"2026-10-30","exitPrice":279.84,"stopped":false,"weekReturnPct":11.666666666666679},{"sym":"AVGO.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"TSLA.US","direction":"LONG","mondayClose":391.62,"exitDate":"2026-10-30","exitPrice":399.81,"stopped":false,"weekReturnPct":2.091313007507277},{"sym":"COST.US","direction":"LONG","mondayClose":1003.6766,"exitDate":"2026-10-30","exitPrice":1012.28,"stopped":false,"weekReturnPct":0.8571884609046345},{"sym":"NFLX.US","direction":"SHORT","mondayClose":63.9,"exitDate":"2026-10-30","exitPrice":62.08,"stopped":false,"weekReturnPct":2.8482003129890456},{"sym":"ADBE.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AMD.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"PEP.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"CSCO.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"TMUS.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"INTC.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"CMCSA.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"QCOM.US","direction":"LONG","mondayClose":179.6,"exitDate":"2026-10-30","exitPrice":164.79,"stopped":true,"weekReturnPct":-4},{"sym":"TXN.US","direction":"LONG","mondayClose":296.672,"exitDate":"2026-10-30","exitPrice":300.84,"stopped":false,"weekReturnPct":1.404918563261767},{"sym":"AMGN.US","direction":"LONG","mondayClose":444.63,"exitDate":"2026-10-30","exitPrice":466.01,"stopped":false,"weekReturnPct":4.808492454400287},{"sym":"HON.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"INTU.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"AMAT.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BKNG.US","direction":"SHORT","mondayClose":153.14,"exitDate":"2026-10-30","exitPrice":148.13,"stopped":false,"weekReturnPct":3.271516259631704},{"sym":"SBUX.US","direction":"LONG","mondayClose":102.69,"exitDate":"2026-10-30","exitPrice":103.67,"stopped":false,"weekReturnPct":0.9543285616905287},{"sym":"GILD.US","direction":"LONG","mondayClose":158.69,"exitDate":"2026-10-30","exitPrice":170.68,"stopped":false,"weekReturnPct":7.555611569727147},{"sym":"ADI.US","direction":"LONG","mondayClose":407.93,"exitDate":"2026-10-30","exitPrice":417.11,"stopped":false,"weekReturnPct":2.250386095653668},{"sym":"MDLZ.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ISRG.US","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MU.US","direction":null,"note":"kein Ausbruch diese Woche"}];
 const CRYPTO_DATA = [{"sym":"BTC-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-23","tradeEntryPrice":81074.1875,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":80006.65625,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":77198.2109375,"weekReturnPct":3.5102645756427298,"stopped":false},{"sym":"ETH-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-09","tradeEntryPrice":2485.5385742188,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":2320.28125,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":2241.0544433594,"weekReturnPct":3.414534623360853,"stopped":false},{"sym":"SOL-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-13","tradeEntryPrice":106.7280112861,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":100.7548536557,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":96.2187570018,"weekReturnPct":4.5021122946600425,"stopped":false},{"sym":"XRP-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-08","tradeEntryPrice":1.3790005639,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":1.3069005812,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":1.2544089281,"weekReturnPct":4.016499330943915,"stopped":false},{"sym":"BNB-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-30","tradeEntryPrice":703.3541108939,"refEntryDate":"2026-10-30","refEntryPrice":703.3541108939,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":703.3541108939,"weekReturnPct":0,"stopped":false},{"sym":"ADA-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-17","tradeEntryPrice":0.2194212641,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":0.2062308699,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":0.1951049162,"weekReturnPct":5.394902181906568,"stopped":false},{"sym":"DOGE-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-09","tradeEntryPrice":0.0853493225,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":0.0776014257,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":0.0758823865,"weekReturnPct":2.215216002146218,"stopped":false},{"sym":"DOT-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-23","tradeEntryPrice":1.0834736025,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":1.0093307122,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":0.9747017183,"weekReturnPct":3.4308867729309904,"stopped":false},{"sym":"AVAX-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-23","tradeEntryPrice":9.0473401895,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":8.9565662619,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":8.5396003046,"weekReturnPct":4.655422012269547,"stopped":false},{"sym":"LINK-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-15","tradeEntryPrice":12.4517339532,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":11.3789737305,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":11.4371391195,"weekReturnPct":-0.5111655091011735,"stopped":false}];
 const DAX_DATA = [{"sym":"ADS.XETRA","direction":"LONG","channelLong":158.5,"channelShort":149.85,"mondayClose":159.85,"exitDate":"2026-10-30","exitPrice":168.55,"stopped":false,"weekReturnPct":5.442602439787311,"worstPct":-1.5014075695965003},{"sym":"AIR.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ALV.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BAS.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BAYN.XETRA","direction":"LONG","channelLong":44.46,"channelShort":43.77,"mondayClose":45.56,"exitDate":"2026-10-30","exitPrice":50.58,"stopped":false,"weekReturnPct":11.018437225636514,"worstPct":0},{"sym":"BEI.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BMW.XETRA","direction":"LONG","channelLong":57.42,"channelShort":53.26,"mondayClose":57.74,"exitDate":"2026-10-30","exitPrice":57.8,"stopped":false,"weekReturnPct":0.10391409767924345,"worstPct":-1.7665396605472863},{"sym":"BNR.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"CBK.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"CON.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"1COV.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"DTG.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"DBK.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"DB1.XETRA","direction":"LONG","channelLong":314.1,"channelShort":296,"mondayClose":314.3,"exitDate":"2026-10-30","exitPrice":320.5,"stopped":false,"weekReturnPct":1.972637607381479,"worstPct":-0.5090677696468414},{"sym":"DTE.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"DHL.XETRA","direction":"LONG","channelLong":58.22,"channelShort":56,"mondayClose":58.54,"exitDate":"2026-10-30","exitPrice":58.68,"stopped":false,"weekReturnPct":0.2391527160915623,"worstPct":-0.922446190638878},{"sym":"EOAN.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"FRE.XETRA","direction":"LONG","channelLong":46.1,"channelShort":42.355,"mondayClose":46.455,"exitDate":"2026-10-30","exitPrice":47.795,"stopped":false,"weekReturnPct":2.884511893230015,"worstPct":-0.43052416316864867},{"sym":"HNR1.XETRA","direction":"LONG","channelLong":280.2,"channelShort":263.2,"mondayClose":280.8,"exitDate":"2026-10-30","exitPrice":290,"stopped":false,"weekReturnPct":3.276353276353272,"worstPct":-0.28490028490028896},{"sym":"HEI.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"HEN3.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"IFX.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MBG.XETRA","direction":"LONG","channelLong":41.085,"channelShort":39.59,"mondayClose":41.37,"exitDate":"2026-10-30","exitPrice":40.68,"stopped":false,"weekReturnPct":-1.66787527193618,"worstPct":-3.8554508097655282},{"sym":"MRK.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MTX.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MUV2.XETRA","direction":"LONG","channelLong":556.6,"channelShort":523.8,"mondayClose":557.4,"exitDate":"2026-10-30","exitPrice":567,"stopped":false,"weekReturnPct":1.7222820236813818,"worstPct":-0.6458557588805208},{"sym":"RHM.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"RWE.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"SAP.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"SRT3.XETRA","direction":"LONG","channelLong":281.8,"channelShort":253,"mondayClose":289.5,"exitDate":"2026-10-30","exitPrice":291.8,"stopped":false,"weekReturnPct":0.7944732297063942,"worstPct":0},{"sym":"SIE.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ENR.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"SHL.XETRA","direction":"LONG","channelLong":41.86,"channelShort":39.14,"mondayClose":42.29,"exitDate":"2026-10-30","exitPrice":42.89,"stopped":false,"weekReturnPct":1.4187751241428268,"worstPct":-0.9931425868999804},{"sym":"SY1.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"VOW3.XETRA","direction":"LONG","channelLong":69.1,"channelShort":68,"mondayClose":69.32,"exitDate":"2026-10-30","exitPrice":69.62,"stopped":false,"weekReturnPct":0.43277553375650807,"worstPct":-0.7501442585112466},{"sym":"VNA.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ZAL.XETRA","direction":null,"note":"kein Ausbruch diese Woche"}];
 
@@ -126,43 +155,63 @@ document.getElementById('crypto-body').innerHTML = cSorted.map((r, i) => {
     '<td class="num ' + (r.weekReturnPct>=0?'pos':'neg') + '">' + fmtPct(r.weekReturnPct) + '</td></tr>';
 }).join('');
 
-// ---- dax ----
-const dTraded = DAX_DATA.filter(d => d.direction);
-const dFlat = DAX_DATA.filter(d => !d.direction && !d.error);
-const dWins = dTraded.filter(d => d.weekReturnPct > 0).length;
-const dAvg = dTraded.reduce((a,t)=>a+t.weekReturnPct,0) / dTraded.length;
-const dStopped = dTraded.filter(d => d.stopped).length;
-document.getElementById('dax-stats').innerHTML =
-  '<div class="bstat"><b>' + dTraded.length + '/37</b><span>AUSBRÜCHE DIESE WOCHE</span></div>' +
-  '<div class="bstat"><b>' + dTraded.filter(d=>d.direction==='LONG').length + ' LONG · ' + dTraded.filter(d=>d.direction==='SHORT').length + ' SHORT</b><span>RICHTUNGSVERTEILUNG</span></div>' +
-  '<div class="bstat"><b class="' + (dWins>=dTraded.length/2?'pos':'neg') + '">' + dWins + '/' + dTraded.length + '</b><span>GEWINNER</span></div>' +
-  '<div class="bstat"><b class="' + (dAvg>=0?'pos':'neg') + '">' + fmtPct(dAvg) + '</b><span>Ø RENDITE/POSITION DIESE WOCHE</span></div>';
-document.getElementById('dax-note').innerHTML = 'Alle Ausbrüche diese Woche waren LONG, keiner SHORT -- freundliche DAX-Woche. ' + dStopped + ' von ' + dTraded.length + ' Positionen rissen den -4%-Stop.';
-document.getElementById('dax-flat-note').innerHTML = dFlat.length + ' von 37 DAX-Mitgliedern brachen diese Woche aus keinem 3-Freitags-Kanal aus (blieben innerhalb der Bandbreite, kein Trade): ' + dFlat.map(d=>esc(d.sym.replace('.XETRA',''))).join(', ') + '.';
-const dSorted = dTraded.slice().sort((a,b) => b.weekReturnPct - a.weekReturnPct);
-document.getElementById('dax-body').innerHTML = dSorted.map((r, i) => {
-  const cls = i === 0 ? 'best-row' : (i === dSorted.length - 1 ? 'worst-row' : '');
-  const badgeClass = r.direction === 'LONG' ? 'long' : 'short';
-  return '<tr class="' + cls + '"><td>' + esc(r.sym.replace('.XETRA','')) + '</td>' +
-    '<td><span class="badge ' + badgeClass + '">' + r.direction + '</span></td>' +
-    '<td class="num">€' + r.mondayClose.toFixed(2) + '</td>' +
-    '<td class="num">€' + r.exitPrice.toFixed(2) + '</td>' +
-    '<td class="num ' + (r.weekReturnPct>=0?'pos':'neg') + '">' + fmtPct(r.weekReturnPct) + '</td>' +
-    '<td>' + (r.stopped ? '<span style="color:var(--red);">⚠ -4%-Stop gerissen</span>' : '✓ voll ausgelaufen') + '</td></tr>';
-}).join('');
+// ---- reusable channel-universe renderer (DAX, S&P500, Nasdaq100) ----
+function renderChannelUniverse(data, universeSize, prefix, currencySym, stripSuffix, extraNote) {
+  const traded = data.filter(d => d.direction);
+  const flat = data.filter(d => !d.direction && !d.error);
+  const wins = traded.filter(d => d.weekReturnPct > 0).length;
+  const avg = traded.reduce((a,t)=>a+t.weekReturnPct,0) / traded.length;
+  const stopped = traded.filter(d => d.stopped).length;
+  const longCount = traded.filter(d=>d.direction==='LONG').length, shortCount = traded.filter(d=>d.direction==='SHORT').length;
+  document.getElementById(prefix + '-stats').innerHTML =
+    '<div class="bstat"><b>' + traded.length + '/' + universeSize + '</b><span>AUSBRÜCHE DIESE WOCHE</span></div>' +
+    '<div class="bstat"><b>' + longCount + ' LONG · ' + shortCount + ' SHORT</b><span>RICHTUNGSVERTEILUNG</span></div>' +
+    '<div class="bstat"><b class="' + (wins>=traded.length/2?'pos':'neg') + '">' + wins + '/' + traded.length + '</b><span>GEWINNER</span></div>' +
+    '<div class="bstat"><b class="' + (avg>=0?'pos':'neg') + '">' + fmtPct(avg) + '</b><span>Ø RENDITE/POSITION DIESE WOCHE</span></div>';
+  const dirNote = longCount && !shortCount ? 'Alle Ausbrüche diese Woche waren LONG, keiner SHORT.' :
+    shortCount && !longCount ? 'Alle Ausbrüche diese Woche waren SHORT, keiner LONG.' :
+    longCount + ' LONG gegen ' + shortCount + ' SHORT -- gemischte Woche.';
+  document.getElementById(prefix + '-note').innerHTML = dirNote + ' ' + stopped + ' von ' + traded.length + ' Positionen rissen den -4%-Stop.' + (extraNote ? ' ' + extraNote : '');
+  document.getElementById(prefix + '-flat-note').innerHTML = flat.length + ' von ' + universeSize + ' brachen diese Woche aus keinem 3-Freitags-Kanal aus (blieben innerhalb der Bandbreite, kein Trade): ' + flat.map(d=>esc(stripSuffix(d.sym))).join(', ') + '.';
+  const sorted = traded.slice().sort((a,b) => b.weekReturnPct - a.weekReturnPct);
+  document.getElementById(prefix + '-body').innerHTML = sorted.map((r, i) => {
+    const cls = i === 0 ? 'best-row' : (i === sorted.length - 1 ? 'worst-row' : '');
+    const badgeClass = r.direction === 'LONG' ? 'long' : 'short';
+    return '<tr class="' + cls + '"><td>' + esc(stripSuffix(r.sym)) + '</td>' +
+      '<td><span class="badge ' + badgeClass + '">' + r.direction + '</span></td>' +
+      '<td class="num">' + currencySym + r.mondayClose.toFixed(2) + '</td>' +
+      '<td class="num">' + currencySym + r.exitPrice.toFixed(2) + '</td>' +
+      '<td class="num ' + (r.weekReturnPct>=0?'pos':'neg') + '">' + fmtPct(r.weekReturnPct) + '</td>' +
+      '<td>' + (r.stopped ? '<span style="color:var(--red);">⚠ -4%-Stop gerissen</span>' : '✓ voll ausgelaufen') + '</td></tr>';
+  }).join('');
+  return { traded, wins, avg };
+}
+
+const dStats = renderChannelUniverse(DAX_DATA, 37, 'dax', '€', s => s.replace('.XETRA',''));
+const spStats = renderChannelUniverse(SP500_DATA, 30, 'sp500', '$', s => s.replace('.US',''), 'Stichprobe von 30 liquiden Werten, nicht der volle Index.');
+const ndxStats = renderChannelUniverse(NDX100_DATA, 30, 'ndx100', '$', s => s.replace('.US',''), 'Stichprobe von 30 liquiden Werten, nicht der volle Index -- Überschneidung mit dem S&P-500-Block oben ist normal (Nasdaq-100-Mitglieder sind auch im S&P 500).');
+const dTraded = dStats.traded, dWins = dStats.wins, dAvg = dStats.avg;
 
 // ---- verdict ----
+const spTraded = spStats.traded, spWins = spStats.wins, spAvg = spStats.avg;
+const ndxTraded = ndxStats.traded, ndxWins = ndxStats.wins, ndxAvg = ndxStats.avg;
 const cLosers = cTraded.filter(t => t.weekReturnPct < 0);
 const dLosers = dTraded.filter(t => t.weekReturnPct < 0);
+const spLosers = spTraded.filter(t => t.weekReturnPct < 0);
+const ndxLosers = ndxTraded.filter(t => t.weekReturnPct < 0);
+const allLoserGroups = [
+  { list: cLosers, strip: s => s.replace('-USD.CC','') },
+  { list: dLosers, strip: s => s.replace('.XETRA','') },
+  { list: spLosers, strip: s => s.replace('.US','') },
+  { list: ndxLosers, strip: s => s.replace('.US','') },
+].filter(g => g.list.length);
 document.getElementById('verdict').innerHTML =
   '<div class="callout">' +
-  'Beide Systeme lagen diese Woche richtig: Crypto SHORT in einer fallenden Woche (' + cWins + '/' + cTraded.length + ' Positionen im Plus, Ø ' + fmtPct(cAvg) + '), DAX-Kanal LONG in einer steigenden Woche (' + dWins + '/' + dTraded.length + ' im Plus, Ø ' + fmtPct(dAvg) + '). ' +
-  'Das ist <b>eine</b> gute Woche, kein Beweis -- die validierten Backtests (siehe <a href="crypto-trend-score-report.html" style="color:var(--accent);">Crypto-Report</a>, <a href="dax-breakout-report.html" style="color:var(--accent);">DAX-Report</a>) basieren auf hunderten Wochen, nicht auf dieser einen.' +
+  'Alle vier Blöcke lagen diese Woche auf der Gewinnerseite: Crypto SHORT in einer fallenden Woche (' + cWins + '/' + cTraded.length + ' im Plus, Ø ' + fmtPct(cAvg) + '), DAX-Kanal LONG in einer steigenden Woche (' + dWins + '/' + dTraded.length + ' im Plus, Ø ' + fmtPct(dAvg) + '), S&amp;P-500-Stichprobe gemischt (' + spWins + '/' + spTraded.length + ' im Plus, Ø ' + fmtPct(spAvg) + '), Nasdaq-100-Stichprobe ebenso (' + ndxWins + '/' + ndxTraded.length + ' im Plus, Ø ' + fmtPct(ndxAvg) + '). ' +
+  'Das ist <b>eine</b> gute Woche, kein Beweis -- nur der DAX-Kanal ist validiert (hunderte Wochen Backtest, siehe <a href="dax-breakout-report.html" style="color:var(--accent);">DAX-Report</a>); S&amp;P 500 und Nasdaq 100 zeigten in der eigenen Mehrperioden-Prüfung <b>kein</b> robustes Sharpe, trotz der guten Woche hier. Crypto-Zahlen siehe <a href="crypto-trend-score-report.html" style="color:var(--accent);">Crypto-Report</a>.' +
   '</div>' +
-  (cLosers.length || dLosers.length ? '<div class="warn-box"><b>Verlierer dieser Woche, nicht verschwiegen:</b> ' +
-    (cLosers.length ? cLosers.map(t=>esc(t.sym.replace('-USD.CC',''))+' '+fmtPct(t.weekReturnPct)).join(', ') : '') +
-    (cLosers.length && dLosers.length ? ' · ' : '') +
-    (dLosers.length ? dLosers.map(t=>esc(t.sym.replace('.XETRA',''))+' '+fmtPct(t.weekReturnPct)).join(', ') : '') +
+  (allLoserGroups.length ? '<div class="warn-box"><b>Verlierer dieser Woche, nicht verschwiegen:</b> ' +
+    allLoserGroups.map(g => g.list.map(t=>esc(g.strip(t.sym))+' '+fmtPct(t.weekReturnPct)).join(', ')).join(' · ') +
     '.</div>' : '');
 
 const THEME_KEY = 'goldshield:theme';
