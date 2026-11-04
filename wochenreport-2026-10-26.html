@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GoldShield AI — Wochenreport 26.–30. Oktober 2026</title>
+<link rel="icon" href="data:,">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<meta name="theme-color" id="themeColorMeta" content="#0b1620">
+<style>
+:root{--bg:#0b1620;--surface:#132430;--panel:#16293a;--border:#24404f;--accent:#60a5fa;--green:#34d399;--red:#f87171;--muted:#8aa0ab;--text:#cfdce2;--bright:#f4f7fb;--warn-text:#fecaca;--mono:'JetBrains Mono',monospace;--head:'Orbitron',sans-serif;}
+:root.light{--bg:#f4f7fb;--surface:#ffffff;--panel:#eaf1f6;--border:#d6e2ea;--accent:#1d4ed8;--green:#15803d;--red:#b91c1c;--muted:#5f7277;--text:#1c2e34;--bright:#0b1620;--warn-text:#7a1f1f;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);line-height:1.6;}
+.wrap{max-width:980px;margin:0 auto;padding:30px 22px 70px;}
+.top-row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:4px;}
+.backlink{font-size:10.5px;color:var(--muted);text-decoration:none;display:inline-block;margin-bottom:16px;}
+.backlink:hover{color:var(--accent);}
+.theme-toggle-btn{font-family:var(--mono);font-size:10px;color:var(--text);background:var(--panel);border:1.5px solid var(--border);border-radius:999px;padding:7px 14px;cursor:pointer;}
+h1{font-family:var(--head);font-size:19px;color:var(--bright);margin-bottom:4px;}
+.subtitle{font-size:10.5px;color:var(--muted);margin-bottom:20px;}
+.callout{background:linear-gradient(135deg, rgba(37,99,235,.14), rgba(37,99,235,.04));border:1px solid rgba(59,130,246,.35);border-left:3px solid var(--accent);border-radius:10px;padding:14px 16px;font-size:11px;line-height:1.75;margin-bottom:24px;}
+.callout b{color:var(--bright);}
+.warn-box{background:linear-gradient(135deg, rgba(248,113,113,.1), rgba(248,113,113,.03));border:1px solid rgba(248,113,113,.35);border-left:3px solid var(--red);border-radius:10px;padding:10px 14px;font-size:10.5px;color:var(--warn-text);margin-bottom:16px;line-height:1.7;}
+h2{font-family:var(--head);font-size:14px;color:var(--bright);margin:30px 0 12px;}
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:20px;}
+.bstat{background:var(--panel);border-radius:8px;padding:12px 10px;text-align:center;}
+.bstat b{font-family:var(--head);font-size:17px;display:block;color:var(--bright);}
+.bstat b.pos{color:var(--green);} .bstat b.neg{color:var(--red);}
+.bstat span{font-size:7.8px;color:var(--muted);letter-spacing:.3px;}
+.methodology{font-size:10.5px;color:var(--muted);line-height:1.8;margin-bottom:16px;}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px;}
+table{width:100%;min-width:560px;border-collapse:collapse;font-size:10.5px;}
+th{text-align:left;color:var(--muted);font-weight:600;padding:7px 8px;border-bottom:1px solid var(--border);font-size:8.5px;white-space:nowrap;}
+th.num,td.num{text-align:right;font-variant-numeric:tabular-nums;}
+td{padding:7px 8px;border-bottom:1px solid var(--border);white-space:nowrap;}
+.pos{color:var(--green);} .neg{color:var(--red);}
+.badge{font-size:8.5px;padding:3px 8px;border-radius:999px;font-weight:600;}
+.badge.long{background:rgba(52,211,153,.14);color:var(--green);}
+.badge.short{background:rgba(248,113,113,.14);color:var(--red);}
+.badge.flat{background:rgba(141,181,170,.14);color:var(--muted);}
+tr.worst-row{background:rgba(248,113,113,.07);}
+tr.best-row{background:rgba(52,211,153,.07);}
+.footer-note{font-size:9.5px;color:var(--muted);margin-top:40px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7;}
+.footer-note a{color:var(--accent);}
+@media (max-width:640px){.stat-grid{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top-row">
+    <a href="index.html" class="backlink" style="margin-bottom:0;">← Zurück zum Archiv</a>
+    <button class="theme-toggle-btn" id="themeToggle" type="button">☀️ Light Mode</button>
+  </div>
+  <h1>📒 Wochenreport: 26.–30. Oktober 2026</h1>
+  <div class="subtitle">Knallharte Abrechnung der letzten Handelswoche -- was die Systeme tatsächlich hielten, was es real brachte, Gewinner und Verlierer gleichermaßen</div>
+
+  <div class="callout">
+  <b>Methodik:</b> für jedes Symbol wurde die Position nachgerechnet, die das jeweils <b>live-korrigierte</b>
+  System (Score-Gleichstand = neutral, Trend-Flip-Exit mit 1-Tag-Verzögerung, Wochenkanal ohne
+  Selbstkontamination -- alle Fixes vom 03./04.11.2026) während dieser Woche tatsächlich gehalten hätte,
+  anhand echter, live abgerufener Kursdaten. Zwei Systeme: <b>Crypto-Trend-Kombiniert</b> (10 validierte Coins,
+  täglicher SMA(3/20/50/100)-Score, Long+Short) und <b>DAX-Wochenkanal</b> (37 DAX-Mitglieder, Montag-Ausbruch
+  gegen den 3-Freitags-Kanal, Freitag-Exit, -4%-Preis-Stop). Keine Transaktionskosten/Spreads modelliert.
+  Positionen, die vor dieser Woche eröffnet wurden und noch offen sind, zählen mit dem Kursverlauf <b>innerhalb</b>
+  dieser Woche (Montag-Referenzkurs bis Freitag-Schluss), nicht mit dem vollen Trade seit Einstieg.
+  </div>
+
+  <h2>🪙 Crypto-Trend-Kombiniert (10 Coins, Long+Short)</h2>
+  <div id="crypto-stats" class="stat-grid"></div>
+  <div class="methodology" id="crypto-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Coin</th><th>Richtung</th><th>Seit</th><th class="num">Montag-Ref</th><th class="num">Freitag-Ref</th><th class="num">Wochen-Rendite</th></tr></thead>
+  <tbody id="crypto-body"></tbody></table>
+  </div>
+
+  <h2>📦 DAX-Wochenkanal (37 Mitglieder, Montag-Ausbruch → Freitag-Exit)</h2>
+  <div id="dax-stats" class="stat-grid"></div>
+  <div class="methodology" id="dax-note"></div>
+  <div class="table-scroll">
+  <table><thead><tr><th>Symbol</th><th>Richtung</th><th class="num">Montag-Close</th><th class="num">Freitag-Close/Exit</th><th class="num">Wochen-Rendite</th><th>Status</th></tr></thead>
+  <tbody id="dax-body"></tbody></table>
+  </div>
+  <div class="methodology" id="dax-flat-note"></div>
+
+  <h2>⚖️ Ehrliches Fazit</h2>
+  <div id="verdict"></div>
+
+  <div class="footer-note">
+  AI-generierte, computationale Analyse -- keine Anlageberatung. Alle Zahlen wurden am 04.11.2026 anhand
+  live abgerufener historischer Kurse nachgerechnet (nicht am Freitag selbst live mitprotokolliert) -- stimmt
+  methodisch mit der übrigen Seite überein, ist aber retrospektiv, kein Echtzeit-Protokoll. Quelle der
+  Backtest-Logik: <a href="crypto-trend-combined.html">Crypto-Trend-Kombiniert</a>,
+  <a href="live-portfolio.html">Live-Portfolio (Kanal)</a>. Bug-Fixes, die diese Woche erst die korrekten
+  Zahlen ermöglicht haben, siehe <a href="research-log.html">Forschungsprotokoll</a>.
+  © 2026 GENITUS INC. — GoldShield AI.
+  </div>
+</div>
+
+<script>
+const CRYPTO_DATA = [{"sym":"BTC-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-23","tradeEntryPrice":81074.1875,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":80006.65625,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":77198.2109375,"weekReturnPct":3.5102645756427298,"stopped":false},{"sym":"ETH-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-09","tradeEntryPrice":2485.5385742188,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":2320.28125,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":2241.0544433594,"weekReturnPct":3.414534623360853,"stopped":false},{"sym":"SOL-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-13","tradeEntryPrice":106.7280112861,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":100.7548536557,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":96.2187570018,"weekReturnPct":4.5021122946600425,"stopped":false},{"sym":"XRP-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-08","tradeEntryPrice":1.3790005639,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":1.3069005812,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":1.2544089281,"weekReturnPct":4.016499330943915,"stopped":false},{"sym":"BNB-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-30","tradeEntryPrice":703.3541108939,"refEntryDate":"2026-10-30","refEntryPrice":703.3541108939,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":703.3541108939,"weekReturnPct":0,"stopped":false},{"sym":"ADA-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-17","tradeEntryPrice":0.2194212641,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":0.2062308699,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":0.1951049162,"weekReturnPct":5.394902181906568,"stopped":false},{"sym":"DOGE-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-09","tradeEntryPrice":0.0853493225,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":0.0776014257,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":0.0758823865,"weekReturnPct":2.215216002146218,"stopped":false},{"sym":"DOT-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-23","tradeEntryPrice":1.0834736025,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":1.0093307122,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":0.9747017183,"weekReturnPct":3.4308867729309904,"stopped":false},{"sym":"AVAX-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-23","tradeEntryPrice":9.0473401895,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":8.9565662619,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":8.5396003046,"weekReturnPct":4.655422012269547,"stopped":false},{"sym":"LINK-USD.CC","direction":"SHORT","stillOpen":true,"tradeEntryDate":"2026-10-15","tradeEntryPrice":12.4517339532,"refEntryDate":"2026-10-26 (Position bereits offen)","refEntryPrice":11.3789737305,"refExitDate":"2026-10-30 (Position bleibt offen)","refExitPrice":11.4371391195,"weekReturnPct":-0.5111655091011735,"stopped":false}];
+const DAX_DATA = [{"sym":"ADS.XETRA","direction":"LONG","channelLong":158.5,"channelShort":149.85,"mondayClose":159.85,"exitDate":"2026-10-30","exitPrice":168.55,"stopped":false,"weekReturnPct":5.442602439787311,"worstPct":-1.5014075695965003},{"sym":"AIR.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ALV.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BAS.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BAYN.XETRA","direction":"LONG","channelLong":44.46,"channelShort":43.77,"mondayClose":45.56,"exitDate":"2026-10-30","exitPrice":50.58,"stopped":false,"weekReturnPct":11.018437225636514,"worstPct":0},{"sym":"BEI.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"BMW.XETRA","direction":"LONG","channelLong":57.42,"channelShort":53.26,"mondayClose":57.74,"exitDate":"2026-10-30","exitPrice":57.8,"stopped":false,"weekReturnPct":0.10391409767924345,"worstPct":-1.7665396605472863},{"sym":"BNR.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"CBK.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"CON.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"1COV.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"DTG.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"DBK.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"DB1.XETRA","direction":"LONG","channelLong":314.1,"channelShort":296,"mondayClose":314.3,"exitDate":"2026-10-30","exitPrice":320.5,"stopped":false,"weekReturnPct":1.972637607381479,"worstPct":-0.5090677696468414},{"sym":"DTE.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"DHL.XETRA","direction":"LONG","channelLong":58.22,"channelShort":56,"mondayClose":58.54,"exitDate":"2026-10-30","exitPrice":58.68,"stopped":false,"weekReturnPct":0.2391527160915623,"worstPct":-0.922446190638878},{"sym":"EOAN.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"FRE.XETRA","direction":"LONG","channelLong":46.1,"channelShort":42.355,"mondayClose":46.455,"exitDate":"2026-10-30","exitPrice":47.795,"stopped":false,"weekReturnPct":2.884511893230015,"worstPct":-0.43052416316864867},{"sym":"HNR1.XETRA","direction":"LONG","channelLong":280.2,"channelShort":263.2,"mondayClose":280.8,"exitDate":"2026-10-30","exitPrice":290,"stopped":false,"weekReturnPct":3.276353276353272,"worstPct":-0.28490028490028896},{"sym":"HEI.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"HEN3.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"IFX.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MBG.XETRA","direction":"LONG","channelLong":41.085,"channelShort":39.59,"mondayClose":41.37,"exitDate":"2026-10-30","exitPrice":40.68,"stopped":false,"weekReturnPct":-1.66787527193618,"worstPct":-3.8554508097655282},{"sym":"MRK.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MTX.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"MUV2.XETRA","direction":"LONG","channelLong":556.6,"channelShort":523.8,"mondayClose":557.4,"exitDate":"2026-10-30","exitPrice":567,"stopped":false,"weekReturnPct":1.7222820236813818,"worstPct":-0.6458557588805208},{"sym":"RHM.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"RWE.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"SAP.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"SRT3.XETRA","direction":"LONG","channelLong":281.8,"channelShort":253,"mondayClose":289.5,"exitDate":"2026-10-30","exitPrice":291.8,"stopped":false,"weekReturnPct":0.7944732297063942,"worstPct":0},{"sym":"SIE.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ENR.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"SHL.XETRA","direction":"LONG","channelLong":41.86,"channelShort":39.14,"mondayClose":42.29,"exitDate":"2026-10-30","exitPrice":42.89,"stopped":false,"weekReturnPct":1.4187751241428268,"worstPct":-0.9931425868999804},{"sym":"SY1.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"VOW3.XETRA","direction":"LONG","channelLong":69.1,"channelShort":68,"mondayClose":69.32,"exitDate":"2026-10-30","exitPrice":69.62,"stopped":false,"weekReturnPct":0.43277553375650807,"worstPct":-0.7501442585112466},{"sym":"VNA.XETRA","direction":null,"note":"kein Ausbruch diese Woche"},{"sym":"ZAL.XETRA","direction":null,"note":"kein Ausbruch diese Woche"}];
+
+function fmtPct(v, dp) { dp = dp == null ? 2 : dp; return (v >= 0 ? '+' : '') + v.toFixed(dp) + '%'; }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c])); }
+
+// ---- crypto ----
+const cTraded = CRYPTO_DATA.filter(d => d.direction);
+const cWins = cTraded.filter(d => d.weekReturnPct > 0).length;
+const cAvg = cTraded.reduce((a,t)=>a+t.weekReturnPct,0) / cTraded.length;
+document.getElementById('crypto-stats').innerHTML =
+  '<div class="bstat"><b>' + cTraded.length + '/10</b><span>POSITIONEN AKTIV</span></div>' +
+  '<div class="bstat"><b>' + cTraded.filter(d=>d.direction==='SHORT').length + ' SHORT</b><span>ALLE 10 (BÄRISCHE WOCHE)</span></div>' +
+  '<div class="bstat"><b class="' + (cWins>=cTraded.length/2?'pos':'neg') + '">' + cWins + '/' + cTraded.length + '</b><span>GEWINNER</span></div>' +
+  '<div class="bstat"><b class="' + (cAvg>=0?'pos':'neg') + '">' + fmtPct(cAvg) + '</b><span>Ø RENDITE/POSITION DIESE WOCHE</span></div>';
+document.getElementById('crypto-note').innerHTML = 'Alle 10 Coins liefen diese Woche SHORT -- Markt fiel über die ganze Breite. BNB-Position wurde erst am Freitag selbst eröffnet (0,00% ist kein echtes Wochenergebnis, nur ein Tag erfasst).';
+const cSorted = cTraded.slice().sort((a,b) => b.weekReturnPct - a.weekReturnPct);
+document.getElementById('crypto-body').innerHTML = cSorted.map((r, i) => {
+  const cls = i === 0 ? 'best-row' : (i === cSorted.length - 1 ? 'worst-row' : '');
+  const badgeClass = r.direction === 'LONG' ? 'long' : 'short';
+  return '<tr class="' + cls + '"><td>' + esc(r.sym.replace('-USD.CC','')) + '</td>' +
+    '<td><span class="badge ' + badgeClass + '">' + r.direction + '</span></td>' +
+    '<td>' + esc(r.tradeEntryDate) + '</td>' +
+    '<td class="num">$' + r.refEntryPrice.toFixed(4) + '</td>' +
+    '<td class="num">$' + r.refExitPrice.toFixed(4) + '</td>' +
+    '<td class="num ' + (r.weekReturnPct>=0?'pos':'neg') + '">' + fmtPct(r.weekReturnPct) + '</td></tr>';
+}).join('');
+
+// ---- dax ----
+const dTraded = DAX_DATA.filter(d => d.direction);
+const dFlat = DAX_DATA.filter(d => !d.direction && !d.error);
+const dWins = dTraded.filter(d => d.weekReturnPct > 0).length;
+const dAvg = dTraded.reduce((a,t)=>a+t.weekReturnPct,0) / dTraded.length;
+const dStopped = dTraded.filter(d => d.stopped).length;
+document.getElementById('dax-stats').innerHTML =
+  '<div class="bstat"><b>' + dTraded.length + '/37</b><span>AUSBRÜCHE DIESE WOCHE</span></div>' +
+  '<div class="bstat"><b>' + dTraded.filter(d=>d.direction==='LONG').length + ' LONG · ' + dTraded.filter(d=>d.direction==='SHORT').length + ' SHORT</b><span>RICHTUNGSVERTEILUNG</span></div>' +
+  '<div class="bstat"><b class="' + (dWins>=dTraded.length/2?'pos':'neg') + '">' + dWins + '/' + dTraded.length + '</b><span>GEWINNER</span></div>' +
+  '<div class="bstat"><b class="' + (dAvg>=0?'pos':'neg') + '">' + fmtPct(dAvg) + '</b><span>Ø RENDITE/POSITION DIESE WOCHE</span></div>';
+document.getElementById('dax-note').innerHTML = 'Alle Ausbrüche diese Woche waren LONG, keiner SHORT -- freundliche DAX-Woche. ' + dStopped + ' von ' + dTraded.length + ' Positionen rissen den -4%-Stop.';
+document.getElementById('dax-flat-note').innerHTML = dFlat.length + ' von 37 DAX-Mitgliedern brachen diese Woche aus keinem 3-Freitags-Kanal aus (blieben innerhalb der Bandbreite, kein Trade): ' + dFlat.map(d=>esc(d.sym.replace('.XETRA',''))).join(', ') + '.';
+const dSorted = dTraded.slice().sort((a,b) => b.weekReturnPct - a.weekReturnPct);
+document.getElementById('dax-body').innerHTML = dSorted.map((r, i) => {
+  const cls = i === 0 ? 'best-row' : (i === dSorted.length - 1 ? 'worst-row' : '');
+  const badgeClass = r.direction === 'LONG' ? 'long' : 'short';
+  return '<tr class="' + cls + '"><td>' + esc(r.sym.replace('.XETRA','')) + '</td>' +
+    '<td><span class="badge ' + badgeClass + '">' + r.direction + '</span></td>' +
+    '<td class="num">€' + r.mondayClose.toFixed(2) + '</td>' +
+    '<td class="num">€' + r.exitPrice.toFixed(2) + '</td>' +
+    '<td class="num ' + (r.weekReturnPct>=0?'pos':'neg') + '">' + fmtPct(r.weekReturnPct) + '</td>' +
+    '<td>' + (r.stopped ? '<span style="color:var(--red);">⚠ -4%-Stop gerissen</span>' : '✓ voll ausgelaufen') + '</td></tr>';
+}).join('');
+
+// ---- verdict ----
+const cLosers = cTraded.filter(t => t.weekReturnPct < 0);
+const dLosers = dTraded.filter(t => t.weekReturnPct < 0);
+document.getElementById('verdict').innerHTML =
+  '<div class="callout">' +
+  'Beide Systeme lagen diese Woche richtig: Crypto SHORT in einer fallenden Woche (' + cWins + '/' + cTraded.length + ' Positionen im Plus, Ø ' + fmtPct(cAvg) + '), DAX-Kanal LONG in einer steigenden Woche (' + dWins + '/' + dTraded.length + ' im Plus, Ø ' + fmtPct(dAvg) + '). ' +
+  'Das ist <b>eine</b> gute Woche, kein Beweis -- die validierten Backtests (siehe <a href="crypto-trend-score-report.html" style="color:var(--accent);">Crypto-Report</a>, <a href="dax-breakout-report.html" style="color:var(--accent);">DAX-Report</a>) basieren auf hunderten Wochen, nicht auf dieser einen.' +
+  '</div>' +
+  (cLosers.length || dLosers.length ? '<div class="warn-box"><b>Verlierer dieser Woche, nicht verschwiegen:</b> ' +
+    (cLosers.length ? cLosers.map(t=>esc(t.sym.replace('-USD.CC',''))+' '+fmtPct(t.weekReturnPct)).join(', ') : '') +
+    (cLosers.length && dLosers.length ? ' · ' : '') +
+    (dLosers.length ? dLosers.map(t=>esc(t.sym.replace('.XETRA',''))+' '+fmtPct(t.weekReturnPct)).join(', ') : '') +
+    '.</div>' : '');
+
+const THEME_KEY = 'goldshield:theme';
+const themeBtn = document.getElementById('themeToggle');
+function applyTheme(light) {
+  document.documentElement.classList.toggle('light', light);
+  themeBtn.textContent = light ? '🌙 Dark Mode' : '☀️ Light Mode';
+  const meta = document.getElementById('themeColorMeta');
+  if (meta) meta.setAttribute('content', light ? '#f4f7fb' : '#0b1620');
+}
+applyTheme(localStorage.getItem(THEME_KEY) === 'light');
+themeBtn.addEventListener('click', () => {
+  const light = !document.documentElement.classList.contains('light');
+  applyTheme(light);
+  try { localStorage.setItem(THEME_KEY, light ? 'light' : 'dark'); } catch (e) {}
+});
+</script>
+</body>
+</html>
