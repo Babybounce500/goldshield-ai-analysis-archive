@@ -242,6 +242,24 @@ tr.best-row{background:rgba(52,211,153,.07);}
   </div>
   <div class="methodology" id="ndx100-flat-note"></div>
 
+  <h2>💰 Gesamtrendite der Woche (alle Blöcke)</h2>
+  <div class="methodology">
+  Drei ehrliche Aggregationen statt einer geschönten Zahl -- die 16 Blöcke oben sind unterschiedlich groß,
+  unterschiedlich validiert und teilweise überlappend (Nasdaq-100- und S&amp;P-500-Stichprobe teilen sich
+  denselben GOOGL-/NFLX-/META-/SBUX-Trade, der GLP-1-Basket denselben LLY-Trade und der US-Banken-Basket
+  denselben BAC-Trade mit dem S&amp;P-500-Block -- derselbe Trade würde sonst doppelt zählen). Diese
+  Doppelzählungen sind unten einmal rausgerechnet, bevor überhaupt ein Durchschnitt gebildet wird. Euro-Werte
+  unter der Annahme: 10.000 € Kapital, gleichgewichtet auf alle Positionen der jeweiligen Betrachtung verteilt.
+  </div>
+  <div id="gesamt-stats" class="stat-grid"></div>
+  <div class="methodology" id="gesamt-note"></div>
+  <div class="table-scroll">
+  <table>
+    <thead><tr><th>Betrachtung</th><th class="num">Positionen</th><th class="num">Ø Rendite/Position</th><th class="num">Bei 10.000 € Kapital</th></tr></thead>
+    <tbody id="gesamt-body"></tbody>
+  </table>
+  </div>
+
   <h2>⚖️ Ehrliches Fazit</h2>
   <div id="verdict"></div>
 
@@ -379,6 +397,45 @@ const quantumTraded = quantumStats.traded, quantumWins = quantumStats.wins, quan
 const defenseTraded = defenseStats.traded, defenseWins = defenseStats.wins, defenseAvg = defenseStats.avg;
 const glp1Traded = glp1Stats.traded, glp1Wins = glp1Stats.wins, glp1Avg = glp1Stats.avg;
 const spaceTraded = spaceStats.traded, spaceWins = spaceStats.wins, spaceAvg = spaceStats.avg;
+
+// ---- Gesamtrendite über alle Blöcke, dedupliziert ----
+const pooledRaw = [].concat(cTraded, csTraded, vaxTraded, nuclearTraded, quantumTraded, defenseTraded, glp1Traded, spaceTraded, forexTraded, chinaTraded, usbankTraded, eubankTraded, dTraded, spTraded, ndxTraded);
+const seenKeys = new Set();
+const pooledUnique = pooledRaw.filter(t => {
+  const key = t.sym + '|' + t.weekReturnPct.toFixed(6);
+  if (seenKeys.has(key)) return false;
+  seenKeys.add(key);
+  return true;
+});
+const dupCount = pooledRaw.length - pooledUnique.length;
+const pooledAvg = pooledUnique.reduce((a,t)=>a+t.weekReturnPct,0) / pooledUnique.length;
+
+const coreTraded = cTraded.concat(dTraded);
+const coreAvg = coreTraded.reduce((a,t)=>a+t.weekReturnPct,0) / coreTraded.length;
+
+const basketAvgList = [cAvg, csAvg, vaxAvg, nuclearAvg, quantumAvg, defenseAvg, glp1Avg, spaceAvg, forexAvg, chinaAvg, usbankAvg, eubankAvg, dAvg, spAvg, ndxAvg];
+const basketAvg = basketAvgList.reduce((a,v)=>a+v,0) / basketAvgList.length;
+
+function eur(pct) {
+  const v = 10000 * pct / 100;
+  return (v >= 0 ? '+' : '') + v.toLocaleString('de-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+}
+
+document.getElementById('gesamt-stats').innerHTML =
+  '<div class="bstat"><b class="' + (coreAvg>=0?'pos':'neg') + '">' + fmtPct(coreAvg) + '</b><span>① NUR VALIDIERTE SYSTEME</span></div>' +
+  '<div class="bstat"><b class="' + (pooledAvg>=0?'pos':'neg') + '">' + fmtPct(pooledAvg) + '</b><span>② ALLES GEPOOLT, DEDUPLIZIERT</span></div>' +
+  '<div class="bstat"><b class="' + (basketAvg>=0?'pos':'neg') + '">' + fmtPct(basketAvg) + '</b><span>③ Ø ÜBER 15 BASKETS</span></div>' +
+  '<div class="bstat"><b class="' + (coreAvg>=0?'pos':'neg') + '">' + eur(coreAvg) + '</b><span>① BEI 10.000 € KAPITAL</span></div>';
+
+document.getElementById('gesamt-note').innerHTML =
+  'Bezugsgröße ① (Crypto-Trend-Kombiniert + DAX-Wochenkanal, ' + coreTraded.length + ' Positionen) ist die einzige Kombination aus zwei tatsächlich mehrperioden-validierten Strategien -- die belastbarste Zahl dieser Woche. ' +
+  dupCount + ' Trades wurden vor ② einmal rausgerechnet, damit sie nicht doppelt zählen (GOOGL, NFLX, META, SBUX: S&amp;P-500- und Nasdaq-100-Block identisch; LLY: GLP-1- und S&amp;P-500-Block identisch; BAC: US-Banken- und S&amp;P-500-Block identisch).';
+
+document.getElementById('gesamt-body').innerHTML =
+  '<tr><td>① Nur validierte Systeme (Crypto-Trend + DAX-37)</td><td class="num">' + coreTraded.length + '</td><td class="num ' + (coreAvg>=0?'pos':'neg') + '">' + fmtPct(coreAvg) + '</td><td class="num ' + (coreAvg>=0?'pos':'neg') + '">' + eur(coreAvg) + '</td></tr>' +
+  '<tr><td>② Alles gepoolt, dedupliziert (alle 16 Blöcke)</td><td class="num">' + pooledUnique.length + '</td><td class="num ' + (pooledAvg>=0?'pos':'neg') + '">' + fmtPct(pooledAvg) + '</td><td class="num ' + (pooledAvg>=0?'pos':'neg') + '">' + eur(pooledAvg) + '</td></tr>' +
+  '<tr><td>③ Basket-Durchschnitt (15 Baskets gleich gewichtet, unabhängig von Positionszahl)</td><td class="num">15</td><td class="num ' + (basketAvg>=0?'pos':'neg') + '">' + fmtPct(basketAvg) + '</td><td class="num ' + (basketAvg>=0?'pos':'neg') + '">' + eur(basketAvg) + '</td></tr>';
+
 const cLosers = cTraded.filter(t => t.weekReturnPct < 0);
 const csLosers = csTraded.filter(t => t.weekReturnPct < 0);
 const vaxLosers = vaxTraded.filter(t => t.weekReturnPct < 0);
